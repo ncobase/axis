@@ -1,0 +1,11 @@
+.idea
+.vscode
+node_modules
+.DS_Store
+dist
+dist-ssr
+dev-dist
+*.local
+.env
+yarn-error.log
+stats.html

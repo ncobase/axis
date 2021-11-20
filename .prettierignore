@@ -1,0 +1,17 @@
+.storybook
+node_modules
+dist
+dist-ssr
+dev-dist
+package.json
+pnpm-lock.yaml
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+public
+*.mdx
+.env*
+.DS_Store
+*.local
+cypress*
+stats.html
