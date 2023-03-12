@@ -1,4 +1,3 @@
-import { Formiz, useForm } from '@formiz/core';
 import {
   Anchor,
   Button,
@@ -11,10 +10,13 @@ import {
   TextInput,
   useMantineTheme
 } from '@mantine/core';
-import React from 'react';
+import { isNotEmpty, useForm } from '@mantine/form';
+import React, { useCallback } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+// import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
+// import { login } from '@/api/auth';
 import Logo from '@/components/logo';
 import { Page } from '@/layout';
 import { useStyles } from '@/pages/account/account.styles';
@@ -23,11 +25,15 @@ import { upperFirst } from '@/utils';
 interface LoginFormData {
   username: string;
   password: string;
+  remember: boolean;
 }
 
-const ApiHint = () => {
+interface ApiHintProps {
+  setValues: (values: LoginFormData) => void;
+}
+
+const ApiHint = ({ setValues }: ApiHintProps) => {
   const { t } = useTranslation();
-  const userLoginForm = useForm({ subscribe: 'form' });
   const theme = useMantineTheme();
   const isProd = import.meta.env.PROD;
   const envName = !isProd && import.meta.env.MODE;
@@ -41,9 +47,10 @@ const ApiHint = () => {
   const password = 'adminn';
 
   const handleApiHintClick = () => {
-    userLoginForm.setFieldsValues({
+    setValues({
       username: username,
-      password: password
+      password: password,
+      remember: false
     });
   };
 
@@ -75,42 +82,61 @@ export const Login = () => {
   const { t } = useTranslation();
   const { classes } = useStyles();
   const navigate = useNavigate();
-  const userLoginForm = useForm({ subscribe: 'form' });
+  const form = useForm<LoginFormData>({
+    initialValues: {
+      username: '',
+      password: '',
+      remember: false
+    },
+    validate: {
+      username: isNotEmpty(t('account:fields.username.required')),
+      password: isNotEmpty(t('account:fields.password.required'))
+    }
+  });
 
-  const handleLoginSubmit = async (values: LoginFormData) => {
-    console.log(values);
-  };
+  // const { mutate: onSubmitLogin, isLoading } = useMutation(login, {
+  //   onSuccess: () => {
+  //     navigate('/', { replace: true });
+  //   }
+  // });
+
+  const handleSubmit = form.onSubmit(
+    useCallback(async (values: LoginFormData) => {
+      console.log(values);
+      navigate('/', { replace: true });
+      // onSubmitLogin(values);
+    }, [])
+  );
 
   return (
     <Page title={t('account:login.title')} hideContainer>
       <Flex justify='center' align='center' className={classes.authWrapper}>
-        <Paper
-          p='xl'
-          shadow='md'
-          radius='md'
-          w={{ base: '100%', sm: '36%', md: '26%' }}
-          mt='-3.5rem'
-        >
+        <Paper p='xl' shadow='md' radius='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
           <Flex justify='center' display='block' mb='xl' mt='xs'>
             <Logo type='full-mask' height='2.25rem' />
           </Flex>
-          <Formiz
-            id='login-form'
-            autoForm
-            onValidSubmit={handleLoginSubmit}
-            connect={userLoginForm}
-          >
+          <form id='login-form' onSubmit={handleSubmit} noValidate>
             <Stack spacing='xl'>
               <TextInput
                 label={t('account:fields.username_or_email.label')}
                 name='username'
                 required
+                {...form.getInputProps('username')}
               />
 
-              <PasswordInput label={t('account:fields.password.label')} name='password' required />
+              <PasswordInput
+                label={t('account:fields.password.label')}
+                name='password'
+                required
+                {...form.getInputProps('password')}
+              />
 
               <Group position='apart'>
-                <Checkbox label={t('account:fields.remember.label')} name='remember' />
+                <Checkbox
+                  label={t('account:fields.remember.label')}
+                  name='remember'
+                  {...form.getInputProps('remember', { type: 'checkbox' })}
+                />
                 <Anchor
                   component='button'
                   type='button'
@@ -121,7 +147,7 @@ export const Login = () => {
                   {t('account:actions.forgotPassword')}
                 </Anchor>
               </Group>
-              <ApiHint />
+              <ApiHint setValues={form.setValues} />
             </Stack>
 
             <Group position='apart' mt='xl'>
@@ -135,9 +161,10 @@ export const Login = () => {
                 {t('account:actions.needAccount')}
                 {t('account:actions.register')}
               </Anchor>
+              {/*loading={isLoading} disabled={!isValid}*/}
               <Button type='submit'>{t('account:actions.login')}</Button>
             </Group>
-          </Formiz>
+          </form>
         </Paper>
       </Flex>
     </Page>

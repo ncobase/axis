@@ -1,4 +1,3 @@
-import { Formiz, useForm } from '@formiz/core';
 import {
   Anchor,
   Button,
@@ -10,7 +9,8 @@ import {
   Stack,
   TextInput
 } from '@mantine/core';
-import React from 'react';
+import { isNotEmpty, matchesField, useForm } from '@mantine/form';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,37 +18,85 @@ import Logo from '@/components/logo';
 import { Page } from '@/layout';
 import { useStyles } from '@/pages/account/account.styles';
 
+interface RegisterFormData {
+  username: string;
+  email: string;
+  password: string;
+  confirm_password: string;
+  terms: boolean;
+}
+
 export const Register = () => {
   const { t } = useTranslation();
   const { classes } = useStyles();
 
   const navigate = useNavigate();
 
-  const form = useForm({
-    subscribe: { form: true, fields: ['language'] }
+  const form = useForm<RegisterFormData>({
+    initialValues: {
+      username: '',
+      email: '',
+      password: '',
+      confirm_password: '',
+      terms: false
+    },
+    validate: {
+      username: isNotEmpty(t('account:fields.username.required')),
+      email: isNotEmpty(t('account:fields.email.required')),
+      password: isNotEmpty(t('account:fields.password.required')),
+      confirm_password: matchesField(
+        'password',
+        t('account:fields.confirm_password.rule_error')
+      ) as any,
+      terms: value => (!value ? t('account:fields.terms.required') : null)
+    }
   });
+
+  const onSubmitRegister = form.onSubmit(
+    useCallback(async (values: RegisterFormData) => {
+      console.log(values);
+    }, [])
+  );
 
   return (
     <Page title={t('account:login.title')} hideContainer>
       <Flex justify='center' align='center' className={classes.authWrapper}>
-        <Paper
-          p='xl'
-          shadow='md'
-          radius='md'
-          w={{ base: '100%', sm: '42%', md: '28%' }}
-          mt='-3.5rem'
-        >
+        <Paper p='xl' shadow='md' radius='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
           <Flex justify='center' display='block' mb='xl' mt='xs'>
             <Logo type='full-mask' height='2.25rem' />
           </Flex>
-          <Formiz id='register-form' autoForm onValidSubmit={() => {}} connect={form}>
+          <form id='register-form' onSubmit={onSubmitRegister} noValidate>
             <Stack spacing='xl'>
-              <TextInput label={t('account:fields.username.label')} name='username' />
+              <TextInput
+                label={t('account:fields.username.label')}
+                name='username'
+                {...form.getInputProps('username')}
+              />
 
-              <TextInput required label={t('account:fields.email.label')} name='email' />
-              <PasswordInput required label={t('account:fields.password.label')} name='password' />
+              <TextInput
+                required
+                label={t('account:fields.email.label')}
+                name='email'
+                {...form.getInputProps('email')}
+              />
+              <PasswordInput
+                required
+                label={t('account:fields.password.label')}
+                name='password'
+                {...form.getInputProps('password')}
+              />
+              <PasswordInput
+                required
+                label={t('account:fields.confirm_password.label')}
+                name='confirm_password'
+                {...form.getInputProps('confirm_password')}
+              />
 
-              <Checkbox label={t('account:fields.terms.label')} />
+              <Checkbox
+                label={t('account:fields.terms.label')}
+                name='terms'
+                {...form.getInputProps('terms', { type: 'checkbox' })}
+              />
             </Stack>
 
             <Group position='apart' mt='xl'>
@@ -64,7 +112,7 @@ export const Register = () => {
               </Anchor>
               <Button type='submit'>{t('account:actions.register')}</Button>
             </Group>
-          </Formiz>
+          </form>
         </Paper>
       </Flex>
     </Page>

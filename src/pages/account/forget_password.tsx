@@ -1,10 +1,14 @@
-import { Formiz, useForm } from '@formiz/core';
 import { Anchor, Button, Group, Paper, Stack, TextInput, useMantineTheme } from '@mantine/core';
-import React from 'react';
+import { isNotEmpty, useForm } from '@mantine/form';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { Content, Page } from '@/layout';
+
+interface ForgetPasswordFormData {
+  username_or_email: string;
+}
 
 export const ForgetPassword = () => {
   const { t } = useTranslation();
@@ -12,30 +16,31 @@ export const ForgetPassword = () => {
 
   const navigate = useNavigate();
 
-  const forgetPasswordInitForm = useForm();
+  const form = useForm<ForgetPasswordFormData>({
+    initialValues: {
+      username_or_email: ''
+    },
+    validate: {
+      username_or_email: isNotEmpty(t('account:fields.username_or_email.required'))
+    }
+  });
 
-  const submitForgetPasswordInitForm = async (values: TODO) => {
-    console.log(values);
-  };
+  const onSubmitForgetPassword = form.onSubmit(
+    useCallback(async (values: ForgetPasswordFormData) => {
+      console.log(values);
+    }, [])
+  );
 
   return (
     <Page title={t('account:login.title')}>
       <Content>
-        <Paper
-          bg={theme.colors.whiteAlpha[0]}
-          mx='auto'
-          mt='16vh'
-          w={{ base: '100%', sm: '42%', md: '28%' }}
-        >
-          <Formiz
-            id='reset-password-init-form'
-            onValidSubmit={submitForgetPasswordInitForm}
-            connect={forgetPasswordInitForm}
-          >
+        <Paper bg={theme.colors.whiteAlpha[0]} mx='auto' mt='16vh' w={{ base: '96%', sm: 480 }}>
+          <form id='reset-password-init-form' onSubmit={onSubmitForgetPassword} noValidate>
             <Stack spacing='xl'>
               <TextInput
                 label={t('account:fields.username_or_email.label')}
                 name='username_or_email'
+                {...form.getInputProps('username_or_email')}
               />
             </Stack>
 
@@ -51,7 +56,7 @@ export const ForgetPassword = () => {
               </Anchor>
               <Button type='submit'>{t('account:actions.submit')}</Button>
             </Group>
-          </Formiz>
+          </form>
         </Paper>
       </Content>
     </Page>

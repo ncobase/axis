@@ -193,6 +193,11 @@ export default {
       required: '请输入密码',
       rule_error: '密码应至少包含 6 个字符'
     },
+    confirm_password: {
+      label: '确认密码',
+      required: '请输入确认密码',
+      rule_error: '密码不一致，请检查'
+    },
     remember: {
       label: '记住登录'
     },
