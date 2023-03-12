@@ -53,7 +53,7 @@ export default ({ mode }: { mode: string }): typeof config => {
       'process.env': {}
     },
     server: {
-      port: +VITE_PORT,
+      port: +VITE_PORT || 3200,
       watch: {
         usePolling: true
       },
