@@ -17,14 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import Logo from '@/components/logo';
 import { Page } from '@/layout';
 import { useStyles } from '@/pages/account/account.styles';
-
-interface RegisterFormData {
-  username: string;
-  email: string;
-  password: string;
-  confirm_password: string;
-  terms: boolean;
-}
+import { RegisterForm } from '@/pages/account/account.types';
 
 export const Register = () => {
   const { t } = useTranslation();
@@ -32,7 +25,7 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
-  const form = useForm<RegisterFormData>({
+  const form = useForm<RegisterForm>({
     initialValues: {
       username: '',
       email: '',
@@ -53,7 +46,7 @@ export const Register = () => {
   });
 
   const onSubmitRegister = form.onSubmit(
-    useCallback(async (values: RegisterFormData) => {
+    useCallback(async (values: RegisterForm) => {
       console.log(values);
     }, [])
   );

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ErrorBoundary } from '@/components/error-boundary';
 
+// TODO: add useAccount()
 interface AdminGuardProps {
   Administered?: boolean;
   isLoading?: boolean;

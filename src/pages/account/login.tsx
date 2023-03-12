@@ -13,23 +13,17 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import React, { useCallback } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-// import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-// import { login } from '@/api/auth';
 import Logo from '@/components/logo';
 import { Page } from '@/layout';
+import { useLogin } from '@/pages/account/account.service';
 import { useStyles } from '@/pages/account/account.styles';
+import { LoginForm } from '@/pages/account/account.types';
 import { upperFirst } from '@/utils';
 
-interface LoginFormData {
-  username: string;
-  password: string;
-  remember: boolean;
-}
-
 interface ApiHintProps {
-  setValues: (values: LoginFormData) => void;
+  setValues: (values: LoginForm) => void;
 }
 
 const ApiHint = ({ setValues }: ApiHintProps) => {
@@ -82,7 +76,7 @@ export const Login = () => {
   const { t } = useTranslation();
   const { classes } = useStyles();
   const navigate = useNavigate();
-  const form = useForm<LoginFormData>({
+  const form = useForm<LoginForm>({
     initialValues: {
       username: '',
       password: '',
@@ -94,17 +88,18 @@ export const Login = () => {
     }
   });
 
-  // const { mutate: onSubmitLogin, isLoading } = useMutation(login, {
-  //   onSuccess: () => {
-  //     navigate('/', { replace: true });
-  //   }
-  // });
+  const { mutate: onSubmitLogin, isLoading } = useLogin({
+    onSuccess: () => {
+      navigate('/', { replace: true });
+    },
+    onError: error => {
+      console.error(error);
+    }
+  });
 
   const handleSubmit = form.onSubmit(
-    useCallback(async (values: LoginFormData) => {
-      console.log(values);
-      navigate('/', { replace: true });
-      // onSubmitLogin(values);
+    useCallback(async (values: LoginForm) => {
+      onSubmitLogin(values);
     }, [])
   );
 
@@ -161,8 +156,9 @@ export const Login = () => {
                 {t('account:actions.needAccount')}
                 {t('account:actions.register')}
               </Anchor>
-              {/*loading={isLoading} disabled={!isValid}*/}
-              <Button type='submit'>{t('account:actions.login')}</Button>
+              <Button type='submit' loading={isLoading} disabled={!form.isValid}>
+                {t('account:actions.login')}
+              </Button>
             </Group>
           </form>
         </Paper>

@@ -5,10 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { Content, Page } from '@/layout';
-
-interface ForgetPasswordFormData {
-  username_or_email: string;
-}
+import { ForgetPasswordForm } from '@/pages/account/account.types';
 
 export const ForgetPassword = () => {
   const { t } = useTranslation();
@@ -16,7 +13,7 @@ export const ForgetPassword = () => {
 
   const navigate = useNavigate();
 
-  const form = useForm<ForgetPasswordFormData>({
+  const form = useForm<ForgetPasswordForm>({
     initialValues: {
       username_or_email: ''
     },
@@ -26,7 +23,7 @@ export const ForgetPassword = () => {
   });
 
   const onSubmitForgetPassword = form.onSubmit(
-    useCallback(async (values: ForgetPasswordFormData) => {
+    useCallback(async (values: ForgetPasswordForm) => {
       console.log(values);
     }, [])
   );

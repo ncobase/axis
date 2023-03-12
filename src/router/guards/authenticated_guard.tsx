@@ -2,15 +2,10 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ErrorBoundary } from '@/components/error-boundary';
+import { useAuthContext } from '@/pages/account/account.context';
 
-interface AuthenticatedGuardProps {
-  isAuthenticated?: boolean;
-}
-
-export const AuthenticatedGuard: React.FC<React.PropsWithChildren<AuthenticatedGuardProps>> = ({
-  children,
-  isAuthenticated = true
-}) => {
+export const AuthenticatedGuard: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { isAuthenticated } = useAuthContext();
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
 
