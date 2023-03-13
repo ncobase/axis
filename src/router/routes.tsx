@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { ErrorPage } from '@/components/errors';
 import { ForgetPassword } from '@/pages/account/forget_password';
 import { Login } from '@/pages/account/login';
+import { Logout } from '@/pages/account/logout';
 import { Register } from '@/pages/account/register';
 import { Home } from '@/pages/home/home';
 import { AdminGuard } from '@/router/guards/admin_guard';
@@ -13,7 +14,7 @@ import { PublicGuard } from '@/router/guards/public_guard';
 export default [
   {
     path: '/',
-    element: <Navigate to='/home' />
+    element: <Navigate to='/home' replace />
   },
   {
     path: '/register',
@@ -36,6 +37,14 @@ export default [
     element: (
       <PublicGuard>
         <ForgetPassword />
+      </PublicGuard>
+    )
+  },
+  {
+    path: '/logout',
+    element: (
+      <PublicGuard>
+        <Logout />
       </PublicGuard>
     )
   },

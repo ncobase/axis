@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useContext, useEffect, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 
 import { locals } from '@/utils/locals';
 import { isBrowser } from '@/utils/ssr';
@@ -7,7 +7,7 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   accessToken?: string;
   refreshToken?: string;
-  updateTokens(tokens: { accessToken?: string; refreshToken?: string }): void;
+  updateTokens(accessToken?: string, refreshToken?: string): void;
 }
 
 export const ACCESS_TOKEN_KEY = 'access_token';
@@ -18,7 +18,23 @@ const AuthContext = React.createContext<AuthContextValue>({
   updateTokens: () => {}
 } as const);
 
-export const AuthProvider: React.FunctionComponent<PropsWithChildren> = ({ children }) => {
+const updateTokens = (accessToken?: string, refreshToken?: string) => {
+  if (!isBrowser) {
+    return () => undefined;
+  }
+  if (!accessToken) {
+    locals.remove(ACCESS_TOKEN_KEY);
+  } else {
+    locals.set(ACCESS_TOKEN_KEY, accessToken);
+  }
+  if (!refreshToken) {
+    locals.remove(REFRESH_TOKEN_KEY);
+  } else {
+    locals.set(REFRESH_TOKEN_KEY, refreshToken);
+  }
+};
+
+export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [accessToken, setAccessToken] = useState<string | undefined>(
     (isBrowser && locals.get(ACCESS_TOKEN_KEY)) ?? undefined
   );
@@ -30,34 +46,27 @@ export const AuthProvider: React.FunctionComponent<PropsWithChildren> = ({ child
     if (!accessToken || !refreshToken) {
       return;
     }
-
     locals.set(ACCESS_TOKEN_KEY, accessToken);
     locals.set(REFRESH_TOKEN_KEY, refreshToken);
   }, [accessToken, refreshToken]);
 
-  const updateTokens = ({
-    accessToken,
-    refreshToken
-  }: {
-    accessToken?: string;
-    refreshToken?: string;
-  }) => {
-    if (!isBrowser) {
-      return;
-    }
-
-    if (accessToken) {
+  const handleTokens = useCallback(
+    (accessToken?: string, refureshToken?: string) => {
       setAccessToken(accessToken);
-    }
-
-    if (refreshToken) {
-      setRefreshToken(refreshToken);
-    }
-  };
+      setRefreshToken(refureshToken);
+      updateTokens(accessToken, refreshToken);
+    },
+    [setAccessToken, setRefreshToken]
+  );
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!accessToken, accessToken, refreshToken, updateTokens }}
+      value={{
+        isAuthenticated: !!accessToken,
+        accessToken,
+        refreshToken,
+        updateTokens: handleTokens
+      }}
     >
       {children}
     </AuthContext.Provider>

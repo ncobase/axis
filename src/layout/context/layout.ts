@@ -8,12 +8,14 @@ interface LayoutContextValue {
   navOnClose: () => void;
 }
 
-export const LayoutContext = createContext<LayoutContextValue>({
+const defaultValue: LayoutContextValue = {
   isFocusMode: false,
   setIsFocusMode: undefined,
   navIsOpen: false,
-  navOnOpen: () => undefined,
-  navOnClose: () => undefined
-});
+  navOnOpen: () => {},
+  navOnClose: () => {}
+};
+
+export const LayoutContext = createContext<LayoutContextValue>(defaultValue);
 
 export const useLayoutContext = () => useContext(LayoutContext);

@@ -1,23 +1,15 @@
 import React from 'react';
 
 import { ErrorBoundary } from '@/components/error-boundary';
+import { useAccount } from '@/pages/account/account.service';
 
-// TODO: add useAccount()
-interface AdminGuardProps {
-  Administered?: boolean;
-  isLoading?: boolean;
-}
-
-export const AdminGuard: React.FC<React.PropsWithChildren<AdminGuardProps>> = ({
-  children,
-  Administered,
-  isLoading
-}) => {
+export const AdminGuard: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { isAdministered, isLoading } = useAccount();
   if (isLoading) {
     return null;
   }
 
-  if (!Administered) {
+  if (!isAdministered) {
     return <>403</>;
   }
 

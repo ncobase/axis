@@ -9,5 +9,11 @@ declare module 'axios' {
     post: <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) => Promise<T>;
     put: <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) => Promise<T>;
     patch: <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) => Promise<T>;
+    customMethod: <T = unknown>(
+      url: string,
+      data?: unknown,
+      config?: AxiosRequestConfig
+    ) => Promise<T>;
+    customInterceptor: AxiosInterceptorManager<AxiosResponse<any>>;
   }
 }

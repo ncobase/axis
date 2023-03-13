@@ -1,4 +1,5 @@
 import { Flex, getDefaultZIndex, Text, useMantineTheme } from '@mantine/core';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -44,6 +45,7 @@ const mount = () => {
       <Providers>
         <ErrorBoundary>
           <Router />
+          <ReactQueryDevtools />
           <AppDevHint />
         </ErrorBoundary>
       </Providers>

@@ -1,19 +1,21 @@
-import { Anchor, Button, Group, Paper, Stack, TextInput, useMantineTheme } from '@mantine/core';
+import { Anchor, Button, Flex, Group, Paper, Stack, TextInput } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { Content, Page } from '@/layout';
-import { ForgetPasswordForm } from '@/pages/account/account.types';
+import Logo from '@/components/logo';
+import { Page } from '@/layout';
+import { useStyles } from '@/pages/account/account.styles';
+import { ForgetPasswordFormProps } from '@/pages/account/account.types';
 
 export const ForgetPassword = () => {
   const { t } = useTranslation();
-  const theme = useMantineTheme();
+  const { classes } = useStyles();
 
   const navigate = useNavigate();
 
-  const form = useForm<ForgetPasswordForm>({
+  const form = useForm<ForgetPasswordFormProps>({
     initialValues: {
       username_or_email: ''
     },
@@ -23,15 +25,18 @@ export const ForgetPassword = () => {
   });
 
   const onSubmitForgetPassword = form.onSubmit(
-    useCallback(async (values: ForgetPasswordForm) => {
+    useCallback(async (values: ForgetPasswordFormProps) => {
       console.log(values);
     }, [])
   );
 
   return (
-    <Page title={t('account:login.title')}>
-      <Content>
-        <Paper bg={theme.colors.whiteAlpha[0]} mx='auto' mt='16vh' w={{ base: '96%', sm: 480 }}>
+    <Page title={t('account:forget_password.title')} hideContainer>
+      <Flex justify='center' align='center' className={classes.authWrapper}>
+        <Paper p='xl' shadow='md' radius='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
+          <Flex justify='center' display='block' mb='xl' mt='xs'>
+            <Logo type='full-mask' height='2.25rem' />
+          </Flex>
           <form id='reset-password-init-form' onSubmit={onSubmitForgetPassword} noValidate>
             <Stack spacing='xl'>
               <TextInput
@@ -40,7 +45,6 @@ export const ForgetPassword = () => {
                 {...form.getInputProps('username_or_email')}
               />
             </Stack>
-
             <Group position='apart' mt='xl'>
               <Anchor
                 component='button'
@@ -55,7 +59,7 @@ export const ForgetPassword = () => {
             </Group>
           </form>
         </Paper>
-      </Content>
+      </Flex>
     </Page>
   );
 };

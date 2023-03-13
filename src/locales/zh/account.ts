@@ -167,12 +167,14 @@ export default {
       }
     }
   },
+  forget_password: {
+    title: '找回密码'
+  },
   logout: {
     title: '退出登录'
   },
   interceptor: {
-    title: '需要登录',
-    description: '请登录后继续...'
+    title: '请登录后继续...'
   },
   fields: {
     username: {

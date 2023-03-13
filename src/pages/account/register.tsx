@@ -10,22 +10,25 @@ import {
   TextInput
 } from '@mantine/core';
 import { isNotEmpty, matchesField, useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
+import { AxiosError } from 'axios';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 import Logo from '@/components/logo';
 import { Page } from '@/layout';
+import { useRegisterAccount } from '@/pages/account/account.service';
 import { useStyles } from '@/pages/account/account.styles';
-import { RegisterForm } from '@/pages/account/account.types';
+import { RegisterFormProps } from '@/pages/account/account.types';
+import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 
 export const Register = () => {
   const { t } = useTranslation();
   const { classes } = useStyles();
 
-  const navigate = useNavigate();
+  const redirect = useRedirectFromUrl();
 
-  const form = useForm<RegisterForm>({
+  const form = useForm<RegisterFormProps>({
     initialValues: {
       username: '',
       email: '',
@@ -45,20 +48,36 @@ export const Register = () => {
     }
   });
 
-  const onSubmitRegister = form.onSubmit(
-    useCallback(async (values: RegisterForm) => {
-      console.log(values);
+  const onError = ({ response }: AxiosError) => {
+    const { reason, message } = response?.data || ({} as any);
+    const notificationProps = {
+      title: reason,
+      message: message || t(`errors.${reason?.toLowerCase() || 'unknown'}`),
+      color: 'red',
+      withCloseButton: false
+    };
+    notifications.show(notificationProps);
+  };
+
+  const { mutate: onRegisterAccount, isLoading } = useRegisterAccount({
+    onSuccess: () => redirect(),
+    onError
+  });
+
+  const handleSubmit = form.onSubmit(
+    useCallback(async (values: RegisterFormProps) => {
+      onRegisterAccount(values);
     }, [])
   );
 
   return (
-    <Page title={t('account:login.title')} hideContainer>
+    <Page title={t('account:register.title')} hideContainer>
       <Flex justify='center' align='center' className={classes.authWrapper}>
         <Paper p='xl' shadow='md' radius='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
-          <Flex justify='center' display='block' mb='xl' mt='xs'>
+          <Flex justify='center' display='none' mb='xl' mt='xs'>
             <Logo type='full-mask' height='2.25rem' />
           </Flex>
-          <form id='register-form' onSubmit={onSubmitRegister} noValidate>
+          <form id='register-form' onSubmit={handleSubmit} noValidate>
             <Stack spacing='xl'>
               <TextInput
                 label={t('account:fields.username.label')}
@@ -97,13 +116,15 @@ export const Register = () => {
                 component='button'
                 type='button'
                 color='dimmed'
-                onClick={() => navigate('/login')}
+                onClick={() => redirect()}
                 size='xs'
               >
                 {t('account:actions.alreadyHaveAnAccount')}
                 {t('account:actions.login')}
               </Anchor>
-              <Button type='submit'>{t('account:actions.register')}</Button>
+              <Button type='submit' loading={isLoading} disabled={!form.isValid}>
+                {t('account:actions.register')}
+              </Button>
             </Group>
           </form>
         </Paper>
