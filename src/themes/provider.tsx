@@ -2,7 +2,8 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   createEmotionCache,
-  MantineProvider
+  MantineProvider,
+  useMantineTheme
 } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
 import React from 'react';
@@ -14,8 +15,7 @@ const emotionCache = createEmotionCache({ key: 'sc', prepend: false });
 interface ThemeProviderProps {
   children: React.ReactNode;
 }
-
-const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, ...rest }) => {
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, ...rest }) => {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'sc-color-scheme',
     defaultValue: 'light'
@@ -42,4 +42,4 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, ...rest }) => {
   );
 };
 
-export default ThemeProvider;
+export const useTheme = useMantineTheme;

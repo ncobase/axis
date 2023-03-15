@@ -1,3 +1,1 @@
-export const globalStyles = () => {
-  return {};
-};
+export const globalStyles = () => ({});

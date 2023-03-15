@@ -1,9 +1,11 @@
-import { ColorSwatch, createStyles, useMantineTheme } from '@mantine/core';
+import { ColorSwatch, createStyles } from '@mantine/core';
 import { MantineThemeBase } from '@mantine/core';
 import { Popover } from '@mantine/core';
 import { SimpleGrid } from '@mantine/core';
 import React from 'react';
 import { useState } from 'react';
+
+import { useTheme } from '@/themes';
 
 interface IProps {
   colorTheme: MantineThemeBase;
@@ -18,7 +20,7 @@ const useStyles = createStyles(theme => ({
 
 // Render a component which allows the user to change global state regarding the colorTheme
 export const ThemePicker: React.FC<IProps> = ({ colorTheme, setColorTheme }) => {
-  const theme = useMantineTheme();
+  const theme = useTheme();
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
   const colorPalletes = Object.keys(theme.colors).map((color: string) => (

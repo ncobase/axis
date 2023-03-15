@@ -1,4 +1,4 @@
-import { Flex, getDefaultZIndex, Text, useMantineTheme } from '@mantine/core';
+import { Flex, getDefaultZIndex, Text } from '@mantine/core';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -7,12 +7,13 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { setupStyles } from '@/plugins';
 import { Providers } from '@/providers';
 import Router from '@/router';
+import { useTheme } from '@/themes';
 import { getInitials } from '@/utils';
 
 const AppDevHint = () => {
   const isProd = import.meta.env.PROD;
   const envName = !isProd && import.meta.env.MODE;
-  const theme = useMantineTheme();
+  const theme = useTheme();
 
   if (!envName || isProd) {
     return null;
