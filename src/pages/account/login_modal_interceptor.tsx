@@ -56,7 +56,7 @@ export const LoginModalInterceptor = () => {
 
   return (
     <Modal opened={opened} onClose={handleClose} title={t('account:interceptor.title')}>
-      <LoginForm onSuccess={handleLogin} />
+      <LoginForm onSuccess={handleLogin} hideRegister hideForgetPassword />
     </Modal>
   );
 };

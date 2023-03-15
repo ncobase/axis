@@ -8,8 +8,7 @@ import {
   Paper,
   PasswordInput,
   Stack,
-  TextInput,
-  useMantineTheme
+  TextInput
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
@@ -20,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useLogin } from '@/pages/account/account.service';
 import { LoginFormProps } from '@/pages/account/account.types';
+import { useTheme } from '@/themes';
 import { upperFirst } from '@/utils';
 
 interface ApiHintProps {
@@ -28,7 +28,7 @@ interface ApiHintProps {
 
 const ApiHint = ({ setValues }: ApiHintProps) => {
   const { t } = useTranslation();
-  const theme = useMantineTheme();
+  const theme = useTheme();
   const isProd = import.meta.env.PROD;
   const envName = !isProd && import.meta.env.MODE;
   const colorScheme = !isProd && import.meta.env.MODE === 'development' ? 'warning' : 'error';
@@ -42,15 +42,14 @@ const ApiHint = ({ setValues }: ApiHintProps) => {
 
   const handleApiHintClick = () => {
     setValues({
-      username: username,
-      password: password,
+      username,
+      password,
       remember: false
     });
   };
 
   return (
     <Paper
-      radius='md'
       bg={theme.colors[colorScheme][1]}
       c={theme.colors[colorScheme][9]}
       p='xs'
@@ -74,8 +73,14 @@ const ApiHint = ({ setValues }: ApiHintProps) => {
 
 export const LoginForm = ({
   onSuccess = () => undefined,
+  hideForgetPassword = false,
+  hideRegister = false,
   ...rest
-}: BoxProps & { onSuccess: () => void }) => {
+}: BoxProps & {
+  onSuccess: () => void;
+  hideForgetPassword?: boolean;
+  hideRegister?: boolean;
+}) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const form = useForm<LoginFormProps>({
@@ -142,28 +147,34 @@ export const LoginForm = ({
               color='dimmed'
               onClick={() => navigate('/forget-password')}
               size='xs'
+              hidden={hideForgetPassword}
             >
               {t('account:actions.forgotPassword')}
             </Anchor>
           </Group>
           <ApiHint setValues={form.setValues} />
+          <Group position={hideRegister ? 'right' : 'apart'}>
+            <Anchor
+              component='button'
+              type='button'
+              color='dimmed'
+              onClick={() => navigate('/hideRegister')}
+              size='xs'
+              hidden={hideRegister}
+            >
+              {t('account:actions.needAccount')}
+              {t('account:actions.register')}
+            </Anchor>
+            <Button
+              type='submit'
+              loading={isLoading}
+              loaderProps={{ size: 'xs' }}
+              disabled={!form.isValid}
+            >
+              {t('account:actions.login')}
+            </Button>
+          </Group>
         </Stack>
-
-        <Group position='apart' mt='xl'>
-          <Anchor
-            component='button'
-            type='button'
-            color='dimmed'
-            onClick={() => navigate('/register')}
-            size='xs'
-          >
-            {t('account:actions.needAccount')}
-            {t('account:actions.register')}
-          </Anchor>
-          <Button type='submit' loading={isLoading} disabled={!form.isValid}>
-            {t('account:actions.login')}
-          </Button>
-        </Group>
       </form>
     </Box>
   );

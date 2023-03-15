@@ -1,5 +1,5 @@
 export default {
-  title: '全局',
+  title: '系统',
   nav: {
     tenant: '租户设置',
     basic: '系统设置',

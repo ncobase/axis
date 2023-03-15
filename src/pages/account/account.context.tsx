@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useContext, useState } from 'react';
 
 import { locals } from '@/utils/locals';
 import { isBrowser } from '@/utils/ssr';
@@ -38,33 +38,19 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [accessToken, setAccessToken] = useState<string | undefined>(
     (isBrowser && locals.get(ACCESS_TOKEN_KEY)) ?? undefined
   );
-  const [refreshToken, setRefreshToken] = useState<string | undefined>(
-    (isBrowser && locals.get(REFRESH_TOKEN_KEY)) ?? undefined
-  );
-
-  useEffect(() => {
-    if (!accessToken || !refreshToken) {
-      return;
-    }
-    locals.set(ACCESS_TOKEN_KEY, accessToken);
-    locals.set(REFRESH_TOKEN_KEY, refreshToken);
-  }, [accessToken, refreshToken]);
 
   const handleTokens = useCallback(
-    (accessToken?: string, refureshToken?: string) => {
+    (accessToken?: string, refreshToken?: string) => {
       setAccessToken(accessToken);
-      setRefreshToken(refureshToken);
       updateTokens(accessToken, refreshToken);
     },
-    [setAccessToken, setRefreshToken]
+    [setAccessToken]
   );
 
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated: !!accessToken,
-        accessToken,
-        refreshToken,
         updateTokens: handleTokens
       }}
     >
