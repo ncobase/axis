@@ -1,14 +1,31 @@
-import { Flex, getDefaultZIndex, Text } from '@mantine/core';
+import '@/config';
+
+import { Flex, getDefaultZIndex } from '@mantine/core';
+import { Notifications, NotificationsProps } from '@mantine/notifications';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { ErrorBoundary } from '@/components/error-boundary';
+import { AuthProvider } from '@/pages/account/account.context';
 import { setupStyles } from '@/plugins';
-import { Providers } from '@/providers';
 import Router from '@/router';
-import { useTheme } from '@/themes';
+import { ThemeProvider, useTheme } from '@/themes';
 import { getInitials } from '@/utils';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    }
+  }
+});
+
+const notificationsProps: NotificationsProps = {
+  position: 'top-right',
+  limit: 5
+};
 
 const AppDevHint = () => {
   const isProd = import.meta.env.PROD;
@@ -22,20 +39,19 @@ const AppDevHint = () => {
   return (
     <Flex
       pos='fixed'
-      top={0}
+      bottom={0}
       left={0}
-      right={0}
-      w={17}
-      pr={1}
+      w={16}
       h={16}
       bg={theme.colors.warning[5]}
       c={theme.white}
-      style={{ borderBottomRightRadius: '40%', zIndex: getDefaultZIndex('max') }}
+      style={{ borderTopRightRadius: '40%', zIndex: getDefaultZIndex('max') }}
       justify='center'
       fz='xs'
       align='center'
+      tt='uppercase'
     >
-      <Text tt='uppercase'>{getInitials(envName)}</Text>
+      {getInitials(envName)}
     </Flex>
   );
 };
@@ -43,13 +59,18 @@ const AppDevHint = () => {
 const mount = () => {
   ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-      <Providers>
-        <ErrorBoundary>
-          <Router />
-          <ReactQueryDevtools />
-          <AppDevHint />
-        </ErrorBoundary>
-      </Providers>
+      <QueryClientProvider client={queryClient}>
+        <Notifications {...notificationsProps} />
+        <AuthProvider>
+          <ThemeProvider>
+            <ErrorBoundary>
+              <Router />
+              <ReactQueryDevtools />
+              <AppDevHint />
+            </ErrorBoundary>
+          </ThemeProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     </React.StrictMode>
   );
 };

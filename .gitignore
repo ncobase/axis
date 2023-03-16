@@ -9,3 +9,5 @@ dev-dist
 .env
 yarn-error.log
 stats.html
+version.json
+.version.json

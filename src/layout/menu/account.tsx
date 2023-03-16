@@ -5,6 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import versionInfo from '@/../version.json';
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { useAccount } from '@/pages/account/account.service';
 import { useTheme } from '@/themes';
@@ -30,10 +31,7 @@ const AppVersion = () => {
   const theme = useTheme();
   const { copied, copy } = useClipboard();
 
-  // TODO: build version info
-  const ver = 'v0.0.1';
-
-  if (!ver) return null;
+  if (!versionInfo?.version) return null;
 
   return (
     <>
@@ -41,13 +39,13 @@ const AppVersion = () => {
       <Menu.Item
         icon={copied ? <IconClipboardCheck size={16} color={theme.colors.green[6]} /> : null}
         c={copied ? theme.colors.green[5] : theme.colors.blueGray[4]}
-        onClick={() => copy(ver)}
+        onClick={() => copy(JSON.stringify(versionInfo, null, 2))}
         closeMenuOnClick={false}
         title={
           copied ? t('layout:account_menu.version.copied') : t('layout:account_menu.version.copy')
         }
       >
-        {copied ? t('layout:account_menu.version.copied') : ver}
+        {copied ? t('layout:account_menu.version.copied') : versionInfo?.version}
       </Menu.Item>
     </>
   );
