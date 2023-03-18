@@ -1,4 +1,4 @@
-import { Menu } from '@mantine/core';
+import { Menu, MenuProps } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
 import { IconClipboardCheck, IconLogout, IconSettings, IconUser } from '@tabler/icons-react';
 import React from 'react';
@@ -51,16 +51,16 @@ const AppVersion = () => {
   );
 };
 
-interface AccountMenuProps {}
+interface AccountMenuProps extends MenuProps {}
 
-export const AccountMenu: React.FC<AccountMenuProps> = () => {
+export const AccountMenu: React.FC<AccountMenuProps> = ({ ...rest }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const navigate = useNavigate();
   const { user, profile, isLoading } = useAccount();
 
   return (
-    <Menu shadow='md' width={180} withArrow>
+    <Menu shadow='md' width={180} {...rest}>
       <Menu.Target>
         <AvatarButton
           isLoading={isLoading}

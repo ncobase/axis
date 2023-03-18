@@ -1,7 +1,8 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { X_MD_Total } from '@/constants/header';
-// import { TOKEN_KEY } from '@/pages/auth/context';
+import { XMdDomainKey, XMdTotalKey } from '@/constants/header';
+import { ACCESS_TOKEN_KEY } from '@/pages/account/account.context';
+import { DOMAIN_KEY } from '@/pages/system/domain/domain.context';
 import { locals } from '@/utils/locals';
 import { isBrowser } from '@/utils/ssr';
 
@@ -9,12 +10,15 @@ Axios.interceptors.request.use(
   // @ts-ignore
   (config: AxiosRequestConfig) => {
     const isExternal = !!config?.url?.startsWith('http');
-    const token = isBrowser ? locals.get('access_token') : null;
+    const token = isBrowser ? locals.get(ACCESS_TOKEN_KEY) : '';
+    const domain = isBrowser ? locals.get(DOMAIN_KEY) : '';
     const authHeaders = token && !isExternal ? { Authorization: `Bearer ${token}` } : {};
+    const currentDomain = domain ? { [XMdDomainKey]: locals.get(DOMAIN_KEY) } : {};
     return {
       baseURL: import.meta.env.VITE_API_URL || '/api',
       ...config,
       headers: {
+        ...currentDomain,
         ...authHeaders,
         ...config.headers
       }
@@ -25,10 +29,10 @@ Axios.interceptors.request.use(
 
 Axios.interceptors.response.use(
   (response: AxiosResponse) => {
-    if (response.headers?.[X_MD_Total]) {
+    if (response.headers?.[XMdTotalKey]) {
       return {
         content: response.data,
-        total: response.headers[X_MD_Total]
+        total: response.headers[XMdTotalKey]
       };
     }
     return response.data;

@@ -1,1 +1,2 @@
-export const X_MD_Total = 'X-MD-Total';
+export const XMdDomainKey = 'x-md-domain';
+export const XMdTotalKey = 'x-md-total';

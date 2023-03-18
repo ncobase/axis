@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useCallback, useContext, useState } from 'react';
 
+import { DomainProvider } from '@/pages/system/domain/domain.context';
 import { locals } from '@/utils/locals';
 import { isBrowser } from '@/utils/ssr';
 
@@ -10,13 +11,13 @@ interface AuthContextValue {
   updateTokens(accessToken?: string, refreshToken?: string): void;
 }
 
-export const ACCESS_TOKEN_KEY = 'access_token';
-export const REFRESH_TOKEN_KEY = 'refresh_token';
+export const ACCESS_TOKEN_KEY = 'ack';
+export const REFRESH_TOKEN_KEY = 'rck';
 
 const AuthContext = React.createContext<AuthContextValue>({
   isAuthenticated: false,
-  updateTokens: () => {}
-} as const);
+  updateTokens: () => undefined
+});
 
 const updateTokens = (accessToken?: string, refreshToken?: string) => {
   if (!isBrowser) {
@@ -54,7 +55,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         updateTokens: handleTokens
       }}
     >
-      {children}
+      <DomainProvider>{children}</DomainProvider>
     </AuthContext.Provider>
   );
 };

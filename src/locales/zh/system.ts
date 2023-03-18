@@ -17,5 +17,10 @@ export default {
     actions: {
       sample: '示例按钮'
     }
+  },
+  domain: {
+    interceptor: {
+      title: '请选择进入组织...'
+    }
   }
 };
