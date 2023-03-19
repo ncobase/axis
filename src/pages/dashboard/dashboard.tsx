@@ -10,8 +10,8 @@ export const Dashboard = () => {
     <Page title='Dashboard'>
       <Content>
         <MainMenu />
-        <DomainMenu />
         <div hidden>
+          <DomainMenu />
           <AccountMenu withArrow />
         </div>
       </Content>
