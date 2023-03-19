@@ -3,6 +3,7 @@ import {
   ColorSchemeProvider,
   createEmotionCache,
   MantineProvider,
+  useMantineColorScheme,
   useMantineTheme
 } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
@@ -43,3 +44,4 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, ...rest 
 };
 
 export const useTheme = useMantineTheme;
+export const useColorScheme = useMantineColorScheme;

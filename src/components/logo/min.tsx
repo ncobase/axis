@@ -2,9 +2,9 @@ import React from 'react';
 
 import { LogoProps } from '@/components/logo/index';
 
-export const Min: React.FC<LogoProps> = ({ height, logoColor, color, ...rest }) => {
+export const Min: React.FC<LogoProps> = ({ height, logoColor, color }) => {
   return (
-    <svg height={height || '1.8rem'} viewBox='0 0 64 64' fill='none' {...rest}>
+    <svg height={height || '1.8rem'} viewBox='0 0 64 64' fill='none'>
       <mask
         id='mask0_720_48'
         style={{ maskType: 'alpha' }}

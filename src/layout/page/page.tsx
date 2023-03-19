@@ -1,63 +1,52 @@
-import { Container, Flex, FlexProps, MantineSize } from '@mantine/core';
-import React, { createContext, useContext } from 'react';
+import { ActionIcon, AppShell, Container, Flex, FlexProps, Group, Header } from '@mantine/core';
+import { IconMoonStars, IconSun } from '@tabler/icons-react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
+import Logo from '@/components/logo';
 import { useFocusMode } from '@/layout';
+import { AccountMenu } from '@/layout/menu/account';
+import { DomainMenu } from '@/layout/menu/domain';
+import MainMenu from '@/layout/menu/main';
+import { useColorScheme, useTheme } from '@/themes';
 
 interface PageContextValue {
   nav?: React.ReactNode;
   hideContainer: boolean;
-  containerSize?: MantineSize;
 }
 
-const PageContext = createContext<PageContextValue>({ nav: undefined, hideContainer: false });
+const PageContext = createContext<PageContextValue>({
+  nav: undefined,
+  hideContainer: false
+});
+
 const usePageContext = () => useContext(PageContext);
 
 const PageContainer: React.FC<FlexProps> = ({ children, ...rest }) => {
-  const { hideContainer, containerSize } = usePageContext();
+  const { nav, hideContainer } = usePageContext();
 
   if (hideContainer) return <>{children}</>;
 
   return (
-    <Container
-      style={{ flex: 1 }}
-      size={containerSize}
-      fluid={!containerSize && true}
-      maw={containerSize}
-      {...rest}
-    >
+    <Container style={{ flex: 1 }} {...rest}>
+      {nav ?? null}
       {children}
     </Container>
   );
 };
 
-interface ContentProps extends FlexProps {
-  onBack?(): void;
-  showBack?: boolean;
-}
-
-const Content: React.FC<ContentProps> = ({ children, ...rest }) => {
-  const { nav } = usePageContext();
-
-  return (
-    <PageContainer {...rest}>
-      {nav && null}
-      {children}
-    </PageContainer>
-  );
-};
-
 interface PageTitleProps {
-  suffix?: unknown;
+  suffix?: any;
   children?: string;
 }
 
-const PageTitle: React.FC<PageTitleProps> = ({ suffix, children }) => {
+const PageTitle: React.FC<PageTitleProps> = ({ suffix = '', children = '' }) => {
   const { t } = useTranslation();
-  const title = children
-    ? children + (suffix && suffix !== children ? ` - ${suffix}` : '')
-    : t('application:title');
+  const title = useMemo(
+    () => `${children ? `${children} - ` : ''}${suffix || t('application:title')}`,
+    [children, suffix, t]
+  );
 
   return (
     <HelmetProvider>
@@ -68,61 +57,68 @@ const PageTitle: React.FC<PageTitleProps> = ({ suffix, children }) => {
   );
 };
 
-interface PageProps extends FlexProps {
-  isFocusMode?: boolean;
-  size?: MantineSize;
-  hideContainer?: boolean;
-  nav?: React.ReactNode;
-  title?: any;
+interface ContentProps extends FlexProps {
+  nav?: React.ReactElement;
 }
 
-const Page: React.FC<PageProps> = ({
-  isFocusMode = false,
-  hideContainer = false,
-  size,
-  nav,
-  title,
-  ...rest
-}) => {
-  const { t } = useTranslation();
-  useFocusMode(isFocusMode);
+const Content: React.FC<ContentProps> = React.memo(({ nav, children, ...rest }) => {
+  const theme = useTheme();
+  const { colorScheme, toggleColorScheme } = useColorScheme();
 
   return (
-    <>
+    <AppShell
+      header={
+        <Header
+          height={theme.other.layout.topbar.height}
+          bg={colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blueGray[8]}
+          w='100vw'
+          sx={{
+            boxShadow: theme.shadows.sm
+          }}
+        >
+          <Group sx={{ height: '100%' }} pr={theme.spacing.md} position='apart'>
+            <Group>
+              <Logo w={55} h={55} bg={theme.colors.blueGray[9]} type='min' logoColor='white' />
+              <MainMenu />
+            </Group>
+            <Group>
+              <ActionIcon onClick={() => toggleColorScheme()} size={30}>
+                {colorScheme === 'dark' ? <IconSun size='1rem' /> : <IconMoonStars size='1rem' />}
+              </ActionIcon>
+              <DomainMenu />
+              <AccountMenu />
+            </Group>
+          </Group>
+        </Header>
+      }
+      navbar={nav}
+    >
+      <PageContainer {...rest}>{children}</PageContainer>
+    </AppShell>
+  );
+});
+
+interface PageProps extends FlexProps {
+  nav?: React.ReactElement;
+  title?: any;
+  useContent?: boolean;
+  showBack?: boolean;
+}
+
+const Page: React.FC<PageProps> = ({ nav, title, useContent = false, ...rest }) => {
+  const { t } = useTranslation();
+  useFocusMode();
+
+  const pageContextValue = useMemo(() => ({ nav, hideContainer: useContent }), [nav, useContent]);
+
+  return (
+    <PageContext.Provider value={pageContextValue}>
       <PageTitle suffix={t('application:title')}>{title}</PageTitle>
-      <PageContext.Provider value={{ nav, hideContainer, containerSize: size }}>
-        <Flex pos='relative' style={{ flex: 1 }} {...rest} />
-      </PageContext.Provider>
-    </>
+      <Flex pos='relative' style={{ flex: 1 }} {...rest}>
+        {useContent ? <Content nav={nav} {...rest} /> : rest.children}
+      </Flex>
+    </PageContext.Provider>
   );
 };
 
-export { Content, Page, PageTitle };
-
-//
-// <AppShell
-//   header={
-//     <Header height={58} p='md'>
-//       <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-//         <MediaQuery largerThan='sm' styles={{ display: 'none' }}>
-//           <Burger
-//             opened={opened}
-//             onClick={() => setOpened(o => !o)}
-//             size='sm'
-//             color={theme.colors.gray[6]}
-//             mr='xl'
-//           />
-//         </MediaQuery>
-//
-//         <Text>header</Text>
-//       </div>
-//     </Header>
-//   }
-//   navbar={
-//     <Navbar p='md' hiddenBreakpoint='sm' hidden={!opened} width={{ sm: 58, lg: 220 }}>
-//       <Text>navbar</Text>
-//     </Navbar>
-//   }
-// >
-//   {children}
-// </AppShell>
+export { Page, PageTitle };

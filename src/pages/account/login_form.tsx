@@ -158,7 +158,7 @@ export const LoginForm = ({
               component='button'
               type='button'
               color='dimmed'
-              onClick={() => navigate('/hideRegister')}
+              onClick={() => navigate('/register')}
               size='xs'
               hidden={hideRegister}
             >

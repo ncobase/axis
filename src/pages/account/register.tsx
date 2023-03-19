@@ -71,7 +71,7 @@ export const Register = () => {
   );
 
   return (
-    <Page title={t('account:register.title')} hideContainer>
+    <Page title={t('account:register.title')}>
       <Flex justify='center' align='center' className={classes.authWrapper}>
         <Paper p='xl' shadow='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
           <Flex justify='center' display='none' mb='xl' mt='xs'>
