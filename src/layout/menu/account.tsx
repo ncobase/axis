@@ -66,8 +66,6 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({ ...rest }) => {
           isLoading={isLoading}
           src={profile?.thumbnail}
           alt={profile?.short_bio || user?.username || ''}
-          maw={56}
-          mah={56}
         />
       </Menu.Target>
       <Menu.Dropdown>

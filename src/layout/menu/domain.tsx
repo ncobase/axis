@@ -27,9 +27,10 @@ export const DomainMenu: React.FC<DomainMenuProps> = ({ ...rest }) => {
   const MenuList = () => (
     <Menu shadow='md' width={180} {...rest}>
       <Menu.Target>
-        <AvatarButton src={domain?.logo} alt={domain?.name} mah={56} maw={56} />
+        <AvatarButton src={domain?.logo} alt={domain?.name} />
       </Menu.Target>
       <Menu.Dropdown>
+        <Menu.Label>{t('layout:domain_menu.label')}</Menu.Label>
         <Menu.Item icon={<IconAdjustments size={16} />} color={theme.colors.blueGray[7]}>
           {t('layout:domain_menu.admin')}
         </Menu.Item>

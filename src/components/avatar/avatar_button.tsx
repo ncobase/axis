@@ -9,10 +9,10 @@ interface AvatarButtonProps extends AvatarProps {
 }
 
 export const AvatarButton = React.forwardRef<HTMLButtonElement, AvatarButtonProps>(
-  ({ src, alt, isLoading, ...rest }, ref) => {
+  ({ src, alt, isLoading, size = 'sm', ...rest }, ref) => {
     return (
       <UnstyledButton ref={ref}>
-        <Avatar src={src} alt={alt} radius='xl' {...rest}>
+        <Avatar src={src} alt={alt} radius='xl' size={size} {...rest}>
           {isLoading ? <Loader size='xs' /> : getInitials(alt)}
         </Avatar>
       </UnstyledButton>
