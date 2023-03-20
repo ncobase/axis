@@ -1,36 +1,32 @@
-import { ActionIcon, AppShell, Container, Flex, FlexProps, Group, Header } from '@mantine/core';
-import { IconMoonStars, IconSun } from '@tabler/icons-react';
+import { AppShell, Container, Flex, FlexProps, MantineSize } from '@mantine/core';
 import React, { createContext, useContext, useMemo } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
-import Logo from '@/components/logo';
 import { useFocusMode } from '@/layout';
-import { AccountMenu } from '@/layout/menu/account';
-import { DomainMenu } from '@/layout/menu/domain';
-import MainMenu from '@/layout/menu/main';
-import { useColorScheme, useTheme } from '@/themes';
+import { Header } from '@/layout/page/header';
 
 interface PageContextValue {
   nav?: React.ReactNode;
-  hideContainer: boolean;
+  size?: MantineSize;
 }
 
 const PageContext = createContext<PageContextValue>({
   nav: undefined,
-  hideContainer: false
+  size: undefined
 });
 
-const usePageContext = () => useContext(PageContext);
+export const usePageContext = () => useContext(PageContext);
 
 const PageContainer: React.FC<FlexProps> = ({ children, ...rest }) => {
-  const { nav, hideContainer } = usePageContext();
-
-  if (hideContainer) return <>{children}</>;
-
+  const { size } = usePageContext();
   return (
-    <Container style={{ flex: 1 }} {...rest}>
-      {nav ?? null}
+    <Container
+      style={{ flex: 1, padding: 0, margin: 0 }}
+      size={size}
+      fluid={!size && true}
+      {...rest}
+    >
       {children}
     </Container>
   );
@@ -57,68 +53,34 @@ const PageTitle: React.FC<PageTitleProps> = ({ suffix = '', children = '' }) => 
   );
 };
 
-interface ContentProps extends FlexProps {
-  nav?: React.ReactElement;
-}
-
-const Content: React.FC<ContentProps> = React.memo(({ nav, children, ...rest }) => {
-  const theme = useTheme();
-  const { colorScheme, toggleColorScheme } = useColorScheme();
-
-  return (
-    <AppShell
-      header={
-        <Header
-          height={theme.other.layout.topbar.height}
-          bg={colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blueGray[8]}
-          w='100vw'
-          sx={{
-            boxShadow: theme.shadows.sm
-          }}
-        >
-          <Group sx={{ height: '100%' }} pr={theme.spacing.md} position='apart'>
-            <Group>
-              <Logo w={55} h={55} bg={theme.colors.blueGray[9]} type='min' logoColor='white' />
-              <MainMenu />
-            </Group>
-            <Group>
-              <ActionIcon onClick={() => toggleColorScheme()} size={30}>
-                {colorScheme === 'dark' ? <IconSun size='1rem' /> : <IconMoonStars size='1rem' />}
-              </ActionIcon>
-              <DomainMenu />
-              <AccountMenu />
-            </Group>
-          </Group>
-        </Header>
-      }
-      navbar={nav}
-    >
-      <PageContainer {...rest}>{children}</PageContainer>
-    </AppShell>
-  );
-});
-
 interface PageProps extends FlexProps {
   nav?: React.ReactElement;
+  size?: MantineSize;
   title?: any;
-  useContent?: boolean;
+  useLayout?: boolean;
   showBack?: boolean;
 }
 
-const Page: React.FC<PageProps> = ({ nav, title, useContent = false, ...rest }) => {
+export const Page: React.FC<PageProps> = ({ nav, size, title, useLayout = false, ...rest }) => {
   const { t } = useTranslation();
   useFocusMode();
 
-  const pageContextValue = useMemo(() => ({ nav, hideContainer: useContent }), [nav, useContent]);
+  const pageContextValue = useMemo(() => ({ nav, size }), [nav, size]);
 
   return (
     <PageContext.Provider value={pageContextValue}>
       <PageTitle suffix={t('application:title')}>{title}</PageTitle>
       <Flex pos='relative' style={{ flex: 1 }} {...rest}>
-        {useContent ? <Content nav={nav} {...rest} /> : rest.children}
+        {useLayout ? (
+          <AppShell header={<Header />} navbar={nav}>
+            <PageContainer {...rest} />
+          </AppShell>
+        ) : (
+          rest.children
+        )}
       </Flex>
     </PageContext.Provider>
   );
 };
 
-export { Page, PageTitle };
+export default Page;

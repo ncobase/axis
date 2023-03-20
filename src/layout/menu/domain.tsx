@@ -49,3 +49,5 @@ export const DomainMenu: React.FC<DomainMenuProps> = ({ ...rest }) => {
     </>
   );
 };
+
+export default DomainMenu;

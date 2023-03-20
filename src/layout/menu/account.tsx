@@ -87,3 +87,5 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({ ...rest }) => {
     </Menu>
   );
 };
+
+export default AccountMenu;

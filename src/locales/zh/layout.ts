@@ -1,7 +1,7 @@
 export default {
   title: '布局',
   main_menu: {
-    home: '首页',
+    dashboard: '首页',
     content: '内容',
     sale: '销售',
     purchase: '采购',
@@ -9,14 +9,12 @@ export default {
     warehouse: '仓储',
     customer: '客户',
     analytics: '分析',
-    human: '人力资源',
-    global: '全局',
-    account: '我的',
-    admin: '管理'
+    hr: '人力资源'
   },
   domain_menu: {
-    admin: '管理域',
-    switch: '切换域'
+    label: '组织',
+    admin: '管理组织',
+    switch: '切换组织'
   },
   account_menu: {
     label: '帐号',
