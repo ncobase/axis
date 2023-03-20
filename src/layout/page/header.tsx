@@ -33,7 +33,7 @@ export const Header = ({ ...rest }) => {
           <MainMenu />
         </Group>
         <Group px={theme.spacing.md}>
-          <ActionIcon onClick={() => toggleColorScheme()} size={30}>
+          <ActionIcon onClick={() => toggleColorScheme()} size={30} display='none'>
             {colorScheme === 'dark' ? <IconSun size='1.2rem' /> : <IconMoonStars size='1rem' />}
           </ActionIcon>
           <DomainMenu />
