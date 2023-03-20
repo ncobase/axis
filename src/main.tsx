@@ -38,13 +38,16 @@ const AppDevHint = () => {
   return (
     <Flex
       pos='fixed'
-      bottom={0}
-      left={0}
-      w={16}
-      h={16}
-      bg={theme.colors.warning[5]}
-      c={theme.white}
-      style={{ borderTopRightRadius: '40%', zIndex: getDefaultZIndex('max') }}
+      style={{
+        top: 0,
+        left: 0,
+        width: 16,
+        height: 16,
+        color: theme.white,
+        backgroundColor: theme.colors.warning[5],
+        borderBottomRightRadius: '42%',
+        zIndex: getDefaultZIndex('max')
+      }}
       justify='center'
       fz='xs'
       align='center'
