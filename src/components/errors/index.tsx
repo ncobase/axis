@@ -4,6 +4,7 @@ import React from 'react';
 interface ErrorProps {
   code?: number;
 }
+
 export const ErrorPage: React.FC<ErrorProps> = ({ code }) => {
   return (
     <Center style={{ flex: 1, height: '100%' }}>
@@ -11,3 +12,5 @@ export const ErrorPage: React.FC<ErrorProps> = ({ code }) => {
     </Center>
   );
 };
+
+export default ErrorPage;

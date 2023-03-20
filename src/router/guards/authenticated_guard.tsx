@@ -19,3 +19,5 @@ export const AuthenticatedGuard: React.FC<React.PropsWithChildren> = ({ children
 
   return !isAuthenticated ? null : <ErrorBoundary>{children}</ErrorBoundary>;
 };
+
+export default AuthenticatedGuard;

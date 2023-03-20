@@ -9,7 +9,7 @@ import { useStyles } from '@/pages/account/account.styles';
 import { LoginForm } from '@/pages/account/login_form';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 
-export const Login = () => {
+const Login = () => {
   const { t } = useTranslation();
   const { classes } = useStyles();
   const queryClient = useQueryClient();
@@ -31,3 +31,5 @@ export const Login = () => {
     </Page>
   );
 };
+
+export default Login;

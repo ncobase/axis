@@ -60,3 +60,5 @@ export const LoginModalInterceptor = () => {
     </Modal>
   );
 };
+
+export default LoginModalInterceptor;

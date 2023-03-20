@@ -1,20 +1,35 @@
+import {
+  IconCalendarStats,
+  IconDeviceDesktopAnalytics,
+  IconFingerprint,
+  IconGauge,
+  IconHome2,
+  IconSettings,
+  IconUser
+} from '@tabler/icons-react';
 import React from 'react';
 
-import { Content, Page } from '@/layout';
-import { AccountMenu } from '@/layout/menu/account';
-import { DomainMenu } from '@/layout/menu/domain';
-import MainMenu from '@/layout/menu/main';
+import { Page } from '@/layout';
+import Sidebar from '@/layout/page/sidebar';
+
+const mainLinksMockdata = [
+  { icon: IconHome2, label: 'Home' },
+  { icon: IconGauge, label: 'Dashboard' },
+  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' },
+  { icon: IconCalendarStats, label: 'Releases' },
+  { icon: IconUser, label: 'Account' },
+  { icon: IconFingerprint, label: 'Security' },
+  { icon: IconSettings, label: 'Settings' }
+];
+
+const nav = <Sidebar links={mainLinksMockdata} activeLabel='Releases' />;
 
 export const Dashboard = () => {
   return (
-    <Page title='Dashboard'>
-      <Content>
-        <MainMenu />
-        <div hidden>
-          <DomainMenu />
-          <AccountMenu withArrow />
-        </div>
-      </Content>
+    <Page title='Dashboard' useLayout nav={nav}>
+      Dashboard Page
     </Page>
   );
 };
+
+export default Dashboard;

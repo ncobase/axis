@@ -3,11 +3,10 @@ import '@/config';
 import { Flex, getDefaultZIndex } from '@mantine/core';
 import { Notifications, NotificationsProps } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { ErrorBoundary } from '@/components/error-boundary';
+import ErrorBoundary from '@/components/error-boundary';
 import { AuthProvider } from '@/pages/account/account.context';
 import { setupStyles } from '@/plugins';
 import Router from '@/router';
@@ -65,7 +64,6 @@ const mount = () => {
           <ThemeProvider>
             <ErrorBoundary>
               <Router />
-              <ReactQueryDevtools />
               <AppDevHint />
             </ErrorBoundary>
           </ThemeProvider>

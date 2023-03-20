@@ -43,3 +43,5 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     </LayoutContext.Provider>
   );
 };
+
+export default Layout;

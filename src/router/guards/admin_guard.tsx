@@ -15,3 +15,5 @@ export const AdminGuard: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   return <ErrorBoundary>{children}</ErrorBoundary>;
 };
+
+export default AdminGuard;
