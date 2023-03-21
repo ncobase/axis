@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 
 import Viewport from '@/components/viewport';
 import { LayoutContext } from '@/layout/context/layout';
-import { LoginModalInterceptor } from '@/pages/account/login_modal_interceptor';
+import { LoginModalInterceptor } from '@/pages/account/auth/login_modal_interceptor';
 
 interface LayoutProps {
   children: React.ReactNode;

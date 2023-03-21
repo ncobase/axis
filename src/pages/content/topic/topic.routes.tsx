@@ -2,13 +2,13 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { ErrorPage } from '@/components/errors';
-import { Profile } from '@/pages/account/profile/profile';
+import { Topic } from '@/pages/content/topic/topic';
 
-export const AccountRoutes = () => {
+export const TopicRoutes = () => {
   return (
     <Routes>
-      <Route path='/' element={<Navigate to='profile' />} />
-      <Route path='/profile' element={<Profile />} />
+      <Route path='/' element={<Navigate to='topic' />} />
+      <Route path='/topic' element={<Topic />} />
       <Route path='*' element={<ErrorPage code={404} />} />
     </Routes>
   );

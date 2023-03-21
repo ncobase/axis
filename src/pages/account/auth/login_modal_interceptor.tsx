@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
 import { useAuthContext } from '@/pages/account/account.context';
-import { LoginForm } from '@/pages/account/login_form';
+import { LoginForm } from '@/pages/account/auth/login_form';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 
 export const LoginModalInterceptor = () => {
@@ -60,5 +60,3 @@ export const LoginModalInterceptor = () => {
     </Modal>
   );
 };
-
-export default LoginModalInterceptor;

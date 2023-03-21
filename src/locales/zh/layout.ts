@@ -1,7 +1,7 @@
 export default {
   title: '布局',
   main_menu: {
-    dashboard: '首页',
+    dash: '控制台',
     content: '内容',
     sale: '销售',
     purchase: '采购',
@@ -9,7 +9,8 @@ export default {
     warehouse: '仓储',
     customer: '客户',
     analytics: '分析',
-    hr: '人力资源'
+    hr: '人力资源',
+    system: '系统'
   },
   domain_menu: {
     label: '组织',

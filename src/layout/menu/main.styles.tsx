@@ -16,6 +16,7 @@ export const useStyles = createStyles(theme => {
       fontSize: rem(theme.fontSizes.sm),
       fontWeight: 500,
       '&:hover': {
+        textDecoration: 'none',
         backgroundColor:
           theme.colorScheme === 'dark' ? theme.colors.whiteAlpha[1] : theme.colors.blueGray[9]
       }

@@ -132,5 +132,3 @@ export const Register = () => {
     </Page>
   );
 };
-
-export default Register;

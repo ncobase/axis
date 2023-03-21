@@ -13,12 +13,17 @@ import { useTheme } from '@/themes';
 const AdminMenu = ({ isAdmin = false }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   if (!isAdmin) return null;
 
   return (
     <>
-      <Menu.Item icon={<IconSettings size={16} />} c={theme.colors.blueGray[7]}>
+      <Menu.Item
+        icon={<IconSettings size={16} />}
+        c={theme.colors.blueGray[7]}
+        onClick={() => navigate('/system')}
+      >
         {t('layout:account_menu.system')}
       </Menu.Item>
       <Menu.Divider maw='90%' mx='auto' />
@@ -70,7 +75,11 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({ ...rest }) => {
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Label>{t('layout:account_menu.label')}</Menu.Label>
-        <Menu.Item icon={<IconUser size={16} />} c={theme.colors.blueGray[7]}>
+        <Menu.Item
+          icon={<IconUser size={16} />}
+          c={theme.colors.blueGray[7]}
+          onClick={() => navigate('/account')}
+        >
           {t('layout:account_menu.my')}
         </Menu.Item>
         <Menu.Divider maw='90%' mx='auto' />

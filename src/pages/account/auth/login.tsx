@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import Logo from '@/components/logo';
 import { Page } from '@/layout';
 import { useStyles } from '@/pages/account/account.styles';
-import { LoginForm } from '@/pages/account/login_form';
+import { LoginForm } from '@/pages/account/auth/login_form';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 
-const Login = () => {
+export const Login = () => {
   const { t } = useTranslation();
   const { classes } = useStyles();
   const queryClient = useQueryClient();
@@ -31,5 +31,3 @@ const Login = () => {
     </Page>
   );
 };
-
-export default Login;

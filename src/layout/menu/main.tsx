@@ -1,8 +1,8 @@
-import { Center, Group, Menu } from '@mantine/core';
+import { Anchor, Center, Group, Menu } from '@mantine/core';
 import { IconChevronDown } from '@tabler/icons-react';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useStyles } from '@/layout/menu/main.styles';
 
@@ -18,8 +18,8 @@ export type MenuItemsProps = MenuItemProps[];
 // TODO: add useMenuContext
 const mainLinksMockdata: MenuItemsProps = [
   {
-    path: '/dashboard',
-    label: 'layout:main_menu.dashboard'
+    path: '/dash',
+    label: 'layout:main_menu.dash'
   },
   {
     path: '/content',
@@ -60,6 +60,11 @@ const mainLinksMockdata: MenuItemsProps = [
     path: '/hr',
     label: 'layout:main_menu.hr',
     hidden: false
+  },
+  {
+    path: '/system',
+    label: 'layout:main_menu.system',
+    hidden: false
   }
 ];
 
@@ -67,6 +72,7 @@ export const MainMenu = () => {
   const { t } = useTranslation('layout');
   const { classes } = useStyles();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (to: string) => pathname.startsWith(to);
 
@@ -78,17 +84,25 @@ export const MainMenu = () => {
 
     const isDropdown = children && children.length > 0;
 
+    const handleClick = useCallback(
+      (event: React.MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+        navigate(path);
+      },
+      [navigate, path]
+    );
+
     if (isDropdown) {
       const menuItems = renderMenuItems(children!);
       return (
         <Menu key={label} trigger='hover' transitionProps={{ duration: 0 }} withinPortal>
           <Menu.Target>
-            <a href={path} className={classes.link} onClick={event => event.preventDefault()}>
+            <Anchor className={classes.link} onClick={handleClick}>
               <Center>
                 <span className={classes.linkLabel}>{t(label)}</span>
                 <IconChevronDown size='0.9rem' />
               </Center>
-            </a>
+            </Anchor>
           </Menu.Target>
           <Menu.Dropdown>{menuItems}</Menu.Dropdown>
         </Menu>
@@ -96,15 +110,14 @@ export const MainMenu = () => {
     }
 
     return (
-      <a
+      <Anchor
         key={label}
-        href={path}
         title={t(label) as string}
         className={`${classes.link} ${isActive(path) ? classes.linkActive : ''}`}
-        onClick={event => event.preventDefault()}
+        onClick={handleClick}
       >
         {t(label)}
-      </a>
+      </Anchor>
     );
   };
 

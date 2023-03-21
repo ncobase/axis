@@ -24,12 +24,10 @@ const mainLinksMockdata = [
 
 const nav = <Sidebar links={mainLinksMockdata} activeLabel='Releases' />;
 
-export const Dashboard = () => {
+export const System = () => {
   return (
-    <Page title='Dashboard' useLayout nav={nav}>
-      Dashboard Page
+    <Page title='System' useLayout nav={nav}>
+      System Page
     </Page>
   );
 };
-
-export default Dashboard;

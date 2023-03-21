@@ -179,5 +179,3 @@ export const LoginForm = ({
     </Box>
   );
 };
-
-export default LoginForm;

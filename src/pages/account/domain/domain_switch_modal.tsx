@@ -118,5 +118,3 @@ export const DomainSwitchModal = ({ openModal = false, onClose }: DomainSwitchMo
     </Modal>
   );
 };
-
-export default DomainSwitchModal;

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { useAccountDomain } from '@/pages/account/account.service';
-import { DomainSwitchModal } from '@/pages/account/domain_switch_modal';
+import { DomainSwitchModal } from '@/pages/account/domain/domain_switch_modal';
 import { useDomainContext } from '@/pages/system/domain/domain.context';
 import { useTheme } from '@/themes';
 
@@ -15,6 +15,7 @@ interface DomainMenuProps extends MenuProps {}
 export const DomainMenu: React.FC<DomainMenuProps> = ({ ...rest }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+
   const { hasDomain, domain_id } = useDomainContext();
   const { domain } = useAccountDomain(domain_id, {
     onError: () => {
