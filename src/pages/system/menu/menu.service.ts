@@ -11,8 +11,13 @@ interface MenuKeys {
   update: () => readonly ['menuService', 'update'];
   list: (
     url: string,
-    options?: { cursor?: string; limit?: number }
-  ) => readonly ['menuService', 'menus', string, { cursor?: string; limit?: number }];
+    options?: { cursor?: string; limit?: number; type?: string }
+  ) => readonly [
+    'menuService',
+    'menus',
+    string,
+    { cursor?: string; limit?: number; type?: string }
+  ];
 }
 
 export const menuKeys: MenuKeys = {
@@ -20,11 +25,11 @@ export const menuKeys: MenuKeys = {
   create: () => [...menuKeys.all(), 'create'],
   get: ({ id = '' } = {}) => [...menuKeys.all(), 'menu', { id }],
   update: () => [...menuKeys.all(), 'update'],
-  list: (url, { cursor = '', limit = 20 } = {}) => [
+  list: (url, { cursor = '', limit = 20, type = '' } = {}) => [
     ...menuKeys.all(),
     'menus',
     url,
-    { cursor, limit }
+    { cursor, limit, type }
   ]
 };
 
@@ -81,14 +86,16 @@ export const useUpdateMenu = ({
 };
 
 export const useListMenus = (
-  { cursor = '', limit = 20 } = {},
+  { cursor = '', limit = 20, type = '' } = {},
   config: UseQueryOptions<
     MenusProps,
     AxiosError,
     MenusProps,
     InferQueryKey<typeof menuKeys.list>
   > = {},
-  url = `/menus?cursor=${cursor ?? ''}&limit=${limit ?? 20}`
+  url = `/menus?limit=${limit ?? 20}${cursor ? '&cursor=' + cursor : ''}${
+    type ? '&type=' + type : ''
+  }`
 ) => {
   const result = useQuery(menuKeys.list(url), (): Promise<MenusProps> => Axios.get(url), {
     ...config

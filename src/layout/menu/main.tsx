@@ -1,64 +1,12 @@
 import { Anchor, Center, Group, Menu } from '@mantine/core';
 import { IconChevronDown } from '@tabler/icons-react';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useStyles } from '@/layout/menu/main.styles';
+import { useListMenus } from '@/pages/system/menu/menu.service';
 import { MainMenuProps } from '@/pages/system/menu/menu.types';
-
-// TODO: use request menus
-const mainLinksMockdata: MainMenuProps[] = [
-  {
-    path: '/dash/system',
-    label: 'layout:main_menu.dash'
-  },
-  {
-    path: '/content/topic',
-    label: 'layout:main_menu.content',
-    hidden: false
-  },
-  {
-    path: '/sale',
-    label: 'layout:main_menu.sale',
-    hidden: false
-  },
-  {
-    path: '/purchase',
-    label: 'layout:main_menu.purchase',
-    hidden: false
-  },
-  {
-    path: '/finance',
-    label: 'layout:main_menu.finance',
-    hidden: false
-  },
-  {
-    path: '/warehouse',
-    label: 'layout:main_menu.warehouse',
-    hidden: false
-  },
-  {
-    path: '/customer',
-    label: 'layout:main_menu.customer',
-    hidden: false
-  },
-  {
-    path: '/analytics',
-    label: 'layout:main_menu.analytics',
-    hidden: false
-  },
-  {
-    path: '/hr',
-    label: 'layout:main_menu.hr',
-    hidden: false
-  },
-  {
-    path: '/system/domain',
-    label: 'layout:main_menu.system',
-    hidden: false
-  }
-];
 
 export const MainMenu = () => {
   const { t } = useTranslation();
@@ -74,13 +22,10 @@ export const MainMenu = () => {
   const renderLink = ({ id, path, label, children, hidden }: MainMenuProps) => {
     if (hidden) return null;
 
-    const handleClick = useCallback(
-      (event: React.MouseEvent<HTMLAnchorElement>) => {
-        event.preventDefault();
-        navigate(path);
-      },
-      [navigate, path]
-    );
+    const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault();
+      navigate(path);
+    };
 
     if (children && children.length > 0) {
       const menuItems = renderMenuItems(children!);
@@ -111,11 +56,13 @@ export const MainMenu = () => {
     );
   };
 
-  const mainLinks = mainLinksMockdata.map(renderLink);
+  // TODO: add useMenuTree method
+  const { menus } = useListMenus({ type: 'main' });
+  if (!menus) return null;
 
   return (
     <Group spacing={5} className={classes.links}>
-      {mainLinks}
+      {menus.map(renderLink)}
     </Group>
   );
 };
