@@ -13,9 +13,7 @@ import { Logout } from '@/pages/account/logout';
 import { ContentRoutes } from '@/pages/content/content.routes';
 import { DashRoutes } from '@/pages/dash/dash.routes';
 import { SystemRoutes } from '@/pages/system/system.routes';
-import { AdminGuard } from '@/router/guards/admin_guard';
-import { AuthenticatedGuard } from '@/router/guards/authenticated_guard';
-import { PublicGuard } from '@/router/guards/public_guard';
+import { AdminGuard, AuthenticatedGuard, PublicGuard } from '@/router';
 
 export const Router = () => {
   const fallback = useMemo(
