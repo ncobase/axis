@@ -2,9 +2,9 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { ErrorPage } from '@/components/errors';
-import { TopicRoutes } from '@/pages/content/topic/topic.routes';
+const TopicRoutes = React.lazy(() => import('@/pages/content/topic/topic.routes'));
 
-export const ContentRoutes = () => {
+const ContentRoutes = () => {
   return (
     <Routes>
       <Route path='/' element={<Navigate to='topic' />} />

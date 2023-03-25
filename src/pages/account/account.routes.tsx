@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { ErrorPage } from '@/components/errors';
 import { Profile } from '@/pages/account/profile/profile';
 
-export const AccountRoutes = () => {
+const AccountRoutes = () => {
   return (
     <Routes>
       <Route path='/' element={<Navigate to='profile' />} />

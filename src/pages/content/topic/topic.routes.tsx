@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { ErrorPage } from '@/components/errors';
 import { Topic } from '@/pages/content/topic/topic';
 
-export const TopicRoutes = () => {
+const TopicRoutes = () => {
   return (
     <Routes>
       <Route path='/' element={<Navigate to='topic' />} />
@@ -13,3 +13,5 @@ export const TopicRoutes = () => {
     </Routes>
   );
 };
+
+export default TopicRoutes;
