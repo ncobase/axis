@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { ErrorPage } from '@/components/errors';
 import { Domain } from '@/pages/system/domain/domain';
 
-const DomainRoutes = () => {
+export const DomainRoutes = () => {
   return (
     <Routes>
       <Route path='/' element={<Domain />} />
@@ -12,5 +12,3 @@ const DomainRoutes = () => {
     </Routes>
   );
 };
-
-export default DomainRoutes;

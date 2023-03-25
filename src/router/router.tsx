@@ -5,18 +5,17 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ErrorPage } from '@/components/errors';
 import { Layout } from '@/layout/layout';
+import { AccountRoutes } from '@/pages/account/account.routes';
 import { ForgetPassword } from '@/pages/account/auth/forget_password';
 import { Login } from '@/pages/account/auth/login';
 import { Register } from '@/pages/account/auth/register';
 import { Logout } from '@/pages/account/logout';
+import { ContentRoutes } from '@/pages/content/content.routes';
+import { DashRoutes } from '@/pages/dash/dash.routes';
+import { SystemRoutes } from '@/pages/system/system.routes';
 import { AdminGuard } from '@/router/guards/admin_guard';
 import { AuthenticatedGuard } from '@/router/guards/authenticated_guard';
 import { PublicGuard } from '@/router/guards/public_guard';
-
-const AccountRoutes = React.lazy(() => import('@/pages/account/account.routes'));
-const DashRoutes = React.lazy(() => import('@/pages/dash/dash.routes'));
-const ContentRoutes = React.lazy(() => import('@/pages/content/content.routes'));
-const SystemRoutes = React.lazy(() => import('@/pages/system/system.routes'));
 
 export const Router = () => {
   const fallback = useMemo(

@@ -22,7 +22,7 @@ const AdminMenu = ({ isAdmin = false }) => {
       <Menu.Item
         icon={<IconSettings size={16} />}
         c={theme.colors.blueGray[7]}
-        onClick={() => navigate('/system')}
+        onClick={() => navigate('/system/domain')}
       >
         {t('layout:account_menu.system')}
       </Menu.Item>
@@ -76,7 +76,7 @@ export const AccountMenu = ({ ...rest }) => {
         <Menu.Item
           icon={<IconUser size={16} />}
           c={theme.colors.blueGray[7]}
-          onClick={() => navigate('/account')}
+          onClick={() => navigate('/account/profile')}
         >
           {t('layout:account_menu.my')}
         </Menu.Item>

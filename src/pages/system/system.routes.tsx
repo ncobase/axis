@@ -2,10 +2,9 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { ErrorPage } from '@/components/errors';
+import { DomainRoutes } from '@/pages/system/domain/domain.routes';
 
-const DomainRoutes = React.lazy(() => import('@/pages/system/domain/domain.routes'));
-
-const SystemRoutes = () => {
+export const SystemRoutes = () => {
   return (
     <Routes>
       <Route path='/' element={<Navigate to='domain' />} />
@@ -14,5 +13,3 @@ const SystemRoutes = () => {
     </Routes>
   );
 };
-
-export default SystemRoutes;

@@ -10,11 +10,11 @@ import { MainMenuProps } from '@/pages/system/menu/menu.types';
 // TODO: use request menus
 const mainLinksMockdata: MainMenuProps[] = [
   {
-    path: '/dash',
+    path: '/dash/system',
     label: 'layout:main_menu.dash'
   },
   {
-    path: '/content',
+    path: '/content/topic',
     label: 'layout:main_menu.content',
     hidden: false
   },
@@ -54,7 +54,7 @@ const mainLinksMockdata: MainMenuProps[] = [
     hidden: false
   },
   {
-    path: '/system',
+    path: '/system/domain',
     label: 'layout:main_menu.system',
     hidden: false
   }

@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { ErrorPage } from '@/components/errors';
 import { Profile } from '@/pages/account/profile/profile';
 
-const AccountRoutes = () => {
+export const AccountRoutes = () => {
   return (
     <Routes>
       <Route path='/' element={<Navigate to='profile' />} />
@@ -13,5 +13,3 @@ const AccountRoutes = () => {
     </Routes>
   );
 };
-
-export default AccountRoutes;
