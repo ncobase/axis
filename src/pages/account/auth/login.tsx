@@ -23,7 +23,7 @@ export const Login = () => {
       <Flex justify='center' align='center' className={classes.authWrapper}>
         <Paper p='xl' shadow='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
           <Flex justify='center' display='block' mb='xl' mt='xs'>
-            <Logo type='full-mask' height='2.25rem' hidden />
+            <Logo type='full-mask' height='2.25rem' />
           </Flex>
           <LoginForm onSuccess={onLogin} />
         </Paper>

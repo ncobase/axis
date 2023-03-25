@@ -16,6 +16,8 @@ export interface LogoProps extends FlexProps {
 const Logo: React.FC<LogoProps> = ({ bg, type = 'min', height, logoColor, color, ...rest }) => {
   const LogoComponent = type === 'min' ? Min : type === 'full' ? Full : FullMask;
 
+  if (rest.hidden) return <></>;
+
   return (
     <Flex justify='center' align='center' bg={bg} {...rest}>
       <LogoComponent logoColor={logoColor} height={height} color={color} />

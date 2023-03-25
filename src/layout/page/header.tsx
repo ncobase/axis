@@ -28,7 +28,6 @@ export const Header = ({ ...rest }) => {
             bg={colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.blueGray[9]}
             type='min'
             logoColor='white'
-            hidden
           />
           <MainMenu />
         </Group>

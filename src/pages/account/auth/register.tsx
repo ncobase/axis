@@ -81,7 +81,7 @@ export const Register = () => {
       <Flex justify='center' align='center' className={classes.authWrapper}>
         <Paper p='xl' shadow='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
           <Flex justify='center' display='none' mb='xl' mt='xs'>
-            <Logo type='full-mask' height='2.25rem' hidden />
+            <Logo type='full-mask' height='2.25rem' />
           </Flex>
           <form id='register-form' onSubmit={handleSubmit} noValidate>
             <Stack spacing='xl'>

@@ -35,7 +35,7 @@ export const ForgetPassword = () => {
       <Flex justify='center' align='center' className={classes.authWrapper}>
         <Paper p='xl' shadow='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
           <Flex justify='center' display='block' mb='xl' mt='xs'>
-            <Logo type='full-mask' height='2.25rem' hidden />
+            <Logo type='full-mask' height='2.25rem' />
           </Flex>
           <form id='reset-password-init-form' onSubmit={onSubmitForgetPassword} noValidate>
             <Stack spacing='xl'>
