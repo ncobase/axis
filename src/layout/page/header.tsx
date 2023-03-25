@@ -1,11 +1,10 @@
 import { ActionIcon, Group, Header as StdHeader } from '@mantine/core';
-import { IconMoonStars, IconSun } from '@tabler/icons-react';
+import { IconBell, IconHelp, IconMoonStars, IconSun } from '@tabler/icons-react';
 import React from 'react';
 
 import Logo from '@/components/logo';
 import { AccountMenu } from '@/layout/menu/account';
-import { DomainMenu } from '@/layout/menu/domain';
-import MainMenu from '@/layout/menu/main';
+import { MainMenu } from '@/layout/menu/main';
 import { useColorScheme, useTheme } from '@/themes';
 
 export const Header = ({ ...rest }) => {
@@ -29,19 +28,24 @@ export const Header = ({ ...rest }) => {
             bg={colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.blueGray[9]}
             type='min'
             logoColor='white'
+            hidden
           />
           <MainMenu />
         </Group>
         <Group px={theme.spacing.md}>
+          <ActionIcon>
+            <IconBell size={20} />
+          </ActionIcon>
+          <ActionIcon>
+            <IconHelp size={20} />
+          </ActionIcon>
           <ActionIcon onClick={() => toggleColorScheme()} size={30} display='none'>
             {colorScheme === 'dark' ? <IconSun size='1.2rem' /> : <IconMoonStars size='1rem' />}
           </ActionIcon>
-          <DomainMenu />
+          {/*<DomainMenu />*/}
           <AccountMenu />
         </Group>
       </Group>
     </StdHeader>
   );
 };
-
-export default Header;

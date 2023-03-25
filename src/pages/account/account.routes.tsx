@@ -13,3 +13,5 @@ export const AccountRoutes = () => {
     </Routes>
   );
 };
+
+export default AccountRoutes;

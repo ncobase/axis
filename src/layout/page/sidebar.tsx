@@ -16,7 +16,7 @@ interface SidebarProps {
   onLinkClick?: (label: string) => void;
 }
 
-const Sidebar = ({ links, activeLabel = '', onLinkClick }: SidebarProps) => {
+export const Sidebar = ({ links, activeLabel = '', onLinkClick }: SidebarProps) => {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState(activeLabel);
   const theme = useTheme();
@@ -49,5 +49,3 @@ const Sidebar = ({ links, activeLabel = '', onLinkClick }: SidebarProps) => {
     </Navbar>
   );
 };
-
-export default Sidebar;

@@ -5,18 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useStyles } from '@/layout/menu/main.styles';
+import { MainMenuProps } from '@/pages/system/menu/menu.types';
 
-export interface MenuItemProps {
-  path: string;
-  label: string;
-  hidden?: boolean;
-  children?: MenuItemProps[];
-}
-
-export type MenuItemsProps = MenuItemProps[];
-
-// TODO: add useMenuContext
-const mainLinksMockdata: MenuItemsProps = [
+// TODO: use request menus
+const mainLinksMockdata: MainMenuProps[] = [
   {
     path: '/dash',
     label: 'layout:main_menu.dash'
@@ -69,20 +61,18 @@ const mainLinksMockdata: MenuItemsProps = [
 ];
 
 export const MainMenu = () => {
-  const { t } = useTranslation('layout');
+  const { t } = useTranslation();
   const { classes } = useStyles();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const isActive = (to: string) => pathname.startsWith(to);
 
-  const renderMenuItems = (menuItems: MenuItemProps[]) =>
+  const renderMenuItems = (menuItems: MainMenuProps[]) =>
     menuItems.map(item => <Menu.Item key={item.label}>{t(item.label)}</Menu.Item>);
 
-  const renderLink = ({ path, label, children, hidden }: MenuItemProps) => {
+  const renderLink = ({ id, path, label, children, hidden }: MainMenuProps) => {
     if (hidden) return null;
-
-    const isDropdown = children && children.length > 0;
 
     const handleClick = useCallback(
       (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -92,10 +82,10 @@ export const MainMenu = () => {
       [navigate, path]
     );
 
-    if (isDropdown) {
+    if (children && children.length > 0) {
       const menuItems = renderMenuItems(children!);
       return (
-        <Menu key={label} trigger='hover' transitionProps={{ duration: 0 }} withinPortal>
+        <Menu key={id || label} trigger='hover' transitionProps={{ duration: 0 }} withinPortal>
           <Menu.Target>
             <Anchor className={classes.link} onClick={handleClick}>
               <Center>
@@ -111,7 +101,7 @@ export const MainMenu = () => {
 
     return (
       <Anchor
-        key={label}
+        key={id || label}
         title={t(label) as string}
         className={`${classes.link} ${isActive(path) ? classes.linkActive : ''}`}
         onClick={handleClick}
@@ -129,5 +119,3 @@ export const MainMenu = () => {
     </Group>
   );
 };
-
-export default MainMenu;

@@ -11,22 +11,25 @@ import {
 } from '@mantine/core';
 import { isNotEmpty, matchesField, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
+import { useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import Logo from '@/components/logo';
 import { Page } from '@/layout';
 import { useRegisterAccount } from '@/pages/account/account.service';
 import { useStyles } from '@/pages/account/account.styles';
 import { RegisterFormProps } from '@/pages/account/account.types';
-import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
+import { useRedirectFromUrl } from '@/router';
 
 export const Register = () => {
   const { t } = useTranslation();
   const { classes } = useStyles();
-
+  const navigate = useNavigate();
   const redirect = useRedirectFromUrl();
+  const queryClient = useQueryClient();
 
   const form = useForm<RegisterFormProps>({
     initialValues: {
@@ -60,7 +63,10 @@ export const Register = () => {
   };
 
   const { mutate: onRegisterAccount, isLoading } = useRegisterAccount({
-    onSuccess: () => redirect(),
+    onSuccess: () => {
+      queryClient.clear();
+      redirect();
+    },
     onError
   });
 
@@ -75,7 +81,7 @@ export const Register = () => {
       <Flex justify='center' align='center' className={classes.authWrapper}>
         <Paper p='xl' shadow='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
           <Flex justify='center' display='none' mb='xl' mt='xs'>
-            <Logo type='full-mask' height='2.25rem' />
+            <Logo type='full-mask' height='2.25rem' hidden />
           </Flex>
           <form id='register-form' onSubmit={handleSubmit} noValidate>
             <Stack spacing='xl'>
@@ -116,7 +122,7 @@ export const Register = () => {
                 component='button'
                 type='button'
                 color='dimmed'
-                onClick={() => redirect()}
+                onClick={() => navigate('/login')}
                 size='xs'
               >
                 {t('account:actions.alreadyHaveAnAccount')}

@@ -6,10 +6,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { ErrorBoundary } from '@/components/error-boundary';
 import { AuthProvider } from '@/pages/account/account.context';
 import { setupStyles } from '@/plugins';
-import Router from '@/router';
+import { Router } from '@/router';
 import { ThemeProvider, useTheme } from '@/themes';
 import { getInitials } from '@/utils';
 
@@ -65,10 +64,8 @@ const mount = () => {
         <Notifications {...notificationsProps} />
         <AuthProvider>
           <ThemeProvider>
-            <ErrorBoundary>
-              <Router />
-              <AppDevHint />
-            </ErrorBoundary>
+            <Router />
+            <AppDevHint />
           </ThemeProvider>
         </AuthProvider>
       </QueryClientProvider>

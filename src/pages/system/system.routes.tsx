@@ -13,3 +13,5 @@ export const SystemRoutes = () => {
     </Routes>
   );
 };
+
+export default SystemRoutes;

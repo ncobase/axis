@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import { locals } from '@/utils/locals';
 import { isBrowser } from '@/utils/ssr';
@@ -35,17 +35,16 @@ export const DomainProvider: React.FC<React.PropsWithChildren> = ({ children }) 
     [setDomain]
   );
 
-  return (
-    <DomainContext.Provider
-      value={{
-        domain_id: domain,
-        hasDomain: !!domain,
-        updateDomain: handleUpdateDomain
-      }}
-    >
-      {children}
-    </DomainContext.Provider>
+  const value = useMemo(
+    () => ({
+      domain_id: domain,
+      hasDomain: !!domain,
+      updateDomain: handleUpdateDomain
+    }),
+    [domain, handleUpdateDomain]
   );
+
+  return <DomainContext.Provider value={value}>{children}</DomainContext.Provider>;
 };
 
 export const useDomainContext = (): DomainContextValue => useContext(DomainContext);

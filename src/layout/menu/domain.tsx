@@ -1,4 +1,4 @@
-import { Menu, MenuProps } from '@mantine/core';
+import { Menu } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconAdjustments, IconSwitch } from '@tabler/icons-react';
 import React from 'react';
@@ -10,9 +10,7 @@ import { DomainSwitchModal } from '@/pages/account/domain/domain_switch_modal';
 import { useDomainContext } from '@/pages/system/domain/domain.context';
 import { useTheme } from '@/themes';
 
-interface DomainMenuProps extends MenuProps {}
-
-export const DomainMenu: React.FC<DomainMenuProps> = ({ ...rest }) => {
+export const DomainMenu = ({ ...rest }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
@@ -50,5 +48,3 @@ export const DomainMenu: React.FC<DomainMenuProps> = ({ ...rest }) => {
     </>
   );
 };
-
-export default DomainMenu;

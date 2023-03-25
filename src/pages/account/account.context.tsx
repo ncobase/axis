@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useCallback, useContext, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useContext, useMemo, useState } from 'react';
 
 import { DomainProvider } from '@/pages/system/domain/domain.context';
 import { locals } from '@/utils/locals';
@@ -47,14 +47,15 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     },
     [setAccessToken]
   );
-
+  const value = useMemo(
+    () => ({
+      isAuthenticated: !!accessToken,
+      updateTokens: handleTokens
+    }),
+    [accessToken, handleTokens]
+  );
   return (
-    <AuthContext.Provider
-      value={{
-        isAuthenticated: !!accessToken,
-        updateTokens: handleTokens
-      }}
-    >
+    <AuthContext.Provider value={value}>
       <DomainProvider>{children}</DomainProvider>
     </AuthContext.Provider>
   );

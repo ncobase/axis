@@ -8,9 +8,9 @@ export interface Domain {
   copyright: string;
   disabled: boolean;
   created_by: string;
-  created_at: number;
+  created_at: string;
   updated_by: string;
-  updated_at: number;
+  updated_at: string;
 }
 
 export interface Domains {

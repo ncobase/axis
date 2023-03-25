@@ -10,7 +10,7 @@ import {
 import React from 'react';
 
 import { Page } from '@/layout';
-import Sidebar from '@/layout/page/sidebar';
+import { Sidebar } from '@/layout/page/sidebar';
 
 const mainLinksMockdata = [
   { icon: IconHome2, label: 'Home' },

@@ -93,5 +93,3 @@ export const Page: React.FC<PageProps> = ({
     </PageContext.Provider>
   );
 };
-
-export default Page;

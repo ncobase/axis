@@ -13,3 +13,5 @@ export const DashRoutes = () => {
     </Routes>
   );
 };
+
+export default DashRoutes;
