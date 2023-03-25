@@ -1,6 +1,5 @@
 import { LoadingOverlay } from '@mantine/core';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import React, { Suspense } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import { ErrorBoundary } from '@/components/error-boundary';
@@ -20,11 +19,16 @@ const ContentRoutes = React.lazy(() => import('@/pages/content/content.routes'))
 const SystemRoutes = React.lazy(() => import('@/pages/system/system.routes'));
 
 export const Router = () => {
+  const fallback = useMemo(
+    () => <LoadingOverlay visible overlayBlur={2} overlayOpacity={0.05} />,
+    []
+  );
+
   return (
-    <ErrorBoundary>
-      <BrowserRouter>
-        <Layout>
-          <Suspense fallback={<LoadingOverlay visible overlayBlur={2} overlayOpacity={0.05} />}>
+    <BrowserRouter>
+      <Layout>
+        <Suspense fallback={fallback}>
+          <ErrorBoundary>
             <Routes>
               <Route path='/' element={<Navigate to='/dash' replace />} />
               <Route
@@ -94,10 +98,9 @@ export const Router = () => {
               />
               <Route path='*' element={<ErrorPage code={404} />} />
             </Routes>
-          </Suspense>
-        </Layout>
-      </BrowserRouter>
-      <ReactQueryDevtools />
-    </ErrorBoundary>
+          </ErrorBoundary>
+        </Suspense>
+      </Layout>
+    </BrowserRouter>
   );
 };

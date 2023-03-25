@@ -3,6 +3,7 @@ import '@/config';
 import { Flex, getDefaultZIndex } from '@mantine/core';
 import { Notifications, NotificationsProps } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -35,25 +36,28 @@ const AppDevHint = () => {
   }
 
   return (
-    <Flex
-      pos='fixed'
-      style={{
-        top: 0,
-        left: 0,
-        width: 16,
-        height: 16,
-        color: theme.white,
-        backgroundColor: theme.colors.warning[5],
-        borderBottomRightRadius: '42%',
-        zIndex: getDefaultZIndex('max')
-      }}
-      justify='center'
-      fz='xs'
-      align='center'
-      tt='uppercase'
-    >
-      {getInitials(envName)}
-    </Flex>
+    <>
+      <Flex
+        pos='fixed'
+        style={{
+          top: 0,
+          left: 0,
+          width: 16,
+          height: 16,
+          color: theme.white,
+          backgroundColor: theme.colors.warning[5],
+          borderBottomRightRadius: '42%',
+          zIndex: getDefaultZIndex('max')
+        }}
+        justify='center'
+        fz='xs'
+        align='center'
+        tt='uppercase'
+      >
+        {getInitials(envName)}
+      </Flex>
+      <ReactQueryDevtools />
+    </>
   );
 };
 
