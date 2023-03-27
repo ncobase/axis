@@ -2,7 +2,7 @@ export interface MenuProps {
   id?: string;
   name?: string;
   label: string;
-  icon?: string;
+  icon?: any; // string is Tabler Icons
   slug?: string;
   path: string;
   type?: string;
@@ -17,10 +17,13 @@ export interface MenuProps {
   created_at?: string;
   updated_by?: string;
   updated_at?: string;
+  children?: MenuProps[];
 }
 
-export interface MainMenuProps extends MenuProps {
-  children?: MenuProps[];
+export interface MenuTreeProps extends MenuProps {}
+
+export interface MenuTreeReply {
+  content: MenuProps[];
 }
 
 export interface MenusProps {

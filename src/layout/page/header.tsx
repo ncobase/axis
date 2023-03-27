@@ -5,11 +5,26 @@ import React from 'react';
 import Logo from '@/components/logo';
 import { AccountMenu } from '@/layout/menu/account';
 import { MainMenu } from '@/layout/menu/main';
+import { useListMenus } from '@/pages/system/menu/menu.service';
 import { useColorScheme, useTheme } from '@/themes';
 
 export const Header = ({ ...rest }) => {
   const theme = useTheme();
   const { colorScheme, toggleColorScheme } = useColorScheme();
+
+  // get main menu
+  // TODO: order
+  // const { menus: main_menus = [] } = useGetMenuTree('root', 'main');
+  const { menus: main_menus = [] } = useListMenus({ type: 'main' });
+
+  // TODO: All menus changed to fetch from backend, include i18n configuage
+  // get account menu
+  // const { menus: account_menus = [] } = useGetMenuTree('root', 'account');
+  // console.log(account_menus);
+  // get domain menu
+  // const { menus: domain_menus = [] } = useGetMenuTree('root', 'domain');
+  // console.log(domain_menus);
+
   return (
     <StdHeader
       height={theme.other.layout.topbar.height}
@@ -29,7 +44,7 @@ export const Header = ({ ...rest }) => {
             type='min'
             logoColor='white'
           />
-          <MainMenu />
+          {main_menus.length ? <MainMenu menus={main_menus} /> : null}
         </Group>
         <Group px={theme.spacing.md}>
           <ActionIcon>

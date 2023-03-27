@@ -2,7 +2,13 @@ export default {
   title: '布局',
   main_menu: {
     dash: '控制台',
-    content: '内容',
+    content: {
+      label: '内容',
+      column: '栏目',
+      news: '新闻',
+      topic: '主题',
+      fragment: '碎片'
+    },
     sale: '销售',
     purchase: '采购',
     finance: '财务',

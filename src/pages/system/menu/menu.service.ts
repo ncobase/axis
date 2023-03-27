@@ -1,13 +1,17 @@
 import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
 import Axios, { AxiosError } from 'axios';
 
-import { MenuProps, MenusProps } from '@/pages/system/menu/menu.types';
+import { MenuProps, MenusProps, MenuTreeReply } from '@/pages/system/menu/menu.types';
 import { paginateByCursor } from '@/utils/pagination';
 
 interface MenuKeys {
   all: () => readonly ['menuService'];
   create: () => readonly ['menuService', 'create'];
-  get: (options?: { id?: string }) => readonly ['menuService', 'menu', { id?: string }];
+  get: (options?: { menu?: string }) => readonly ['menuService', 'menu', { menu?: string }];
+  tree: (options?: {
+    menu?: string;
+    type?: string;
+  }) => readonly ['menuService', 'tree', { id?: string; type?: string }];
   update: () => readonly ['menuService', 'update'];
   list: (
     url: string,
@@ -23,7 +27,8 @@ interface MenuKeys {
 export const menuKeys: MenuKeys = {
   all: () => ['menuService'],
   create: () => [...menuKeys.all(), 'create'],
-  get: ({ id = '' } = {}) => [...menuKeys.all(), 'menu', { id }],
+  get: ({ menu = '' } = {}) => [...menuKeys.all(), 'menu', { menu }],
+  tree: ({ menu = '', type = '' } = {}) => [...menuKeys.all(), 'tree', { menu, type }],
   update: () => [...menuKeys.all(), 'update'],
   list: (url, { cursor = '', limit = 20, type = '' } = {}) => [
     ...menuKeys.all(),
@@ -49,24 +54,41 @@ export const useCreateMenu = ({
 };
 
 export const useGetMenu = (
-  id?: string,
+  menu?: string,
   {
-    enabled = !!id,
     ...config
   }: UseQueryOptions<MenuProps, AxiosError, MenuProps, InferQueryKey<typeof menuKeys.get>> = {}
 ) => {
+  return useQuery(menuKeys.get({ menu }), (): Promise<MenuProps> => Axios.get(`/menus/${menu}`), {
+    ...config
+  });
+};
+
+export const useGetMenuTree = (
+  menu?: string,
+  type?: string,
+  {
+    ...config
+  }: UseQueryOptions<
+    MenuTreeReply,
+    AxiosError,
+    MenuTreeReply,
+    InferQueryKey<typeof menuKeys.tree>
+  > = {}
+) => {
   const result = useQuery(
-    menuKeys.get({ id }),
-    (): Promise<MenuProps> => Axios.get(`/menus/${id}`),
+    menuKeys.tree({ menu, type }),
+    (): Promise<MenuTreeReply> =>
+      Axios.get(`/trees/menus?menu=${menu}${type ? '&type=' + type : ''}`),
     {
-      enabled,
       ...config
     }
   );
-  const { data: menu, ...rest } = result;
+
+  const { content: menus } = result.data || {};
+
   return {
-    menu,
-    ...rest
+    menus
   };
 };
 

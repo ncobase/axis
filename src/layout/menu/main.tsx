@@ -5,10 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useStyles } from '@/layout/menu/main.styles';
-import { useListMenus } from '@/pages/system/menu/menu.service';
-import { MainMenuProps } from '@/pages/system/menu/menu.types';
+import { MenuTreeProps } from '@/pages/system/menu/menu.types';
 
-export const MainMenu = () => {
+interface MainMenuProps {
+  menus?: MenuTreeProps[];
+}
+
+export const MainMenu: React.FC<MainMenuProps> = ({ menus = [] }) => {
   const { t } = useTranslation();
   const { classes } = useStyles();
   const { pathname } = useLocation();
@@ -16,15 +19,26 @@ export const MainMenu = () => {
 
   const isActive = (to: string) => pathname.startsWith(to);
 
-  const renderMenuItems = (menuItems: MainMenuProps[]) =>
-    menuItems.map(item => <Menu.Item key={item.label}>{t(item.label)}</Menu.Item>);
+  const handleLinkClick = (path: string) => {
+    navigate(path);
+  };
 
-  const renderLink = ({ id, path, label, children, hidden }: MainMenuProps) => {
+  const renderMenuItems = (menuItems: MenuTreeProps[]) =>
+    menuItems.map(({ id, path, label, hidden }) => {
+      if (hidden) return null;
+      return (
+        <Menu.Item key={id || label} onClick={() => handleLinkClick(path)}>
+          {t(label)}
+        </Menu.Item>
+      );
+    });
+
+  const renderLink = ({ id, path, label, children, hidden }: MenuTreeProps) => {
     if (hidden) return null;
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
       event.preventDefault();
-      navigate(path);
+      handleLinkClick(path);
     };
 
     if (children && children.length > 0) {
@@ -56,9 +70,7 @@ export const MainMenu = () => {
     );
   };
 
-  // TODO: add useMenuTree method
-  const { menus } = useListMenus({ type: 'main' });
-  if (!menus) return null;
+  if (!menus.length) return null;
 
   return (
     <Group spacing={5} className={classes.links}>
