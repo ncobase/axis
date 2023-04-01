@@ -123,7 +123,6 @@ export const LoginForm = ({
           <TextInput
             label={t('account:fields.username_or_email.label')}
             name='username'
-            onFocus
             required
             {...form.getInputProps('username')}
           />
