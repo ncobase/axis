@@ -2,7 +2,8 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
-// import { VitePWA } from 'vite-plugin-pwa';
+import { chunkSplitPlugin } from 'vite-plugin-chunk-split';
+import { VitePWA } from 'vite-plugin-pwa';
 
 import pkg from './package.json';
 
@@ -10,58 +11,55 @@ function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
 }
 
-// VitePWA({
-//   injectRegister: 'auto',
-//   manifest: {
-//     name: 'Stone CMS',
-//     short_name: 'Stone CMS',
-//     icons: [
-//       { src: 'paw-192x192.png', sizes: '192x192', type: 'image/png' },
-//       { src: 'paw-512x512.png', sizes: '512x512', type: 'image/png' },
-//     ],
-//   },
-//   workbox: {
-//     runtimeCaching: [],
-//   },
-// })
-
-const config = defineConfig({
-  plugins: [
-    react(),
-    createHtmlPlugin({
-      minify: true
-    }),
-  ],
-  resolve: {
-    alias: [
-      {
-        find: /@\//,
-        replacement: pathResolve('src') + '/'
-      }
-    ]
-  },
-});
+const setupPlugins = ({ VITE_PWA, VITE_APP_NAME }: ImportMetaEnv) => ([
+  react(),
+  createHtmlPlugin({
+    minify: true
+  }),
+  chunkSplitPlugin(),
+  VITE_PWA === 'true' && VitePWA({
+    injectRegister: 'auto',
+    manifest: {
+      name: VITE_APP_NAME,
+      short_name: VITE_APP_NAME,
+      icons: [
+        { src: 'paw-192x192.png', sizes: '192x192', type: 'image/png' },
+        { src: 'paw-512x512.png', sizes: '512x512', type: 'image/png' }
+      ]
+    },
+    workbox: {
+      runtimeCaching: []
+    }
+  })
+]);
 
 // noinspection JSUnusedGlobalSymbols
-export default ({ mode }: { mode: string }): typeof config => {
+export default defineConfig(({ mode }: { mode: string }) => {
   const root = process.cwd();
-  const { VITE_PORT, VITE_API_URL } = loadEnv(mode, root);
-
+  const ENV = loadEnv(mode, root) as unknown as ImportMetaEnv;
   return {
-    ...config,
     define: {
       _APP_VERSION: JSON.stringify(pkg.version),
       'process.env': {}
     },
+    plugins: setupPlugins(ENV),
+    resolve: {
+      alias: [
+        {
+          find: /@\//,
+          replacement: pathResolve('src') + '/'
+        }
+      ]
+    },
     server: {
-      port: +VITE_PORT || 3200,
+      port: +ENV.VITE_PORT || 3200,
       proxy: {
         '/api': {
-          target: VITE_API_URL || 'http://localhost:3200',
+          target: ENV.VITE_API_URL || 'http://localhost:3200',
           changeOrigin: true,
           rewrite: path => path.replace(/^\/api/, '')
         }
       }
     }
   };
-};
+});

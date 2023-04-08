@@ -6,7 +6,8 @@ dist
 dist-ssr
 dev-dist
 *.local
-.env
+.env.development
+.env.production
 yarn-error.log
 stats.html
 version.json
