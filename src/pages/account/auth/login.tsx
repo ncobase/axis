@@ -4,7 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Logo from '@/components/logo';
-import { Page } from '@/layout';
+import { Page } from '@/layouts/main';
 import { useStyles } from '@/pages/account/account.styles';
 import { LoginForm } from '@/pages/account/auth/login_form';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';

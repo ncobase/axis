@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Page } from '@/layout';
+import { Page } from '@/layouts/main';
 
 export const Profile = () => {
   return (
-    <Page title='Profile' useLayout>
+    <Page title='Profile' withLayout>
       Profile Page
     </Page>
   );

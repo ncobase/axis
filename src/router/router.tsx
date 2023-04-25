@@ -4,7 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ErrorPage } from '@/components/errors';
-import { Layout } from '@/layout/layout';
+import { Layout } from '@/layouts/main/layout';
 import { AccountRoutes } from '@/pages/account/account.routes';
 import { ForgetPassword } from '@/pages/account/auth/forget_password';
 import { Login } from '@/pages/account/auth/login';

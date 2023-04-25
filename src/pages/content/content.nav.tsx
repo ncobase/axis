@@ -9,7 +9,7 @@ import {
 } from '@tabler/icons-react';
 import React from 'react';
 
-import { Sidebar } from '@/layout/page/sidebar';
+import { Sidebar } from '@/layouts/main/page/sidebar';
 
 const mainLinksMockdata = [
   {

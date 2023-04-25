@@ -2,7 +2,7 @@ import { useDisclosure } from '@mantine/hooks';
 import React, { useRef } from 'react';
 
 import Viewport from '@/components/viewport';
-import { LayoutContext } from '@/layout/context/layout';
+import { LayoutContext } from '@/layouts/main/context/layout';
 import { LoginModalInterceptor } from '@/pages/account/auth/login_modal_interceptor';
 
 interface LayoutProps {

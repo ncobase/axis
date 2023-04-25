@@ -50,3 +50,10 @@ export const isFunction = (fn: unknown): boolean => _rawType(fn) === 'Function';
  * @returns 如果值为布尔值，则返回 true，否则返回 false。
  */
 export const isBoolean = (bool: unknown): boolean => _rawType(bool) === 'Boolean';
+
+/**
+ * 验证一个值是否为 Null。
+ * @param n 要验证的值。
+ * @returns 如果值为 Null，则返回 true，否则返回 false。
+ */
+export const isNull = (n: unknown): boolean => _rawType(n) === 'Null';

@@ -1,5 +1,5 @@
-import { Page } from '@/layout';
+import { Page } from '@/layouts/main';
 
 export const Domain = () => {
-  return <Page useLayout>Domain Page</Page>;
+  return <Page withLayout>Domain Page</Page>;
 };

@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import Logo from '@/components/logo';
-import { Page } from '@/layout';
+import { Page } from '@/layouts/main';
 import { useRegisterAccount } from '@/pages/account/account.service';
 import { useStyles } from '@/pages/account/account.styles';
 import { RegisterFormProps } from '@/pages/account/account.types';

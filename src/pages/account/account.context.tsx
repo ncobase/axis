@@ -47,6 +47,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     },
     [setAccessToken]
   );
+
   const value = useMemo(
     () => ({
       isAuthenticated: !!accessToken,
@@ -54,6 +55,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     }),
     [accessToken, handleTokens]
   );
+
   return (
     <AuthContext.Provider value={value}>
       <DomainProvider>{children}</DomainProvider>

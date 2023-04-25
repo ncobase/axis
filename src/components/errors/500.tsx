@@ -12,7 +12,7 @@ export const Error500 = ({ trace = null }) => {
     <Flex className='pt-20' direction='column' mx='auto'>
       <div className={classes.label}>500</div>
       <Text color='dimmed' align='center' className={classes.description}>
-        {t('application:errors.500.description')}
+        {t('errors:500.description')}
       </Text>
       {trace ? (
         <Text color='dimmed' align='center' className={classes.description}>

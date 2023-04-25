@@ -1,5 +1,5 @@
-import { Page } from '@/layout';
+import { Page } from '@/layouts/main';
 
 export const Comment = () => {
-  return <Page useLayout>Comment Page</Page>;
+  return <Page withLayout>Comment Page</Page>;
 };

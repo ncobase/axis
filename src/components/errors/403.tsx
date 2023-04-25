@@ -12,7 +12,7 @@ export const Error403 = () => {
     <Flex className='pt-20' direction='column' mx='auto'>
       <div className={classes.label}>403</div>
       <Text color='dimmed' align='center' className={classes.description}>
-        {t('application:errors.403.description')}
+        {t('errors:403.description')}
       </Text>
       <Group position='center'>
         <Button variant='subtle' onClick={() => history.back()}>

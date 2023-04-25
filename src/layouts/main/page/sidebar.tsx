@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useStyles } from '@/layout/page/sidebar.styles';
+import { useStyles } from '@/layouts/main/page/sidebar.styles';
 import { MenuProps } from '@/pages/system/menu/menu.types';
 import { useTheme } from '@/themes';
 import { getInitials } from '@/utils';

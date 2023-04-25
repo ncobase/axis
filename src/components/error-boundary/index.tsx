@@ -11,12 +11,12 @@ const FallbackComponent = ({ error }: FallbackProps) => {
     <Flex justify='center' align='center' w='100vw' h='100vh'>
       <Alert p={4} color='error'>
         <Anchor onClick={open} m='auto' color='red' title={t('application:actions.expand')} p={12}>
-          {t('application:errors.boundary.label')}
+          {t('errors:boundary.label')}
         </Anchor>
       </Alert>
       <Modal
         opened={opened}
-        title={t('application:errors.boundary.label')}
+        title={t('errors:boundary.label')}
         onClose={close}
         size='lg'
         trapFocus={false}
