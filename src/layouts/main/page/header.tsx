@@ -43,7 +43,6 @@ export const Header = ({ ...rest }) => {
             bg={colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blueGray[9]}
             type='min'
             logoColor='white'
-            hidden
           />
           {main_menus.length ? <MainMenu menus={main_menus} /> : null}
         </Group>

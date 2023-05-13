@@ -9,7 +9,7 @@ const child = <Skeleton height={140} radius='md' animate={false} />;
 export const System = () => {
   const theme = useTheme();
   return (
-    <Page title='System' header={<></>} withLayout noWithContainer>
+    <Page title='System' withLayout>
       <Box style={{ backgroundColor: theme.white, height: 320 }}>
         <Container>
           <Grid columns={2}>
