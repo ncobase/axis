@@ -9,7 +9,7 @@ export const useStyles = createStyles(theme => {
     },
     link: {
       padding: `${rem(8)} ${rem(12)}`,
-      marginRight: rem(12),
+      marginRight: rem(24),
       borderRadius: theme.radius.md,
       textDecoration: 'none',
       color: theme.colors.whiteAlpha[7],
