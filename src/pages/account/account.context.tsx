@@ -11,8 +11,8 @@ interface AuthContextValue {
   updateTokens(accessToken?: string, refreshToken?: string): void;
 }
 
-export const ACCESS_TOKEN_KEY = 'ack';
-export const REFRESH_TOKEN_KEY = 'rck';
+export const ACCESS_TOKEN_KEY = 'access_token';
+export const REFRESH_TOKEN_KEY = 'refresh_token';
 
 const AuthContext = React.createContext<AuthContextValue>({
   isAuthenticated: false,
