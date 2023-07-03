@@ -99,7 +99,7 @@ export const LoginForm = ({
     const { reason, message } = response?.data || ({} as any);
     const notificationProps = {
       title: reason,
-      message: message || t(`errors.${reason?.toLowerCase() || 'unknown'}`),
+      message: message || t(`errors:${reason?.toLowerCase() || 'unknown.label'}`),
       color: 'red',
       withCloseButton: false
     };

@@ -1,4 +1,8 @@
 export default {
+  unknown: {
+    label: '未知错误',
+    description: ''
+  },
   boundary: {
     label: '发生意外错误',
     description: ''
