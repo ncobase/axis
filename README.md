@@ -1,1 +1,1 @@
-# Stone CMS Console
+# Tone Console
