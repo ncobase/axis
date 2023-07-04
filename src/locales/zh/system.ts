@@ -18,7 +18,7 @@ export default {
       sample: '示例按钮'
     }
   },
-  domain: {
+  tenant: {
     interceptor: {
       title: '请选择进入组织...'
     }

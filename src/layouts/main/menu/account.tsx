@@ -23,7 +23,7 @@ const AdminMenu = ({ isAdmin = false }) => {
       <Menu.Item
         icon={<IconSettings size={16} />}
         c={theme.colors.blueGray[7]}
-        onClick={() => navigate('/system/domain')}
+        onClick={() => navigate('/system/tenant')}
       >
         {t('layout:account_menu.system')}
       </Menu.Item>

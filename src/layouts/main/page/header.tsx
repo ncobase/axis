@@ -5,6 +5,7 @@ import React from 'react';
 import Logo from '@/components/logo';
 import { AccountMenu } from '@/layouts/main/menu/account';
 import { MainMenu } from '@/layouts/main/menu/main';
+import { TenantMenu } from '@/layouts/main/menu/tenant';
 import { useListMenus } from '@/pages/system/menu/menu.service';
 import { useColorScheme, useTheme } from '@/themes';
 
@@ -21,9 +22,9 @@ export const Header = ({ ...rest }) => {
   // get account menu
   // const { menus: account_menus = [] } = useGetMenuTree('root', 'account');
   // console.log(account_menus);
-  // get domain menu
-  // const { menus: domain_menus = [] } = useGetMenuTree('root', 'domain');
-  // console.log(domain_menus);
+  // get tenant menu
+  // const { menus: tenant_menus = [] } = useGetMenuTree('root', 'tenant');
+  // console.log(tenant_menus);
 
   return (
     <StdHeader
@@ -56,7 +57,7 @@ export const Header = ({ ...rest }) => {
           <ActionIcon onClick={() => toggleColorScheme()} size={30}>
             {colorScheme === 'dark' ? <IconSun size='1.2rem' /> : <IconMoonStars size='1rem' />}
           </ActionIcon>
-          {/*<DomainMenu />*/}
+          <TenantMenu />
           <AccountMenu />
         </Group>
       </Group>

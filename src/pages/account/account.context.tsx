@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useCallback, useContext, useMemo, useState } from 'react';
 
-import { DomainProvider } from '@/pages/system/domain/domain.context';
+import { TenantProvider } from '@/pages/system/tenant/tenant.context';
 import { locals } from '@/utils/locals';
 import { isBrowser } from '@/utils/ssr';
 
@@ -11,8 +11,8 @@ interface AuthContextValue {
   updateTokens(accessToken?: string, refreshToken?: string): void;
 }
 
-export const ACCESS_TOKEN_KEY = 'access_token';
-export const REFRESH_TOKEN_KEY = 'refresh_token';
+export const ACCESS_TOKEN_KEY = '__ak';
+export const REFRESH_TOKEN_KEY = '__rk';
 
 const AuthContext = React.createContext<AuthContextValue>({
   isAuthenticated: false,
@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      <DomainProvider>{children}</DomainProvider>
+      <TenantProvider>{children}</TenantProvider>
     </AuthContext.Provider>
   );
 };

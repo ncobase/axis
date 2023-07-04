@@ -1,8 +1,8 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { XMdDomainKey, XMdTotalKey } from '@/constants/header';
+import { XMdTenantKey, XMdTotalKey } from '@/constants/header';
 import { ACCESS_TOKEN_KEY } from '@/pages/account/account.context';
-import { DOMAIN_KEY } from '@/pages/system/domain/domain.context';
+import { TENANT_KEY } from '@/pages/system/tenant/tenant.context';
 import { locals } from '@/utils/locals';
 import { isBrowser } from '@/utils/ssr';
 
@@ -11,14 +11,14 @@ Axios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     const isExternal = !!config?.url?.startsWith('http');
     const token = isBrowser ? locals.get(ACCESS_TOKEN_KEY) : '';
-    const domain = isBrowser ? locals.get(DOMAIN_KEY) : '';
+    const tenant = isBrowser ? locals.get(TENANT_KEY) : '';
     const authHeaders = token && !isExternal ? { Authorization: `Bearer ${token}` } : {};
-    const currentDomain = domain ? { [XMdDomainKey]: locals.get(DOMAIN_KEY) } : {};
+    const currentTenant = tenant ? { [XMdTenantKey]: locals.get(TENANT_KEY) } : {};
     return {
       baseURL: import.meta.env.VITE_API_URL || '/api',
       ...config,
       headers: {
-        ...currentDomain,
+        ...currentTenant,
         ...authHeaders,
         ...config.headers
       }

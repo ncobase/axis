@@ -9,7 +9,7 @@ import {
   LoginReply,
   RegisterFormProps
 } from '@/pages/account/account.types';
-import { Domain, Domains } from '@/pages/system/domain/domain.types';
+import { Tenant, Tenants } from '@/pages/system/tenant/tenant.types';
 import { paginateByCursor } from '@/utils/pagination';
 
 interface AccountKeys {
@@ -17,11 +17,11 @@ interface AccountKeys {
   login: () => readonly ['accountService', 'login'];
   register: () => readonly ['accountService', 'register'];
   account: () => readonly ['accountService', 'account'];
-  domains: (
+  tenants: (
     url: string,
     options?: { cursor?: string; limit?: number }
-  ) => readonly ['accountService', 'domains', string, { cursor?: string; limit?: number }];
-  domain: (options?: { id?: string }) => readonly ['accountService', 'domain', { id?: string }];
+  ) => readonly ['accountService', 'tenants', string, { cursor?: string; limit?: number }];
+  tenant: (options?: { id?: string }) => readonly ['accountService', 'tenant', { id?: string }];
 }
 
 export const accountKeys: AccountKeys = {
@@ -29,13 +29,13 @@ export const accountKeys: AccountKeys = {
   login: () => [...accountKeys.all(), 'login'],
   register: () => [...accountKeys.all(), 'register'],
   account: () => [...accountKeys.all(), 'account'],
-  domains: (url, { cursor, limit } = {}) => [
+  tenants: (url, { cursor, limit } = {}) => [
     ...accountKeys.all(),
-    'domains',
+    'tenants',
     url,
     { cursor, limit }
   ],
-  domain: ({ id = '' } = {}) => [...accountKeys.all(), 'domain', { id }]
+  tenant: ({ id = '' } = {}) => [...accountKeys.all(), 'tenant', { id }]
 };
 
 export const useLogin = (
@@ -97,52 +97,52 @@ export const useAccount = (
   return { ...account, isAdministered, ...rest };
 };
 
-export const useAccountDomains = (
+export const useAccountTenants = (
   { cursor = '', limit = 20 } = {},
   config: UseQueryOptions<
-    Domains,
+    Tenants,
     AxiosError,
-    Domains,
-    InferQueryKey<typeof accountKeys.domains>
+    Tenants,
+    InferQueryKey<typeof accountKeys.tenants>
   > = {},
-  url = `/account/domains?cursor=${cursor}&limit=${limit}`
+  url = `/account/tenants?cursor=${cursor}&limit=${limit}`
 ) => {
-  const result = useQuery(accountKeys.domains(url), (): Promise<Domains> => Axios.get(url), {
+  const result = useQuery(accountKeys.tenants(url), (): Promise<Tenants> => Axios.get(url), {
     ...config
   });
 
-  const { content: domains } = result.data || {};
+  const { content: tenants } = result.data || {};
   const { rs, hasNextPage, nextCursor } =
-    (domains && paginateByCursor(domains, cursor, limit)) || ({} as any);
+    (tenants && paginateByCursor(tenants, cursor, limit)) || ({} as any);
 
   return {
-    domains: rs,
+    tenants: rs,
     hasNextPage,
     nextCursor,
     ...result
   };
 };
 
-export const useAccountDomain = (
+export const useAccountTenant = (
   id?: string,
-  config: UseQueryOptions<Domain, AxiosError, Domain, InferQueryKey<typeof accountKeys.domain>> = {}
+  config: UseQueryOptions<Tenant, AxiosError, Tenant, InferQueryKey<typeof accountKeys.tenant>> = {}
 ) => {
   if (!id) {
     return {
-      domain: undefined
+      tenant: undefined
     };
   }
 
-  const { data: domain, ...rest } = useQuery(
-    accountKeys.domain({ id }),
-    (): Promise<Domain> => Axios.get(`/account/domains/${id}`),
+  const { data: tenant, ...rest } = useQuery(
+    accountKeys.tenant({ id }),
+    (): Promise<Tenant> => Axios.get(`/account/tenants/${id}`),
     {
       enabled: !!id,
       ...config
     }
   );
   return {
-    domain,
+    tenant,
     ...rest
   };
 };

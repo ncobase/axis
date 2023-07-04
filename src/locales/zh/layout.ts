@@ -18,10 +18,10 @@ export default {
     hr: '人力资源',
     system: '系统'
   },
-  domain_menu: {
-    label: '组织',
-    admin: '管理组织',
-    switch: '切换组织'
+  tenant_menu: {
+    label: '租户',
+    admin: '管理租户',
+    switch: '切换租户'
   },
   account_menu: {
     label: '帐号',

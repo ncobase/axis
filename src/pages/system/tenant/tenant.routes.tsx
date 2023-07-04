@@ -2,12 +2,12 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { ErrorPage } from '@/components/errors';
-import { Domain } from '@/pages/system/domain/domain';
+import { Tenant } from '@/pages/system/tenant/tenant';
 
-export const DomainRoutes = () => {
+export const TenantRoutes = () => {
   return (
     <Routes>
-      <Route path='/' element={<Domain />} />
+      <Route path='/' element={<Tenant />} />
       <Route path='*' element={<ErrorPage code={404} />} />
     </Routes>
   );

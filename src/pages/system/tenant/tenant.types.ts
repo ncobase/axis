@@ -1,4 +1,4 @@
-export interface Domain {
+export interface Tenant {
   id: string;
   name: string;
   slug: string;
@@ -13,7 +13,7 @@ export interface Domain {
   updated_at: string;
 }
 
-export interface Domains {
-  content: Domain[];
+export interface Tenants {
+  content: Tenant[];
   total: number;
 }

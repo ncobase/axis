@@ -4,18 +4,18 @@ import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAuthContext } from '@/pages/account/account.context';
-import { useAccountDomains } from '@/pages/account/account.service';
-import { useDomainContext } from '@/pages/system/domain/domain.context';
-import { Domain } from '@/pages/system/domain/domain.types';
+import { useAccountTenants } from '@/pages/account/account.service';
+import { useTenantContext } from '@/pages/system/tenant/tenant.context';
+import { Tenant } from '@/pages/system/tenant/tenant.types';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 import { useTheme } from '@/themes';
 
-interface DomainOptionProps extends Domain {
+interface TenantOptionProps extends Tenant {
   isSelected: boolean;
   onSelect: (id: string) => void;
 }
 
-const DomainOption = ({ id, logo, name, slug, isSelected, onSelect }: DomainOptionProps) => {
+const TenantOption = ({ id, logo, name, slug, isSelected, onSelect }: TenantOptionProps) => {
   const theme = useTheme();
 
   return (
@@ -50,20 +50,20 @@ const DomainOption = ({ id, logo, name, slug, isSelected, onSelect }: DomainOpti
   );
 };
 
-type DomainSwitchModalProps = {
+type TenantSwitchModalProps = {
   openModal?: boolean;
   onClose?: () => void;
 };
 
-export const DomainSwitchModal = ({ openModal = false, onClose }: DomainSwitchModalProps) => {
+export const TenantSwitchModal = ({ openModal = false, onClose }: TenantSwitchModalProps) => {
   const { t } = useTranslation();
   const [opened, { open, close }] = useDisclosure(false);
   const { isAuthenticated } = useAuthContext();
-  const { hasDomain, domain_id, updateDomain } = useDomainContext();
+  const { hasTenant, tenant_id, updateTenant } = useTenantContext();
   const redirect = useRedirectFromUrl();
 
-  const result = useAccountDomains();
-  const domains = result?.domains || [];
+  const result = useAccountTenants();
+  const tenants = result?.tenants || [];
 
   useEffect(() => {
     if (openModal) {
@@ -73,26 +73,26 @@ export const DomainSwitchModal = ({ openModal = false, onClose }: DomainSwitchMo
 
   const onSelect = useCallback(
     (id: string) => {
-      if (id !== domain_id) {
-        updateDomain(id);
+      if (id !== tenant_id) {
+        updateTenant(id);
         redirect();
       }
       onClose?.();
       close();
     },
-    [domain_id, redirect, onClose, updateDomain, close]
+    [tenant_id, redirect, onClose, updateTenant, close]
   );
 
   useEffect(() => {
-    if (isAuthenticated && !hasDomain && domains.length > 1) {
+    if (isAuthenticated && !hasTenant && tenants.length > 1) {
       open();
-    } else if (isAuthenticated && !hasDomain && domains.length === 1) {
-      onSelect(domains[0].id);
+    } else if (isAuthenticated && !hasTenant && tenants.length === 1) {
+      onSelect(tenants[0].id);
       close();
     }
-  }, [isAuthenticated, domains.length]);
+  }, [isAuthenticated, tenants.length]);
 
-  if (!domains.length) return null;
+  if (!tenants.length) return null;
 
   return (
     <Modal
@@ -105,13 +105,13 @@ export const DomainSwitchModal = ({ openModal = false, onClose }: DomainSwitchMo
       trapFocus={false}
       closeOnEscape={false}
       closeOnClickOutside={false}
-      title={t('system:domain:interceptor.title')}
+      title={t('system:tenant:interceptor.title')}
     >
-      {domains.map((domain: Domain) => (
-        <DomainOption
-          key={domain.id}
-          {...domain}
-          isSelected={domain.id === domain_id}
+      {tenants.map((tenant: Tenant) => (
+        <TenantOption
+          key={tenant.id}
+          {...tenant}
+          isSelected={tenant.id === tenant_id}
           onSelect={onSelect}
         />
       ))}
