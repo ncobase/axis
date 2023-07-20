@@ -5,7 +5,7 @@ export const Dash = () => {
   const navigate = useNavigate();
   //TODO: use api
   useEffect(() => {
-    navigate('/dash/system');
+    navigate('/dash/sales');
   }, [navigate]);
   return null;
 };
