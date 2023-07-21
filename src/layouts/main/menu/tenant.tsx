@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AvatarButton } from '@/components/avatar/avatar_button';
-import { useAccountTenant } from '@/pages/account/account.service';
+import { useAccountTenant, useAccountTenants } from '@/pages/account/account.service';
 import { TenantSwitchModal } from '@/pages/account/tenant/switch_modal';
 import { useTenantContext } from '@/pages/system/tenant/tenant.context';
 import { useTheme } from '@/themes';
@@ -15,6 +15,7 @@ export const TenantMenu = ({ ...rest }) => {
   const theme = useTheme();
 
   const { hasTenant, tenant_id } = useTenantContext();
+  const { tenants = [] } = useAccountTenants();
   const { tenant } = useAccountTenant(tenant_id, {
     onError: () => {
       open();
@@ -22,6 +23,24 @@ export const TenantMenu = ({ ...rest }) => {
   });
 
   const [opened, { open }] = useDisclosure(false);
+
+  const switchTenant = () => {
+    if (tenants.length > 1) {
+      return (
+        <>
+          <Menu.Divider maw='90%' mx='auto' />
+          <Menu.Item
+            icon={<IconSwitch size={16} />}
+            color={theme.colors.blueGray[7]}
+            onClick={open}
+          >
+            {t('layout:tenant_menu.switch')}
+          </Menu.Item>
+        </>
+      );
+    }
+    return null;
+  };
 
   const MenuList = () => (
     <Menu shadow='md' width={180} {...rest}>
@@ -33,10 +52,7 @@ export const TenantMenu = ({ ...rest }) => {
         <Menu.Item icon={<IconAdjustments size={16} />} color={theme.colors.blueGray[7]}>
           {t('layout:tenant_menu.admin')}
         </Menu.Item>
-        <Menu.Divider maw='90%' mx='auto' />
-        <Menu.Item icon={<IconSwitch size={16} />} color={theme.colors.blueGray[7]} onClick={open}>
-          {t('layout:tenant_menu.switch')}
-        </Menu.Item>
+        {switchTenant()}
       </Menu.Dropdown>
     </Menu>
   );

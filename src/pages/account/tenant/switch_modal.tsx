@@ -18,6 +18,8 @@ interface TenantOptionProps extends Tenant {
 const TenantOption = ({ id, logo, name, slug, isSelected, onSelect }: TenantOptionProps) => {
   const theme = useTheme();
 
+  console.log(name, slug);
+
   return (
     <UnstyledButton
       key={id}
@@ -38,11 +40,11 @@ const TenantOption = ({ id, logo, name, slug, isSelected, onSelect }: TenantOpti
       onClick={() => onSelect(id)}
     >
       <Group>
-        <Avatar src={logo} radius='xl' />
+        {logo && <Avatar src={logo} radius='xl' />}
         <Box sx={{ flex: 1 }}>
           <Text weight={500}>{name}</Text>
           <Text color='dimmed' size='xs'>
-            {slug}
+            {slug || name}
           </Text>
         </Box>
       </Group>
