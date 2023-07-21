@@ -21,7 +21,7 @@ export const Login = () => {
   return (
     <Page title={t('account:login.title')}>
       <Flex justify='center' align='center' className={classes.authWrapper}>
-        <Paper p='xl' shadow='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
+        <Paper p='xl' shadow='lg' w={{ base: '96%', sm: 480 }} mt='-3.5rem' radius='md'>
           <Flex justify='center' display='block' mb='xl' mt='xs'>
             <Logo type='full-mask' height='2.25rem' />
           </Flex>
