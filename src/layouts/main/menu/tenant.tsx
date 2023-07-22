@@ -45,7 +45,16 @@ export const TenantMenu = ({ ...rest }) => {
   const MenuList = () => (
     <Menu shadow='md' width={180} {...rest}>
       <Menu.Target>
-        <AvatarButton src={tenant?.logo} alt={tenant?.name} />
+        {tenant?.logo ? (
+          <AvatarButton src={tenant?.logo} alt={tenant?.name} />
+        ) : (
+          <span
+            className='text-gray-500 cursor-pointer text-ellipsis whitespace-nowrap overflow-hidden max-w-[80px]'
+            title={tenant?.name}
+          >
+            {tenant?.name}
+          </span>
+        )}
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Label>{t('layout:tenant_menu.label')}</Menu.Label>

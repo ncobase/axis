@@ -20,7 +20,8 @@ export default {
   },
   tenant: {
     interceptor: {
-      title: '请选择进入组织...'
+      title: '请选择租户...',
+      switch: '切换租户'
     }
   }
 };

@@ -5,11 +5,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import versionInfo from '@/../version.json';
+import userAvatar from '@/assets/images/avatar.svg';
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { useAccount } from '@/pages/account/account.service';
 import { useTheme } from '@/themes';
-
-import versionInfo from '../../../../version.json';
 
 const AdminMenu = ({ isAdmin = false }) => {
   const { t } = useTranslation();
@@ -68,7 +68,7 @@ export const AccountMenu = ({ ...rest }) => {
       <Menu.Target>
         <AvatarButton
           isLoading={isLoading}
-          src={profile?.thumbnail}
+          src={profile?.thumbnail || userAvatar}
           alt={profile?.short_bio || user?.username || ''}
         />
       </Menu.Target>

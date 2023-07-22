@@ -1,7 +1,7 @@
 import { createPopper } from '@popperjs/core';
 import React from 'react';
 
-import avatar from '@/assets/avatar.jpg';
+import avatar from '@/assets/images/avatar.svg';
 
 interface UserDropdownProps {}
 

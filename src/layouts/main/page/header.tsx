@@ -32,6 +32,7 @@ export const Header = ({ ...rest }) => {
       bg={colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blueGray[8]}
       w='100vw'
       sx={{
+        borderBottomWidth: 0,
         boxShadow: theme.shadows.sm
       }}
       {...rest}

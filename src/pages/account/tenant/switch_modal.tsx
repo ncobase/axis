@@ -18,8 +18,6 @@ interface TenantOptionProps extends Tenant {
 const TenantOption = ({ id, logo, name, slug, isSelected, onSelect }: TenantOptionProps) => {
   const theme = useTheme();
 
-  console.log(name, slug);
-
   return (
     <UnstyledButton
       key={id}
@@ -107,7 +105,9 @@ export const TenantSwitchModal = ({ openModal = false, onClose }: TenantSwitchMo
       trapFocus={false}
       closeOnEscape={false}
       closeOnClickOutside={false}
-      title={t('system:tenant:interceptor.title')}
+      title={
+        hasTenant ? t('system:tenant.interceptor.switch') : t('system:tenant.interceptor.title')
+      }
     >
       {tenants.map((tenant: Tenant) => (
         <TenantOption

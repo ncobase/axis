@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 
-import backgroundImage from '@/assets/signin-bg.svg';
+import backgroundImage from '@/assets/images/signin-bg.svg';
 
 export const useStyles = createStyles(() => ({
   authWrapper: {
