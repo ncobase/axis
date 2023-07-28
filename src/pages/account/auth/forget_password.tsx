@@ -4,6 +4,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import Footer from '@/components/footer/footer';
 import Logo from '@/components/logo';
 import { Page } from '@/layouts/main';
 import { useStyles } from '@/pages/account/account.styles';
@@ -32,7 +33,7 @@ export const ForgetPassword = () => {
 
   return (
     <Page title={t('account:forget_password.title')}>
-      <Flex justify='center' align='center' className={classes.authWrapper}>
+      <Flex justify='center' align='center' direction='column' className={classes.authWrapper}>
         <Paper p='xl' shadow='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
           <Flex justify='center' display='block' mb='xl' mt='xs'>
             <Logo type='full-mask' height='2.25rem' />
@@ -59,6 +60,7 @@ export const ForgetPassword = () => {
             </Group>
           </form>
         </Paper>
+        <Footer />
       </Flex>
     </Page>
   );
