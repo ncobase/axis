@@ -1,7 +1,4 @@
-import React from 'react';
+import { AppShell as Shell } from '@mantine/core';
 
-const Shell = () => {
-  return <div></div>;
-};
-
+// TODO: Custom application shell
 export default Shell;

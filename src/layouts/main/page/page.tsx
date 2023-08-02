@@ -1,8 +1,9 @@
-import { AppShell, Container, FlexProps, MantineSize, Navbar } from '@mantine/core';
+import { Container, FlexProps, MantineSize, Navbar } from '@mantine/core';
 import React, { createContext, useContext, useMemo } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
+import Shell from '@/components/shell/shell';
 import { useFocusMode } from '@/layouts/main';
 import { Header } from '@/layouts/main/page/header';
 
@@ -84,9 +85,9 @@ export const Page: React.FC<PageProps> = ({
     <PageContext.Provider value={pageContextValue}>
       <PageTitle suffix={t('application:title')}>{title}</PageTitle>
       {withLayout && !showBack ? (
-        <AppShell header={header} navbar={nav} padding={0}>
+        <Shell header={header} navbar={nav} padding={0}>
           <PageContainer {...rest} />
-        </AppShell>
+        </Shell>
       ) : (
         rest.children
       )}
