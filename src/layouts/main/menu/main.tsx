@@ -17,7 +17,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ menus = [] }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const isActive = (to: string) => pathname.startsWith(to);
+  const isActive = (to: string) => !!to && pathname.startsWith(to);
 
   const handleLinkClick = (path: string) => {
     navigate(path);
