@@ -4,17 +4,18 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useStyles } from '@/layouts/main/page/sidebar.styles';
+import { useListMenus } from '@/pages/system/menu/menu.service';
 import { MenuProps } from '@/pages/system/menu/menu.types';
 import { useTheme } from '@/themes';
 import { getInitials } from '@/utils';
 
 interface SidebarProps {
-  links: MenuProps[];
+  menuID: string;
   activeLabel?: string;
   onLinkClick?: (label: string) => void;
 }
 
-export const Sidebar = ({ links, activeLabel = '', onLinkClick }: SidebarProps) => {
+export const Sidebar = ({ menuID = '', activeLabel = '', onLinkClick }: SidebarProps) => {
   const { classes, cx } = useStyles();
   const theme = useTheme();
   const [active, setActive] = useState(activeLabel);
@@ -26,7 +27,10 @@ export const Sidebar = ({ links, activeLabel = '', onLinkClick }: SidebarProps) 
 
   const isActive = (to: string) => pathname.startsWith(to);
 
-  const sidebarLinks = links.map(link => {
+  // TODO: Dynamic parent id
+  const { menus = [] } = useListMenus({ type: 'sidebar', parent: menuID });
+
+  const sidebarLinks = menus.map((link: MenuProps) => {
     if (link.hidden) return null;
     return (
       <Tooltip
@@ -49,7 +53,11 @@ export const Sidebar = ({ links, activeLabel = '', onLinkClick }: SidebarProps) 
           }}
         >
           {link.icon ? (
-            <link.icon size={16} color={theme.colors.blueGray[5]} strokeWidth={1.5} />
+            // TODO: React.lazy Icon Component
+            // <link.icon size={16} color={theme.colors.blueGray[5]} strokeWidth={1.5} />
+            <Text color={theme.colors.blueGray[5]}>
+              {getInitials(link.name || link.label || link.id)}
+            </Text>
           ) : (
             <Text color={theme.colors.blueGray[5]}>
               {getInitials(link.name || link.label || link.id)}
@@ -61,8 +69,10 @@ export const Sidebar = ({ links, activeLabel = '', onLinkClick }: SidebarProps) 
   });
 
   return (
-    <Navbar width={{ sm: theme.other.layout.sidebar.width }} sx={{ boxShadow: theme.shadows.sm }}>
-      <Navbar.Section>{sidebarLinks}</Navbar.Section>
-    </Navbar>
+    menus.length && (
+      <Navbar width={{ sm: theme.other.layout.sidebar.width }} sx={{ boxShadow: theme.shadows.sm }}>
+        <Navbar.Section>{sidebarLinks}</Navbar.Section>
+      </Navbar>
+    )
   );
 };

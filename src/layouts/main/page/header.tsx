@@ -15,8 +15,8 @@ export const Header = ({ ...rest }) => {
 
   // get main menu
   // TODO: order
-  // const { menus: main_menus = [] } = useGetMenuTree('root', 'main');
-  const { menus: main_menus = [] } = useListMenus({ type: 'main' });
+  // const { menus: header_menus = [] } = useGetMenuTree('root', 'main');
+  const { menus: header_menus = [] } = useListMenus({ type: 'header' });
 
   // TODO: All menus changed to fetch from backend, include i18n configuage
   // get account menu
@@ -46,7 +46,7 @@ export const Header = ({ ...rest }) => {
             type='min'
             logoColor='white'
           />
-          {main_menus.length ? <MainMenu menus={main_menus} /> : null}
+          {header_menus.length ? <MainMenu menus={header_menus} /> : null}
         </Group>
         <Group px={theme.spacing.md}>
           <ActionIcon>

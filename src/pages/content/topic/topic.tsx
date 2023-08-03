@@ -1,9 +1,9 @@
 import { Page } from '@/layouts/main';
-import contentNav from '@/pages/content/content.nav';
+import { ContentNav } from '@/pages/content/content.nav';
 
 export const Topic = () => {
   return (
-    <Page withLayout nav={contentNav}>
+    <Page withLayout nav={<ContentNav />}>
       Topic Page
     </Page>
   );

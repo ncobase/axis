@@ -1,6 +1,6 @@
 import { Menu } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
-import { IconClipboardCheck, IconLogout, IconSettings, IconUser } from '@tabler/icons-react';
+import { IconClipboardCheck } from '@tabler/icons-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -9,28 +9,30 @@ import versionInfo from '@/../version.json';
 import userAvatar from '@/assets/images/avatar.svg';
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { useAccount } from '@/pages/account/account.service';
+import { useListMenus } from '@/pages/system/menu/menu.service';
+import { MenuTreeProps } from '@/pages/system/menu/menu.types';
 import { useTheme } from '@/themes';
 
-const AdminMenu = ({ isAdmin = false }) => {
-  const { t } = useTranslation();
-  const theme = useTheme();
-  const navigate = useNavigate();
-
-  if (!isAdmin) return null;
-
-  return (
-    <>
-      <Menu.Item
-        icon={<IconSettings size={16} />}
-        c={theme.colors.blueGray[7]}
-        onClick={() => navigate('/system/tenant')}
-      >
-        {t('layout:account_menu.system')}
-      </Menu.Item>
-      <Menu.Divider maw='90%' mx='auto' />
-    </>
-  );
-};
+// const AdminMenu = ({ isAdmin = false }) => {
+//   const { t } = useTranslation();
+//   const theme = useTheme();
+//   const navigate = useNavigate();
+//
+//   if (!isAdmin) return null;
+//
+//   return (
+//     <>
+//       <Menu.Item
+//         // icon={<IconSettings size={16} />}
+//         c={theme.colors.blueGray[7]}
+//         onClick={() => navigate('/system/tenant')}
+//       >
+//         {t('layout:account_menu.system')}
+//       </Menu.Item>
+//       <Menu.Divider maw='90%' mx='auto' />
+//     </>
+//   );
+// };
 
 const AppVersion = () => {
   const { t } = useTranslation();
@@ -41,7 +43,6 @@ const AppVersion = () => {
 
   return (
     <>
-      <Menu.Divider maw='90%' mx='auto' />
       <Menu.Item
         icon={copied ? <IconClipboardCheck size={16} color={theme.colors.green[6]} /> : null}
         c={copied ? theme.colors.green[5] : theme.colors.blueGray[4]}
@@ -62,6 +63,35 @@ export const AccountMenu = ({ ...rest }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { user, profile, isLoading } = useAccount();
+  const { menus = [] } = useListMenus({ type: 'account' });
+
+  const renderMenuDropdown = (menuItems: MenuTreeProps[]) => {
+    const visibleItems = menuItems.filter(item => !item.hidden);
+    return (
+      visibleItems.length > 0 && (
+        <Menu.Dropdown>
+          <Menu.Label>{t('layout:account_menu.label')}</Menu.Label>
+          {visibleItems.map(renderLink)}
+          <AppVersion />
+        </Menu.Dropdown>
+      )
+    );
+  };
+
+  const renderLink = (menu: MenuTreeProps) => {
+    return (
+      <div key={menu.id || menu.label}>
+        <Menu.Item
+          // TODO: icon={<menu.icon size={16} />}
+          c={theme.colors.blueGray[7]}
+          onClick={() => navigate(menu.path)}
+        >
+          {t(menu.label)}
+        </Menu.Item>
+        {menus.length > 1 && <Menu.Divider maw='90%' mx='auto' />}
+      </div>
+    );
+  };
 
   return (
     <Menu shadow='md' width={180} {...rest}>
@@ -72,26 +102,7 @@ export const AccountMenu = ({ ...rest }) => {
           alt={profile?.short_bio || user?.username || ''}
         />
       </Menu.Target>
-      <Menu.Dropdown>
-        <Menu.Label>{t('layout:account_menu.label')}</Menu.Label>
-        <Menu.Item
-          icon={<IconUser size={16} />}
-          c={theme.colors.blueGray[7]}
-          onClick={() => navigate('/account/profile')}
-        >
-          {t('layout:account_menu.my')}
-        </Menu.Item>
-        <Menu.Divider maw='90%' mx='auto' />
-        <AdminMenu isAdmin />
-        <Menu.Item
-          icon={<IconLogout size={16} />}
-          c={theme.colors.blueGray[7]}
-          onClick={() => navigate('/logout')}
-        >
-          {t('layout:account_menu.logout')}
-        </Menu.Item>
-        <AppVersion />
-      </Menu.Dropdown>
+      {renderMenuDropdown(menus)}
     </Menu>
   );
 };

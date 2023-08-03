@@ -1,13 +1,14 @@
 export default {
   title: '布局',
   main_menu: {
-    dash: '控制台',
+    home: '首页',
     content: {
       label: '内容',
       column: '栏目',
       news: '新闻',
       topic: '主题',
-      fragment: '碎片'
+      fragment: '碎片',
+      comment: '评论'
     },
     sale: '销售',
     purchase: '采购',
@@ -16,7 +17,14 @@ export default {
     customer: '客户',
     analytics: '分析',
     hr: '人力资源',
-    system: '系统'
+    system: {
+      label: '系统',
+      tenant: '租户',
+      group: '组织',
+      dictionary: '字典',
+      application: '应用',
+      basic: '基础'
+    }
   },
   tenant_menu: {
     label: '租户',
@@ -33,7 +41,7 @@ export default {
     },
     switch_dark: '切换到深色模式',
     switch_light: '切换到浅色模式',
-    my: '我的帐号',
+    profile: '我的帐号',
     logout: '退出'
   }
 };

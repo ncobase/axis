@@ -15,13 +15,8 @@ interface MenuKeys {
   update: () => readonly ['menuService', 'update'];
   list: (
     url: string,
-    options?: { cursor?: string; limit?: number; type?: string }
-  ) => readonly [
-    'menuService',
-    'menus',
-    string,
-    { cursor?: string; limit?: number; type?: string }
-  ];
+    options?: { [key: string]: string | number }
+  ) => readonly ['menuService', 'menus', string, { [key: string]: unknown }];
 }
 
 export const menuKeys: MenuKeys = {
@@ -108,24 +103,28 @@ export const useUpdateMenu = ({
 };
 
 export const useListMenus = (
-  { cursor = '', limit = 20, type = '' } = {},
+  dynamicParams: { [key: string]: string | number } = {},
   config: UseQueryOptions<
     MenusProps,
     AxiosError,
     MenusProps,
     InferQueryKey<typeof menuKeys.list>
-  > = {},
-  url = `/menus?limit=${limit ?? 20}${cursor ? '&cursor=' + cursor : ''}${
-    type ? '&type=' + type : ''
-  }`
+  > = {}
 ) => {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(dynamicParams)) {
+    params.append(key, String(value));
+  }
+
+  const url = '/menus?' + params.toString();
   const result = useQuery(menuKeys.list(url), (): Promise<MenusProps> => Axios.get(url), {
     ...config
   });
 
   const { content: menus } = result.data || {};
+  const { cursor = '', limit = 20 } = dynamicParams;
   const { rs, hasNextPage, nextCursor } =
-    (menus && paginateByCursor(menus, cursor, limit)) || ({} as any);
+    (menus && paginateByCursor(menus, cursor as string, limit as number)) || ({} as any);
 
   return {
     menus: rs,

@@ -1,5 +1,5 @@
 export interface MenuProps {
-  id?: string;
+  id: string;
   name?: string;
   label: string;
   icon?: any; // string is Tabler Icons

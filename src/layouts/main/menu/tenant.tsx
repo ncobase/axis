@@ -1,18 +1,22 @@
 import { Menu } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconAdjustments, IconSwitch } from '@tabler/icons-react';
+import { IconSwitch } from '@tabler/icons-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { useAccountTenant, useAccountTenants } from '@/pages/account/account.service';
 import { TenantSwitchModal } from '@/pages/account/tenant/switch_modal';
+import { useListMenus } from '@/pages/system/menu/menu.service';
+import { MenuTreeProps } from '@/pages/system/menu/menu.types';
 import { useTenantContext } from '@/pages/system/tenant/tenant.context';
 import { useTheme } from '@/themes';
 
 export const TenantMenu = ({ ...rest }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const { hasTenant, tenant_id } = useTenantContext();
   const { tenants = [] } = useAccountTenants();
@@ -24,13 +28,15 @@ export const TenantMenu = ({ ...rest }) => {
 
   const [opened, { open }] = useDisclosure(false);
 
+  const { menus = [] } = useListMenus({ type: 'tenant' });
+
   const switchTenant = () => {
     if (tenants.length > 1) {
       return (
         <>
           <Menu.Divider maw='90%' mx='auto' />
           <Menu.Item
-            icon={<IconSwitch size={16} />}
+            // icon={<IconSwitch size={16} />}
             color={theme.colors.blueGray[7]}
             onClick={open}
           >
@@ -40,6 +46,34 @@ export const TenantMenu = ({ ...rest }) => {
       );
     }
     return null;
+  };
+
+  const renderMenuDropdown = (menuItems: MenuTreeProps[]) => {
+    const visibleItems = menuItems.filter(item => !item.hidden);
+    return (
+      visibleItems.length > 0 && (
+        <Menu.Dropdown>
+          <Menu.Label>{t('layout:tenant_menu.label')}</Menu.Label>
+          {visibleItems.map(renderLink)}
+          {switchTenant()}
+        </Menu.Dropdown>
+      )
+    );
+  };
+
+  const renderLink = (menu: MenuTreeProps) => {
+    return (
+      <div key={menu.id || menu.label}>
+        <Menu.Item
+          // TODO: icon={<menu.icon size={16} />}
+          c={theme.colors.blueGray[7]}
+          onClick={() => navigate(menu.path)}
+        >
+          {t(menu.label)}
+        </Menu.Item>
+        {menus.length > 1 && <Menu.Divider maw='90%' mx='auto' />}
+      </div>
+    );
   };
 
   const MenuList = () => (
@@ -56,13 +90,7 @@ export const TenantMenu = ({ ...rest }) => {
           </span>
         )}
       </Menu.Target>
-      <Menu.Dropdown>
-        <Menu.Label>{t('layout:tenant_menu.label')}</Menu.Label>
-        <Menu.Item icon={<IconAdjustments size={16} />} color={theme.colors.blueGray[7]}>
-          {t('layout:tenant_menu.admin')}
-        </Menu.Item>
-        {switchTenant()}
-      </Menu.Dropdown>
+      {renderMenuDropdown(menus)}
     </Menu>
   );
 
