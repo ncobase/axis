@@ -62,7 +62,7 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
           }}
         >
           {link.icon ? (
-            <DIcon name={link.icon} size={16} color={theme.colors.blueGray[5]} strokeWidth={1.5} />
+            <DIcon name={link.icon} />
           ) : (
             <Text color={theme.colors.blueGray[5]}>
               {getInitials(link.name || link.label || link.id)}

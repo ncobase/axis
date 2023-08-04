@@ -47,7 +47,7 @@ export const Header = ({ ...rest }) => {
           />
           {headerMenus.length ? <MainMenu menus={headerMenus} /> : null}
         </Group>
-        <Group px={theme.spacing.md}>
+        <Group px={theme.spacing.md} spacing='sm'>
           <ActionIcon>
             <DIcon name='IconBell' size={20} />
           </ActionIcon>
@@ -58,7 +58,7 @@ export const Header = ({ ...rest }) => {
             {colorScheme === 'dark' ? (
               <DIcon name='IconSun' size='1.2rem' />
             ) : (
-              <DIcon name='IconMoonStars' size='1rem' />
+              <DIcon name='IconMoonStars' size='1.1rem' />
             )}
           </ActionIcon>
           <TenantMenu />

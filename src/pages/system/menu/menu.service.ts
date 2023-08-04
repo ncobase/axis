@@ -117,7 +117,6 @@ export const useListMenus = (
   }
 
   const url = '/menus?' + params.toString();
-  console.log(url);
   const result = useQuery(menuKeys.list(url), (): Promise<MenusProps> => Axios.get(url), {
     ...config
   });
