@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { DIcon } from '@/components/icon/icon';
 import { useStyles } from '@/layouts/main/page/sidebar.styles';
 import { useListMenus } from '@/pages/system/menu/menu.service';
 import { MenuProps } from '@/pages/system/menu/menu.types';
@@ -53,11 +54,7 @@ export const Sidebar = ({ menuID = '', activeLabel = '', onLinkClick }: SidebarP
           }}
         >
           {link.icon ? (
-            // TODO: React.lazy Icon Component
-            // <link.icon size={16} color={theme.colors.blueGray[5]} strokeWidth={1.5} />
-            <Text color={theme.colors.blueGray[5]}>
-              {getInitials(link.name || link.label || link.id)}
-            </Text>
+            <DIcon name={link.icon} size={16} color={theme.colors.blueGray[5]} strokeWidth={1.5} />
           ) : (
             <Text color={theme.colors.blueGray[5]}>
               {getInitials(link.name || link.label || link.id)}

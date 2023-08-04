@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import versionInfo from '@/../version.json';
 import userAvatar from '@/assets/images/avatar.svg';
 import { AvatarButton } from '@/components/avatar/avatar_button';
+import { DIcon } from '@/components/icon/icon';
 import { useAccount } from '@/pages/account/account.service';
 import { useListMenus } from '@/pages/system/menu/menu.service';
 import { MenuTreeProps } from '@/pages/system/menu/menu.types';
@@ -23,7 +24,7 @@ import { useTheme } from '@/themes';
 //   return (
 //     <>
 //       <Menu.Item
-//         // icon={<IconSettings size={16} />}
+//         // icon={<DIcon name='IconSettings' />}
 //         c={theme.colors.blueGray[7]}
 //         onClick={() => navigate('/system/tenant')}
 //       >
@@ -44,7 +45,7 @@ const AppVersion = () => {
   return (
     <>
       <Menu.Item
-        icon={copied ? <IconClipboardCheck size={16} color={theme.colors.green[6]} /> : null}
+        icon={copied ? <DIcon name='IconClipboardCheck' color={theme.colors.green[6]} /> : null}
         c={copied ? theme.colors.green[5] : theme.colors.blueGray[4]}
         onClick={() => copy(JSON.stringify(versionInfo, null, 2))}
         closeMenuOnClick={false}
@@ -82,7 +83,7 @@ export const AccountMenu = ({ ...rest }) => {
     return (
       <div key={menu.id || menu.label}>
         <Menu.Item
-          // TODO: icon={<menu.icon size={16} />}
+          icon={<DIcon name={menu.icon} />}
           c={theme.colors.blueGray[7]}
           onClick={() => navigate(menu.path)}
         >

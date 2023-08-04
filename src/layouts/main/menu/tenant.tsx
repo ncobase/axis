@@ -1,11 +1,11 @@
 import { Menu } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconSwitch } from '@tabler/icons-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { AvatarButton } from '@/components/avatar/avatar_button';
+import { DIcon } from '@/components/icon/icon';
 import { useAccountTenant, useAccountTenants } from '@/pages/account/account.service';
 import { TenantSwitchModal } from '@/pages/account/tenant/switch_modal';
 import { useListMenus } from '@/pages/system/menu/menu.service';
@@ -36,7 +36,7 @@ export const TenantMenu = ({ ...rest }) => {
         <>
           <Menu.Divider maw='90%' mx='auto' />
           <Menu.Item
-            // icon={<IconSwitch size={16} />}
+            icon={<DIcon name='IconSwitch' />}
             color={theme.colors.blueGray[7]}
             onClick={open}
           >
@@ -65,7 +65,7 @@ export const TenantMenu = ({ ...rest }) => {
     return (
       <div key={menu.id || menu.label}>
         <Menu.Item
-          // TODO: icon={<menu.icon size={16} />}
+          icon={<DIcon name={menu.icon} />}
           c={theme.colors.blueGray[7]}
           onClick={() => navigate(menu.path)}
         >
