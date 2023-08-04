@@ -11,12 +11,11 @@ import { useTheme } from '@/themes';
 import { getInitials } from '@/utils';
 
 interface SidebarProps {
-  menuID: string;
   activeLabel?: string;
   onLinkClick?: (label: string) => void;
 }
 
-export const Sidebar = ({ menuID = '', activeLabel = '', onLinkClick }: SidebarProps) => {
+export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   const { classes, cx } = useStyles();
   const theme = useTheme();
   const [active, setActive] = useState(activeLabel);
@@ -28,10 +27,19 @@ export const Sidebar = ({ menuID = '', activeLabel = '', onLinkClick }: SidebarP
 
   const isActive = (to: string) => pathname.startsWith(to);
 
-  // TODO: Dynamic parent id
-  const { menus = [] } = useListMenus({ type: 'sidebar', parent: menuID });
+  const headerMenus = useListMenus({ type: 'header' }).menus ?? [];
+  const pathArray = pathname.split('/').filter(Boolean);
+  const sidebarMenus =
+    useListMenus({
+      type: 'sidebar',
+      parent: headerMenus.find(
+        (menu: MenuProps) => menu.slug === (pathArray[pathArray.length - 2] ?? pathArray[0])
+      )?.id
+    }).menus ?? [];
 
-  const sidebarLinks = menus.map((link: MenuProps) => {
+  if (headerMenus.length === 0 || sidebarMenus.length === 0) return null;
+
+  const sidebarLinks = sidebarMenus.map((link: MenuProps) => {
     if (link.hidden) return null;
     return (
       <Tooltip
@@ -66,10 +74,8 @@ export const Sidebar = ({ menuID = '', activeLabel = '', onLinkClick }: SidebarP
   });
 
   return (
-    menus.length && (
-      <Navbar width={{ sm: theme.other.layout.sidebar.width }} sx={{ boxShadow: theme.shadows.sm }}>
-        <Navbar.Section>{sidebarLinks}</Navbar.Section>
-      </Navbar>
-    )
+    <Navbar width={{ sm: theme.other.layout.sidebar.width }} sx={{ boxShadow: theme.shadows.sm }}>
+      <Navbar.Section>{sidebarLinks}</Navbar.Section>
+    </Navbar>
   );
 };

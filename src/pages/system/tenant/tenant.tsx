@@ -1,9 +1,9 @@
 import { Page } from '@/layouts/main';
-import { SystemNav } from '@/pages/system/system.nav';
+import { Sidebar } from '@/layouts/main/page/sidebar';
 
 export const Tenant = () => {
   return (
-    <Page withLayout nav={<SystemNav />}>
+    <Page withLayout nav={<Sidebar />}>
       Tenant Page
     </Page>
   );

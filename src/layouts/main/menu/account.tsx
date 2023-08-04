@@ -1,6 +1,5 @@
 import { Menu } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
-import { IconClipboardCheck } from '@tabler/icons-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

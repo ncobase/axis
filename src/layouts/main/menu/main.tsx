@@ -1,9 +1,9 @@
 import { Anchor, Center, Group, Menu } from '@mantine/core';
-import { IconChevronDown } from '@tabler/icons-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { DIcon } from '@/components/icon/icon';
 import { useStyles } from '@/layouts/main/menu/main.styles';
 import { MenuTreeProps } from '@/pages/system/menu/menu.types';
 
@@ -49,7 +49,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ menus = [] }) => {
             <Anchor className={classes.link} onClick={handleClick}>
               <Center>
                 <span className={classes.linkLabel}>{t(label)}</span>
-                <IconChevronDown size='0.9rem' />
+                <DIcon name='IconChevronDown' size='0.9rem' />
               </Center>
             </Anchor>
           </Menu.Target>
