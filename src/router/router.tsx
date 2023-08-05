@@ -11,8 +11,14 @@ import { Login } from '@/pages/account/auth/login';
 import { Register } from '@/pages/account/auth/register';
 import { Logout } from '@/pages/account/logout';
 import { ContentRoutes } from '@/pages/content/content.routes';
+import { CustomerRoutes } from '@/pages/customer/customer.routes';
 import { DashRoutes } from '@/pages/dash/dash.routes';
+import { FinanceRoutes } from '@/pages/finance/finance.routes';
+import { HrRoutes } from '@/pages/hr/hr.routes';
+import { PurchaseRoutes } from '@/pages/purchase/purchase.routes';
+import { SaleRoutes } from '@/pages/sale/sale.routes';
 import { SystemRoutes } from '@/pages/system/system.routes';
+import { WarehouseRoutes } from '@/pages/warehouse/warehouse.routes';
 import { AdminGuard, AuthenticatedGuard, PublicGuard } from '@/router';
 
 export const Router = () => {
@@ -82,6 +88,54 @@ export const Router = () => {
                 element={
                   <AuthenticatedGuard>
                     <ContentRoutes />
+                  </AuthenticatedGuard>
+                }
+              />
+              <Route
+                path='/sale/*'
+                element={
+                  <AuthenticatedGuard>
+                    <SaleRoutes />
+                  </AuthenticatedGuard>
+                }
+              />
+              <Route
+                path='/purchase/*'
+                element={
+                  <AuthenticatedGuard>
+                    <PurchaseRoutes />
+                  </AuthenticatedGuard>
+                }
+              />
+              <Route
+                path='/finance/*'
+                element={
+                  <AuthenticatedGuard>
+                    <FinanceRoutes />
+                  </AuthenticatedGuard>
+                }
+              />
+              <Route
+                path='/warehouse/*'
+                element={
+                  <AuthenticatedGuard>
+                    <WarehouseRoutes />
+                  </AuthenticatedGuard>
+                }
+              />
+              <Route
+                path='/customer/*'
+                element={
+                  <AuthenticatedGuard>
+                    <CustomerRoutes />
+                  </AuthenticatedGuard>
+                }
+              />
+              <Route
+                path='/hr/*'
+                element={
+                  <AuthenticatedGuard>
+                    <HrRoutes />
                   </AuthenticatedGuard>
                 }
               />
