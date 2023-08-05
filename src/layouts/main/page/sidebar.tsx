@@ -29,13 +29,14 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
 
   const headerMenus = useListMenus({ type: 'header' }).menus ?? [];
   const pathArray = pathname.split('/').filter(Boolean);
-  const sidebarMenus =
+  const sidebarMenus = (
     useListMenus({
       type: 'sidebar',
       parent: headerMenus.find(
         (menu: MenuProps) => menu.slug === (pathArray[pathArray.length - 2] ?? pathArray[0])
       )?.id
-    }).menus ?? [];
+    }).menus ?? []
+  ).filter((i: MenuProps) => !i.hidden);
 
   if (headerMenus.length === 0 || sidebarMenus.length === 0) return null;
 
