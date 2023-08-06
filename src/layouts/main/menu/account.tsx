@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import versionInfo from '@/../version.json';
-import userAvatar from '@/assets/images/avatar.svg';
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
 import { useAccount } from '@/pages/account/account.service';
@@ -98,8 +97,9 @@ export const AccountMenu = ({ ...rest }) => {
       <Menu.Target>
         <AvatarButton
           isLoading={isLoading}
-          src={profile?.thumbnail || userAvatar}
-          alt={profile?.short_bio || user?.username || ''}
+          src={profile?.thumbnail}
+          title={profile?.display_name || user?.username || ''}
+          alt={profile?.display_name || user?.username || ''}
         />
       </Menu.Target>
       {renderMenuDropdown(menus)}

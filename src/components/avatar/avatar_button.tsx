@@ -6,14 +6,15 @@ import { getInitials } from '@/utils';
 interface AvatarButtonProps extends AvatarProps {
   isLoading?: boolean;
   onClick?: () => void;
+  title?: string;
 }
 
 export const AvatarButton = React.forwardRef<HTMLButtonElement, AvatarButtonProps>(
-  ({ src, alt, isLoading, size = 'sm', ...rest }, ref) => {
+  ({ isLoading, ...rest }, ref) => {
     return (
       <UnstyledButton ref={ref}>
-        <Avatar src={src} alt={alt} radius='xl' size={size} {...rest}>
-          {isLoading ? <Loader size='xs' /> : getInitials(alt)}
+        <Avatar radius='xl' size='sm' {...rest}>
+          {isLoading ? <Loader size='xs' /> : getInitials(rest.title || rest.alt)}
         </Avatar>
       </UnstyledButton>
     );
