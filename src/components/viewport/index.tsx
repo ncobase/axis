@@ -2,6 +2,7 @@ import { Flex, FlexProps } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import React, { useCallback, useEffect } from 'react';
 
+import blurBackground from '@/assets/images/blur.jpg';
 import { isBrowser } from '@/utils/ssr';
 
 const useFixViewport = () => {
@@ -37,6 +38,9 @@ const Viewport: React.FC<FlexProps> = ({ children, ...props }) => {
       {...props}
     >
       {children}
+      <div className='fixed w-full h-96 top-0 -z-30 blur-3xl bg-transparent'>
+        <img className='w-full h-full bg-cover opacity-5' src={blurBackground} alt='' />
+      </div>
     </Flex>
   );
 };

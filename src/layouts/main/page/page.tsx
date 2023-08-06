@@ -3,7 +3,6 @@ import React, { createContext, useContext, useMemo } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
-import blurBackground from '@/assets/images/blur.jpg';
 import Shell from '@/components/shell/shell';
 import { useFocusMode } from '@/layouts/main';
 import { Header } from '@/layouts/main/page/header';
@@ -27,14 +26,9 @@ const PageContainer: React.FC<FlexProps> = ({ children, ...rest }) => {
   const containerProps = useMemo(() => ({ size, fluid: !size }), [size]);
   if (noWithContainer) return <>{children}</>;
   return (
-    <>
-      <div className='w-full h-96 -z-30 fixed blur-3xl bg-transparent'>
-        <img className='w-full h-full bg-cover opacity-5' src={blurBackground} alt='' />
-      </div>
-      <Container style={{ flex: 1 }} p='md' {...containerProps} {...rest}>
-        {children}
-      </Container>
-    </>
+    <Container style={{ flex: 1 }} p='md' {...containerProps} {...rest}>
+      {children}
+    </Container>
   );
 };
 
