@@ -1,4 +1,4 @@
-import { Container, FlexProps, MantineSize, Navbar } from '@mantine/core';
+import { Container, FlexProps, MantineSize } from '@mantine/core';
 import React, { createContext, useContext, useMemo } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -8,13 +8,14 @@ import { useFocusMode } from '@/layouts/main';
 import { Header } from '@/layouts/main/page/header';
 
 interface PageContextValue {
-  nav?: React.ReactNode;
+  topbar?: React.ReactNode;
+  sidebar?: React.ReactNode;
   size?: MantineSize;
   noWithContainer?: boolean;
 }
 
 const PageContext = createContext<PageContextValue>({
-  nav: undefined,
+  sidebar: undefined,
   size: undefined,
   noWithContainer: false
 });
@@ -55,7 +56,8 @@ const PageTitle: React.FC<PageTitleProps> = ({ suffix = '', children = '' }) => 
 
 interface PageProps extends FlexProps {
   header?: React.ReactElement;
-  nav?: React.ReactElement;
+  sidebar?: React.ReactElement;
+  topbar?: React.ReactElement;
   size?: MantineSize;
   noWithContainer?: boolean;
   title?: any;
@@ -65,7 +67,8 @@ interface PageProps extends FlexProps {
 
 export const Page: React.FC<PageProps> = ({
   header = <Header />,
-  nav = <Navbar width={{ sm: 0 }} children={null} />,
+  topbar,
+  sidebar = <></>,
   size,
   noWithContainer = false,
   title,
@@ -77,15 +80,16 @@ export const Page: React.FC<PageProps> = ({
   useFocusMode();
 
   const pageContextValue = useMemo(
-    () => ({ header, nav, size, noWithContainer }),
-    [header, nav, size, noWithContainer]
+    () => ({ header, topbar, sidebar, size, noWithContainer }),
+    [header, topbar, sidebar, size, noWithContainer]
   );
 
   return (
     <PageContext.Provider value={pageContextValue}>
       <PageTitle suffix={t('application:title')}>{title}</PageTitle>
       {withLayout && !showBack ? (
-        <Shell header={header} navbar={nav} padding={0}>
+        <Shell header={header} navbar={sidebar} padding={0}>
+          {topbar && topbar}
           <PageContainer {...rest} />
         </Shell>
       ) : (
