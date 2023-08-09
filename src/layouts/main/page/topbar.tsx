@@ -22,7 +22,7 @@ export const Topbar: React.FC<TopbarProps> = ({ title, operators = [], extras = 
       {title && (
         <div className='font-bold text-gray-800'>
           {title}
-          <span className='pl-px ml-4 w-px bg-gray-300' />
+          <span className='pl-px ml-4 w-px bg-gray-200' />
         </div>
       )}
       <div className='gap-4 flex'>

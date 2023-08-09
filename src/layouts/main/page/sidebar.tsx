@@ -1,4 +1,4 @@
-import { Navbar, Text, Tooltip, UnstyledButton } from '@mantine/core';
+import { Divider, Navbar, Text, Tooltip, UnstyledButton } from '@mantine/core';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -40,43 +40,55 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
 
   if (headerMenus.length === 0 || sidebarMenus.length === 0) return null;
 
-  const sidebarLinks = sidebarMenus.map((link: MenuProps) => {
-    if (link.hidden) return null;
-    return (
-      <Tooltip
-        key={link.id || link.label}
-        label={t(link.label)}
-        position='right'
-        withArrow
-        transitionProps={{ duration: 0 }}
-        className={cx(classes.link, {
-          [classes.linkActive]: isActive(link.path) || active === link.label
-        })}
+  const isDividerLink = (link: MenuProps) =>
+    link.name === 'Divide' && link.slug?.includes('divide') && link.path === '-';
+
+  const dividerLink = (link: MenuProps) => (
+    <Divider size='xs' className='w-1/2 !mx-auto !border-gray-200' key={link.id} />
+  );
+
+  const tooltipLink = (link: MenuProps, isActive: boolean, active: string) => (
+    <Tooltip
+      key={link.id}
+      label={t(link.label)}
+      position='right'
+      withArrow
+      transitionProps={{ duration: 0 }}
+      className={cx(classes.link, {
+        [classes.linkActive]: isActive || active === link.label
+      })}
+    >
+      <UnstyledButton
+        mx='auto'
+        my='xs'
+        onClick={() => {
+          setActive(link.label);
+          navigate(link.path);
+          if (onLinkClick) onLinkClick(link.label);
+        }}
       >
-        <UnstyledButton
-          mx='auto'
-          my='xs'
-          onClick={() => {
-            setActive(link.label);
-            navigate(link.path);
-            if (onLinkClick) onLinkClick(link.label);
-          }}
-        >
-          {link.icon ? (
-            <DIcon name={link.icon} />
-          ) : (
-            <Text color={theme.colors.blueGray[5]}>
-              {getInitials(link.name || link.label || link.id)}
-            </Text>
-          )}
-        </UnstyledButton>
-      </Tooltip>
-    );
+        {link.icon ? (
+          <DIcon name={link.icon} />
+        ) : (
+          <Text color={theme.colors.blueGray[5]}>
+            {getInitials(link.name || link.label || link.id)}
+          </Text>
+        )}
+      </UnstyledButton>
+    </Tooltip>
+  );
+
+  const links = sidebarMenus.map((link: MenuProps) => {
+    if (link.hidden) return null;
+
+    if (isDividerLink(link)) return dividerLink(link);
+
+    return tooltipLink(link, isActive(link.path), active);
   });
 
   return (
     <Navbar width={{ sm: theme.other.layout.sidebar.width }} sx={{ boxShadow: theme.shadows.sm }}>
-      <Navbar.Section>{sidebarLinks}</Navbar.Section>
+      <Navbar.Section>{links}</Navbar.Section>
     </Navbar>
   );
 };
