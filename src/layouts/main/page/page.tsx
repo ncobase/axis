@@ -9,20 +9,20 @@ import { Header } from '@/layouts/main/page/header';
 
 interface PageContextValue {
   topbar?: React.ReactNode;
-  sidebar?: React.ReactNode;
+  navbar?: React.ReactNode;
   size?: MantineSize;
   noWithContainer?: boolean;
 }
 
 const PageContext = createContext<PageContextValue>({
-  sidebar: undefined,
+  navbar: undefined,
   size: undefined,
   noWithContainer: false
 });
 
 export const usePageContext = () => useContext(PageContext);
 
-const PageContainer: React.FC<FlexProps> = ({ children, ...rest }) => {
+const ContentContainer: React.FC<FlexProps> = ({ children, ...rest }) => {
   const { size, noWithContainer } = usePageContext();
   const containerProps = useMemo(() => ({ size, fluid: !size }), [size]);
   if (noWithContainer) return <>{children}</>;
@@ -56,7 +56,7 @@ const PageTitle: React.FC<PageTitleProps> = ({ suffix = '', children = '' }) => 
 
 interface PageProps extends FlexProps {
   header?: React.ReactElement;
-  sidebar?: React.ReactElement;
+  navbar?: React.ReactElement;
   topbar?: React.ReactElement;
   size?: MantineSize;
   noWithContainer?: boolean;
@@ -68,7 +68,7 @@ interface PageProps extends FlexProps {
 export const Page: React.FC<PageProps> = ({
   header = <Header />,
   topbar,
-  sidebar = <></>,
+  navbar = <></>,
   size,
   noWithContainer = false,
   title,
@@ -80,17 +80,17 @@ export const Page: React.FC<PageProps> = ({
   useFocusMode();
 
   const pageContextValue = useMemo(
-    () => ({ header, topbar, sidebar, size, noWithContainer }),
-    [header, topbar, sidebar, size, noWithContainer]
+    () => ({ header, topbar, navbar, size, noWithContainer }),
+    [header, topbar, navbar, size, noWithContainer]
   );
 
   return (
     <PageContext.Provider value={pageContextValue}>
       <PageTitle suffix={t('application:title')}>{title}</PageTitle>
       {withLayout && !showBack ? (
-        <Shell header={header} navbar={sidebar} padding={0}>
+        <Shell header={header} navbar={navbar} padding={0}>
           {topbar && topbar}
-          <PageContainer {...rest} />
+          <ContentContainer {...rest} />
         </Shell>
       ) : (
         rest.children

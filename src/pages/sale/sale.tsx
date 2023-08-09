@@ -2,7 +2,7 @@ import React from 'react';
 
 import { DIcon } from '@/components/icon/icon';
 import { Page } from '@/layouts/main';
-import { Sidebar } from '@/layouts/main/page/sidebar';
+import { Navbar } from '@/layouts/main/page/navbar';
 import { Topbar } from '@/layouts/main/page/topbar';
 
 const Sale = () => {
@@ -17,7 +17,7 @@ const Sale = () => {
   return (
     <Page
       withLayout
-      sidebar={<Sidebar />}
+      navbar={<Navbar />}
       topbar={<Topbar title={title} operators={topBarOperators} />}
     >
       {title}

@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { Page } from '@/layouts/main';
-import { Sidebar } from '@/layouts/main/page/sidebar';
+import { Navbar } from '@/layouts/main/page/navbar';
 import { Topbar } from '@/layouts/main/page/topbar';
 
 const Hr = () => {
   const title = 'HR Page';
 
   return (
-    <Page withLayout sidebar={<Sidebar />} topbar={<Topbar>Custom topbar element</Topbar>}>
+    <Page withLayout navbar={<Navbar />} topbar={<Topbar>Custom topbar element</Topbar>}>
       {title}
     </Page>
   );

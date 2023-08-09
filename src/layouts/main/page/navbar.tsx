@@ -1,10 +1,10 @@
-import { Divider, Navbar, Text, Tooltip, UnstyledButton } from '@mantine/core';
+import { Divider, Navbar as StdNavbar, Text, Tooltip, UnstyledButton } from '@mantine/core';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import { useStyles } from '@/layouts/main/page/sidebar.styles';
+import { useStyles } from '@/layouts/main/page/navbar.styles';
 import { useListMenus } from '@/pages/system/menu/menu.service';
 import { MenuProps } from '@/pages/system/menu/menu.types';
 import { useTheme } from '@/themes';
@@ -15,7 +15,7 @@ interface SidebarProps {
   onLinkClick?: (label: string) => void;
 }
 
-export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
+export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   const { classes, cx } = useStyles();
   const theme = useTheme();
   const [active, setActive] = useState(activeLabel);
@@ -87,8 +87,11 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   });
 
   return (
-    <Navbar width={{ sm: theme.other.layout.sidebar.width }} sx={{ boxShadow: theme.shadows.sm }}>
-      <Navbar.Section>{links}</Navbar.Section>
-    </Navbar>
+    <StdNavbar
+      width={{ sm: theme.other.layout.sidebar.width }}
+      sx={{ boxShadow: theme.shadows.sm }}
+    >
+      <StdNavbar.Section>{links}</StdNavbar.Section>
+    </StdNavbar>
   );
 };
