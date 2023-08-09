@@ -12,24 +12,24 @@ interface IProps {
   setColorTheme: React.Dispatch<React.SetStateAction<MantineThemeBase>>;
 }
 
-const useStyles = createStyles(theme => ({
+const useStyles = createStyles(({ spacing }) => ({
   radioGroup: {
-    padding: theme.spacing.sm
+    padding: spacing.sm
   }
 }));
 
 // Render a component which allows the user to change global state regarding the colorTheme
 export const ThemePicker: React.FC<IProps> = ({ colorTheme, setColorTheme }) => {
-  const theme = useTheme();
+  const { colors } = useTheme();
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
-  const colorPalletes = Object.keys(theme.colors).map((color: string) => (
+  const colorPalletes = Object.keys(colors).map((color: string) => (
     <ColorSwatch
       className={classes.radioGroup}
       size={36}
       key={color}
       component='button'
-      color={theme.colors[color][6]}
+      color={colors[color][6]}
       onClick={() => {
         setColorTheme((prevState: MantineThemeBase) => {
           return { ...prevState, primaryColor: color };

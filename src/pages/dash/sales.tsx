@@ -3,7 +3,6 @@ import { Box, Container, Grid, Skeleton } from '@mantine/core';
 import React from 'react';
 
 import { Page } from '@/layouts/main';
-import { useTheme } from '@/themes';
 
 // const BoxContent = ({ children }: any) => (
 //   <Box bg='white' className='rounded-md shadow-lg shadow-gray-200/10' p={16} mb={16}>
@@ -12,7 +11,6 @@ import { useTheme } from '@/themes';
 // );
 
 export const Sales = () => {
-  const theme = useTheme();
   const card = Array.from({ length: 4 }).map((_, index) => (
     <Grid.Col key={index} span={3}>
       <Skeleton height={288} radius='md' animate={false} />
@@ -21,10 +19,7 @@ export const Sales = () => {
 
   return (
     <Page title='Sales' withLayout noWithContainer>
-      <Box
-        style={{ backgroundColor: theme.white, height: 320 }}
-        className='shadow-lg shadow-gray-200/20'
-      >
+      <Box className='bg-white h-80 shadow-lg shadow-gray-200/20'>
         <Container fluid py={16}>
           <Grid gutter={16}>
             <Carousel align='start' w='100%' withControls={false} draggable={card.length > 4} loop>

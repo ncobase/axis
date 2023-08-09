@@ -58,6 +58,7 @@ interface PageProps extends FlexProps {
   header?: React.ReactElement;
   navbar?: React.ReactElement;
   topbar?: React.ReactElement;
+  sidebar?: React.ReactElement;
   size?: MantineSize;
   noWithContainer?: boolean;
   title?: any;
@@ -69,6 +70,7 @@ export const Page: React.FC<PageProps> = ({
   header = <Header />,
   topbar,
   navbar = <></>,
+  sidebar = <></>,
   size,
   noWithContainer = false,
   title,
@@ -80,8 +82,8 @@ export const Page: React.FC<PageProps> = ({
   useFocusMode();
 
   const pageContextValue = useMemo(
-    () => ({ header, topbar, navbar, size, noWithContainer }),
-    [header, topbar, navbar, size, noWithContainer]
+    () => ({ header, topbar, navbar, sidebar, size, noWithContainer }),
+    [header, topbar, navbar, sidebar, size, noWithContainer]
   );
 
   return (
@@ -90,6 +92,7 @@ export const Page: React.FC<PageProps> = ({
       {withLayout && !showBack ? (
         <Shell header={header} navbar={navbar} padding={0}>
           {topbar && topbar}
+          {/* TODO: {sidebar && sidebar}*/}
           <ContentContainer {...rest} />
         </Shell>
       ) : (

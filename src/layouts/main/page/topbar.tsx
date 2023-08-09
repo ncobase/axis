@@ -1,6 +1,7 @@
 import { randomId } from '@mantine/hooks';
 import React from 'react';
 
+import { useTheme } from '@/themes';
 import { getInitials } from '@/utils';
 
 export interface TopbarProps extends React.PropsWithChildren {
@@ -9,11 +10,17 @@ export interface TopbarProps extends React.PropsWithChildren {
   extras?: React.JSX.Element[];
 }
 
-const TopbarWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <div className='px-4 h-12 bg-white shadow-sm align-middle items-center flex gap-4'>
-    {children}
-  </div>
-);
+const TopbarWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { other } = useTheme();
+  return (
+    <div
+      className='px-4 h-12 bg-white shadow-sm align-middle items-center flex gap-4'
+      style={{ height: other.layout.topbar.height }}
+    >
+      {children}
+    </div>
+  );
+};
 
 export const Topbar: React.FC<TopbarProps> = ({ title, operators = [], extras = [], children }) => {
   if (children) return <TopbarWrapper>{children}</TopbarWrapper>;

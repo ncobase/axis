@@ -8,7 +8,7 @@ import { useAccount } from '@/pages/account/account.service';
 import { useTheme } from '@/themes';
 
 export const Profile = () => {
-  const theme = useTheme();
+  const { colors } = useTheme();
   const { user, profile, isLoading } = useAccount();
 
   return (
@@ -34,18 +34,18 @@ export const Profile = () => {
             </span>
             <Group mt={16} spacing={26}>
               <Group spacing={5}>
-                <DIcon name='IconShieldCheck' color={theme.colors.gray[5]} />
+                <DIcon name='IconShieldCheck' color={colors.gray[5]} />
               </Group>
               <Group spacing={5}>
-                <DIcon name='IconMapPin' color={theme.colors.gray[5]} />
+                <DIcon name='IconMapPin' color={colors.gray[5]} />
                 <span className='text-xs text-gray-400'>{user?.phone}</span>
               </Group>
               <Group spacing={5}>
-                <DIcon name='IconAt' color={theme.colors.gray[5]} />
+                <DIcon name='IconAt' color={colors.gray[5]} />
                 <span className='text-xs text-gray-400'>{user?.email}</span>
               </Group>
               <Group spacing={5}>
-                <DIcon name='IconPhoneCall' color={theme.colors.gray[5]} />
+                <DIcon name='IconPhoneCall' color={colors.gray[5]} />
                 <span className='text-xs text-gray-400'>{user?.phone}</span>
               </Group>
             </Group>

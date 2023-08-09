@@ -2,14 +2,20 @@ import { spacing } from '@/themes/default/spacing';
 
 export const other = {
   layout: {
-    topbar: {
+    header: {
       height: `calc(3.5rem + ${spacing['safe-top']})`
     },
-    sidebar: {
+    topbar: {
+      height: `calc(3rem + ${spacing['safe-left']})`
+    },
+    navbar: {
       width: `calc(3.5rem + ${spacing['safe-left']})`
     },
+    sidebar: {
+      width: `calc(11rem + ${spacing['safe-left']})`
+    },
     content: {
-      height: `calc(100vh - calc(3.5rem + ${spacing['safe-top']}))`
+      height: `calc(100vh - calc(6.5rem + ${spacing['safe-top']}))`
     }
   }
 };

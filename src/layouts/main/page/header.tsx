@@ -10,7 +10,7 @@ import { useListMenus } from '@/pages/system/menu/menu.service';
 import { useColorScheme, useTheme } from '@/themes';
 
 export const Header = ({ ...rest }) => {
-  const theme = useTheme();
+  const { spacing, colors, shadows, other } = useTheme();
   const { colorScheme, toggleColorScheme } = useColorScheme();
 
   // get main menu
@@ -27,12 +27,12 @@ export const Header = ({ ...rest }) => {
 
   return (
     <StdHeader
-      height={theme.other.layout.topbar.height}
-      bg={colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blueGray[8]}
+      height={other.layout.header.height}
+      bg={colorScheme === 'dark' ? colors.dark[8] : colors.blueGray[8]}
       w='100vw'
       sx={{
         borderBottomWidth: 0,
-        boxShadow: theme.shadows.sm
+        boxShadow: shadows.sm
       }}
       {...rest}
     >
@@ -41,13 +41,13 @@ export const Header = ({ ...rest }) => {
           <Logo
             w={55}
             h={55}
-            bg={colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blueGray[9]}
+            bg={colorScheme === 'dark' ? colors.dark[8] : colors.blueGray[9]}
             type='min'
             logoColor='white'
           />
           {headerMenus.length ? <MainMenu menus={headerMenus} /> : null}
         </Group>
-        <Group px={theme.spacing.md} spacing='sm'>
+        <Group px={spacing.md} spacing='sm'>
           <ActionIcon>
             <DIcon name='IconBell' size={20} />
           </ActionIcon>

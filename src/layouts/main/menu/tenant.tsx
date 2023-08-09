@@ -15,7 +15,7 @@ import { useTheme } from '@/themes';
 
 export const TenantMenu = ({ ...rest }) => {
   const { t } = useTranslation();
-  const theme = useTheme();
+  const { colors } = useTheme();
   const navigate = useNavigate();
 
   const { hasTenant, tenant_id } = useTenantContext();
@@ -35,11 +35,7 @@ export const TenantMenu = ({ ...rest }) => {
       return (
         <>
           <Menu.Divider maw='90%' mx='auto' />
-          <Menu.Item
-            icon={<DIcon name='IconSwitch' />}
-            color={theme.colors.blueGray[7]}
-            onClick={open}
-          >
+          <Menu.Item icon={<DIcon name='IconSwitch' />} color={colors.blueGray[7]} onClick={open}>
             {t('layout:tenant_menu.switch')}
           </Menu.Item>
         </>
@@ -66,7 +62,7 @@ export const TenantMenu = ({ ...rest }) => {
       <div key={menu.id || menu.label}>
         <Menu.Item
           icon={<DIcon name={menu.icon} />}
-          c={theme.colors.blueGray[7]}
+          c={colors.blueGray[7]}
           onClick={() => navigate(menu.path)}
         >
           {t(menu.label)}

@@ -14,7 +14,7 @@ import { useTheme } from '@/themes';
 
 // const AdminMenu = ({ isAdmin = false }) => {
 //   const { t } = useTranslation();
-//   const theme = useTheme();
+//   const { colors } = useTheme();
 //   const navigate = useNavigate();
 //
 //   if (!isAdmin) return null;
@@ -23,7 +23,7 @@ import { useTheme } from '@/themes';
 //     <>
 //       <Menu.Item
 //         // icon={<DIcon name='IconSettings' />}
-//         c={theme.colors.blueGray[7]}
+//         c={colors.blueGray[7]}
 //         onClick={() => navigate('/system/tenant')}
 //       >
 //         {t('layout:account_menu.system')}
@@ -35,7 +35,7 @@ import { useTheme } from '@/themes';
 
 const AppVersion = () => {
   const { t } = useTranslation();
-  const theme = useTheme();
+  const { colors } = useTheme();
   const { copied, copy } = useClipboard();
 
   if (!versionInfo?.version) return null;
@@ -43,8 +43,8 @@ const AppVersion = () => {
   return (
     <>
       <Menu.Item
-        icon={copied ? <DIcon name='IconClipboardCheck' color={theme.colors.green[6]} /> : null}
-        c={copied ? theme.colors.green[5] : theme.colors.blueGray[4]}
+        icon={copied ? <DIcon name='IconClipboardCheck' color={colors.green[6]} /> : null}
+        c={copied ? colors.green[5] : colors.blueGray[4]}
         onClick={() => copy(JSON.stringify(versionInfo, null, 2))}
         closeMenuOnClick={false}
         title={
@@ -59,7 +59,7 @@ const AppVersion = () => {
 
 export const AccountMenu = ({ ...rest }) => {
   const { t } = useTranslation();
-  const theme = useTheme();
+  const { colors } = useTheme();
   const navigate = useNavigate();
   const { user, profile, isLoading } = useAccount();
   const { menus = [] } = useListMenus({ type: 'account' });
@@ -82,7 +82,7 @@ export const AccountMenu = ({ ...rest }) => {
       <div key={menu.id || menu.label}>
         <Menu.Item
           icon={<DIcon name={menu.icon} />}
-          c={theme.colors.blueGray[7]}
+          c={colors.blueGray[7]}
           onClick={() => navigate(menu.path)}
         >
           {t(menu.label)}

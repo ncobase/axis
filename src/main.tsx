@@ -29,7 +29,7 @@ const notificationsProps: NotificationsProps = {
 const AppDevHint = () => {
   const isProd = import.meta.env.PROD;
   const envName = !isProd && import.meta.env.MODE;
-  const theme = useTheme();
+  const { white, colors } = useTheme();
 
   if (!envName || isProd) {
     return null;
@@ -44,8 +44,8 @@ const AppDevHint = () => {
           left: 0,
           width: 16,
           height: 16,
-          color: theme.white,
-          backgroundColor: theme.colors.warning[5],
+          color: white,
+          backgroundColor: colors.warning[5],
           borderBottomRightRadius: '42%',
           zIndex: getDefaultZIndex('max')
         }}

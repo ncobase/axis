@@ -1,5 +1,10 @@
 import { MantineThemeOverride } from '@mantine/core';
 
+type Layout = Record<string, any>;
+interface ThemeOverride extends MantineThemeOverride {
+  layout: Layout;
+}
+
 import { colors } from '@/themes/default/colors';
 import { globalStyles } from '@/themes/default/global';
 import { other } from '@/themes/default/other';
@@ -17,4 +22,4 @@ export default {
   datesLocale: 'zh',
   spacing,
   other
-} as Partial<MantineThemeOverride>;
+} as Partial<ThemeOverride>;

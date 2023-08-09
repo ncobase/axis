@@ -28,7 +28,7 @@ interface ApiHintProps {
 
 const ApiHint = ({ setValues }: ApiHintProps) => {
   const { t } = useTranslation();
-  const theme = useTheme();
+  const { colors } = useTheme();
   const isProd = import.meta.env.PROD;
   const envName = !isProd && import.meta.env.MODE;
   const colorScheme = !isProd && import.meta.env.MODE === 'development' ? 'warning' : 'error';
@@ -49,13 +49,7 @@ const ApiHint = ({ setValues }: ApiHintProps) => {
   };
 
   return (
-    <Paper
-      bg={theme.colors[colorScheme][1]}
-      c={theme.colors[colorScheme][9]}
-      p='xs'
-      fz='xs'
-      ta='center'
-    >
+    <Paper bg={colors[colorScheme][1]} c={colors[colorScheme][9]} p='xs' fz='xs' ta='center'>
       <Trans
         t={t}
         i18nKey='application:api.login_hint'

@@ -5,6 +5,8 @@ interface ImportMetaEnv extends Readonly<Record<string, string>> {
   readonly VITE_PORT: string;
   readonly VITE_API_URL: string;
   readonly VITE_PWA: string;
+  readonly MODE: string;
+  readonly PROD: string;
 }
 
 interface ImportMeta {

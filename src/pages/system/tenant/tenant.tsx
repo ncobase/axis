@@ -3,6 +3,7 @@ import React from 'react';
 import { DIcon } from '@/components/icon/icon';
 import { Page } from '@/layouts/main';
 import { Navbar } from '@/layouts/main/page/navbar';
+import { Sidebar } from '@/layouts/main/page/sidebar';
 import { Topbar } from '@/layouts/main/page/topbar';
 
 export const Tenant = () => {
@@ -25,6 +26,7 @@ export const Tenant = () => {
       withLayout
       navbar={<Navbar />}
       topbar={<Topbar title={title} operators={topBarOperators} extras={topBarExtras} />}
+      sidebar={<Sidebar />}
     >
       {title}
     </Page>

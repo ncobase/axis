@@ -17,7 +17,7 @@ interface SidebarProps {
 
 export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   const { classes, cx } = useStyles();
-  const theme = useTheme();
+  const { colors, shadows, other } = useTheme();
   const [active, setActive] = useState(activeLabel);
 
   const { t } = useTranslation();
@@ -70,9 +70,7 @@ export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
         {link.icon ? (
           <DIcon name={link.icon} />
         ) : (
-          <Text color={theme.colors.blueGray[5]}>
-            {getInitials(link.name || link.label || link.id)}
-          </Text>
+          <Text color={colors.blueGray[5]}>{getInitials(link.name || link.label || link.id)}</Text>
         )}
       </UnstyledButton>
     </Tooltip>
@@ -87,10 +85,7 @@ export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   });
 
   return (
-    <StdNavbar
-      width={{ sm: theme.other.layout.sidebar.width }}
-      sx={{ boxShadow: theme.shadows.sm }}
-    >
+    <StdNavbar width={{ sm: other.layout.navbar.width }} sx={{ boxShadow: shadows.sm }}>
       <StdNavbar.Section>{links}</StdNavbar.Section>
     </StdNavbar>
   );
