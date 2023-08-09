@@ -5,7 +5,7 @@ import React from 'react';
 import { Page } from '@/layouts/main';
 
 // const BoxContent = ({ children }: any) => (
-//   <Box bg='white' className='rounded-md shadow-lg shadow-gray-200/10' p={16} mb={16}>
+//   <Box bg='white' className='rounded-md shadow-lg shadow-blueGray-200/10' p={16} mb={16}>
 //     {children}
 //   </Box>
 // );
@@ -19,7 +19,7 @@ export const Sales = () => {
 
   return (
     <Page title='Sales' withLayout noWithContainer>
-      <Box className='bg-white h-80 shadow-lg shadow-gray-200/20'>
+      <Box className='bg-white h-80 shadow-lg shadow-blueGray-200/20'>
         <Container fluid py={16}>
           <Grid gutter={16}>
             <Carousel align='start' w='100%' withControls={false} draggable={card.length > 4} loop>

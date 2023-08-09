@@ -10,13 +10,13 @@ export const Tenant = () => {
   const title = 'Tenant Page';
 
   const topBarOperators = [
-    <button className='max-h-8 rounded-md px-3 py-2 hover:bg-gray-100'>
+    <button className='max-h-8 rounded-md px-3 py-2 hover:bg-blueGray-100'>
       <DIcon name='IconPlus' />
     </button>
   ];
 
   const topBarExtras = [
-    <button className='max-h-8 rounded-md px-3 py-2 hover:bg-gray-100'>
+    <button className='max-h-8 rounded-md px-3 py-2 hover:bg-blueGray-100'>
       <DIcon name='IconFilter' />
     </button>
   ];

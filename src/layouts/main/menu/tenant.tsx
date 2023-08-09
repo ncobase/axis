@@ -79,7 +79,7 @@ export const TenantMenu = ({ ...rest }) => {
           <AvatarButton src={tenant?.logo} alt={tenant?.name} />
         ) : (
           <span
-            className='text-gray-500 cursor-pointer text-ellipsis whitespace-nowrap overflow-hidden max-w-[80px]'
+            className='text-blueGray-500 cursor-pointer text-ellipsis whitespace-nowrap overflow-hidden max-w-[80px]'
             title={tenant?.name}
           >
             {tenant?.name}
