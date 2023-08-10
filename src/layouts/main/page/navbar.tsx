@@ -17,7 +17,7 @@ interface SidebarProps {
 
 export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   const { classes, cx } = useStyles();
-  const { colors, shadows, other } = useTheme();
+  const { colors, other } = useTheme();
   const [active, setActive] = useState(activeLabel);
 
   const { t } = useTranslation();
@@ -85,8 +85,10 @@ export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   });
 
   return (
-    <StdNavbar width={{ sm: other.layout.navbar.width }} sx={{ boxShadow: shadows.sm }}>
+    <StdNavbar width={{ sm: other.layout.navbar.width }} className='shadow-sm justify-between'>
       <StdNavbar.Section>{links}</StdNavbar.Section>
+      {/*Bottom Wrapper*/}
+      {/*<div className='py-4 flex justify-center'></div>*/}
     </StdNavbar>
   );
 };

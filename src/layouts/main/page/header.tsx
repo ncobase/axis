@@ -3,7 +3,7 @@ import React from 'react';
 
 import { DIcon } from '@/components/icon/icon';
 import Logo from '@/components/logo';
-import { AccountMenu } from '@/layouts/main/menu/account';
+import { AccountMenu } from '@/layouts/main';
 import { MainMenu } from '@/layouts/main/menu/main';
 import { TenantMenu } from '@/layouts/main/menu/tenant';
 import { useListMenus } from '@/pages/system/menu/menu.service';
