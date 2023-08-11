@@ -1,5 +1,5 @@
 import { Menu } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { randomId, useDisclosure } from '@mantine/hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -11,11 +11,9 @@ import { TenantSwitchModal } from '@/pages/account/tenant/switch_modal';
 import { useListMenus } from '@/pages/system/menu/menu.service';
 import { MenuTreeProps } from '@/pages/system/menu/menu.types';
 import { useTenantContext } from '@/pages/system/tenant/tenant.context';
-import { useTheme } from '@/themes';
 
 export const TenantMenu = ({ ...rest }) => {
   const { t } = useTranslation();
-  const { colors } = useTheme();
   const navigate = useNavigate();
 
   const { hasTenant, tenant_id } = useTenantContext();
@@ -35,7 +33,11 @@ export const TenantMenu = ({ ...rest }) => {
       return (
         <>
           <Menu.Divider maw='90%' mx='auto' />
-          <Menu.Item icon={<DIcon name='IconSwitch' />} color={colors.blueGray[7]} onClick={open}>
+          <Menu.Item
+            icon={<DIcon name='IconSwitch' />}
+            className='!text-blueGray-700'
+            onClick={open}
+          >
             {t('layout:tenant_menu.switch')}
           </Menu.Item>
         </>
@@ -49,7 +51,6 @@ export const TenantMenu = ({ ...rest }) => {
     return (
       visibleItems.length > 0 && (
         <Menu.Dropdown>
-          <Menu.Label>{t('layout:tenant_menu.label')}</Menu.Label>
           {visibleItems.map(renderLink)}
           {switchTenant()}
         </Menu.Dropdown>
@@ -58,16 +59,19 @@ export const TenantMenu = ({ ...rest }) => {
   };
 
   const renderLink = (menu: MenuTreeProps) => {
+    if (menu.slug?.includes('label') && menu.path.includes('label'))
+      return <Menu.Label key={menu.id || randomId()}>{t('layout:tenant_menu.label')}</Menu.Label>;
     return (
       <div key={menu.id || menu.label}>
         <Menu.Item
           icon={<DIcon name={menu.icon} />}
-          c={colors.blueGray[7]}
+          className='!text-blueGray-700'
           onClick={() => navigate(menu.path)}
         >
           {t(menu.label)}
         </Menu.Item>
-        {menus.length > 1 && <Menu.Divider maw='90%' mx='auto' />}
+        {menus.filter((o: MenuTreeProps) => !o.slug?.includes('label') && !o.path.includes('label'))
+          .length > 1 && <Menu.Divider maw='90%' mx='auto' />}
       </div>
     );
   };
