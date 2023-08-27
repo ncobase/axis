@@ -23,7 +23,7 @@ import { useTheme } from '@/themes';
 //     <>
 //       <Menu.Item
 //         // icon={<DIcon name='IconSettings' />}
-//         c={colors.blueGray[7]}
+//         c={colors.slate[7]}
 //         onClick={() => navigate('/system/tenant')}
 //       >
 //         {t('layout:account_menu.system')}
@@ -44,7 +44,7 @@ const AppVersion = () => {
     <>
       <Menu.Item
         icon={copied ? <DIcon name='IconClipboardCheck' color={colors.green[6]} /> : null}
-        c={copied ? colors.green[5] : colors.blueGray[4]}
+        c={copied ? colors.green[5] : colors.slate[4]}
         onClick={() => copy(JSON.stringify(versionInfo, null, 2))}
         closeMenuOnClick={false}
         title={
@@ -82,7 +82,7 @@ export const AccountMenu = ({ ...rest }) => {
       <div key={menu.id || menu.label}>
         <Menu.Item
           icon={<DIcon name={menu.icon} />}
-          c={colors.blueGray[7]}
+          c={colors.slate[7]}
           onClick={() => navigate(menu.path)}
         >
           {t(menu.label)}

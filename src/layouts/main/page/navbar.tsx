@@ -44,7 +44,7 @@ export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
     link.name === 'Divide' && link.slug?.includes('divide') && link.path === '-';
 
   const dividerLink = (link: MenuProps) => (
-    <Divider size='xs' className='w-1/2 !mx-auto !border-blueGray-200' key={link.id} />
+    <Divider size='xs' className='w-1/2 !mx-auto !border-slate-200' key={link.id} />
   );
 
   const tooltipLink = (link: MenuProps, isActive: boolean, active: string) => (
@@ -70,7 +70,7 @@ export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
         {link.icon ? (
           <DIcon name={link.icon} />
         ) : (
-          <Text color={colors.blueGray[5]}>{getInitials(link.name || link.label || link.id)}</Text>
+          <Text color={colors.slate[5]}>{getInitials(link.name || link.label || link.id)}</Text>
         )}
       </UnstyledButton>
     </Tooltip>

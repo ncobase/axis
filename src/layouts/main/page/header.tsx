@@ -28,7 +28,7 @@ export const Header = ({ ...rest }) => {
   return (
     <StdHeader
       height={other.layout.header.height}
-      bg={colorScheme === 'dark' ? colors.dark[8] : colors.blueGray[8]}
+      bg={colorScheme === 'dark' ? colors.dark[8] : colors.slate[8]}
       w='100vw'
       sx={{
         borderBottomWidth: 0,
@@ -41,7 +41,7 @@ export const Header = ({ ...rest }) => {
           <Logo
             w={55}
             h={55}
-            bg={colorScheme === 'dark' ? colors.dark[8] : colors.blueGray[9]}
+            bg={colorScheme === 'dark' ? colors.dark[8] : colors.slate[9]}
             type='min'
             logoColor='white'
           />

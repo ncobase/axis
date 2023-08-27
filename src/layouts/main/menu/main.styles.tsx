@@ -18,7 +18,7 @@ export const useStyles = createStyles(theme => {
       '&:hover': {
         textDecoration: 'none',
         backgroundColor:
-          theme.colorScheme === 'dark' ? theme.colors.whiteAlpha[1] : theme.colors.blueGray[9]
+          theme.colorScheme === 'dark' ? theme.colors.whiteAlpha[1] : theme.colors.slate[9]
       }
     },
     linkActive: {

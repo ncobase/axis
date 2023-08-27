@@ -22,7 +22,7 @@ const UserDropdown: React.FC<UserDropdownProps> = () => {
   return (
     <>
       <a
-        className='text-blueGray-600 block'
+        className='text-slate-600 block'
         href='/'
         onClick={e => {
           e.preventDefault();
@@ -31,7 +31,7 @@ const UserDropdown: React.FC<UserDropdownProps> = () => {
         ref={btnDropdownRef}
       >
         <div className='items-center flex'>
-          <span className='w-9 h-9 text-sm text-white bg-blueGray-300 inline-flex items-center justify-center rounded-full'>
+          <span className='w-9 h-9 text-sm text-white bg-slate-300 inline-flex items-center justify-center rounded-full'>
             <img
               alt='...'
               className='w-full rounded-full align-middle border-none shadow-lg'

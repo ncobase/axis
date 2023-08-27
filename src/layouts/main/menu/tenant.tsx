@@ -33,11 +33,7 @@ export const TenantMenu = ({ ...rest }) => {
       return (
         <>
           <Menu.Divider maw='90%' mx='auto' />
-          <Menu.Item
-            icon={<DIcon name='IconSwitch' />}
-            className='!text-blueGray-700'
-            onClick={open}
-          >
+          <Menu.Item icon={<DIcon name='IconSwitch' />} className='!text-slate-700' onClick={open}>
             {t('layout:tenant_menu.switch')}
           </Menu.Item>
         </>
@@ -65,7 +61,7 @@ export const TenantMenu = ({ ...rest }) => {
       <div key={menu.id || menu.label}>
         <Menu.Item
           icon={<DIcon name={menu.icon} />}
-          className='!text-blueGray-700'
+          className='!text-slate-700'
           onClick={() => navigate(menu.path)}
         >
           {t(menu.label)}
@@ -83,7 +79,7 @@ export const TenantMenu = ({ ...rest }) => {
           <AvatarButton src={tenant?.logo} alt={tenant?.name} />
         ) : (
           <span
-            className='text-blueGray-500 cursor-pointer text-ellipsis whitespace-nowrap overflow-hidden max-w-[80px]'
+            className='text-slate-500 cursor-pointer text-ellipsis whitespace-nowrap overflow-hidden max-w-[80px]'
             title={tenant?.name}
           >
             {tenant?.name}

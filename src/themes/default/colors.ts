@@ -49,7 +49,7 @@ export const colors = {
     '#1E40AF',
     '#1E3A8A'
   ],
-  blueGray: [
+  slate: [
     '#F8FAFC',
     '#F1F5F9',
     '#E2E8F0',
