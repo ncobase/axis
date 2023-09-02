@@ -1,6 +1,6 @@
 import { Menu } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -41,19 +41,17 @@ const AppVersion = () => {
   if (!versionInfo?.version) return null;
 
   return (
-    <>
-      <Menu.Item
-        icon={copied ? <DIcon name='IconClipboardCheck' color={colors.green[6]} /> : null}
-        c={copied ? colors.green[5] : colors.slate[4]}
-        onClick={() => copy(JSON.stringify(versionInfo, null, 2))}
-        closeMenuOnClick={false}
-        title={
-          copied ? t('layout:account_menu.version.copied') : t('layout:account_menu.version.copy')
-        }
-      >
-        {copied ? t('layout:account_menu.version.copied') : versionInfo?.version}
-      </Menu.Item>
-    </>
+    <Menu.Item
+      icon={copied ? <DIcon name='IconClipboardCheck' color={colors.green[6]} /> : null}
+      c={copied ? colors.green[5] : colors.slate[4]}
+      onClick={() => copy(JSON.stringify(versionInfo, null, 2))}
+      closeMenuOnClick={false}
+      title={
+        copied ? t('layout:account_menu.version.copied') : t('layout:account_menu.version.copy')
+      }
+    >
+      {copied ? t('layout:account_menu.version.copied') : versionInfo?.version}
+    </Menu.Item>
   );
 };
 
@@ -66,20 +64,19 @@ export const AccountMenu = ({ ...rest }) => {
 
   const renderMenuDropdown = (menuItems: MenuTreeProps[]) => {
     const visibleItems = menuItems.filter(item => !item.hidden);
+    if (!visibleItems.length) return null;
     return (
-      visibleItems.length > 0 && (
-        <Menu.Dropdown>
-          <Menu.Label>{t('layout:account_menu.label')}</Menu.Label>
-          {visibleItems.map(renderLink)}
-          <AppVersion />
-        </Menu.Dropdown>
-      )
+      <Menu.Dropdown>
+        <Menu.Label>{t('layout:account_menu.label')}</Menu.Label>
+        {visibleItems.map(renderLink)}
+        <AppVersion />
+      </Menu.Dropdown>
     );
   };
 
   const renderLink = (menu: MenuTreeProps) => {
     return (
-      <div key={menu.id || menu.label}>
+      <Fragment key={menu.id || menu.label}>
         <Menu.Item
           icon={<DIcon name={menu.icon} />}
           c={colors.slate[7]}
@@ -88,7 +85,7 @@ export const AccountMenu = ({ ...rest }) => {
           {t(menu.label)}
         </Menu.Item>
         {menus.length > 1 && <Menu.Divider maw='90%' mx='auto' />}
-      </div>
+      </Fragment>
     );
   };
 

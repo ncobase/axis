@@ -42,17 +42,15 @@ export const ThemePicker: React.FC<IProps> = ({ colorTheme, setColorTheme }) => 
   ));
 
   return (
-    <>
-      <Popover
-        opened={opened}
-        onClose={() => setOpened(false)}
-        // target={<Button onClick={() => setOpened(o => !o)}>Change Color Scheme</Button>}
-        width={260}
-        position='top'
-        withArrow
-      >
-        <SimpleGrid cols={5}>{colorPalletes}</SimpleGrid>
-      </Popover>
-    </>
+    <Popover
+      opened={opened}
+      onClose={() => setOpened(false)}
+      // target={<Button onClick={() => setOpened(o => !o)}>Change Color Scheme</Button>}
+      width={260}
+      position='top'
+      withArrow
+    >
+      <SimpleGrid cols={5}>{colorPalletes}</SimpleGrid>
+    </Popover>
   );
 };

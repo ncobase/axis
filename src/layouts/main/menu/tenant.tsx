@@ -1,6 +1,6 @@
 import { Menu } from '@mantine/core';
 import { randomId, useDisclosure } from '@mantine/hooks';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -44,13 +44,12 @@ export const TenantMenu = ({ ...rest }) => {
 
   const renderMenuDropdown = (menuItems: MenuTreeProps[]) => {
     const visibleItems = menuItems.filter(item => !item.hidden);
+    if (!visibleItems.length) return null;
     return (
-      visibleItems.length > 0 && (
-        <Menu.Dropdown>
-          {visibleItems.map(renderLink)}
-          {switchTenant()}
-        </Menu.Dropdown>
-      )
+      <Menu.Dropdown>
+        {visibleItems.map(renderLink)}
+        {switchTenant()}
+      </Menu.Dropdown>
     );
   };
 
@@ -58,7 +57,7 @@ export const TenantMenu = ({ ...rest }) => {
     if (menu.slug?.includes('label') && menu.path.includes('label'))
       return <Menu.Label key={menu.id || randomId()}>{t('layout:tenant_menu.label')}</Menu.Label>;
     return (
-      <div key={menu.id || menu.label}>
+      <Fragment key={menu.id || menu.label}>
         <Menu.Item
           icon={<DIcon name={menu.icon} />}
           className='!text-slate-700'
@@ -68,7 +67,7 @@ export const TenantMenu = ({ ...rest }) => {
         </Menu.Item>
         {menus.filter((o: MenuTreeProps) => !o.slug?.includes('label') && !o.path.includes('label'))
           .length > 1 && <Menu.Divider maw='90%' mx='auto' />}
-      </div>
+      </Fragment>
     );
   };
 

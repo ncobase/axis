@@ -1,5 +1,5 @@
 import { randomId } from '@mantine/hooks';
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { useTheme } from '@/themes';
 import { getInitials } from '@/utils';
@@ -34,16 +34,16 @@ export const Topbar: React.FC<TopbarProps> = ({ title, operators = [], extras = 
       )}
       <div className='gap-4 flex'>
         {operators.map((element, index) => (
-          <React.Fragment key={getInitials(title) + randomId() + '_' + index.toString()}>
+          <Fragment key={getInitials(title) + randomId() + '_' + index.toString()}>
             {element}
-          </React.Fragment>
+          </Fragment>
         ))}
       </div>
       <div className='grow flex justify-end items-center gap-4'>
         {extras.map((element, index) => (
-          <React.Fragment key={getInitials(title) + randomId() + '_' + index.toString()}>
+          <Fragment key={getInitials(title) + randomId() + '_' + index.toString()}>
             {element}
-          </React.Fragment>
+          </Fragment>
         ))}
       </div>
     </TopbarWrapper>

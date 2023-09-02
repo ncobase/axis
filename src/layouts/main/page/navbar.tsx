@@ -78,9 +78,7 @@ export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
 
   const links = sidebarMenus.map((link: MenuProps) => {
     if (link.hidden) return null;
-
     if (isDividerLink(link)) return dividerLink(link);
-
     return tooltipLink(link, isActive(link.path), active);
   });
 
