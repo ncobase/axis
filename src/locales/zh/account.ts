@@ -27,7 +27,7 @@ export default {
       title: '更新失败'
     },
     not_found: {
-      title: '用户不存在, 将返回登录页面'
+      title: '用户不存在，将返回登录页面'
     }
   },
   basic: {
