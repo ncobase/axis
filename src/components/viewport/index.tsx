@@ -1,9 +1,13 @@
-import { Flex, FlexProps } from '@mantine/core';
+import { BoxProps } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import React, { useCallback, useEffect } from 'react';
+import React, { FC, Fragment, RefObject, useCallback, useEffect } from 'react';
 
 import blurBackground from '@/assets/images/blur.jpg';
 import { isBrowser } from '@/utils/ssr';
+
+interface VProps extends BoxProps {
+  ref: RefObject<HTMLDivElement>;
+}
 
 const useFixViewport = () => {
   const updateCssViewportHeight = useCallback(() => {
@@ -25,23 +29,41 @@ const useFixViewport = () => {
   }, [updateCssViewportHeight]);
 };
 
-const Viewport: React.FC<FlexProps> = ({ children, ...props }) => {
+const Viewport: FC<VProps> = ({ children, ...props }) => {
   const isStandalone = useMediaQuery('(display-mode: standalone)');
   useFixViewport();
+
   return (
-    <Flex
-      pos='relative'
-      direction={{ base: 'column', lg: 'row' }}
-      mih='100vh'
-      mah='100vw'
-      style={isStandalone ? { minHeight: 'calc(var(--vh, 1vh) * 100)' } : {}}
+    <Fragment
+      style={
+        isStandalone
+          ? { minHeight: 'calc(var(--vh, 1vh) * 100)', position: 'relative' }
+          : { position: 'relative' }
+      }
       {...props}
     >
       {children}
-      <div className='fixed w-full h-96 top-0 -z-30 blur-3xl bg-transparent'>
-        <img className='w-full h-full bg-cover opacity-5' src={blurBackground} alt='' />
+      <div
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          top: 0,
+          zIndex: -30
+        }}
+      >
+        <img
+          style={{
+            width: '100%',
+            height: '100%',
+            filter: 'blur(64rem)',
+            backgroundImage: `url('${blurBackground}')`,
+            opacity: 0.08
+          }}
+          alt=''
+        />
       </div>
-    </Flex>
+    </Fragment>
   );
 };
 

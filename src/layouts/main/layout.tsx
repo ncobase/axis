@@ -36,8 +36,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <LayoutContext.Provider value={layoutContextValue}>
-      <Viewport>
-        <div ref={contentRef}>{children}</div>
+      <Viewport ref={contentRef}>
+        {children}
         <LoginModalInterceptor />
       </Viewport>
     </LayoutContext.Provider>

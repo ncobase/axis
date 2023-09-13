@@ -26,7 +26,7 @@ const ContentContainer: React.FC<FlexProps> = ({ children, ...rest }) => {
   const containerProps = useMemo(() => ({ size, fluid: !size }), [size]);
   if (noWithContainer) return <>{children}</>;
   return (
-    <Container style={{ flex: 1 }} p='md' {...containerProps} {...rest}>
+    <Container p='md' {...containerProps} {...rest}>
       {children}
     </Container>
   );
