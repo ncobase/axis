@@ -58,7 +58,8 @@ const Viewport: FC<VProps> = ({ children, ...props }) => {
             height: '100%',
             filter: 'blur(64rem)',
             backgroundImage: `url('${blurBackground}')`,
-            opacity: 0.08
+            opacity: 0.08,
+            transform: 'rotate(45deg)'
           }}
           alt=''
         />
