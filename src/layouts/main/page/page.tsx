@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useFocusMode } from '@/layouts/main';
 import { Header } from '@/layouts/main/page/header';
+import { Navbar } from '@/layouts/main/page/navbar';
 
 interface PageContextValue {
   topbar?: React.ReactNode;
@@ -26,7 +27,7 @@ const ContentContainer: React.FC<FlexProps> = ({ children, ...rest }) => {
   const containerProps = useMemo(() => ({ size, fluid: !size }), [size]);
   if (noWithContainer) return <>{children}</>;
   return (
-    <Container p='md' {...containerProps} {...rest}>
+    <Container p='md' pos='relative' {...containerProps} {...rest}>
       {children}
     </Container>
   );
@@ -54,8 +55,8 @@ const PageTitle: React.FC<PageTitleProps> = ({ suffix = '', children = '' }) => 
 };
 
 interface PageProps extends FlexProps {
-  header?: React.ReactElement;
-  navbar?: React.ReactElement;
+  header?: boolean;
+  navbar?: boolean;
   topbar?: React.ReactElement;
   sidebar?: React.ReactElement;
   size?: MantineSize;
@@ -89,7 +90,11 @@ export const Page: React.FC<PageProps> = ({
     <PageContext.Provider value={pageContextValue}>
       <PageTitle suffix={t('application:title')}>{title}</PageTitle>
       {withLayout && !showBack ? (
-        <AppShell header={header} navbar={navbar} padding={0}>
+        <AppShell
+          header={header ? <Header /> : undefined}
+          navbar={navbar ? <Navbar /> : undefined}
+          padding={0}
+        >
           {topbar && topbar}
           {/* TODO: {sidebar && sidebar}*/}
           <ContentContainer {...rest} />

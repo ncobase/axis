@@ -2,7 +2,6 @@ import React from 'react';
 
 import { DIcon } from '@/components/icon/icon';
 import { Page } from '@/layouts/main';
-import { Navbar } from '@/layouts/main/page/navbar';
 import { Topbar } from '@/layouts/main/page/topbar';
 
 const Warehouse = () => {
@@ -35,7 +34,7 @@ const Warehouse = () => {
   return (
     <Page
       withLayout
-      navbar={<Navbar />}
+      navbar
       topbar={<Topbar title={title} operators={topBarOperators} extras={topBarExtras} />}
     >
       {title}
