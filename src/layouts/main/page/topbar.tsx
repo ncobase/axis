@@ -1,6 +1,7 @@
 import { randomId } from '@mantine/hooks';
 import React, { Fragment } from 'react';
 
+import { usePageContext } from '@/layouts/main';
 import { useTheme } from '@/themes';
 import { getInitials } from '@/utils';
 
@@ -12,10 +13,11 @@ export interface TopbarProps extends React.PropsWithChildren {
 
 const TopbarWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { other } = useTheme();
+  const { header } = usePageContext();
   return (
     <div
-      className='px-4 h-12 bg-white shadow-sm align-middle items-center flex gap-4'
-      style={{ height: other.layout.topbar.height }}
+      className='fixed z-10 w-full px-4 h-12 bg-white shadow-sm align-middle items-center flex gap-4'
+      style={{ height: other.layout.topbar.height, top: header ? other.layout.header.height : 0 }}
     >
       {children}
     </div>

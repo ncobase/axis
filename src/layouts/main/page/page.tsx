@@ -6,8 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { useFocusMode } from '@/layouts/main';
 import { Header } from '@/layouts/main/page/header';
 import { Navbar } from '@/layouts/main/page/navbar';
+import { useTheme } from '@/themes';
 
 interface PageContextValue {
+  header?: React.ReactNode;
   topbar?: React.ReactNode;
   navbar?: React.ReactNode;
   size?: MantineSize;
@@ -15,6 +17,8 @@ interface PageContextValue {
 }
 
 const PageContext = createContext<PageContextValue>({
+  header: undefined,
+  topbar: undefined,
   navbar: undefined,
   size: undefined,
   noWithContainer: false
@@ -27,7 +31,7 @@ const ContentContainer: React.FC<FlexProps> = ({ children, ...rest }) => {
   const containerProps = useMemo(() => ({ size, fluid: !size }), [size]);
   if (noWithContainer) return <>{children}</>;
   return (
-    <Container p='md' pos='relative' {...containerProps} {...rest}>
+    <Container p='md' {...containerProps} {...rest}>
       {children}
     </Container>
   );
@@ -67,7 +71,7 @@ interface PageProps extends FlexProps {
 }
 
 export const Page: React.FC<PageProps> = ({
-  header = <Header />,
+  header = true,
   topbar,
   navbar,
   sidebar,
@@ -79,6 +83,7 @@ export const Page: React.FC<PageProps> = ({
   ...rest
 }) => {
   const { t } = useTranslation();
+  const { other } = useTheme();
   useFocusMode();
 
   const pageContextValue = useMemo(
@@ -97,7 +102,7 @@ export const Page: React.FC<PageProps> = ({
         >
           {topbar && topbar}
           {/* TODO: {sidebar && sidebar}*/}
-          <ContentContainer {...rest} />
+          <ContentContainer mt={topbar ? other.layout.topbar.height : 'unset'} {...rest} />
         </AppShell>
       ) : (
         rest.children
