@@ -16,6 +16,7 @@ const emotionCache = createEmotionCache({ key: 'sc', prepend: false });
 interface ThemeProviderProps {
   children: React.ReactNode;
 }
+
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, ...rest }) => {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'sc-color-scheme',

@@ -8,6 +8,7 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   accessToken?: string;
   refreshToken?: string;
+
   updateTokens(accessToken?: string, refreshToken?: string): void;
 }
 

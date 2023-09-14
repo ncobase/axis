@@ -1,9 +1,5 @@
-import { ColorSwatch, createStyles } from '@mantine/core';
-import { MantineThemeBase } from '@mantine/core';
-import { Popover } from '@mantine/core';
-import { SimpleGrid } from '@mantine/core';
-import React from 'react';
-import { useState } from 'react';
+import { ColorSwatch, createStyles, MantineThemeBase, Popover, SimpleGrid } from '@mantine/core';
+import React, { useState } from 'react';
 
 import { useTheme } from '@/themes';
 

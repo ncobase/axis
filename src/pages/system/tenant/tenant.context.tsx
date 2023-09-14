@@ -6,6 +6,7 @@ import { isBrowser } from '@/utils/ssr';
 interface TenantContextValue {
   tenant_id?: string;
   hasTenant: boolean;
+
   updateTenant(id?: string | null): void;
 }
 
