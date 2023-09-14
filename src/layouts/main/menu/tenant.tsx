@@ -25,37 +25,26 @@ export const TenantMenu = ({ ...rest }) => {
   });
 
   const [opened, { open }] = useDisclosure(false);
-
   const { menus = [] } = useListMenus({ type: 'tenant' });
 
-  const switchTenant = () => {
-    if (tenants.length > 1) {
-      return (
-        <>
-          <Menu.Divider maw='90%' mx='auto' />
-          <Menu.Item icon={<DIcon name='IconSwitch' />} className='!text-slate-700' onClick={open}>
-            {t('layout:tenant_menu.switch')}
-          </Menu.Item>
-        </>
-      );
-    }
-    return null;
-  };
-
-  const renderMenuDropdown = (menuItems: MenuTreeProps[]) => {
-    const visibleItems = menuItems.filter(item => !item.hidden);
-    if (!visibleItems.length) return null;
-    return (
-      <Menu.Dropdown>
-        {visibleItems.map(renderLink)}
-        {switchTenant()}
-      </Menu.Dropdown>
-    );
-  };
-
   const renderLink = (menu: MenuTreeProps) => {
-    if (menu.slug?.includes('label') && menu.path.includes('label'))
+    // switch tenant
+    if (menu.slug?.includes('tenant') && menu.slug?.includes('switch')) {
+      return tenants.length > 1 ? (
+        <Fragment key={menu.id || randomId()}>
+          <Menu.Divider maw='90%' mx='auto' />
+          <Menu.Item icon={<DIcon name={menu.icon} />} className='!text-slate-700' onClick={open}>
+            {t(menu.label)}
+          </Menu.Item>
+        </Fragment>
+      ) : null;
+    }
+
+    // menu type
+    if (menu.slug?.includes('label') && menu.path.includes('label')) {
       return <Menu.Label key={menu.id || randomId()}>{t('layout:tenant_menu.label')}</Menu.Label>;
+    }
+
     return (
       <Fragment key={menu.id || menu.label}>
         <Menu.Item
@@ -69,6 +58,12 @@ export const TenantMenu = ({ ...rest }) => {
           .length > 1 && <Menu.Divider maw='90%' mx='auto' />}
       </Fragment>
     );
+  };
+
+  const renderMenuDropdown = (menuItems: MenuTreeProps[]) => {
+    const visibleItems = menuItems.filter(item => !item.hidden);
+    if (!visibleItems.length) return null;
+    return <Menu.Dropdown>{visibleItems.map(renderLink)}</Menu.Dropdown>;
   };
 
   const MenuList = () => (
