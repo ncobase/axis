@@ -8,11 +8,11 @@ interface IProps extends TablerIconsProps {
   name: keyof typeof Icon;
 }
 
-export const DIcon: React.FC<IProps> = ({ name, ...rest }) => {
+export const DIcon: React.FC<IProps> = ({ name, size = 16, strokeWidth = 1.5, ...rest }) => {
   const { colors } = useTheme();
   const Component = Icon[name] as React.FC<TablerIconsProps>;
   if (!Component) {
     return null;
   }
-  return <Component size={16} strokeWidth={1.5} color={colors.slate[5]} {...rest} />;
+  return <Component size={size} strokeWidth={strokeWidth} color={colors.slate[5]} {...rest} />;
 };
