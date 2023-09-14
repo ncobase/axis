@@ -1,5 +1,5 @@
 import { useDisclosure } from '@mantine/hooks';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import Viewport from '@/components/viewport';
 import { LayoutContext } from '@/layouts/main/context/layout';
@@ -9,22 +9,9 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-const useScrollToTop = () => {
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    if (contentRef.current) {
-      contentRef.current.scrollTo(0, 0);
-    }
-  }, []);
-
-  return contentRef;
-};
-
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isFocusMode, setIsFocusMode] = React.useState(false);
   const [navIsOpen, { close, open }] = useDisclosure(false);
-  const contentRef = useScrollToTop();
 
   const layoutContextValue = {
     isFocusMode,
@@ -36,10 +23,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <LayoutContext.Provider value={layoutContextValue}>
-      <Viewport ref={contentRef}>
-        {children}
-        <LoginModalInterceptor />
-      </Viewport>
+      <Viewport>{children}</Viewport>
+      <LoginModalInterceptor />
     </LayoutContext.Provider>
   );
 };

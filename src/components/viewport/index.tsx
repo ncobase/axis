@@ -1,13 +1,22 @@
 import { BoxProps } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
-import React, { FC, Fragment, RefObject, useCallback, useEffect } from 'react';
+import React, { FC, Fragment, useCallback, useEffect, useRef } from 'react';
 
 import blurBackground from '@/assets/images/blur.jpg';
 import { isBrowser } from '@/utils/ssr';
 
-interface VProps extends BoxProps {
-  ref: RefObject<HTMLDivElement>;
-}
+interface VProps extends BoxProps {}
+
+const useScrollToTop = () => {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollTo(0, 0);
+    }
+  }, []);
+
+  return contentRef;
+};
 
 const useFixViewport = () => {
   const updateCssViewportHeight = useCallback(() => {
@@ -29,40 +38,15 @@ const useFixViewport = () => {
   }, [updateCssViewportHeight]);
 };
 
-const Viewport: FC<VProps> = ({ children, ...props }) => {
-  const isStandalone = useMediaQuery('(display-mode: standalone)');
+const Viewport: FC<VProps> = ({ children }) => {
+  const contentRef = useScrollToTop();
   useFixViewport();
 
   return (
-    <Fragment
-      style={
-        isStandalone
-          ? { minHeight: 'calc(var(--vh, 1vh) * 100)', position: 'relative' }
-          : { position: 'relative' }
-      }
-      {...props}
-    >
+    <Fragment>
       {children}
-      <div
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          top: 0,
-          zIndex: -30
-        }}
-      >
-        <img
-          style={{
-            width: '100%',
-            height: '100%',
-            filter: 'blur(64rem)',
-            backgroundImage: `url('${blurBackground}')`,
-            opacity: 0.08,
-            transform: 'rotate(45deg)'
-          }}
-          alt=''
-        />
+      <div className='fixed w-full h-96 top-0 -z-30 blur-3xl bg-transparent' ref={contentRef}>
+        <img className='w-full h-full bg-cover opacity-5' src={blurBackground} alt='' />
       </div>
     </Fragment>
   );

@@ -14,10 +14,10 @@ const Warehouse = () => {
   ];
 
   const topBarExtras = [
-    <div className='text-xs'>
+    <>
       <div>div element</div>
       <span> | </span>
-    </div>,
+    </>,
     <button className='bg-slate-100 px-3 py-1.5 rounded-md text-xs hover:bg-blue-600 hover:text-white'>
       Button
     </button>,
