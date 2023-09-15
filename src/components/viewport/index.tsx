@@ -35,7 +35,7 @@ const useFixViewport = (): void => {
   }, []);
 };
 
-const Viewport: FC<VProps> = ({ children }) => {
+export const Viewport: FC<VProps> = ({ children }) => {
   useScrollToTop();
   useFixViewport();
   return (
@@ -47,5 +47,3 @@ const Viewport: FC<VProps> = ({ children }) => {
     </Fragment>
   );
 };
-
-export default Viewport;

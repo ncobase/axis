@@ -3,7 +3,7 @@ import React from 'react';
 import { Page } from '@/layouts/main';
 import { Topbar } from '@/layouts/main/page/topbar';
 
-const Finance = () => {
+export const Finance = () => {
   const title = 'Finance Page';
 
   return (
@@ -12,5 +12,3 @@ const Finance = () => {
     </Page>
   );
 };
-
-export default Finance;

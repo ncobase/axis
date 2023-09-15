@@ -2,7 +2,7 @@ import React from 'react';
 
 import { LogoProps } from '@/components/logo/index';
 
-const FullMask: React.FC<LogoProps> = ({ height, logoColor, color }) => {
+export const FullMask: React.FC<LogoProps> = ({ height, logoColor, color }) => {
   return (
     <svg height={height || '1.8rem'} viewBox='0 0 331 64' fill='none'>
       <mask
@@ -130,5 +130,3 @@ const FullMask: React.FC<LogoProps> = ({ height, logoColor, color }) => {
     </svg>
   );
 };
-
-export default FullMask;

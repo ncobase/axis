@@ -4,7 +4,7 @@ import { DIcon } from '@/components/icon/icon';
 import { Page } from '@/layouts/main';
 import { Topbar } from '@/layouts/main/page/topbar';
 
-const Customer = () => {
+export const Customer = () => {
   const title = 'Customer Page';
 
   const topBarOperators = [
@@ -41,5 +41,3 @@ const Customer = () => {
     </Page>
   );
 };
-
-export default Customer;

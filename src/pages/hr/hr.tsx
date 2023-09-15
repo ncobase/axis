@@ -3,7 +3,7 @@ import React from 'react';
 import { Page } from '@/layouts/main';
 import { Topbar } from '@/layouts/main/page/topbar';
 
-const Hr = () => {
+export const Hr = () => {
   const title = 'HR Page';
 
   return (
@@ -12,5 +12,3 @@ const Hr = () => {
     </Page>
   );
 };
-
-export default Hr;

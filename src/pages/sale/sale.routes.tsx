@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { ErrorPage } from '@/components/errors';
-import Sale from '@/pages/sale/sale';
+import { Sale } from '@/pages/sale/sale';
 
 export const SaleRoutes = () => {
   return (

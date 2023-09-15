@@ -8,5 +8,3 @@ export const PublicGuard: React.FC<React.PropsWithChildren> = ({ children }) => 
   const { isAuthenticated } = useAuthContext();
   return isAuthenticated ? <Navigate to='/' replace /> : <ErrorBoundary>{children}</ErrorBoundary>;
 };
-
-export default PublicGuard;

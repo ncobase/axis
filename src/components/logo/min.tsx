@@ -118,5 +118,3 @@ export const Min: React.FC<LogoProps> = ({ height, logoColor, color }) => {
     </svg>
   );
 };
-
-export default Min;

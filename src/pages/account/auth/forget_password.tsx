@@ -4,8 +4,8 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import Footer from '@/components/footer/footer';
-import Logo from '@/components/logo';
+import { Footer } from '@/components/footer/footer';
+import { Logo } from '@/components/logo';
 import { Page } from '@/layouts/main';
 import { useStyles } from '@/pages/account/account.styles';
 import { ForgetPasswordFormProps } from '@/pages/account/account.types';

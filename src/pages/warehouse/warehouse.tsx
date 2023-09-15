@@ -4,7 +4,7 @@ import { DIcon } from '@/components/icon/icon';
 import { Page } from '@/layouts/main';
 import { Topbar } from '@/layouts/main/page/topbar';
 
-const Warehouse = () => {
+export const Warehouse = () => {
   const title = 'Warehouse Page';
 
   const topBarOperators = [
@@ -41,5 +41,3 @@ const Warehouse = () => {
     </Page>
   );
 };
-
-export default Warehouse;

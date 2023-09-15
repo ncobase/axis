@@ -1,7 +1,7 @@
 import { useDisclosure } from '@mantine/hooks';
 import React from 'react';
 
-import Viewport from '@/components/viewport';
+import { Viewport } from '@/components/viewport';
 import { LayoutContext } from '@/layouts/main/context/layout';
 import { LoginModalInterceptor } from '@/pages/account/auth/login_modal_interceptor';
 
@@ -28,5 +28,3 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     </LayoutContext.Provider>
   );
 };
-
-export default Layout;

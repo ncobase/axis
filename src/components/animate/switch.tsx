@@ -8,7 +8,7 @@ interface AnimatedSwitchProps extends React.PropsWithChildren {
   duration?: number;
 }
 
-const AnimatedSwitch: React.FC<AnimatedSwitchProps> = ({
+export const AnimatedSwitch: React.FC<AnimatedSwitchProps> = ({
   type = 'fade',
   duration = 10,
   children
@@ -30,5 +30,3 @@ const AnimatedSwitch: React.FC<AnimatedSwitchProps> = ({
     </TransitionGroup>
   );
 };
-
-export default AnimatedSwitch;

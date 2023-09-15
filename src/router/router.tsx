@@ -2,7 +2,7 @@ import { LoadingOverlay } from '@mantine/core';
 import React, { Suspense, useMemo } from 'react';
 import { BrowserRouter, Navigate, Route } from 'react-router-dom';
 
-import AnimatedSwitch from '@/components/animate/switch';
+import { AnimatedSwitch } from '@/components/animate/switch';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ErrorPage } from '@/components/errors';
 import { Layout } from '@/layouts/main/layout';

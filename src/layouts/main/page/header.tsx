@@ -2,7 +2,7 @@ import { ActionIcon, Group, Header as StdHeader } from '@mantine/core';
 import React from 'react';
 
 import { DIcon } from '@/components/icon/icon';
-import Logo from '@/components/logo';
+import { Logo } from '@/components/logo';
 import { AccountMenu } from '@/layouts/main';
 import { MainMenu } from '@/layouts/main/menu/main';
 import { TenantMenu } from '@/layouts/main/menu/tenant';

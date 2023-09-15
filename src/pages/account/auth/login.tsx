@@ -3,8 +3,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Footer from '@/components/footer/footer';
-import Logo from '@/components/logo';
+import { Footer } from '@/components/footer/footer';
+import { Logo } from '@/components/logo';
 import { Page } from '@/layouts/main';
 import { useStyles } from '@/pages/account/account.styles';
 import { LoginForm } from '@/pages/account/auth/login_form';

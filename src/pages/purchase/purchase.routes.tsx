@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { ErrorPage } from '@/components/errors';
-import Purchase from '@/pages/purchase/purchase';
+import { Purchase } from '@/pages/purchase/purchase';
 
 export const PurchaseRoutes = () => {
   return (

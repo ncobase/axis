@@ -1,9 +1,9 @@
 import { Flex, FlexProps } from '@mantine/core';
 import React from 'react';
 
-import Full from '@/components/logo/full';
-import FullMask from '@/components/logo/full_mask';
-import Min from '@/components/logo/min';
+import { Full } from '@/components/logo/full';
+import { FullMask } from '@/components/logo/full_mask';
+import { Min } from '@/components/logo/min';
 
 export interface LogoProps extends FlexProps {
   logoColor?: string;
@@ -13,7 +13,14 @@ export interface LogoProps extends FlexProps {
   type?: 'min' | 'full' | 'full-mask';
 }
 
-const Logo: React.FC<LogoProps> = ({ bg, type = 'min', height, logoColor, color, ...rest }) => {
+export const Logo: React.FC<LogoProps> = ({
+  bg,
+  type = 'min',
+  height,
+  logoColor,
+  color,
+  ...rest
+}) => {
   const LogoComponent = type === 'min' ? Min : type === 'full' ? Full : FullMask;
 
   if (rest.hidden) return <></>;
@@ -24,5 +31,3 @@ const Logo: React.FC<LogoProps> = ({ bg, type = 'min', height, logoColor, color,
     </Flex>
   );
 };
-
-export default Logo;
