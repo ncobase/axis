@@ -30,14 +30,14 @@ export const TenantMenu = ({ ...rest }) => {
   const renderLink = (menu: MenuTreeProps) => {
     // switch tenant
     if (menu.slug?.includes('tenant') && menu.slug?.includes('switch')) {
-      return tenants.length > 1 ? (
+      return (
         <Fragment key={menu.id || randomId()}>
           <Menu.Divider maw='90%' mx='auto' />
           <Menu.Item icon={<DIcon name={menu.icon} />} className='!text-slate-700' onClick={open}>
             {t(menu.label)}
           </Menu.Item>
         </Fragment>
-      ) : null;
+      );
     }
 
     // menu type
@@ -84,10 +84,10 @@ export const TenantMenu = ({ ...rest }) => {
     </Menu>
   );
 
-  return (
+  return hasTenant && tenants.length > 1 ? (
     <>
-      {hasTenant ? <MenuList /> : null}
+      <MenuList />
       <TenantSwitchModal openModal={opened} />
     </>
-  );
+  ) : null;
 };
