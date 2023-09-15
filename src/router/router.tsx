@@ -1,7 +1,8 @@
 import { LoadingOverlay } from '@mantine/core';
 import React, { Suspense, useMemo } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route } from 'react-router-dom';
 
+import AnimatedSwitch from '@/components/animate/switch';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ErrorPage } from '@/components/errors';
 import { Layout } from '@/layouts/main/layout';
@@ -32,7 +33,7 @@ export const Router = () => {
       <Layout>
         <Suspense fallback={fallback}>
           <ErrorBoundary>
-            <Routes>
+            <AnimatedSwitch>
               <Route path='/' element={<Navigate to='/dash' replace />} />
               <Route
                 path='/register'
@@ -148,7 +149,7 @@ export const Router = () => {
                 }
               />
               <Route path='*' element={<ErrorPage code={404} />} />
-            </Routes>
+            </AnimatedSwitch>
           </ErrorBoundary>
         </Suspense>
       </Layout>
