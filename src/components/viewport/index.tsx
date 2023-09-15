@@ -12,10 +12,7 @@ const useScrollToTop = (): void => {
   const navType = useNavigationType();
   useEffect(() => {
     if (navType !== 'POP') {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      window.scrollTo(0, 0);
     }
   }, [pathname]);
 };
