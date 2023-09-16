@@ -35,7 +35,7 @@ const setupPlugins = ({ VITE_PWA, VITE_APP_NAME }: ImportMetaEnv) => ([
 
 // noinspection JSUnusedGlobalSymbols
 export default defineConfig(({ mode }: { mode: string }) => {
-  const root = process.cwd();
+  const root = pathResolve('.');
   const ENV = loadEnv(mode, root) as unknown as ImportMetaEnv;
   return {
     define: {
@@ -47,7 +47,7 @@ export default defineConfig(({ mode }: { mode: string }) => {
       alias: [
         {
           find: /@\//,
-          replacement: pathResolve('src') + '/'
+          replacement: `${root}/src/`
         }
       ]
     },
