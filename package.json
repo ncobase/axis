@@ -1,5 +1,5 @@
 {
-  "name": "@tone/console",
+  "name": "tone-console",
   "version": "0.1.0",
   "scripts": {
     "prepare": "husky install",
@@ -50,6 +50,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
+    "@tauri-apps/cli": "2.0.0-alpha.14",
     "@types/html-minifier-terser": "^7.0.0",
     "@types/loadable__component": "^5.13.4",
     "@types/node": "^20.4.10",
