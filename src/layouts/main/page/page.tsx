@@ -13,23 +13,20 @@ interface PageContextValue {
   topbar?: React.ReactNode;
   navbar?: React.ReactNode;
   size?: MantineSize;
-  noWithContainer?: boolean;
 }
 
 const PageContext = createContext<PageContextValue>({
   header: undefined,
   topbar: undefined,
   navbar: undefined,
-  size: undefined,
-  noWithContainer: false
+  size: undefined
 });
 
 export const usePageContext = () => useContext(PageContext);
 
 const ContentContainer: React.FC<FlexProps> = ({ children, ...rest }) => {
-  const { size, noWithContainer } = usePageContext();
+  const { size } = usePageContext();
   const containerProps = useMemo(() => ({ size, fluid: !size }), [size]);
-  if (noWithContainer) return <>{children}</>;
   return (
     <Container p='md' {...containerProps} {...rest}>
       {children}
@@ -64,7 +61,6 @@ interface PageProps extends FlexProps {
   topbar?: React.ReactElement;
   sidebar?: React.ReactElement;
   size?: MantineSize;
-  noWithContainer?: boolean;
   title?: any;
   withLayout?: boolean;
   showBack?: boolean;
@@ -76,7 +72,6 @@ export const Page: React.FC<PageProps> = ({
   navbar,
   sidebar,
   size,
-  noWithContainer = false,
   title,
   withLayout = false,
   showBack = false,
@@ -87,8 +82,8 @@ export const Page: React.FC<PageProps> = ({
   useFocusMode();
 
   const pageContextValue = useMemo(
-    () => ({ header, topbar, navbar, sidebar, size, noWithContainer }),
-    [header, topbar, navbar, sidebar, size, noWithContainer]
+    () => ({ header, topbar, navbar, sidebar, size }),
+    [header, topbar, navbar, sidebar, size]
   );
 
   return (
