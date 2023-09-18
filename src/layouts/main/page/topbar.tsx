@@ -16,7 +16,7 @@ const TopbarWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { header } = usePageContext();
   return (
     <div
-      className='fixed z-10 w-full px-4 h-12 bg-white shadow-sm align-middle items-center flex gap-4'
+      className='fixed z-10 w-full px-4 h-12 bg-white shadow-sm align-middle items-center flex gap-4 overflow-hidden'
       style={{ height: other.layout.topbar.height, top: header ? other.layout.header.height : 0 }}
     >
       {children}
