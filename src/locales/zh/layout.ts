@@ -1,7 +1,7 @@
 export default {
   title: '布局',
   main_menu: {
-    home: '首页',
+    dashboard: '控制台',
     content: {
       label: '内容',
       column: '栏目',
