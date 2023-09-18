@@ -9,6 +9,7 @@ import { Navbar } from '@/layouts/main/page/navbar';
 import { useTheme } from '@/themes';
 
 interface PageContextValue {
+  withLayout?: boolean;
   header?: React.ReactNode;
   topbar?: React.ReactNode;
   navbar?: React.ReactNode;
@@ -16,6 +17,7 @@ interface PageContextValue {
 }
 
 const PageContext = createContext<PageContextValue>({
+  withLayout: undefined,
   header: undefined,
   topbar: undefined,
   navbar: undefined,
@@ -66,6 +68,19 @@ interface PageProps extends FlexProps {
   showBack?: boolean;
 }
 
+const Content: React.FC<{ withLayout: boolean; topbar: boolean; rest: { [key: string]: any } }> = ({
+  withLayout,
+  topbar,
+  rest
+}) => {
+  const { other } = useTheme();
+  return withLayout ? (
+    <ContentContainer mt={topbar ? other.layout.topbar.height : 'unset'} {...rest} />
+  ) : (
+    <>{rest.children}</>
+  );
+};
+
 export const Page: React.FC<PageProps> = ({
   header = true,
   topbar,
@@ -78,12 +93,11 @@ export const Page: React.FC<PageProps> = ({
   ...rest
 }) => {
   const { t } = useTranslation();
-  const { other } = useTheme();
   useFocusMode();
 
   const pageContextValue = useMemo(
-    () => ({ header, topbar, navbar, sidebar, size }),
-    [header, topbar, navbar, sidebar, size]
+    () => ({ withLayout, header, topbar, navbar, sidebar, size }),
+    [withLayout, header, topbar, navbar, sidebar, size]
   );
 
   return (
@@ -95,12 +109,15 @@ export const Page: React.FC<PageProps> = ({
           navbar={navbar ? <Navbar /> : undefined}
           padding={0}
         >
-          {topbar && topbar}
+          {topbar}
           {/* TODO: {sidebar && sidebar}*/}
-          <ContentContainer mt={topbar ? other.layout.topbar.height : 'unset'} {...rest} />
+          <Content withLayout={withLayout} topbar={!!topbar} rest={rest} />
         </AppShell>
       ) : (
-        rest.children
+        <>
+          {topbar}
+          <Content withLayout={withLayout} topbar={!!topbar} rest={rest} />
+        </>
       )}
     </PageContext.Provider>
   );
