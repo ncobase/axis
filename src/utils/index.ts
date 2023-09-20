@@ -312,3 +312,11 @@ export const getInitials = (name = '') =>
     .join('') as string;
 
 export const upperFirst = (str: string) => str.charAt(0).toLocaleUpperCase() + str.slice(1);
+
+/**
+ * 随机生成 ID
+ * @returns {string} 随机生成的ID.
+ */
+export function randomId(): string {
+  return Math.random().toString(36).slice(2, 8);
+}

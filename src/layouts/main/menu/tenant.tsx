@@ -1,5 +1,5 @@
 import { Menu } from '@mantine/core';
-import { randomId, useDisclosure } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { TenantSwitchModal } from '@/pages/account/tenant/switch_modal';
 import { useListMenus } from '@/pages/system/menu/menu.service';
 import { MenuTreeProps } from '@/pages/system/menu/menu.types';
 import { useTenantContext } from '@/pages/system/tenant/tenant.context';
+import { randomId } from '@/utils';
 
 export const TenantMenu = ({ ...rest }) => {
   const { t } = useTranslation();

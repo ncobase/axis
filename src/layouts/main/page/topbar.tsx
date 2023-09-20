@@ -1,9 +1,8 @@
-import { randomId } from '@mantine/hooks';
 import React, { Fragment } from 'react';
 
 import { usePageContext } from '@/layouts/main';
 import { useTheme } from '@/themes';
-import { getInitials } from '@/utils';
+import { randomId } from '@/utils';
 
 export interface TopbarProps extends React.PropsWithChildren {
   title?: string;
@@ -38,17 +37,13 @@ export const Topbar: React.FC<TopbarProps> = ({ title, operators = [], extras = 
         </div>
       )}
       <div className='gap-4 flex'>
-        {operators.map((element, index) => (
-          <Fragment key={getInitials(title) + randomId() + '_' + index.toString()}>
-            {element}
-          </Fragment>
+        {operators.map(element => (
+          <Fragment key={randomId()}>{element}</Fragment>
         ))}
       </div>
       <div className='grow flex justify-end items-center gap-4'>
-        {extras.map((element, index) => (
-          <Fragment key={getInitials(title) + randomId() + '_' + index.toString()}>
-            {element}
-          </Fragment>
+        {extras.map(element => (
+          <Fragment key={randomId()}>{element}</Fragment>
         ))}
       </div>
     </TopbarWrapper>
