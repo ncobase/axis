@@ -33,7 +33,7 @@ export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
     useListMenus({
       type: 'sidebar',
       parent: headerMenus.find(
-        (menu: MenuProps) => menu.slug === (pathArray[pathArray.length - 2] ?? pathArray[0])
+        (menu: MenuProps) => menu.slug === (pathArray[pathArray.length - 2] ?? pathArray[0]) || ''
       )?.id
     }).menus ?? []
   ).filter((i: MenuProps) => !i.hidden);
