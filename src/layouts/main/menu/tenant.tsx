@@ -85,10 +85,10 @@ export const TenantMenu = ({ ...rest }) => {
     </Menu>
   );
 
-  return hasTenant && tenants.length > 1 ? (
+  return (
     <>
-      <MenuList />
+      {hasTenant && tenants.length > 1 ? <MenuList /> : null}
       <TenantSwitchModal openModal={opened} />
     </>
-  ) : null;
+  );
 };
