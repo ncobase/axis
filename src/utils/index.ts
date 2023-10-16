@@ -1,5 +1,7 @@
-// noinspection JSUnusedGlobalSymbols
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
+// noinspection JSUnusedGlobalSymbols
 import { isArray, isNumber, isObject } from '@/utils/raw_type';
 
 /**
@@ -319,4 +321,8 @@ export const upperFirst = (str: string) => str.charAt(0).toLocaleUpperCase() + s
  */
 export function randomId(): string {
   return Math.random().toString(36).slice(2, 8);
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
