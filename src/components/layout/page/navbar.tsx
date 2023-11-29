@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import { useStyles } from '@/layouts/main/page/navbar.styles';
+import { useStyles } from '@/components/layout/page/navbar.styles';
 import { useListMenus } from '@/pages/system/menu/menu.service';
 import { MenuProps } from '@/pages/system/menu/menu.types';
 import { useTheme } from '@/themes';

@@ -2,7 +2,7 @@ import { Carousel } from '@mantine/carousel';
 import { Box, Container, Grid, Skeleton } from '@mantine/core';
 import React from 'react';
 
-import { Page } from '@/layouts/main';
+import { Page } from '@/components/layout';
 
 // const BoxContent = ({ children }: any) => (
 //   <Box bg='white' className='rounded-md shadow-lg shadow-slate-200/10' p={16} mb={16}>

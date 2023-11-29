@@ -8,8 +8,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { AuthProvider } from '@/pages/account/account.context';
-import { setupStyles } from '@/plugins';
 import { Router } from '@/router';
+import { setupStyles } from '@/styles';
 import { ThemeProvider, useTheme } from '@/themes';
 import { getInitials } from '@/utils';
 

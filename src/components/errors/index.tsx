@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Error403 } from '@/components/errors/403';
 import { Error404 } from '@/components/errors/404';
 import { Error500 } from '@/components/errors/500';
-import { Page } from '@/layouts/main';
+import { Page } from '@/components/layout';
 
 const ERROR_COMPONENTS: any = {
   403: Error403,

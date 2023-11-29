@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { usePageContext } from '@/layouts/main';
+import { usePageContext } from '@/components/layout';
 import { useTheme } from '@/themes';
 import { randomId } from '@/utils';
 

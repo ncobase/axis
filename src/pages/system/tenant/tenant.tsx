@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { DIcon } from '@/components/icon/icon';
-import { Button } from '@/components/ui/button';
-import { Page } from '@/layouts/main';
-import { Sidebar } from '@/layouts/main/page/sidebar';
-import { Topbar } from '@/layouts/main/page/topbar';
+import { Page } from '@/components/layout';
+import { Sidebar } from '@/components/layout/page/sidebar';
+import { Topbar } from '@/components/layout/page/topbar';
+import { Button } from '@/components/ui/button/button';
 
 export const Tenant = () => {
   const title = 'Tenant Page';

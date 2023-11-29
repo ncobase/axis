@@ -2,10 +2,10 @@ import { ActionIcon, Group, Header as StdHeader } from '@mantine/core';
 import React from 'react';
 
 import { DIcon } from '@/components/icon/icon';
+import { AccountMenu } from '@/components/layout';
+import { MainMenu } from '@/components/layout/menu/main';
+import { TenantMenu } from '@/components/layout/menu/tenant';
 import { Logo } from '@/components/logo';
-import { AccountMenu } from '@/layouts/main';
-import { MainMenu } from '@/layouts/main/menu/main';
-import { TenantMenu } from '@/layouts/main/menu/tenant';
 import { useListMenus } from '@/pages/system/menu/menu.service';
 import { useColorScheme, useTheme } from '@/themes';
 

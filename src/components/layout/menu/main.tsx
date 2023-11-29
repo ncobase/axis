@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import { useStyles } from '@/layouts/main/menu/main.styles';
+import { useStyles } from '@/components/layout/menu/main.styles';
 import { MenuTreeProps } from '@/pages/system/menu/menu.types';
 
 interface MainMenuProps {

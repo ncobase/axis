@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Page } from '@/layouts/main';
-import { Topbar } from '@/layouts/main/page/topbar';
+import { Page } from '@/components/layout';
+import { Topbar } from '@/components/layout/page/topbar';
 
 export const Finance = () => {
   const title = 'Finance Page';

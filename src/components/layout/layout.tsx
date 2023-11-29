@@ -1,8 +1,8 @@
 import { useDisclosure } from '@mantine/hooks';
 import React from 'react';
 
+import { LayoutContext } from '@/components/layout/context/layout';
 import { Viewport } from '@/components/viewport';
-import { LayoutContext } from '@/layouts/main/context/layout';
 import { LoginModalInterceptor } from '@/pages/account/auth/login_modal_interceptor';
 
 interface LayoutProps {

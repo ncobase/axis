@@ -18,8 +18,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { Footer } from '@/components/footer/footer';
+import { Page } from '@/components/layout';
 import { Logo } from '@/components/logo';
-import { Page } from '@/layouts/main';
 import { useRegisterAccount } from '@/pages/account/account.service';
 import { useStyles } from '@/pages/account/account.styles';
 import { RegisterFormProps } from '@/pages/account/account.types';

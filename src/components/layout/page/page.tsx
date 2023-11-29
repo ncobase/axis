@@ -3,9 +3,9 @@ import React, { createContext, useContext, useMemo } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
-import { useFocusMode } from '@/layouts/main';
-import { Header } from '@/layouts/main/page/header';
-import { Navbar } from '@/layouts/main/page/navbar';
+import { useFocusMode } from '@/components/layout';
+import { Header } from '@/components/layout/page/header';
+import { Navbar } from '@/components/layout/page/navbar';
 import { useTheme } from '@/themes';
 
 interface PageContextValue {
@@ -44,7 +44,7 @@ interface PageTitleProps {
 const PageTitle: React.FC<PageTitleProps> = ({ suffix = '', children = '' }) => {
   const { t } = useTranslation();
   const title = useMemo(
-    () => `${children ? `${children} - ` : ''}${suffix || t('application:title')}`,
+    () => `${children ? `${children} | ` : ''}${suffix || t('application:title')}`,
     [children, suffix, t]
   );
 
