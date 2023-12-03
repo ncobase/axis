@@ -13,7 +13,7 @@ export const Submenu: React.FC<SubmenuProps> = () => {
 
   return (
     <div
-      className='fixed w-44 h-full max-w-sm/2 p-6 bg-white shadow-sm overflow-auto text-xs text-slate-600 font-medium'
+      className='fixed w-44 h-full max-w-sm/2 p-5 bg-white shadow-sm overflow-auto text-xs text-slate-600 font-medium'
       style={{
         width: other.layout.submenu.width,
         top: layout ? other.layout.header.height : 0,
@@ -25,7 +25,7 @@ export const Submenu: React.FC<SubmenuProps> = () => {
         <IconPlus className='float-right text-blue-600 cursor-pointer' size='16' />
       </div>
       <div className='px-3 py-2 my-2 bg-slate-100 cursor-pointer rounded'>
-        <span className='text-blue-600'>一共可以放八个字</span>
+        <span className='text-blue-600'>用户</span>
       </div>
       <div className='px-3 py-2 my-2 hover:bg-slate-100 cursor-pointer rounded'>
         <span>权限</span>
