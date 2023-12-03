@@ -7,7 +7,7 @@ export const Hr = () => {
   const title = 'HR Page';
 
   return (
-    <Page withLayout navbar topbar={<Topbar>Custom topbar element</Topbar>}>
+    <Page layout navbar topbar={<Topbar>Custom topbar element</Topbar>}>
       {title}
     </Page>
   );

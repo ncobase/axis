@@ -14,7 +14,7 @@ export const Purchase = () => {
   ];
 
   return (
-    <Page withLayout navbar topbar={<Topbar title={title} operators={topBarOperators} />}>
+    <Page layout navbar topbar={<Topbar title={title} operators={topBarOperators} />}>
       {title}
     </Page>
   );

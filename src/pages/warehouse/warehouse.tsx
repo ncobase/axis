@@ -33,7 +33,7 @@ export const Warehouse = () => {
 
   return (
     <Page
-      withLayout
+      layout
       navbar
       topbar={<Topbar title={title} operators={topBarOperators} extras={topBarExtras} />}
     >

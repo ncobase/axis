@@ -11,7 +11,7 @@ export const other = {
     navbar: {
       width: `calc(3.5rem + ${spacing['safe-left']})`
     },
-    sidebar: {
+    submenu: {
       width: `calc(11rem + ${spacing['safe-left']})`
     },
     content: {

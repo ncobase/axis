@@ -12,7 +12,7 @@ export const Profile = () => {
   const { user, profile, isLoading } = useAccount();
 
   return (
-    <Page title='Profile' withLayout size='lg'>
+    <Page title='Profile' layout size='lg'>
       <div className='p-6 pb-0 mt-3 mb-6 bg-white rounded-xl shadow-sm'>
         <Group>
           <div className='relative'>

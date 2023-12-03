@@ -17,7 +17,7 @@ export const ErrorPage = ({ code = 404, ...rest }) => {
   const ErrorComponent = ERROR_COMPONENTS[code];
 
   return (
-    <Page title={t(`errors:${code}.label`)} withLayout>
+    <Page title={t(`errors:${code}.label`)} layout>
       <ErrorComponent code={code} {...rest} />
     </Page>
   );

@@ -1,4 +1,4 @@
-import { AppShell, Container, FlexProps, MantineSize } from '@mantine/core';
+import { AppShell, Container, MantineSize } from '@mantine/core';
 import React, { createContext, useContext, useMemo } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -9,39 +9,43 @@ import { Navbar } from '@/components/layout/page/navbar';
 import { useTheme } from '@/themes';
 
 interface PageContextValue {
-  withLayout?: boolean;
-  header?: React.ReactNode;
-  topbar?: React.ReactNode;
-  navbar?: React.ReactNode;
+  layout?: boolean;
+  header?: boolean;
+  topbar?: React.ReactNode | React.ReactElement;
+  navbar?: React.ReactNode | React.ReactElement;
+  submenu?: React.ReactNode | React.ReactElement;
   size?: MantineSize;
 }
 
-const PageContext = createContext<PageContextValue>({
-  withLayout: undefined,
-  header: undefined,
-  topbar: undefined,
-  navbar: undefined,
-  size: undefined
-});
+const PageContext = createContext<PageContextValue>({});
 
-export const usePageContext = () => useContext(PageContext);
+export const usePageContext = (): PageContextValue => useContext(PageContext);
 
-const ContentContainer: React.FC<FlexProps> = ({ children, ...rest }) => {
-  const { size } = usePageContext();
+interface WrapperProps extends React.PropsWithChildren<{}> {}
+
+const Wrapper: React.FC<WrapperProps> = ({ children, ...rest }): JSX.Element => {
+  const { other } = useTheme();
+  const { layout, topbar, submenu, size } = usePageContext();
   const containerProps = useMemo(() => ({ size, fluid: !size }), [size]);
+
+  const mt = topbar ? other.layout.topbar.height : 'unset';
+  const ml = submenu ? other.layout.submenu.width : 'unset';
+
+  if (!layout && !topbar && !submenu) return <>{children}</>;
+
   return (
-    <Container p='md' {...containerProps} {...rest}>
+    <Container p='md' mt={mt} ml={ml} {...containerProps} {...rest}>
       {children}
     </Container>
   );
 };
 
 interface PageTitleProps {
-  suffix?: any;
+  suffix?: string;
   children?: string;
 }
 
-const PageTitle: React.FC<PageTitleProps> = ({ suffix = '', children = '' }) => {
+const PageTitle: React.FC<PageTitleProps> = ({ suffix = '', children = '' }): JSX.Element => {
   const { t } = useTranslation();
   const title = useMemo(
     () => `${children ? `${children} | ` : ''}${suffix || t('application:title')}`,
@@ -57,67 +61,58 @@ const PageTitle: React.FC<PageTitleProps> = ({ suffix = '', children = '' }) => 
   );
 };
 
-interface PageProps extends FlexProps {
+interface PageProps extends React.PropsWithChildren<{}> {
   header?: boolean;
   navbar?: boolean;
-  topbar?: React.ReactElement;
-  sidebar?: React.ReactElement;
+  topbar?: React.ReactElement | React.ReactNode;
+  submenu?: React.ReactElement | React.ReactNode;
   size?: MantineSize;
-  title?: any;
-  withLayout?: boolean;
+  title?: string;
+  layout?: boolean;
   showBack?: boolean;
+  [key: string]: unknown;
 }
-
-const Content: React.FC<{ withLayout: boolean; topbar: boolean; rest: { [key: string]: any } }> = ({
-  withLayout,
-  topbar,
-  rest
-}) => {
-  const { other } = useTheme();
-  return withLayout ? (
-    <ContentContainer mt={topbar ? other.layout.topbar.height : 'unset'} {...rest} />
-  ) : (
-    <>{rest.children}</>
-  );
-};
 
 export const Page: React.FC<PageProps> = ({
   header = true,
   topbar,
   navbar,
-  sidebar,
+  submenu,
   size,
   title,
-  withLayout = false,
+  layout = false,
   showBack = false,
   ...rest
-}) => {
+}): JSX.Element => {
   const { t } = useTranslation();
   useFocusMode();
 
   const pageContextValue = useMemo(
-    () => ({ withLayout, header, topbar, navbar, sidebar, size }),
-    [withLayout, header, topbar, navbar, sidebar, size]
+    () => ({ layout, header, topbar, navbar, submenu, size }),
+    [layout, header, topbar, navbar, submenu, size]
+  );
+
+  const renderContent = () => (
+    <>
+      {topbar}
+      {submenu}
+      <Wrapper {...rest} />
+    </>
   );
 
   return (
     <PageContext.Provider value={pageContextValue}>
       <PageTitle suffix={t('application:title')}>{title}</PageTitle>
-      {withLayout && !showBack ? (
+      {layout && !showBack ? (
         <AppShell
           header={header ? <Header /> : undefined}
           navbar={navbar ? <Navbar /> : undefined}
           padding={0}
         >
-          {topbar}
-          {/* TODO: {sidebar && sidebar}*/}
-          <Content withLayout={withLayout} topbar={!!topbar} rest={rest} />
+          {renderContent()}
         </AppShell>
       ) : (
-        <>
-          {topbar}
-          <Content withLayout={withLayout} topbar={!!topbar} rest={rest} />
-        </>
+        renderContent()
       )}
     </PageContext.Provider>
   );
