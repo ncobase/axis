@@ -22,7 +22,7 @@ export const Submenu: React.FC<SubmenuProps> = () => {
     >
       <div className='text-slate-600 font-bold'>
         <span>模型</span>
-        <IconPlus className='float-right text-blue-600 text-xs cursor-pointer' size='16' />
+        <IconPlus className='float-right text-blue-600 cursor-pointer' size='16' />
       </div>
       <div className='px-3 py-2 my-2 bg-slate-100 cursor-pointer rounded'>
         <span className='text-blue-600'>一共可以放八个字</span>
@@ -38,7 +38,7 @@ export const Submenu: React.FC<SubmenuProps> = () => {
       </div>
       <div className='text-slate-600 font-bold'>
         <span>组件</span>
-        <IconPlus className='float-right text-blue-600 text-xs cursor-pointer' size='16' />
+        <IconPlus className='float-right text-blue-600 cursor-pointer' size='16' />
       </div>
       <div className='px-3 py-2 my-2 hover:bg-slate-100 cursor-pointer rounded'>
         <span>元素</span>
@@ -51,7 +51,7 @@ export const Submenu: React.FC<SubmenuProps> = () => {
       </div>
       <div className='text-slate-600 font-bold'>
         <span>效率</span>
-        <IconPlus className='float-right text-blue-600 text-xs cursor-pointer' size='16' />
+        <IconPlus className='float-right text-blue-600 cursor-pointer' size='16' />
       </div>
       <div className='px-3 py-2 my-2 hover:bg-slate-100 cursor-pointer rounded'>
         <span>流程</span>
