@@ -13,7 +13,7 @@ export const Submenu: React.FC<SubmenuProps> = () => {
 
   return (
     <div
-      className='fixed w-44 h-full max-w-sm/2 p-6 bg-white shadow-sm overflow-auto text-xs text-slate-600'
+      className='fixed w-44 h-full max-w-sm/2 p-6 bg-white shadow-sm overflow-auto text-xs text-slate-600 font-medium'
       style={{
         width: other.layout.submenu.width,
         top: layout ? other.layout.header.height : 0,
