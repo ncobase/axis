@@ -28,13 +28,13 @@ const Wrapper: React.FC<WrapperProps> = ({ children, ...rest }): JSX.Element => 
   const { layout, topbar, submenu, size } = usePageContext();
   const containerProps = useMemo(() => ({ size, fluid: !size }), [size]);
 
-  const mt = topbar ? other.layout.topbar.height : 'unset';
-  const ml = submenu ? other.layout.submenu.width : 'unset';
+  const mt = topbar ? { mt: other.layout.topbar.height } : {};
+  const ml = submenu ? { ml: other.layout.submenu.width } : {};
 
   if (!layout && !topbar && !submenu) return <>{children}</>;
 
   return (
-    <Container p='md' mt={mt} ml={ml} {...containerProps} {...rest}>
+    <Container p='md' {...mt} {...ml} {...containerProps} {...rest}>
       {children}
     </Container>
   );
