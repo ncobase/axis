@@ -6,7 +6,7 @@ import { AccountMenu } from '@/components/layout';
 import { MainMenu } from '@/components/layout/menu/main';
 import { TenantMenu } from '@/components/layout/menu/tenant';
 import { Logo } from '@/components/logo';
-import { useListMenus } from '@/pages/system/menu/menu.service';
+import { useListMenus } from '@/pages/system/menu/service';
 import { useColorScheme, useTheme } from '@/themes';
 
 export const Header = ({ ...rest }) => {

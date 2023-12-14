@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { Footer } from '@/components/footer/footer';
 import { Page } from '@/components/layout';
 import { Logo } from '@/components/logo';
-import { useStyles } from '@/pages/account/account.styles';
-import { ForgetPasswordFormProps } from '@/pages/account/account.types';
+import { useStyles } from '@/pages/account/styles';
+import { ForgetPasswordFormProps } from '@/pages/account/types';
 
 export const ForgetPassword = () => {
   const { t } = useTranslation();

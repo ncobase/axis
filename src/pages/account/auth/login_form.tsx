@@ -17,8 +17,8 @@ import React, { useCallback } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { useLogin } from '@/pages/account/account.service';
-import { LoginFormProps } from '@/pages/account/account.types';
+import { useLogin } from '@/pages/account/service';
+import { LoginFormProps } from '@/pages/account/types';
 import { useTheme } from '@/themes';
 import { upperFirst } from '@/utils';
 

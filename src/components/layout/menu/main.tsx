@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
 import { useStyles } from '@/components/layout/menu/main.styles';
-import { MenuTreeProps } from '@/pages/system/menu/menu.types';
+import { MenuTreeProps } from '@/pages/system/menu/types';
 
 interface MainMenuProps {
   menus?: MenuTreeProps[];

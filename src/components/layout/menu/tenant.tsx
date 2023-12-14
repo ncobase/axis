@@ -6,11 +6,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
-import { useAccountTenant, useAccountTenants } from '@/pages/account/account.service';
+import { useAccountTenant, useAccountTenants } from '@/pages/account/service';
 import { TenantSwitchModal } from '@/pages/account/tenant/switch_modal';
-import { useListMenus } from '@/pages/system/menu/menu.service';
-import { MenuTreeProps } from '@/pages/system/menu/menu.types';
-import { useTenantContext } from '@/pages/system/tenant/tenant.context';
+import { useListMenus } from '@/pages/system/menu/service';
+import { MenuTreeProps } from '@/pages/system/menu/types';
+import { useTenantContext } from '@/pages/system/tenant/context';
 import { randomId } from '@/utils';
 
 export const TenantMenu = ({ ...rest }) => {

@@ -4,7 +4,7 @@ import React from 'react';
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
 import { Page } from '@/components/layout';
-import { useAccount } from '@/pages/account/account.service';
+import { useAccount } from '@/pages/account/service';
 import { useTheme } from '@/themes';
 
 export const Profile = () => {

@@ -20,9 +20,9 @@ import { useNavigate } from 'react-router-dom';
 import { Footer } from '@/components/footer/footer';
 import { Page } from '@/components/layout';
 import { Logo } from '@/components/logo';
-import { useRegisterAccount } from '@/pages/account/account.service';
-import { useStyles } from '@/pages/account/account.styles';
-import { RegisterFormProps } from '@/pages/account/account.types';
+import { useRegisterAccount } from '@/pages/account/service';
+import { useStyles } from '@/pages/account/styles';
+import { RegisterFormProps } from '@/pages/account/types';
 import { useRedirectFromUrl } from '@/router';
 
 export const Register = () => {

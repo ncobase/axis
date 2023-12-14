@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import versionInfo from '@/../version.json';
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
-import { useAccount } from '@/pages/account/account.service';
-import { useListMenus } from '@/pages/system/menu/menu.service';
-import { MenuTreeProps } from '@/pages/system/menu/menu.types';
+import { useAccount } from '@/pages/account/service';
+import { useListMenus } from '@/pages/system/menu/service';
+import { MenuTreeProps } from '@/pages/system/menu/types';
 import { useTheme } from '@/themes';
 
 // const AdminMenu = ({ isAdmin = false }) => {

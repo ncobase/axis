@@ -3,10 +3,10 @@ import { useDisclosure } from '@mantine/hooks';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useAuthContext } from '@/pages/account/account.context';
-import { useAccountTenants } from '@/pages/account/account.service';
-import { useTenantContext } from '@/pages/system/tenant/tenant.context';
-import { Tenant } from '@/pages/system/tenant/tenant.types';
+import { useAuthContext } from '@/pages/account/context';
+import { useAccountTenants } from '@/pages/account/service';
+import { useTenantContext } from '@/pages/system/tenant/context';
+import { Tenant } from '@/pages/system/tenant/types';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 import { useTheme } from '@/themes';
 

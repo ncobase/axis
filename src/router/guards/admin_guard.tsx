@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ErrorBoundary } from '@/components/error-boundary';
-import { useAccount } from '@/pages/account/account.service';
+import { useAccount } from '@/pages/account/service';
 
 export const AdminGuard: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isAdministered, isLoading } = useAccount();

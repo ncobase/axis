@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { ErrorPage } from '@/components/errors';
-import { CommentRoutes } from '@/pages/content/comment/comment.routes';
-import { TaxonomyRoutes } from '@/pages/content/taxonomy/taxonomy.routes';
-import { TopicRoutes } from '@/pages/content/topic/topic.routes';
+import { CommentRoutes } from '@/pages/content/comment/routes';
+import { TaxonomyRoutes } from '@/pages/content/taxonomy/routes';
+import { TopicRoutes } from '@/pages/content/topic/routes';
 
 export const ContentRoutes = () => {
   return (

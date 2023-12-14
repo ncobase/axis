@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useCallback, useContext, useMemo, useState } from 'react';
 
-import { TenantProvider } from '@/pages/system/tenant/tenant.context';
+import { TenantProvider } from '@/pages/system/tenant/context';
 import { locals } from '@/utils/locals';
 import { isBrowser } from '@/utils/ssr';
 

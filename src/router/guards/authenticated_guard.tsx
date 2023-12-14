@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ErrorBoundary } from '@/components/error-boundary';
-import { useAuthContext } from '@/pages/account/account.context';
+import { useAuthContext } from '@/pages/account/context';
 
 export const AuthenticatedGuard: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isAuthenticated } = useAuthContext();

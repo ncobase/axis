@@ -1,15 +1,16 @@
-import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
+import {
+  MutationFunction,
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  UseQueryOptions
+} from '@tanstack/react-query';
 import Axios, { AxiosError } from 'axios';
 import i18n from 'i18next';
 
-import { useAuthContext } from '@/pages/account/account.context';
-import {
-  Account,
-  LoginFormProps,
-  LoginReply,
-  RegisterFormProps
-} from '@/pages/account/account.types';
-import { Tenant, Tenants } from '@/pages/system/tenant/tenant.types';
+import { useAuthContext } from '@/pages/account/context';
+import { Account, LoginFormProps, LoginReply, RegisterFormProps } from '@/pages/account/types';
+import { Tenant, Tenants } from '@/pages/system/tenant/types';
 import { paginateByCursor } from '@/utils/pagination';
 
 interface AccountKeys {
@@ -38,13 +39,13 @@ export const accountKeys: AccountKeys = {
   tenant: ({ id = '' } = {}) => [...accountKeys.all(), 'tenant', { id }]
 };
 
-export const useLogin = (
-  config?: Partial<
-    UseMutationOptions<LoginReply, AxiosError, Pick<LoginFormProps, keyof LoginFormProps>>
-  >
+const useMutationWithTokens = <TVariables>(
+  request: MutationFunction<LoginReply, TVariables>,
+  config?: Partial<UseMutationOptions<LoginReply, AxiosError, TVariables>>
 ) => {
   const { updateTokens } = useAuthContext();
-  return useMutation(payload => Axios.post('/login', payload), {
+
+  return useMutation(request, {
     ...config,
     onSuccess: (data, ...rest) => {
       updateTokens(data?.access_token, data?.refresh_token);
@@ -53,20 +54,13 @@ export const useLogin = (
   });
 };
 
+export const useLogin = (
+  config?: Partial<UseMutationOptions<LoginReply, AxiosError, LoginFormProps>>
+) => useMutationWithTokens(payload => Axios.post('/login', payload), config);
+
 export const useRegisterAccount = (
-  config?: Partial<
-    UseMutationOptions<LoginReply, AxiosError, Pick<RegisterFormProps, keyof RegisterFormProps>>
-  >
-) => {
-  const { updateTokens } = useAuthContext();
-  return useMutation(formValues => Axios.post('/register', formValues), {
-    ...config,
-    onSuccess: (data, ...rest) => {
-      updateTokens(data?.access_token, data?.refresh_token);
-      config?.onSuccess?.(data, ...rest);
-    }
-  });
-};
+  config?: Partial<UseMutationOptions<LoginReply, AxiosError, RegisterFormProps>>
+) => useMutationWithTokens(formValues => Axios.post('/register', formValues), config);
 
 export const useAccount = (
   config: UseQueryOptions<
@@ -78,20 +72,18 @@ export const useAccount = (
 ) => {
   const onSuccess = (data: Account) => {
     i18n.changeLanguage(data.profile?.language);
-    if (config.onSuccess) config.onSuccess(data);
+    config.onSuccess?.(data);
   };
 
-  const { data: account, ...rest } = useQuery<
-    Account,
-    AxiosError,
-    Account,
-    InferQueryKey<typeof accountKeys.account>
-  >(accountKeys.account(), () => Axios.get('/account'), {
-    onSuccess,
-    ...config
-  });
+  const { data: account, ...rest } = useQuery(
+    accountKeys.account(),
+    (): Promise<Account> => Axios.get('/account'),
+    {
+      onSuccess,
+      ...config
+    }
+  );
 
-  // TODO: add useRole()
   const isAdministered = true; // !!account?.authorities?.includes('ADMIN') || account?.administered;
 
   return { ...account, isAdministered, ...rest };
@@ -107,9 +99,11 @@ export const useAccountTenants = (
   > = {},
   url = `/account/tenants?cursor=${cursor}&limit=${limit}`
 ) => {
-  const result = useQuery(accountKeys.tenants(url), (): Promise<Tenants> => Axios.get(url), {
-    ...config
-  });
+  const result = useQuery(
+    accountKeys.tenants(url, { cursor, limit }),
+    (): Promise<Tenants> => Axios.get(url),
+    config
+  );
 
   const { content: tenants } = result.data || {};
   const { rs, hasNextPage, nextCursor } =
@@ -128,21 +122,14 @@ export const useAccountTenant = (
   config: UseQueryOptions<Tenant, AxiosError, Tenant, InferQueryKey<typeof accountKeys.tenant>> = {}
 ) => {
   if (!id) {
-    return {
-      tenant: undefined
-    };
+    return { tenant: undefined };
   }
 
   const { data: tenant, ...rest } = useQuery(
     accountKeys.tenant({ id }),
     (): Promise<Tenant> => Axios.get(`/account/tenants/${id}`),
-    {
-      enabled: !!id,
-      ...config
-    }
+    { enabled: !!id, ...config }
   );
-  return {
-    tenant,
-    ...rest
-  };
+
+  return { tenant, ...rest };
 };

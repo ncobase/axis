@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { Footer } from '@/components/footer/footer';
 import { Page } from '@/components/layout';
 import { Logo } from '@/components/logo';
-import { useStyles } from '@/pages/account/account.styles';
 import { LoginForm } from '@/pages/account/auth/login_form';
+import { useStyles } from '@/pages/account/styles';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 
 export const Login = () => {
