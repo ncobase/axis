@@ -1,8 +1,6 @@
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig, loadEnv } from 'vite';
-import { createHtmlPlugin } from 'vite-plugin-html';
-import { chunkSplitPlugin } from 'vite-plugin-chunk-split';
 import { VitePWA } from 'vite-plugin-pwa';
 
 import pkg from './package.json';
@@ -13,10 +11,6 @@ function pathResolve(dir: string) {
 
 const setupPlugins = ({ VITE_PWA, VITE_APP_NAME }: ImportMetaEnv) => ([
   react(),
-  createHtmlPlugin({
-    minify: true
-  }),
-  chunkSplitPlugin(),
   VITE_PWA === 'true' && VitePWA({
     injectRegister: 'auto',
     manifest: {
