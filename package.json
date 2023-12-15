@@ -9,7 +9,7 @@
     "gen:version": "esno scripts/version_info.ts",
     "serve": "vite preview",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "format": "pnpm lint --fix && pnpm prettier --write",
+    "lint:fix": "pnpm lint --fix && pnpm prettier --write",
     "prettier": "prettier \"**/*.{vue,js,jsx,ts,tsx,md,css,scss,yaml,yml}\"",
     "commit": "git-cz",
     "deploy:prod": "pnpm rimraf serverless.yaml && cp infra/serverless/tencent_cloud_prod.yaml serverless.yaml && sls deploy -s prod && pnpm rimraf serverless.yaml"
@@ -102,7 +102,7 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "pnpm format"
+      "pnpm lint:fix"
     ]
   },
   "config": {
