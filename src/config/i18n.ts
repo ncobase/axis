@@ -3,8 +3,8 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import { AVAILABLE_LANGUAGES, DEFAULT_LANGUAGE_KEY } from '@/consts/i18n';
+import { isBrowser } from '@/helpers/ssr';
 import * as locales from '@/locales';
-import { isBrowser } from '@/utils/ssr';
 
 const setHtmlProperties = (lang: string) => {
   const language = AVAILABLE_LANGUAGES.find(({ key }) => key === lang);

@@ -7,8 +7,8 @@ import { DIcon } from '@/components/icon/icon';
 import { useStyles } from '@/components/layout/page/navbar.styles';
 import { MenuProps } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
+import { getInitials } from '@/helpers';
 import { useTheme } from '@/themes';
-import { getInitials } from '@/utils';
 
 interface SidebarProps {
   activeLabel?: string;

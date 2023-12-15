@@ -2,7 +2,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 // noinspection JSUnusedGlobalSymbols
-import { isArray, isNumber, isObject } from '@/utils/raw_type';
+import { isArray, isNumber, isObject } from '@/helpers/raw_type';
 
 /**
  * 根据 Key 排序
@@ -317,7 +317,7 @@ export const upperFirst = (str: string) => str.charAt(0).toLocaleUpperCase() + s
 
 /**
  * 随机生成 ID
- * @returns {string} 随机生成的ID.
+ * @returns {string} 随机生成的 ID.
  */
 export function randomId(): string {
   return Math.random().toString(36).slice(2, 8);

@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 
 import { usePageContext } from '@/components/layout';
+import { randomId } from '@/helpers';
 import { useTheme } from '@/themes';
-import { randomId } from '@/utils';
 
 export interface TopbarProps extends React.PropsWithChildren {
   title?: string;

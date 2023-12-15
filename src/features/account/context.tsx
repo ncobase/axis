@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, useCallback, useContext, useMemo, useState } from 'react';
 
 import { TenantProvider } from '@/features/system/tenant/context';
-import { locals } from '@/utils/locals';
-import { isBrowser } from '@/utils/ssr';
+import { locals } from '@/helpers/locals';
+import { isBrowser } from '@/helpers/ssr';
 
 interface AuthContextValue {
   isAuthenticated: boolean;

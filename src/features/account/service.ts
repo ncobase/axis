@@ -11,7 +11,7 @@ import i18n from 'i18next';
 import { useAuthContext } from '@/features/account/context';
 import { Account, LoginFormProps, LoginReply, RegisterFormProps } from '@/features/account/schema';
 import { Tenant, Tenants } from '@/features/system/tenant/schema';
-import { paginateByCursor } from '@/utils/pagination';
+import { paginateByCursor } from '@/helpers/pagination';
 
 interface AccountKeys {
   all: () => readonly ['accountService'];

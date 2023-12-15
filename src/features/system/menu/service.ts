@@ -2,7 +2,7 @@ import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tan
 import Axios, { AxiosError } from 'axios';
 
 import { MenuProps, MenusProps, MenuTreeReply } from '@/features/system/menu/schema';
-import { paginateByCursor } from '@/utils/pagination';
+import { paginateByCursor } from '@/helpers/pagination';
 
 interface MenuKeys {
   all: () => readonly ['menuService'];

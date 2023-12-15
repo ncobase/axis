@@ -19,8 +19,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { LoginFormProps } from '@/features/account/schema';
 import { useLogin } from '@/features/account/service';
+import { upperFirst } from '@/helpers';
 import { useTheme } from '@/themes';
-import { upperFirst } from '@/utils';
 
 interface ApiHintProps {
   setValues: (values: LoginFormProps) => void;

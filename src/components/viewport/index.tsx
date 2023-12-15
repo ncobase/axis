@@ -3,7 +3,7 @@ import React, { FC, Fragment, useEffect } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
 
 import blurBackground from '@/assets/images/blur.jpg';
-import { isBrowser } from '@/utils/ssr';
+import { isBrowser } from '@/helpers/ssr';
 
 interface VProps extends BoxProps {}
 

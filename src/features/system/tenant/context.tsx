@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 
-import { locals } from '@/utils/locals';
-import { isBrowser } from '@/utils/ssr';
+import { locals } from '@/helpers/locals';
+import { isBrowser } from '@/helpers/ssr';
 
 interface TenantContextValue {
   tenant_id?: string;

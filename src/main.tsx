@@ -8,10 +8,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { AuthProvider } from '@/features/account/context';
+import { getInitials } from '@/helpers';
 import { Router } from '@/router';
 import { setupStyles } from '@/styles';
 import { ThemeProvider, useTheme } from '@/themes';
-import { getInitials } from '@/utils';
 
 const queryClient = new QueryClient({
   defaultOptions: {

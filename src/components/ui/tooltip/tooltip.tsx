@@ -1,7 +1,7 @@
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import React from 'react';
 
-import { cn } from '@/utils';
+import { cn } from '@/helpers';
 
 const TooltipProvider = TooltipPrimitive.Provider;
 
