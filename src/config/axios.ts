@@ -1,8 +1,8 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { XMdTenantKey, XMdTotalKey } from '@/consts/header';
 import { ACCESS_TOKEN_KEY } from '@/features/account/context';
 import { TENANT_KEY } from '@/features/system/tenant/context';
+import { XMdTenantKey, XMdTotalKey } from '@/helpers/constants';
 import { locals } from '@/helpers/locals';
 import { isBrowser } from '@/helpers/ssr';
 
