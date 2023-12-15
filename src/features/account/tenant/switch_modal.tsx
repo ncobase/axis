@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '@/features/account/context';
 import { useAccountTenants } from '@/features/account/service';
 import { useTenantContext } from '@/features/system/tenant/context';
-import { Tenant } from '@/features/system/tenant/types';
+import { Tenant } from '@/features/system/tenant/schema';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 import { useTheme } from '@/themes';
 

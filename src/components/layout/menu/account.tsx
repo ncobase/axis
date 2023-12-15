@@ -8,8 +8,8 @@ import versionInfo from '@/../version.json';
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
 import { useAccount } from '@/features/account/service';
+import { MenuTreeProps } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
-import { MenuTreeProps } from '@/features/system/menu/types';
 import { useTheme } from '@/themes';
 
 // const AdminMenu = ({ isAdmin = false }) => {

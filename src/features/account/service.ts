@@ -9,8 +9,8 @@ import Axios, { AxiosError } from 'axios';
 import i18n from 'i18next';
 
 import { useAuthContext } from '@/features/account/context';
-import { Account, LoginFormProps, LoginReply, RegisterFormProps } from '@/features/account/types';
-import { Tenant, Tenants } from '@/features/system/tenant/types';
+import { Account, LoginFormProps, LoginReply, RegisterFormProps } from '@/features/account/schema';
+import { Tenant, Tenants } from '@/features/system/tenant/schema';
 import { paginateByCursor } from '@/utils/pagination';
 
 interface AccountKeys {

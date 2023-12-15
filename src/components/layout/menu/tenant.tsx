@@ -8,8 +8,8 @@ import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
 import { useAccountTenant, useAccountTenants } from '@/features/account/service';
 import { TenantSwitchModal } from '@/features/account/tenant/switch_modal';
+import { MenuTreeProps } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
-import { MenuTreeProps } from '@/features/system/menu/types';
 import { useTenantContext } from '@/features/system/tenant/context';
 import { randomId } from '@/utils';
 

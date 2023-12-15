@@ -1,7 +1,7 @@
 import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
 import Axios, { AxiosError } from 'axios';
 
-import { MenuProps, MenusProps, MenuTreeReply } from '@/features/system/menu/types';
+import { MenuProps, MenusProps, MenuTreeReply } from '@/features/system/menu/schema';
 import { paginateByCursor } from '@/utils/pagination';
 
 interface MenuKeys {
