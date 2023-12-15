@@ -1,6 +1,6 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { XMdTenantKey, XMdTotalKey } from '@/constants/header';
+import { XMdTenantKey, XMdTotalKey } from '@/consts/header';
 import { ACCESS_TOKEN_KEY } from '@/features/account/context';
 import { TENANT_KEY } from '@/features/system/tenant/context';
 import { locals } from '@/utils/locals';
