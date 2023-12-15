@@ -5,8 +5,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
 import { useStyles } from '@/components/layout/page/navbar.styles';
-import { useListMenus } from '@/pages/system/menu/service';
-import { MenuProps } from '@/pages/system/menu/types';
+import { useListMenus } from '@/features/system/menu/service';
+import { MenuProps } from '@/features/system/menu/types';
 import { useTheme } from '@/themes';
 import { getInitials } from '@/utils';
 

@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { AuthProvider } from '@/pages/account/context';
+import { AuthProvider } from '@/features/account/context';
 import { Router } from '@/router';
 import { setupStyles } from '@/styles';
 import { ThemeProvider, useTheme } from '@/themes';
