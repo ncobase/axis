@@ -7,7 +7,7 @@ package.json
 pnpm-lock.yaml
 tsconfig.json
 tsconfig.node.json
-vite.config.ts
+vite.config.mts
 public
 *.mdx
 .env*
