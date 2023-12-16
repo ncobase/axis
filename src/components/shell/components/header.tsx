@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const Header: React.FC<React.PropsWithChildren> = ({ children, ...rest }) => (
-  <div className='h-14' {...rest}>
+  <header className='h-14 bg-gray-100' {...rest}>
     {children}
-  </div>
+  </header>
 );
