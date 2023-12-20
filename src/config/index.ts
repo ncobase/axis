@@ -1,3 +1,4 @@
-import './axios';
-import './dayjs';
-import './i18n';
+import '@/config/dayjs';
+import '@/config/i18n';
+import '@/config/api';
+import '@/config/axios';
