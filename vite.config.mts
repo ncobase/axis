@@ -44,19 +44,11 @@ export default defineConfig(({ mode }: { mode: string }) => {
           find: /@\//,
           replacement: `${root}/src/`
         },
-        {
-          find: /\/@\//,
-          replacement: `${root}/src/`
-        },
         // /#/xxxx => types/xxxx
         {
           find: /#\//,
           replacement: `${root}/types/`
         },
-        {
-          find: /\/#\//,
-          replacement: `${root}/types/`
-        }
       ]
     },
     server: {
