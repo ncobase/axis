@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
 import { useStyles } from '@/components/layout/page/navbar.styles';
-import { MenuProps } from '@/features/system/menu/schema';
+import { Menu } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { getInitials } from '@/helpers';
 import { useTheme } from '@/themes';
@@ -33,21 +33,21 @@ export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
     useListMenus({
       type: 'sidebar',
       parent: headerMenus.find(
-        (menu: MenuProps) => menu.slug === (pathArray[pathArray.length - 2] ?? pathArray[0]) || ''
+        (menu: Menu) => menu.slug === (pathArray[pathArray.length - 2] ?? pathArray[0]) || ''
       )?.id
     }).menus ?? []
-  ).filter((i: MenuProps) => !i.hidden);
+  ).filter((i: Menu) => !i.hidden);
 
   if (headerMenus.length === 0 || sidebarMenus.length === 0) return null;
 
-  const isDividerLink = (link: MenuProps) =>
+  const isDividerLink = (link: Menu) =>
     link.name === 'Divide' && link.slug?.includes('divide') && link.path === '-';
 
-  const dividerLink = (link: MenuProps) => (
+  const dividerLink = (link: Menu) => (
     <Divider size='xs' className='w-1/2 !mx-auto !border-slate-200' key={link.id} />
   );
 
-  const tooltipLink = (link: MenuProps, isActive: boolean, active: string) => (
+  const tooltipLink = (link: Menu, isActive: boolean, active: string) => (
     <Tooltip
       key={link.id}
       label={t(link.label)}
@@ -76,7 +76,7 @@ export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
     </Tooltip>
   );
 
-  const links = sidebarMenus.map((link: MenuProps) => {
+  const links = sidebarMenus.map((link: Menu) => {
     if (link.hidden) return null;
     if (isDividerLink(link)) return dividerLink(link);
     return tooltipLink(link, isActive(link.path), active);
