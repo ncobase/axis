@@ -39,16 +39,8 @@ export default defineConfig(({ mode }: { mode: string }) => {
     plugins: setupPlugins(ENV),
     resolve: {
       alias: [
-        // /@/xxxx => src/xxxx
-        {
-          find: /@\//,
-          replacement: `${root}/src/`
-        },
-        // /#/xxxx => types/xxxx
-        {
-          find: /#\//,
-          replacement: `${root}/types/`
-        },
+        {find: '@', replacement: pathResolve('src')},
+        {find: '#', replacement: pathResolve('types')}
       ]
     },
     server: {
