@@ -6,8 +6,10 @@ import { Topbar } from '@/components/layout/page/topbar';
 export const Finance = () => {
   const title = 'Finance Page';
 
+  const topbar = <Topbar>Custom topbar element</Topbar>;
+
   return (
-    <Page layout navbar topbar={<Topbar>Custom topbar element</Topbar>}>
+    <Page layout navbar topbar={topbar}>
       {title}
     </Page>
   );

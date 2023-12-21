@@ -5,17 +5,21 @@ import { Page } from '@/components/layout';
 import { Topbar } from '@/components/layout/page/topbar';
 
 export const Purchase = () => {
-  const title = 'Purchase Page';
+  const topbarElement = {
+    title: 'Purchase Page',
+    actions: [
+      <button className='max-h-8 rounded-md px-3 py-2 hover:bg-slate-100'>
+        <DIcon name='IconPlus' />
+      </button>
+    ],
+    extras: [
+      <button className='max-h-8 rounded-md px-3 py-2 hover:bg-slate-100'>
+        <DIcon name='IconFilter' />
+      </button>
+    ]
+  };
 
-  const topBarOperators = [
-    <button className='max-h-8 rounded-md px-3 py-2 hover:bg-slate-100'>
-      <DIcon name='IconPlus' />
-    </button>
-  ];
+  const topbar = <Topbar {...topbarElement} />;
 
-  return (
-    <Page layout navbar topbar={<Topbar title={title} operators={topBarOperators} />}>
-      {title}
-    </Page>
-  );
+  return <Page layout navbar topbar={topbar}></Page>;
 };
