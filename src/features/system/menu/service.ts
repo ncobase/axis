@@ -1,7 +1,7 @@
 import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
 import Axios, { AxiosError } from 'axios';
 
-import { MenuProps, MenusProps, MenuTreeReply } from '@/features/system/menu/schema';
+import { Menu, MenusReply, MenuTreeReply } from '@/features/system/menu/schema';
 import { paginateByCursor } from '@/helpers/pagination';
 
 interface MenuKeys {
@@ -36,7 +36,7 @@ export const menuKeys: MenuKeys = {
 export const useCreateMenu = ({
   onSuccess,
   ...config
-}: Partial<UseMutationOptions<MenuProps, AxiosError, Pick<MenuProps, keyof MenuProps>>>) => {
+}: Partial<UseMutationOptions<Menu, AxiosError, Pick<Menu, keyof Menu>>>) => {
   return useMutation(formValues => Axios.post('/menus', formValues), {
     ...config,
     onSuccess: (data, ...rest) => {
@@ -50,11 +50,9 @@ export const useCreateMenu = ({
 
 export const useGetMenu = (
   menu?: string,
-  {
-    ...config
-  }: UseQueryOptions<MenuProps, AxiosError, MenuProps, InferQueryKey<typeof menuKeys.get>> = {}
+  { ...config }: UseQueryOptions<Menu, AxiosError, Menu, InferQueryKey<typeof menuKeys.get>> = {}
 ) => {
-  return useQuery(menuKeys.get({ menu }), (): Promise<MenuProps> => Axios.get(`/menus/${menu}`), {
+  return useQuery(menuKeys.get({ menu }), (): Promise<Menu> => Axios.get(`/menus/${menu}`), {
     ...config
   });
 };
@@ -90,7 +88,7 @@ export const useGetMenuTree = (
 export const useUpdateMenu = ({
   onSuccess,
   ...config
-}: Partial<UseMutationOptions<MenuProps, AxiosError, Pick<MenuProps, keyof MenuProps>>>) => {
+}: Partial<UseMutationOptions<Menu, AxiosError, Pick<Menu, keyof Menu>>>) => {
   return useMutation(formValues => Axios.put('/menus', formValues), {
     ...config,
     onSuccess: (data, ...rest) => {
@@ -105,9 +103,9 @@ export const useUpdateMenu = ({
 export const useListMenus = (
   dynamicParams: { [key: string]: string | number } = {},
   config: UseQueryOptions<
-    MenusProps,
+    MenusReply,
     AxiosError,
-    MenusProps,
+    MenusReply,
     InferQueryKey<typeof menuKeys.list>
   > = {}
 ) => {
@@ -117,7 +115,7 @@ export const useListMenus = (
   }
 
   const url = '/menus?' + params.toString();
-  const result = useQuery(menuKeys.list(url), (): Promise<MenusProps> => Axios.get(url), {
+  const result = useQuery(menuKeys.list(url), (): Promise<MenusReply> => Axios.get(url), {
     ...config
   });
 

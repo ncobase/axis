@@ -1,4 +1,4 @@
-export interface MenuProps {
+export interface Menu {
   id: string;
   name?: string;
   label: string;
@@ -17,16 +17,16 @@ export interface MenuProps {
   created_at?: string;
   updated_by?: string;
   updated_at?: string;
-  children?: MenuProps[];
+  children?: Menu[];
 }
 
-export interface MenuTreeProps extends MenuProps {}
+export interface MenuTreeReply extends Menu {}
 
 export interface MenuTreeReply {
-  content: MenuProps[];
+  content: Menu[];
 }
 
-export interface MenusProps {
-  content: MenuProps[];
+export interface MenusReply {
+  content: Menu[];
   total: number;
 }
