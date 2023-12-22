@@ -8,7 +8,7 @@ import versionInfo from '@/../version.json';
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
 import { useAccount } from '@/features/account/service';
-import { MenuTreeProps } from '@/features/system/menu/schema';
+import { MenuTree } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { useTheme } from '@/themes';
 
@@ -62,7 +62,7 @@ export const AccountMenu = ({ ...rest }) => {
   const { user, profile, isLoading } = useAccount();
   const { menus = [] } = useListMenus({ type: 'account' });
 
-  const renderMenuDropdown = (menuItems: MenuTreeProps[]) => {
+  const renderMenuDropdown = (menuItems: MenuTree[]) => {
     const visibleItems = menuItems.filter(item => !item.hidden);
     if (!visibleItems.length) return null;
     return (
@@ -74,7 +74,7 @@ export const AccountMenu = ({ ...rest }) => {
     );
   };
 
-  const renderLink = (menu: MenuTreeProps) => {
+  const renderLink = (menu: MenuTree) => {
     return (
       <Fragment key={menu.id || menu.label}>
         <Menu.Item

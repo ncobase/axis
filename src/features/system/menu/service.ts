@@ -1,7 +1,7 @@
 import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
 import Axios, { AxiosError } from 'axios';
 
-import { Menu, MenusReply, MenuTreeReply } from '@/features/system/menu/schema';
+import { Menu, Menus, MenuTrees } from '@/features/system/menu/schema';
 import { paginateByCursor } from '@/helpers/pagination';
 
 interface MenuKeys {
@@ -62,17 +62,11 @@ export const useGetMenuTree = (
   type?: string,
   {
     ...config
-  }: UseQueryOptions<
-    MenuTreeReply,
-    AxiosError,
-    MenuTreeReply,
-    InferQueryKey<typeof menuKeys.tree>
-  > = {}
+  }: UseQueryOptions<MenuTrees, AxiosError, MenuTrees, InferQueryKey<typeof menuKeys.tree>> = {}
 ) => {
   const result = useQuery(
     menuKeys.tree({ menu, type }),
-    (): Promise<MenuTreeReply> =>
-      Axios.get(`/trees/menus?menu=${menu}${type ? '&type=' + type : ''}`),
+    (): Promise<MenuTrees> => Axios.get(`/trees/menus?menu=${menu}${type ? '&type=' + type : ''}`),
     {
       ...config
     }
@@ -102,12 +96,7 @@ export const useUpdateMenu = ({
 
 export const useListMenus = (
   dynamicParams: { [key: string]: string | number } = {},
-  config: UseQueryOptions<
-    MenusReply,
-    AxiosError,
-    MenusReply,
-    InferQueryKey<typeof menuKeys.list>
-  > = {}
+  config: UseQueryOptions<Menus, AxiosError, Menus, InferQueryKey<typeof menuKeys.list>> = {}
 ) => {
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(dynamicParams)) {
@@ -115,7 +104,7 @@ export const useListMenus = (
   }
 
   const url = '/menus?' + params.toString();
-  const result = useQuery(menuKeys.list(url), (): Promise<MenusReply> => Axios.get(url), {
+  const result = useQuery(menuKeys.list(url), (): Promise<Menus> => Axios.get(url), {
     ...config
   });
 

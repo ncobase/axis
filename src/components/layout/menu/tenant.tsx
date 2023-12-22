@@ -8,7 +8,7 @@ import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
 import { useAccountTenant, useAccountTenants } from '@/features/account/service';
 import { TenantSwitchModal } from '@/features/account/tenant/switch_modal';
-import { MenuTreeProps } from '@/features/system/menu/schema';
+import { MenuTree } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { useTenantContext } from '@/features/system/tenant/context';
 import { randomId } from '@/helpers';
@@ -28,7 +28,7 @@ export const TenantMenu = ({ ...rest }) => {
   const [opened, { open }] = useDisclosure(false);
   const { menus = [] } = useListMenus({ type: 'tenant' });
 
-  const renderLink = (menu: MenuTreeProps) => {
+  const renderLink = (menu: MenuTree) => {
     // switch tenant
     if (menu.slug?.includes('tenant') && menu.slug?.includes('switch')) {
       return (
@@ -55,13 +55,13 @@ export const TenantMenu = ({ ...rest }) => {
         >
           {t(menu.label)}
         </Menu.Item>
-        {menus.filter((o: MenuTreeProps) => !o.slug?.includes('label') && !o.path.includes('label'))
+        {menus.filter((o: MenuTree) => !o.slug?.includes('label') && !o.path.includes('label'))
           .length > 1 && <Menu.Divider maw='90%' mx='auto' />}
       </Fragment>
     );
   };
 
-  const renderMenuDropdown = (menuItems: MenuTreeProps[]) => {
+  const renderMenuDropdown = (menuItems: MenuTree[]) => {
     const visibleItems = menuItems.filter(item => !item.hidden);
     if (!visibleItems.length) return null;
     return <Menu.Dropdown>{visibleItems.map(renderLink)}</Menu.Dropdown>;

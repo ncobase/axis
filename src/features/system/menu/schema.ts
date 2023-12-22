@@ -20,13 +20,13 @@ export interface Menu {
   children?: Menu[];
 }
 
-export interface MenuTreeReply extends Menu {}
+export interface MenuTree extends Menu {}
 
-export interface MenuTreeReply {
+export interface MenuTrees {
   content: Menu[];
 }
 
-export interface MenusReply {
+export interface Menus {
   content: Menu[];
   total: number;
 }

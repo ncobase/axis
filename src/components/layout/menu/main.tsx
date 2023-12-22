@@ -5,10 +5,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
 import { useStyles } from '@/components/layout/menu/main.styles';
-import { MenuTreeProps } from '@/features/system/menu/schema';
+import { MenuTree } from '@/features/system/menu/schema';
 
 interface MainMenuProps {
-  menus?: MenuTreeProps[];
+  menus?: MenuTree[];
 }
 
 export const MainMenu: React.FC<MainMenuProps> = ({ menus = [] }) => {
@@ -23,7 +23,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ menus = [] }) => {
     navigate(path);
   };
 
-  const renderMenuItems = (menuItems: MenuTreeProps[]) =>
+  const renderMenuItems = (menuItems: MenuTree[]) =>
     menuItems.map(({ id, path, label, hidden }) => {
       if (hidden) return null;
       return (
@@ -33,7 +33,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ menus = [] }) => {
       );
     });
 
-  const renderLink = ({ id, path, label, children, hidden }: MenuTreeProps) => {
+  const renderLink = ({ id, path, label, children, hidden }: MenuTree) => {
     if (hidden) return null;
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
