@@ -33,5 +33,5 @@ export const Customer = () => {
 
   const topbar = <Topbar {...topbarElement} />;
 
-  return <Page layout navbar topbar={topbar}></Page>;
+  return <Page layout sidebar topbar={topbar}></Page>;
 };

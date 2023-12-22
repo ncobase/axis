@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next';
 
 import { useFocusMode } from '@/components/layout';
 import { Header } from '@/components/layout/page/header';
-import { Navbar } from '@/components/layout/page/navbar';
+import { Sidebar } from '@/components/layout/page/sidebar';
 import { useTheme } from '@/themes';
 
 interface PageContextValue {
   layout?: boolean;
   header?: boolean;
   topbar?: React.ReactNode | React.ReactElement;
-  navbar?: React.ReactNode | React.ReactElement;
+  sidebar?: React.ReactNode | React.ReactElement;
   submenu?: React.ReactNode | React.ReactElement;
   size?: MantineSize;
 }
@@ -63,7 +63,7 @@ const PageTitle: React.FC<PageTitleProps> = ({ suffix = '', children = '' }): JS
 
 interface PageProps extends React.PropsWithChildren<{}> {
   header?: boolean;
-  navbar?: boolean;
+  sidebar?: boolean;
   topbar?: React.ReactElement | React.ReactNode;
   submenu?: React.ReactElement | React.ReactNode;
   size?: MantineSize;
@@ -76,7 +76,7 @@ interface PageProps extends React.PropsWithChildren<{}> {
 export const Page: React.FC<PageProps> = ({
   header = true,
   topbar,
-  navbar,
+  sidebar,
   submenu,
   size,
   title,
@@ -88,8 +88,8 @@ export const Page: React.FC<PageProps> = ({
   useFocusMode();
 
   const pageContextValue = useMemo(
-    () => ({ layout, header, topbar, navbar, submenu, size }),
-    [layout, header, topbar, navbar, submenu, size]
+    () => ({ layout, header, topbar, sidebar, submenu, size }),
+    [layout, header, topbar, sidebar, submenu, size]
   );
 
   const renderContent = () => (
@@ -106,7 +106,7 @@ export const Page: React.FC<PageProps> = ({
       {layout && !showBack ? (
         <AppShell
           header={header ? <Header /> : undefined}
-          navbar={navbar ? <Navbar /> : undefined}
+          navbar={sidebar ? <Sidebar /> : undefined}
           padding={0}
         >
           {renderContent()}

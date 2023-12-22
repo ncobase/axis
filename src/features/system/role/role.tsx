@@ -2,7 +2,7 @@ import { Page } from '@/components/layout';
 
 export const Role = () => {
   return (
-    <Page layout navbar>
+    <Page layout sidebar>
       body
     </Page>
   );

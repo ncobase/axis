@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import { useStyles } from '@/components/layout/page/navbar.styles';
+import { useStyles } from '@/components/layout/page/sidebar.styles';
 import { Menu } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { getInitials } from '@/helpers';
@@ -15,7 +15,7 @@ interface SidebarProps {
   onLinkClick?: (label: string) => void;
 }
 
-export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
+export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   const { classes, cx } = useStyles();
   const { colors, other } = useTheme();
   const [active, setActive] = useState(activeLabel);
@@ -83,7 +83,7 @@ export const Navbar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   });
 
   return (
-    <StdNavbar width={{ sm: other.layout.navbar.width }} className='shadow-sm justify-between'>
+    <StdNavbar width={{ sm: other.layout.sidebar.width }} className='shadow-sm justify-between'>
       <StdNavbar.Section>{links}</StdNavbar.Section>
       {/*Bottom Wrapper*/}
       {/*<div className='py-4 flex justify-center'></div>*/}

@@ -9,7 +9,7 @@ export const Hr = () => {
   const topbar = <Topbar>Custom topbar element</Topbar>;
 
   return (
-    <Page layout navbar topbar={topbar}>
+    <Page layout sidebar topbar={topbar}>
       {title}
     </Page>
   );

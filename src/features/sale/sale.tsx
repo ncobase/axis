@@ -21,5 +21,5 @@ export const Sale = () => {
 
   const topbar = <Topbar {...topbarElement} />;
 
-  return <Page title={topbarElement.title} layout navbar topbar={topbar}></Page>;
+  return <Page title={topbarElement.title} layout sidebar topbar={topbar}></Page>;
 };

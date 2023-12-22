@@ -23,5 +23,5 @@ export const Tenant = () => {
   const topbar = <Topbar {...topbarElement} />;
   const submenu = <Submenu />;
 
-  return <Page layout navbar topbar={topbar} submenu={submenu}></Page>;
+  return <Page layout sidebar topbar={topbar} submenu={submenu}></Page>;
 };

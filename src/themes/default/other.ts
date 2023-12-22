@@ -8,7 +8,7 @@ export const other = {
     topbar: {
       height: `calc(3rem + ${spacing['safe-left']})`
     },
-    navbar: {
+    sidebar: {
       width: `calc(3.5rem + ${spacing['safe-left']})`
     },
     submenu: {

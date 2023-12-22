@@ -33,5 +33,5 @@ export const Topic = () => {
 
   const topbar = <Topbar {...topbarElement} />;
 
-  return <Page layout navbar topbar={topbar}></Page>;
+  return <Page layout sidebar topbar={topbar}></Page>;
 };
