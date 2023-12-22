@@ -7,7 +7,7 @@ import { Topbar } from '@/components/layout/page/topbar';
 
 export const Tenant = () => {
   const topbarElement = {
-    title: 'Topbar Title',
+    title: '租户',
     actions: [
       <button className='max-h-8 rounded-md px-3 py-2 hover:bg-slate-100'>
         <DIcon name='IconPlus' />
@@ -23,5 +23,5 @@ export const Tenant = () => {
   const topbar = <Topbar {...topbarElement} />;
   const submenu = <Submenu />;
 
-  return <Page layout sidebar topbar={topbar} submenu={submenu}></Page>;
+  return <Page sidebar topbar={topbar} submenu={submenu}></Page>;
 };

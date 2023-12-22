@@ -80,7 +80,7 @@ export const Page: React.FC<PageProps> = ({
   submenu,
   size,
   title,
-  layout = false,
+  layout = true,
   showBack = false,
   ...rest
 }): JSX.Element => {

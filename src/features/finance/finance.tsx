@@ -8,9 +8,5 @@ export const Finance = () => {
 
   const topbar = <Topbar>Custom topbar element</Topbar>;
 
-  return (
-    <Page layout sidebar topbar={topbar}>
-      {title}
-    </Page>
-  );
+  return <Page topbar={topbar}>{title}</Page>;
 };

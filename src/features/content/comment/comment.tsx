@@ -30,5 +30,5 @@ export const Comment = () => {
 
   const topbar = <Topbar {...topbarElement} />;
 
-  return <Page layout sidebar topbar={topbar}></Page>;
+  return <Page sidebar topbar={topbar}></Page>;
 };

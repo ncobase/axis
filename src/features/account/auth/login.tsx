@@ -20,7 +20,7 @@ export const Login = () => {
     redirect();
   };
   return (
-    <Page title={t('account:login.title')}>
+    <Page title={t('account:login.title')} layout={false} sidebar={false}>
       <Flex justify='center' align='center' direction='column' className={classes.authWrapper}>
         <Paper p='xl' shadow='lg' w={{ base: '96%', sm: 480 }} mt='-3.5rem' radius='md'>
           <Flex justify='center' display='block' mb='xl' mt='xs'>

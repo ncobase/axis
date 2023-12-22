@@ -32,7 +32,7 @@ export const ForgetPassword = () => {
   );
 
   return (
-    <Page title={t('account:forget_password.title')}>
+    <Page title={t('account:forget_password.title')} layout={false} sidebar={false}>
       <Flex justify='center' align='center' direction='column' className={classes.authWrapper}>
         <Paper p='xl' shadow='md' w={{ base: '96%', sm: 480 }} mt='-3.5rem'>
           <Flex justify='center' display='block' mb='xl' mt='xs'>

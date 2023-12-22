@@ -18,7 +18,7 @@ export const Sales = () => {
   ));
 
   return (
-    <Page title='Sales' layout p={0}>
+    <Page title='Sales' p={0}>
       <Box className='bg-white h-80 shadow-lg shadow-slate-200/20'>
         <Container fluid py={16}>
           <Grid gutter={16}>
