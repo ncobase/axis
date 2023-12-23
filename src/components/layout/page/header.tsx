@@ -28,8 +28,7 @@ export const Header = ({ ...rest }) => {
   return (
     <StdHeader
       height={other.layout.header.height}
-      bg={colorScheme === 'dark' ? colors.dark[8] : colors.slate[8]}
-      w='100vw'
+      className='w-screen bg-gradient-to-r from-slate-600 via-cyan-700 via-20% to-sky-800'
       sx={{
         borderBottomWidth: 0,
         boxShadow: shadows.sm
@@ -38,29 +37,23 @@ export const Header = ({ ...rest }) => {
     >
       <Group sx={{ height: '100%' }} position='apart'>
         <Group>
-          <Logo
-            w={55}
-            h={55}
-            bg={colorScheme === 'dark' ? colors.dark[8] : colors.slate[9]}
-            type='min'
-            logoColor='white'
-          />
+          <Logo w={55} h={55} type='min' logoColor='white' />
           {headerMenus.length ? <MainMenu menus={headerMenus} /> : null}
         </Group>
         <Group px={spacing.md} spacing='sm'>
           <ActionIcon>
-            <DIcon name='IconBell' size={20} />
+            <DIcon name='IconBell' color={colors.whiteAlpha[7]} size={20} />
           </ActionIcon>
           <ActionIcon>
-            <DIcon name='IconHelp' size={20} />
+            <DIcon name='IconHelp' color={colors.whiteAlpha[7]} size={20} />
           </ActionIcon>
-          <ActionIcon onClick={() => toggleColorScheme()} size={30}>
-            {colorScheme === 'dark' ? (
-              <DIcon name='IconSun' size='1.2rem' />
-            ) : (
-              <DIcon name='IconMoonStars' size='1.1rem' />
-            )}
-          </ActionIcon>
+          {/*<ActionIcon onClick={() => toggleColorScheme()} size={30}>*/}
+          {/*  {colorScheme === 'dark' ? (*/}
+          {/*    <DIcon name='IconSun' color={colors.whiteAlpha[7]} size='1.2rem' />*/}
+          {/*  ) : (*/}
+          {/*    <DIcon name='IconMoonStars' color={colors.whiteAlpha[7]} size='1.1rem' />*/}
+          {/*  )}*/}
+          {/*</ActionIcon>*/}
           <TenantMenu />
           <AccountMenu />
         </Group>

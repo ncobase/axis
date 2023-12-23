@@ -12,13 +12,13 @@ export const useStyles = createStyles(theme => {
       marginRight: rem(24),
       borderRadius: theme.radius.md,
       textDecoration: 'none',
-      color: theme.colors.whiteAlpha[7],
+      color: theme.colors.whiteAlpha[8],
       fontSize: rem(theme.fontSizes.sm),
       fontWeight: 500,
       '&:hover': {
         textDecoration: 'none',
         backgroundColor:
-          theme.colorScheme === 'dark' ? theme.colors.whiteAlpha[1] : theme.colors.slate[9]
+          theme.colorScheme === 'dark' ? theme.colors.whiteAlpha[1] : theme.colors.whiteAlpha[1]
       }
     },
     linkActive: {
