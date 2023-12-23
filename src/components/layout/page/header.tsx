@@ -1,17 +1,15 @@
-import { ActionIcon, Group, Header as StdHeader } from '@mantine/core';
+import { Group, Header as StdHeader } from '@mantine/core';
 import React from 'react';
 
-import { DIcon } from '@/components/icon/icon';
 import { AccountMenu } from '@/components/layout';
 import { MainMenu } from '@/components/layout/menu/main';
 import { TenantMenu } from '@/components/layout/menu/tenant';
 import { Logo } from '@/components/logo';
 import { useListMenus } from '@/features/system/menu/service';
-import { useColorScheme, useTheme } from '@/themes';
+import { useTheme } from '@/themes';
 
 export const Header = ({ ...rest }) => {
-  const { spacing, colors, shadows, other } = useTheme();
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { spacing, shadows, other } = useTheme();
 
   // get main menu
   // const { menus: headerMenus = [] } = useGetMenuTree('root', 'main');
@@ -41,12 +39,12 @@ export const Header = ({ ...rest }) => {
           {headerMenus.length ? <MainMenu menus={headerMenus} /> : null}
         </Group>
         <Group px={spacing.md} spacing='sm'>
-          <ActionIcon>
-            <DIcon name='IconBell' color={colors.whiteAlpha[7]} size={20} />
-          </ActionIcon>
-          <ActionIcon>
-            <DIcon name='IconHelp' color={colors.whiteAlpha[7]} size={20} />
-          </ActionIcon>
+          {/*<ActionIcon>*/}
+          {/*  <DIcon name='IconBell' color={colors.whiteAlpha[7]} size={20} />*/}
+          {/*</ActionIcon>*/}
+          {/*<ActionIcon>*/}
+          {/*  <DIcon name='IconHelp' color={colors.whiteAlpha[7]} size={20} />*/}
+          {/*</ActionIcon>*/}
           {/*<ActionIcon onClick={() => toggleColorScheme()} size={30}>*/}
           {/*  {colorScheme === 'dark' ? (*/}
           {/*    <DIcon name='IconSun' color={colors.whiteAlpha[7]} size='1.2rem' />*/}

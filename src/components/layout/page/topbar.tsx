@@ -12,15 +12,21 @@ export interface TopbarProps extends React.PropsWithChildren {
 
 const TWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { other } = useTheme();
-  const { layout } = usePageContext();
+  const { layout, sidebar } = usePageContext();
 
   const topbarHeight = other.layout.topbar.height;
   const headerHeight = layout ? other.layout.header.height : 0;
+  const sidebarWidth = sidebar ? other.layout.sidebar.width : 0;
 
   return (
     <div
-      className='fixed z-10 w-full px-4 h-12 bg-white shadow-sm align-middle items-center flex gap-4 overflow-hidden'
-      style={{ height: topbarHeight, top: headerHeight }}
+      className='fixed z-10 px-4 h-12 bg-white shadow-sm align-middle items-center flex gap-4 overflow-hidden'
+      style={{
+        height: topbarHeight,
+        top: headerHeight,
+        left: sidebarWidth,
+        right: 0
+      }}
     >
       {children}
     </div>
