@@ -26,7 +26,7 @@ export const Header = ({ ...rest }) => {
   return (
     <StdHeader
       height={other.layout.header.height}
-      className='w-screen bg-gradient-to-r from-slate-600 via-cyan-700 via-20% to-sky-800'
+      className='w-screen bg-gradient-to-r from-slate-800 via-slate-700 via-20% to-slate-800'
       sx={{
         borderBottomWidth: 0,
         boxShadow: shadows.sm
