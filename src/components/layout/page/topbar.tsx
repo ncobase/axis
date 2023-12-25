@@ -40,7 +40,9 @@ export const Topbar: React.FC<TopbarProps> = ({ title, actions = [], extras = []
       {title && (
         <div className='font-bold text-slate-600'>
           {title}
-          <span className='pl-px ml-4 w-px bg-slate-200' />
+          {(!!actions.length || !!extras.length) && (
+            <span className='pl-px ml-4 w-px bg-slate-200' />
+          )}
         </div>
       )}
       {!!actions.length && (
