@@ -68,9 +68,9 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
         }}
       >
         {link.icon ? (
-          <DIcon name={link.icon} />
+          <DIcon size={18} name={link.icon} />
         ) : (
-          <Text color={colors.slate[5]}>{getInitials(link.name || link.label || link.id)}</Text>
+          <Text color={colors.slate[4]}>{getInitials(link.name || link.label || link.id)}</Text>
         )}
       </UnstyledButton>
     </Tooltip>
