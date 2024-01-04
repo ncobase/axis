@@ -2,7 +2,7 @@ import { $Fetch, $fetch, FetchOptions } from 'ofetch';
 
 import { ACCESS_TOKEN_KEY } from '@/features/account/context';
 import { TENANT_KEY } from '@/features/system/tenant/context';
-import { XMdTenantKey } from '@/helpers/constants';
+import { BearerKey, XMdTenantKey } from '@/helpers/constants';
 import { locals } from '@/helpers/locals';
 import { isBrowser } from '@/helpers/ssr';
 
@@ -26,8 +26,8 @@ export class Request {
 
     return {
       ...this.defaultHeaders,
-      ...(tenant && { [XMdTenantKey]: tenant }),
-      ...(token && { Authorization: `Bearer ${token}` })
+      ...(token && tenant && { [XMdTenantKey]: tenant }),
+      ...(token && { Authorization: `${BearerKey}${token}` })
     };
   }
 

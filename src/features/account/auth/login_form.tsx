@@ -90,7 +90,6 @@ export const LoginForm = ({
   });
 
   const onError = ({ response }: FetchError) => {
-    console.log(response);
     const { reason, message } = response?._data || ({} as any);
     const notificationProps = {
       title: reason,
