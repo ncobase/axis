@@ -17,7 +17,11 @@ export class Request {
 
   constructor(fetcher: $Fetch, defaultHeaders: Record<string, string | undefined> = {}) {
     this.$fetch = fetcher;
-    this.defaultHeaders = defaultHeaders;
+    this.defaultHeaders = {
+      Accept: 'application/json;charset=utf-8',
+      'Content-Type': 'application/json;charset=utf-8',
+      ...defaultHeaders
+    };
   }
 
   private getHeaders() {
