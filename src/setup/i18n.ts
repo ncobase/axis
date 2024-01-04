@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+import * as locales from '@/assets/locales';
 import { AVAILABLE_LANGUAGES, DEFAULT_LANGUAGE_KEY } from '@/helpers/constants';
 import { isBrowser } from '@/helpers/ssr';
-import * as locales from '@/locales';
 
 const setHtmlProperties = (lang: string) => {
   const language = AVAILABLE_LANGUAGES.find(({ key }) => key === lang);
