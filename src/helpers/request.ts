@@ -49,11 +49,12 @@ export class Request {
   ): Promise<any> {
     try {
       const headers = this.getHeaders();
+      const body = data ? { body: JSON.stringify(data) } : {};
       const options: FetchOptions = {
         ...Request.baseConfig,
         method,
         headers,
-        body: data,
+        ...body,
         ...fetchOptions
       };
       return this.$fetch(url, options);
