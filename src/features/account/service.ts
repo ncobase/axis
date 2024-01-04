@@ -5,13 +5,14 @@ import {
   useQuery,
   UseQueryOptions
 } from '@tanstack/react-query';
-import Axios, { AxiosError } from 'axios';
 import i18n from 'i18next';
+import { FetchError } from 'ofetch';
 
 import { useAuthContext } from '@/features/account/context';
 import { Account, LoginFormProps, LoginReply, RegisterFormProps } from '@/features/account/schema';
 import { Tenant, Tenants } from '@/features/system/tenant/schema';
 import { paginateByCursor } from '@/helpers/pagination';
+import { request } from '@/helpers/request';
 
 interface AccountKeys {
   all: () => readonly ['accountService'];
@@ -41,7 +42,7 @@ export const accountKeys: AccountKeys = {
 
 const useMutationWithTokens = <TVariables>(
   request: MutationFunction<LoginReply, TVariables>,
-  config?: Partial<UseMutationOptions<LoginReply, AxiosError, TVariables>>
+  config?: Partial<UseMutationOptions<LoginReply, FetchError, TVariables>>
 ) => {
   const { updateTokens } = useAuthContext();
 
@@ -55,17 +56,17 @@ const useMutationWithTokens = <TVariables>(
 };
 
 export const useLogin = (
-  config?: Partial<UseMutationOptions<LoginReply, AxiosError, LoginFormProps>>
-) => useMutationWithTokens(payload => Axios.post('/login', payload), config);
+  config?: Partial<UseMutationOptions<LoginReply, FetchError, LoginFormProps>>
+) => useMutationWithTokens(payload => request.post('/login', payload), config);
 
 export const useRegisterAccount = (
-  config?: Partial<UseMutationOptions<LoginReply, AxiosError, RegisterFormProps>>
-) => useMutationWithTokens(formValues => Axios.post('/register', formValues), config);
+  config?: Partial<UseMutationOptions<LoginReply, FetchError, RegisterFormProps>>
+) => useMutationWithTokens(formValues => request.post('/register', formValues), config);
 
 export const useAccount = (
   config: UseQueryOptions<
     Account,
-    AxiosError,
+    FetchError,
     Account,
     InferQueryKey<typeof accountKeys.account>
   > = {}
@@ -77,7 +78,7 @@ export const useAccount = (
 
   const { data: account, ...rest } = useQuery(
     accountKeys.account(),
-    (): Promise<Account> => Axios.get('/account'),
+    (): Promise<Account> => request.get('/account'),
     {
       onSuccess,
       ...config
@@ -93,7 +94,7 @@ export const useAccountTenants = (
   { cursor = '', limit = 20 } = {},
   config: UseQueryOptions<
     Tenants,
-    AxiosError,
+    FetchError,
     Tenants,
     InferQueryKey<typeof accountKeys.tenants>
   > = {},
@@ -101,7 +102,7 @@ export const useAccountTenants = (
 ) => {
   const result = useQuery(
     accountKeys.tenants(url, { cursor, limit }),
-    (): Promise<Tenants> => Axios.get(url),
+    (): Promise<Tenants> => request.get(url),
     config
   );
 
@@ -119,7 +120,7 @@ export const useAccountTenants = (
 
 export const useAccountTenant = (
   id?: string,
-  config: UseQueryOptions<Tenant, AxiosError, Tenant, InferQueryKey<typeof accountKeys.tenant>> = {}
+  config: UseQueryOptions<Tenant, FetchError, Tenant, InferQueryKey<typeof accountKeys.tenant>> = {}
 ) => {
   if (!id) {
     return { tenant: undefined };
@@ -127,7 +128,7 @@ export const useAccountTenant = (
 
   const { data: tenant, ...rest } = useQuery(
     accountKeys.tenant({ id }),
-    (): Promise<Tenant> => Axios.get(`/account/tenants/${id}`),
+    (): Promise<Tenant> => request.get(`/account/tenants/${id}`),
     { enabled: !!id, ...config }
   );
 

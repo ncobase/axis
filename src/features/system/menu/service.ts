@@ -1,8 +1,9 @@
 import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
-import Axios, { AxiosError } from 'axios';
+import { FetchError } from 'ofetch';
 
 import { Menu, Menus, MenuTrees } from '@/features/system/menu/schema';
 import { paginateByCursor } from '@/helpers/pagination';
+import { request } from '@/helpers/request';
 
 interface MenuKeys {
   all: () => readonly ['menuService'];
@@ -36,8 +37,8 @@ export const menuKeys: MenuKeys = {
 export const useCreateMenu = ({
   onSuccess,
   ...config
-}: Partial<UseMutationOptions<Menu, AxiosError, Pick<Menu, keyof Menu>>>) => {
-  return useMutation(formValues => Axios.post('/menus', formValues), {
+}: Partial<UseMutationOptions<Menu, FetchError, Pick<Menu, keyof Menu>>>) => {
+  return useMutation(formValues => request.post('/menus', formValues), {
     ...config,
     onSuccess: (data, ...rest) => {
       if (process.env.NODE_ENV !== 'production') {
@@ -50,9 +51,9 @@ export const useCreateMenu = ({
 
 export const useGetMenu = (
   menu?: string,
-  { ...config }: UseQueryOptions<Menu, AxiosError, Menu, InferQueryKey<typeof menuKeys.get>> = {}
+  { ...config }: UseQueryOptions<Menu, FetchError, Menu, InferQueryKey<typeof menuKeys.get>> = {}
 ) => {
-  return useQuery(menuKeys.get({ menu }), (): Promise<Menu> => Axios.get(`/menus/${menu}`), {
+  return useQuery(menuKeys.get({ menu }), (): Promise<Menu> => request.get(`/menus/${menu}`), {
     ...config
   });
 };
@@ -62,11 +63,12 @@ export const useGetMenuTree = (
   type?: string,
   {
     ...config
-  }: UseQueryOptions<MenuTrees, AxiosError, MenuTrees, InferQueryKey<typeof menuKeys.tree>> = {}
+  }: UseQueryOptions<MenuTrees, FetchError, MenuTrees, InferQueryKey<typeof menuKeys.tree>> = {}
 ) => {
   const result = useQuery(
     menuKeys.tree({ menu, type }),
-    (): Promise<MenuTrees> => Axios.get(`/trees/menus?menu=${menu}${type ? '&type=' + type : ''}`),
+    (): Promise<MenuTrees> =>
+      request.get(`/trees/menus?menu=${menu}${type ? '&type=' + type : ''}`),
     {
       ...config
     }
@@ -82,8 +84,8 @@ export const useGetMenuTree = (
 export const useUpdateMenu = ({
   onSuccess,
   ...config
-}: Partial<UseMutationOptions<Menu, AxiosError, Pick<Menu, keyof Menu>>>) => {
-  return useMutation(formValues => Axios.put('/menus', formValues), {
+}: Partial<UseMutationOptions<Menu, FetchError, Pick<Menu, keyof Menu>>>) => {
+  return useMutation(formValues => request.put('/menus', formValues), {
     ...config,
     onSuccess: (data, ...rest) => {
       if (process.env.NODE_ENV !== 'production') {
@@ -96,7 +98,7 @@ export const useUpdateMenu = ({
 
 export const useListMenus = (
   dynamicParams: { [key: string]: string | number } = {},
-  config: UseQueryOptions<Menus, AxiosError, Menus, InferQueryKey<typeof menuKeys.list>> = {}
+  config: UseQueryOptions<Menus, FetchError, Menus, InferQueryKey<typeof menuKeys.list>> = {}
 ) => {
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(dynamicParams)) {
@@ -104,7 +106,7 @@ export const useListMenus = (
   }
 
   const url = '/menus?' + params.toString();
-  const result = useQuery(menuKeys.list(url), (): Promise<Menus> => Axios.get(url), {
+  const result = useQuery(menuKeys.list(url), (): Promise<Menus> => request.get(url), {
     ...config
   });
 

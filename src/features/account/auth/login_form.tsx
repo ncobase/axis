@@ -12,7 +12,7 @@ import {
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { AxiosError } from 'axios';
+import { FetchError } from 'ofetch';
 import React, { useCallback } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -89,8 +89,9 @@ export const LoginForm = ({
     }
   });
 
-  const onError = ({ response }: AxiosError) => {
-    const { reason, message } = response?.data || ({} as any);
+  const onError = ({ response }: FetchError) => {
+    console.log(response);
+    const { reason, message } = response?._data || ({} as any);
     const notificationProps = {
       title: reason,
       message: message || t(`errors:${reason?.toLowerCase() || 'unknown.label'}`),

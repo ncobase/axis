@@ -12,7 +12,7 @@ import {
 import { isNotEmpty, matchesField, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import { FetchError } from 'ofetch';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -52,8 +52,8 @@ export const Register = () => {
     }
   });
 
-  const onError = ({ response }: AxiosError) => {
-    const { reason, message } = response?.data || ({} as any);
+  const onError = ({ response }: FetchError) => {
+    const { reason, message } = response?._data || ({} as any);
     const notificationProps = {
       title: reason,
       message: message || t(`errors:${reason?.toLowerCase() || 'unknown.label'}`),
