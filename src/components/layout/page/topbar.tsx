@@ -20,7 +20,7 @@ const TWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   return (
     <div
-      className='fixed z-10 px-4 h-12 bg-white shadow-sm align-middle items-center flex gap-4 overflow-hidden'
+      className='fixed z-30 px-4 h-12 bg-white shadow-sm align-middle items-center flex gap-4 overflow-hidden'
       style={{
         height: topbarHeight,
         top: headerHeight,

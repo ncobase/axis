@@ -41,8 +41,8 @@ export const Viewport: FC<VProps> = ({ children }) => {
   return (
     <Fragment>
       {children}
-      <div className='fixed w-full h-96 top-0 -z-30 blur-3xl bg-transparent'>
-        <img className='w-full h-full bg-cover opacity-5' src={blurBackground} alt='' />
+      <div className='fixed w-full h-96 top-0 -z-0 blur-3xl bg-transparent'>
+        <img className='w-full h-full bg-cover opacity-10' src={blurBackground} alt='' />
       </div>
     </Fragment>
   );
