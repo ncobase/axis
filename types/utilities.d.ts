@@ -11,10 +11,14 @@ type ExplicitAny = any;
 
 /**
  * 使用此类型将第一种类型的键覆盖为第二种。
- * 这主要用于扩展多个组件的自定义道具类型
- * 使用 `as` props。
  */
 type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
+
+/**
+ * 任意对象类型
+ */
+
+type AnyObject = Record<string, unknown>;
 
 /**
  * 使用此类型标记 react-query QueryKeys

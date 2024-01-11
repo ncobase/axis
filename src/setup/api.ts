@@ -58,7 +58,7 @@ const FIXED_PARAM = {
   default_user: defOps(env)
 };
 
-type ApiMaps = { [key: string]: any | ApiMaps };
+type ApiMaps = { [key: string]: unknown | ApiMaps };
 
 const urlHandle = (obj: ApiMaps, url: string): ApiMaps => {
   Object.keys(obj).forEach(key => {

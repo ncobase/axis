@@ -50,7 +50,7 @@ export class Request {
   protected async request(
     method: string,
     url: string,
-    data?: any,
+    data?: ExplicitAny,
     fetchOptions?: FetchOptions
   ): Promise<any> {
     try {
@@ -74,11 +74,11 @@ export class Request {
     return this.request('GET', url, undefined, fetchOptions);
   }
 
-  public async post(url: string, data?: any, fetchOptions?: FetchOptions): Promise<any> {
+  public async post(url: string, data?: ExplicitAny, fetchOptions?: FetchOptions): Promise<any> {
     return this.request('POST', url, data, fetchOptions);
   }
 
-  public async put(url: string, data?: any, fetchOptions?: FetchOptions): Promise<any> {
+  public async put(url: string, data?: ExplicitAny, fetchOptions?: FetchOptions): Promise<any> {
     return this.request('PUT', url, data, fetchOptions);
   }
 

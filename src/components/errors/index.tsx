@@ -6,7 +6,7 @@ import { Error404 } from '@/components/errors/404';
 import { Error500 } from '@/components/errors/500';
 import { Page } from '@/components/layout';
 
-const ERROR_COMPONENTS: any = {
+const ERROR_COMPONENTS: ExplicitAny = {
   403: Error403,
   404: Error404,
   500: Error500
