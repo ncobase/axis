@@ -16,7 +16,8 @@ import { ThemeProvider, useTheme } from '@/themes';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
+      suspense: true
     }
   }
 });
