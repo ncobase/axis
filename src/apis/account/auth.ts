@@ -21,7 +21,7 @@ export interface LoginReply {
   register_token?: string;
 }
 
-export interface ForgetPasswordFormProps {
+export interface ForgetPasswordProps {
   username_or_email: string;
 }
 

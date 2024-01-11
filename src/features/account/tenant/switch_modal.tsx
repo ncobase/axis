@@ -4,7 +4,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAuthContext } from '@/features/account/context';
-import { useAccountTenants } from '@/features/account/service';
+import { useUserTenants } from '@/features/account/service';
 import { useTenantContext } from '@/features/system/tenant/context';
 import { Tenant } from '@/features/system/tenant/schema';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
@@ -62,8 +62,7 @@ export const TenantSwitchModal = ({ openModal = false, onClose }: TenantSwitchMo
   const { hasTenant, tenant_id, updateTenant } = useTenantContext();
   const redirect = useRedirectFromUrl();
 
-  const result = useAccountTenants();
-  const tenants = result?.tenants || [];
+  const { tenants = [] } = useUserTenants();
 
   useEffect(() => {
     if (openModal) {

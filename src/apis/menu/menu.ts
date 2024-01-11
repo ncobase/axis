@@ -25,7 +25,7 @@ export const deleteMenu = async (id: string): Promise<Menu> => {
 };
 
 // list
-export const getMenus = async (params: any): Promise<Menus> => {
+export const getMenus = async (params: ExplicitAny): Promise<Menus> => {
   const queryString = buildQueryString(params);
   return request.get(`${ENDPOINT}?${queryString}`);
 };

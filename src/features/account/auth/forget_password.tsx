@@ -4,10 +4,10 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import { ForgetPasswordProps } from '@/apis/account/auth';
 import { Footer } from '@/components/footer/footer';
 import { Page } from '@/components/layout';
 import { Logo } from '@/components/logo';
-import { ForgetPasswordFormProps } from '@/features/account/schema';
 import { useStyles } from '@/features/account/styles';
 
 export const ForgetPassword = () => {
@@ -16,7 +16,7 @@ export const ForgetPassword = () => {
 
   const navigate = useNavigate();
 
-  const form = useForm<ForgetPasswordFormProps>({
+  const form = useForm<ForgetPasswordProps>({
     initialValues: {
       username_or_email: ''
     },
@@ -26,7 +26,7 @@ export const ForgetPassword = () => {
   });
 
   const onSubmitForgetPassword = form.onSubmit(
-    useCallback(async (values: ForgetPasswordFormProps) => {
+    useCallback(async (values: ForgetPasswordProps) => {
       console.log(values);
     }, [])
   );

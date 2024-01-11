@@ -8,21 +8,25 @@ import {
 import i18n from 'i18next';
 import { FetchError } from 'ofetch';
 
+import { Account, getCurrentUser } from '@/apis/account/account';
+import {
+  loginAccount,
+  LoginProps,
+  LoginReply,
+  registerAccount,
+  RegisterProps
+} from '@/apis/account/auth';
+import { getUserTenant, getUserTenants } from '@/apis/account/tenant';
 import { useAuthContext } from '@/features/account/context';
-import { Account, LoginFormProps, LoginReply, RegisterFormProps } from '@/features/account/schema';
 import { Tenant, Tenants } from '@/features/system/tenant/schema';
 import { paginateByCursor } from '@/helpers/pagination';
-import { request } from '@/helpers/request';
 
 interface AccountKeys {
   all: () => readonly ['accountService'];
   login: () => readonly ['accountService', 'login'];
   register: () => readonly ['accountService', 'register'];
   account: () => readonly ['accountService', 'account'];
-  tenants: (
-    url: string,
-    options?: { cursor?: string; limit?: number }
-  ) => readonly ['accountService', 'tenants', string, { cursor?: string; limit?: number }];
+  tenants: (options?: AnyObject) => readonly ['accountService', 'tenants', AnyObject];
   tenant: (options?: { id?: string }) => readonly ['accountService', 'tenant', { id?: string }];
 }
 
@@ -31,12 +35,7 @@ export const accountKeys: AccountKeys = {
   login: () => [...accountKeys.all(), 'login'],
   register: () => [...accountKeys.all(), 'register'],
   account: () => [...accountKeys.all(), 'account'],
-  tenants: (url, { cursor, limit } = {}) => [
-    ...accountKeys.all(),
-    'tenants',
-    url,
-    { cursor, limit }
-  ],
+  tenants: ({ cursor, limit } = {}) => [...accountKeys.all(), 'tenants', { cursor, limit }],
   tenant: ({ id = '' } = {}) => [...accountKeys.all(), 'tenant', { id }]
 };
 
@@ -56,12 +55,12 @@ const useMutationWithTokens = <TVariables>(
 };
 
 export const useLogin = (
-  config?: Partial<UseMutationOptions<LoginReply, FetchError, LoginFormProps>>
-) => useMutationWithTokens(payload => request.post('/login', payload), config);
+  config?: Partial<UseMutationOptions<LoginReply, FetchError, LoginProps>>
+) => useMutationWithTokens(payload => loginAccount(payload), config);
 
 export const useRegisterAccount = (
-  config?: Partial<UseMutationOptions<LoginReply, FetchError, RegisterFormProps>>
-) => useMutationWithTokens(formValues => request.post('/register', formValues), config);
+  config?: Partial<UseMutationOptions<LoginReply, FetchError, RegisterProps>>
+) => useMutationWithTokens(payload => registerAccount(payload), config);
 
 export const useAccount = (
   config: UseQueryOptions<
@@ -78,7 +77,7 @@ export const useAccount = (
 
   const { data: account, ...rest } = useQuery(
     accountKeys.account(),
-    (): Promise<Account> => request.get('/account'),
+    (): Promise<Account> => getCurrentUser(),
     {
       onSuccess,
       ...config
@@ -90,19 +89,18 @@ export const useAccount = (
   return { ...account, isAdministered, ...rest };
 };
 
-export const useAccountTenants = (
+export const useUserTenants = (
   { cursor = '', limit = 20 } = {},
   config: UseQueryOptions<
     Tenants,
     FetchError,
     Tenants,
     InferQueryKey<typeof accountKeys.tenants>
-  > = {},
-  url = `/account/tenants?cursor=${cursor}&limit=${limit}`
+  > = {}
 ) => {
   const result = useQuery(
-    accountKeys.tenants(url, { cursor, limit }),
-    (): Promise<Tenants> => request.get(url),
+    accountKeys.tenants({ cursor, limit }),
+    (): Promise<Tenants> => getUserTenants({ cursor, limit }),
     config
   );
 
@@ -118,7 +116,7 @@ export const useAccountTenants = (
   };
 };
 
-export const useAccountTenant = (
+export const useUserTenant = (
   id?: string,
   config: UseQueryOptions<Tenant, FetchError, Tenant, InferQueryKey<typeof accountKeys.tenant>> = {}
 ) => {
@@ -128,7 +126,7 @@ export const useAccountTenant = (
 
   const { data: tenant, ...rest } = useQuery(
     accountKeys.tenant({ id }),
-    (): Promise<Tenant> => request.get(`/account/tenants/${id}`),
+    (): Promise<Tenant> => getUserTenant(id),
     { enabled: !!id, ...config }
   );
 

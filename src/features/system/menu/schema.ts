@@ -17,13 +17,14 @@ export interface Menu {
   created_at?: string;
   updated_by?: string;
   updated_at?: string;
+}
+
+export interface MenuTree extends Menu {
   children?: Menu[];
 }
 
-export interface MenuTree extends Menu {}
-
 export interface MenuTrees {
-  content: Menu[];
+  content: MenuTree[];
 }
 
 export interface Menus {

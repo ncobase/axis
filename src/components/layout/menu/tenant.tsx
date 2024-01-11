@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
-import { useAccountTenant, useAccountTenants } from '@/features/account/service';
+import { useUserTenant, useUserTenants } from '@/features/account/service';
 import { TenantSwitchModal } from '@/features/account/tenant/switch_modal';
 import { MenuTree } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
@@ -18,8 +18,8 @@ export const TenantMenu = ({ ...rest }) => {
   const navigate = useNavigate();
 
   const { hasTenant, tenant_id } = useTenantContext();
-  const { tenants = [] } = useAccountTenants();
-  const { tenant } = useAccountTenant(tenant_id, {
+  const { tenants = [] } = useUserTenants();
+  const { tenant } = useUserTenant(tenant_id, {
     onError: () => {
       open();
     }
