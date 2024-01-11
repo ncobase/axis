@@ -14,6 +14,6 @@ export const globalStyles = ({ colors, colorScheme, ...rest }: MantineTheme) => 
   },
   body: {
     color: colorScheme === 'dark' ? rest.white : colors.gray[8],
-    backgroundColor: colorScheme === 'dark' ? colors.dark[8] : colors.slate[0]
+    backgroundColor: 'transparent'
   }
 });

@@ -2,7 +2,6 @@ import { BoxProps } from '@mantine/core';
 import React, { FC, Fragment, useEffect } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
 
-import blurBackground from '@/assets/images/blur.jpg';
 import { isBrowser } from '@/helpers/ssr';
 
 interface VProps extends BoxProps {}
@@ -38,12 +37,5 @@ const useFixViewport = (): void => {
 export const Viewport: FC<VProps> = ({ children }) => {
   useScrollToTop();
   useFixViewport();
-  return (
-    <Fragment>
-      {children}
-      <div className='fixed w-full h-96 top-0 -z-0 blur-3xl bg-transparent'>
-        <img className='w-full h-full bg-cover opacity-10' src={blurBackground} alt='' />
-      </div>
-    </Fragment>
-  );
+  return <Fragment>{children}</Fragment>;
 };
