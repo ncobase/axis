@@ -1,4 +1,4 @@
-import { $Fetch, $fetch, FetchOptions } from 'ofetch';
+import { $Fetch, $fetch, FetchError, FetchOptions } from 'ofetch';
 
 import { ACCESS_TOKEN_KEY } from '@/features/account/context';
 import { TENANT_KEY } from '@/features/system/tenant/context';
@@ -38,6 +38,12 @@ export class Request {
   private handleRequestError(err: Error, method: string, url: string): void {
     console.error(`请求错误 [${method} ${url}]: ${err.message}`);
     // TODO: 记录错误信息
+    throw err;
+  }
+
+  private handleResponseError(err: FetchError, method: string, url: string): void {
+    console.error(`响应错误 [${method} ${url}]: ${err.message}`);
+    // TODO: 处理响应错误逻辑
     throw err;
   }
 
