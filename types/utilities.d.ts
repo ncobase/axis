@@ -17,8 +17,12 @@ type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
 /**
  * 任意对象类型
  */
+type AnyObject = Record<string, unknown> | { [key: string]: unknown };
 
-type AnyObject = Record<string, unknown>;
+/**
+ * 任意数组类型
+ */
+type AnyArray = Array<Record<string, unknown> | { [key: string]: unknown }>;
 
 /**
  * 使用此类型标记 react-query QueryKeys
