@@ -17,14 +17,10 @@ interface MenuKeys {
 export const menuKeys: MenuKeys = {
   all: () => ['menuService'],
   create: () => [...menuKeys.all(), 'create'],
-  get: ({ menu = '' } = {}) => [...menuKeys.all(), 'menu', { menu }],
-  tree: ({ menu = '', type = '' } = {}) => [...menuKeys.all(), 'tree', { menu, type }],
+  get: ({ menu } = {}) => [...menuKeys.all(), 'menu', { menu }],
+  tree: (queryKey = {}) => [...menuKeys.all(), 'tree', queryKey],
   update: () => [...menuKeys.all(), 'update'],
-  list: ({ cursor = '', limit = 20, type = '' } = {}) => [
-    ...menuKeys.all(),
-    'menus',
-    { cursor, limit, type }
-  ]
+  list: (queryKey = {}) => [...menuKeys.all(), 'menus', queryKey]
 };
 
 export const useCreateMenu = (
@@ -67,17 +63,17 @@ export const useUpdateMenu = (
 };
 
 export const useListMenus = (
-  dynamicParams: AnyObject,
+  queryKey: AnyObject = {},
   config: UseQueryOptions<Menus, FetchError, Menus, InferQueryKey<typeof menuKeys.list>> = {}
 ) => {
   const result = useQuery(
-    menuKeys.list({ ...dynamicParams }),
-    (): Promise<Menus> => getMenus(dynamicParams),
+    menuKeys.list(queryKey),
+    (): Promise<Menus> => getMenus(queryKey),
     config
   );
 
   const { content: menus } = result.data || {};
-  const { cursor = '', limit = 20 } = dynamicParams;
+  const { cursor, limit } = queryKey;
 
   const { rs, hasNextPage, nextCursor } =
     (menus && paginateByCursor(menus, cursor as string, limit as number)) || ({} as any);

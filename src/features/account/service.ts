@@ -35,8 +35,8 @@ export const accountKeys: AccountKeys = {
   login: () => [...accountKeys.all(), 'login'],
   register: () => [...accountKeys.all(), 'register'],
   account: () => [...accountKeys.all(), 'account'],
-  tenants: ({ cursor, limit } = {}) => [...accountKeys.all(), 'tenants', { cursor, limit }],
-  tenant: ({ id = '' } = {}) => [...accountKeys.all(), 'tenant', { id }]
+  tenants: (queryKey = {}) => [...accountKeys.all(), 'tenants', queryKey],
+  tenant: ({ id } = {}) => [...accountKeys.all(), 'tenant', { id }]
 };
 
 const useMutationWithTokens = <TVariables>(
@@ -90,7 +90,7 @@ export const useAccount = (
 };
 
 export const useUserTenants = (
-  { cursor = '', limit = 20 } = {},
+  queryKey: AnyObject = {},
   config: UseQueryOptions<
     Tenants,
     FetchError,
@@ -99,14 +99,16 @@ export const useUserTenants = (
   > = {}
 ) => {
   const result = useQuery(
-    accountKeys.tenants({ cursor, limit }),
-    (): Promise<Tenants> => getUserTenants({ cursor, limit }),
+    accountKeys.tenants(queryKey),
+    (): Promise<Tenants> => getUserTenants(queryKey),
     config
   );
 
   const { content: tenants } = result.data || {};
+  const { cursor, limit } = queryKey;
+
   const { rs, hasNextPage, nextCursor } =
-    (tenants && paginateByCursor(tenants, cursor, limit)) || ({} as any);
+    (tenants && paginateByCursor(tenants, cursor as string, limit as number)) || ({} as any);
 
   return {
     tenants: rs,
