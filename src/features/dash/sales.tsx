@@ -1,6 +1,7 @@
+import React from 'react';
+
 import { Carousel } from '@mantine/carousel';
 import { Box, Container, Grid, Skeleton } from '@mantine/core';
-import React from 'react';
 
 import { Page } from '@/components/layout';
 

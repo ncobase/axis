@@ -1,5 +1,6 @@
-import { LoadingOverlay } from '@mantine/core';
 import React, { Suspense, useMemo } from 'react';
+
+import { LoadingOverlay } from '@mantine/core';
 import { BrowserRouter, Navigate, Route } from 'react-router-dom';
 
 import { AnimatedSwitch } from '@/components/animate/switch';

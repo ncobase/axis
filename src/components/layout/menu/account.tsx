@@ -1,6 +1,7 @@
+import React, { Fragment } from 'react';
+
 import { Menu } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
-import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 

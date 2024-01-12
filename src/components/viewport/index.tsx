@@ -1,5 +1,6 @@
-import { BoxProps } from '@mantine/core';
 import React, { FC, Fragment, useEffect } from 'react';
+
+import { BoxProps } from '@mantine/core';
 import { useLocation, useNavigationType } from 'react-router-dom';
 
 import { isBrowser } from '@/helpers/ssr';

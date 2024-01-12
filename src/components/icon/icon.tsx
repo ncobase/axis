@@ -1,6 +1,7 @@
+import React from 'react';
+
 import * as TablerIcons from '@tabler/icons-react';
 import { TablerIconsProps } from '@tabler/icons-react';
-import React from 'react';
 
 import { useTheme } from '@/themes';
 

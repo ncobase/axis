@@ -1,5 +1,6 @@
-import { useDisclosure } from '@mantine/hooks';
 import React from 'react';
+
+import { useDisclosure } from '@mantine/hooks';
 
 import blurBackground from '@/assets/images/blur.webp';
 import { LayoutContext } from '@/components/layout/context/layout';

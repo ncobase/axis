@@ -1,5 +1,6 @@
-import { Avatar, AvatarProps, Loader, UnstyledButton } from '@mantine/core';
 import React from 'react';
+
+import { Avatar, AvatarProps, Loader, UnstyledButton } from '@mantine/core';
 
 import { getInitials } from '@/helpers';
 

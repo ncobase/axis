@@ -1,6 +1,7 @@
+import React from 'react';
+
 import { Flex, Paper } from '@mantine/core';
 import { useQueryClient } from '@tanstack/react-query';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Footer } from '@/components/footer/footer';

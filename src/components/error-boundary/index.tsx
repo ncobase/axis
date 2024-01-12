@@ -1,6 +1,7 @@
+import React from 'react';
+
 import { Alert, Anchor, Code, Flex, Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import React from 'react';
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 

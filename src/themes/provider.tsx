@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   ColorScheme,
   ColorSchemeProvider,
@@ -7,7 +9,6 @@ import {
   useMantineTheme
 } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
-import React from 'react';
 
 import DefaultTheme from '@/themes/default';
 

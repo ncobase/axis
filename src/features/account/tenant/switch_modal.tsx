@@ -1,6 +1,7 @@
+import React, { useCallback, useEffect } from 'react';
+
 import { Avatar, Box, Group, Modal, Text, UnstyledButton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAuthContext } from '@/features/account/context';

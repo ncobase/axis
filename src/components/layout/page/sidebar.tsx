@@ -1,5 +1,6 @@
-import { Divider, Navbar as StdNavbar, Text, Tooltip, UnstyledButton } from '@mantine/core';
 import React, { useState } from 'react';
+
+import { Divider, Navbar as StdNavbar, Text, Tooltip, UnstyledButton } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 

@@ -1,5 +1,6 @@
-import { Group, Header as StdHeader } from '@mantine/core';
 import React from 'react';
+
+import { Group, Header as StdHeader } from '@mantine/core';
 
 import { AccountMenu } from '@/components/layout';
 import { MainMenu } from '@/components/layout/menu/main';

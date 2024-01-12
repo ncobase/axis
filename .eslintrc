@@ -3,7 +3,7 @@
   "plugins": [
     "@typescript-eslint",
     "react",
-    "simple-import-sort"
+    "import"
   ],
   "extends": [
     "eslint:recommended",
@@ -20,8 +20,25 @@
   "rules": {
     "jsx-a11y/anchor-is-valid": "warn",
     "jsx-a11y/no-redundant-roles": "warn",
-    "simple-import-sort/imports": "warn",
-    "simple-import-sort/exports": "warn",
+    "import/order": [
+      "warn",
+      {
+        "groups": [["builtin", "external"], "parent", "sibling", "index"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/explicit-function-return-type": "off",

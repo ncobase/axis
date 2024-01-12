@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Route, Routes } from 'react-router-dom';
 
 import { ErrorPage } from '@/components/errors';

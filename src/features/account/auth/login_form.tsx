@@ -1,3 +1,5 @@
+import React, { useCallback } from 'react';
+
 import {
   Anchor,
   Box,
@@ -13,7 +15,6 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { FetchError } from 'ofetch';
-import React, { useCallback } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 

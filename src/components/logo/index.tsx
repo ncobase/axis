@@ -1,5 +1,6 @@
-import { Flex, FlexProps } from '@mantine/core';
 import React from 'react';
+
+import { Flex, FlexProps } from '@mantine/core';
 
 import { Full } from '@/components/logo/full';
 import { FullMask } from '@/components/logo/full_mask';

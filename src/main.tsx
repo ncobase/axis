@@ -1,8 +1,9 @@
 import '@/setup';
 
+import React from 'react';
+
 import { Notifications, NotificationsProps } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { setupStyles } from '@/assets/styles';

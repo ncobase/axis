@@ -1,5 +1,6 @@
-import { Group } from '@mantine/core';
 import React from 'react';
+
+import { Group } from '@mantine/core';
 
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';

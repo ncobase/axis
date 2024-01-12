@@ -1,5 +1,6 @@
-import { Button, Flex, Group, Text } from '@mantine/core';
 import React from 'react';
+
+import { Button, Flex, Group, Text } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
 import { useStyles } from '@/components/errors/styles';
