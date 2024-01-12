@@ -1,17 +1,15 @@
 import '@/setup';
 
-import { Flex, getDefaultZIndex } from '@mantine/core';
 import { Notifications, NotificationsProps } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { setupStyles } from '@/assets/styles';
+import { AppDevHint } from '@/components/app_dev_hint';
 import { AuthProvider } from '@/features/account/context';
-import { getInitials } from '@/helpers';
 import { Router } from '@/router';
-import { ThemeProvider, useTheme } from '@/themes';
+import { ThemeProvider } from '@/themes';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,43 +25,11 @@ const notificationsProps: NotificationsProps = {
   limit: 5
 };
 
-const AppDevHint = () => {
-  const isProd = import.meta.env.PROD;
-  const envName = !isProd && import.meta.env.MODE;
-  const { white, colors } = useTheme();
-
-  if (!envName || isProd) {
-    return null;
-  }
-
-  return (
-    <>
-      <Flex
-        pos='fixed'
-        style={{
-          top: 0,
-          left: 0,
-          width: 16,
-          height: 16,
-          color: white,
-          backgroundColor: colors.warning[5],
-          borderBottomRightRadius: '42%',
-          zIndex: getDefaultZIndex('max')
-        }}
-        justify='center'
-        fz='xs'
-        align='center'
-        tt='uppercase'
-      >
-        {getInitials(envName)}
-      </Flex>
-      <ReactQueryDevtools />
-    </>
-  );
-};
-
 const mount = () => {
-  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  const rootElement = document.getElementById('root');
+  if (!rootElement) return;
+
+  ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         <Notifications {...notificationsProps} />

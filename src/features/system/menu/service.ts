@@ -55,11 +55,8 @@ export const useGetMenuTree = (
     (): Promise<MenuTrees> => getMenuTree(menu, type),
     config
   );
-
-  const { content: menus } = result.data || {};
-
   return {
-    menus
+    menus: result.data as MenuTrees
   };
 };
 
@@ -73,8 +70,6 @@ export const useListMenus = (
   dynamicParams: AnyObject,
   config: UseQueryOptions<Menus, FetchError, Menus, InferQueryKey<typeof menuKeys.list>> = {}
 ) => {
-  console.log(dynamicParams);
-
   const result = useQuery(
     menuKeys.list({ ...dynamicParams }),
     (): Promise<Menus> => getMenus(dynamicParams),
