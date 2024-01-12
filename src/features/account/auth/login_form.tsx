@@ -18,13 +18,13 @@ import { FetchError } from 'ofetch';
 import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { LoginFormProps } from '@/features/account/schema';
+import { LoginProps } from '@/apis/account/auth';
 import { useLogin } from '@/features/account/service';
 import { upperFirst } from '@/helpers';
 import { useTheme } from '@/themes';
 
 interface ApiHintProps {
-  setValues: (values: LoginFormProps) => void;
+  setValues: (values: LoginProps) => void;
 }
 
 const ApiHint = ({ setValues }: ApiHintProps) => {
@@ -78,7 +78,7 @@ export const LoginForm = ({
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const form = useForm<LoginFormProps>({
+  const form = useForm<LoginProps>({
     initialValues: {
       username: '',
       password: '',
@@ -107,7 +107,7 @@ export const LoginForm = ({
   });
 
   const handleSubmit = form.onSubmit(
-    useCallback(async (values: LoginFormProps) => {
+    useCallback(async (values: LoginProps) => {
       onLogin(values);
     }, [])
   );

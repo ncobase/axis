@@ -18,10 +18,10 @@ import { FetchError } from 'ofetch';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import { RegisterProps } from '@/apis/account/auth';
 import { Footer } from '@/components/footer/footer';
 import { Page } from '@/components/layout';
 import { Logo } from '@/components/logo';
-import { RegisterFormProps } from '@/features/account/schema';
 import { useRegisterAccount } from '@/features/account/service';
 import { useStyles } from '@/features/account/styles';
 import { useRedirectFromUrl } from '@/router';
@@ -33,7 +33,7 @@ export const Register = () => {
   const redirect = useRedirectFromUrl();
   const queryClient = useQueryClient();
 
-  const form = useForm<RegisterFormProps>({
+  const form = useForm<RegisterProps>({
     initialValues: {
       username: '',
       email: '',
@@ -73,7 +73,7 @@ export const Register = () => {
   });
 
   const handleSubmit = form.onSubmit(
-    useCallback(async (values: RegisterFormProps) => {
+    useCallback(async (values: RegisterProps) => {
       onRegisterAccount(values);
     }, [])
   );
