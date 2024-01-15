@@ -1,37 +1,41 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { Modal } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
 import { LoginForm } from '@/features/account/auth/login_form';
 import { useAuthContext } from '@/features/account/context';
+import { eventEmitter } from '@/helpers/events';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 
 const LoginModalContext = createContext({});
 
 export const useLoginModal = () => useContext(LoginModalContext);
 
-export const LoginModalInterceptor = () => {
+export const LoginModalProvider = () => {
   const { t } = useTranslation();
-  const [opened, { open, close }] = useDisclosure(false);
-
+  const [opened, setOpened] = useState(false);
   const { updateTokens } = useAuthContext();
   const queryClient = useQueryClient();
   const redirect = useRedirectFromUrl();
   const location = useLocation();
 
-  useEffect(() => {
-    const { pathname } = location;
-    const pathnameRef = pathname;
+  const open = () => setOpened(true);
+  const close = () => setOpened(false);
 
-    if (opened && pathname !== pathnameRef) {
-      updateTokens();
-      close();
+  useEffect(() => {
+    const handleUnauthenticated = () => {
+      open();
+    };
+    if (location.pathname !== '/login' && location.pathname !== '/register') {
+      eventEmitter.on('unauthorized', handleUnauthenticated);
     }
-  }, [location, opened, updateTokens, close]);
+    return () => {
+      eventEmitter.off('unauthorized', handleUnauthenticated);
+    };
+  }, []);
 
   const handleLogin = () => {
     queryClient.refetchQueries();
@@ -45,7 +49,7 @@ export const LoginModalInterceptor = () => {
   };
 
   return (
-    <LoginModalContext.Provider value={{ open, close, opened }}>
+    <LoginModalContext.Provider value={{ opened, open, close }}>
       <Modal
         opened={opened}
         onClose={handleClose}

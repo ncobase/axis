@@ -1,8 +1,9 @@
-import { $Fetch, $fetch, FetchError, FetchOptions } from 'ofetch';
+import { $Fetch, $fetch, FetchOptions } from 'ofetch';
 
 import { ACCESS_TOKEN_KEY } from '@/features/account/context';
 import { TENANT_KEY } from '@/features/system/tenant/context';
 import { BearerKey, XMdTenantKey } from '@/helpers/constants';
+import { eventEmitter } from '@/helpers/events';
 import { locals } from '@/helpers/locals';
 import { isBrowser } from '@/helpers/ssr';
 
@@ -35,15 +36,16 @@ export class Request {
     };
   }
 
-  private handleRequestError(err: Error, method: string, url: string): void {
-    console.error(`请求错误 [${method} ${url}]: ${err.message}`);
-    // TODO: 记录错误信息
-    throw err;
-  }
-
-  private handleResponseError(err: FetchError, method: string, url: string): void {
-    console.error(`响应错误 [${method} ${url}]: ${err.message}`);
-    // TODO: 处理响应错误逻辑
+  private async handleErrors(err: Error | Response, method: string, url: string): Promise<void> {
+    if (err instanceof Error) {
+      console.error(`请求错误 [${method} ${url}]: ${err.message}`);
+    } else {
+      const { status, statusText } = err;
+      console.error(`响应错误 [${method} ${url}]: ${status} ${statusText}`);
+      if (status === 401) {
+        eventEmitter.emit('unauthorized');
+      }
+    }
     throw err;
   }
 
@@ -61,12 +63,18 @@ export class Request {
         method,
         headers,
         ...body,
-        ...fetchOptions
+        ...fetchOptions,
+        onRequestError: ({ error }) => this.handleErrors(error, method, url),
+        onResponseError: ({ response }) => this.handleErrors(response, method, url),
+        onResponse: async ({ response }) => {
+          if (!response.ok) {
+            await this.handleErrors(response, method, url);
+          }
+        }
       };
       return this.$fetch(url, options);
     } catch (err) {
-      this.handleRequestError(err as Error, method, url);
-      return Promise.reject(new Error(`无法发起 ${method} 请求到 ${url}`));
+      await this.handleErrors(err as Error, method, url);
     }
   }
 
