@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { BoxProps } from '@mantine/core';
 import { useLocation, useNavigationType } from 'react-router-dom';
@@ -38,5 +38,5 @@ const useFixViewport = (): void => {
 export const Viewport: FC<VProps> = ({ children }) => {
   useScrollToTop();
   useFixViewport();
-  return <Fragment>{children}</Fragment>;
+  return <React.Fragment>{children}</React.Fragment>;
 };

@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Avatar, Box, Group, Modal, Text, UnstyledButton } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 
 import { useAuthContext } from '@/features/account/context';
@@ -58,10 +57,13 @@ type TenantSwitchModalProps = {
 
 export const TenantSwitchModal = ({ openModal = false, onClose }: TenantSwitchModalProps) => {
   const { t } = useTranslation();
-  const [opened, { open, close }] = useDisclosure(false);
+  const [opened, setOpened] = useState(false);
   const { isAuthenticated } = useAuthContext();
   const { hasTenant, tenant_id, updateTenant } = useTenantContext();
   const redirect = useRedirectFromUrl();
+
+  const open = () => setOpened(true);
+  const close = () => setOpened(false);
 
   const { tenants = [] } = useUserTenants();
 

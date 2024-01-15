@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { usePageContext } from '@/components/layout';
 import { randomId } from '@/helpers';
@@ -48,14 +48,14 @@ export const Topbar: React.FC<TopbarProps> = ({ title, actions = [], extras = []
       {!!actions.length && (
         <div className='gap-4 flex'>
           {actions.map(element => (
-            <Fragment key={randomId()}>{element}</Fragment>
+            <React.Fragment key={randomId()}>{element}</React.Fragment>
           ))}
         </div>
       )}
       {!!extras.length && (
         <div className='grow flex justify-end items-center gap-4'>
           {extras.map(element => (
-            <Fragment key={randomId()}>{element}</Fragment>
+            <React.Fragment key={randomId()}>{element}</React.Fragment>
           ))}
         </div>
       )}

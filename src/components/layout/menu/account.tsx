@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { Menu } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
@@ -77,7 +77,7 @@ export const AccountMenu = ({ ...rest }) => {
 
   const renderLink = (menu: MenuTree) => {
     return (
-      <Fragment key={menu.id || menu.label}>
+      <React.Fragment key={menu.id || menu.label}>
         <Menu.Item
           icon={<DIcon name={menu.icon} />}
           c={colors.slate[7]}
@@ -86,7 +86,7 @@ export const AccountMenu = ({ ...rest }) => {
           {t(menu.label)}
         </Menu.Item>
         {menus.length > 1 && <Menu.Divider maw='90%' mx='auto' />}
-      </Fragment>
+      </React.Fragment>
     );
   };
 
