@@ -1,15 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 import { Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useQueryClient } from '@tanstack/react-query';
-import Axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
 import { LoginForm } from '@/features/account/auth/login_form';
 import { useAuthContext } from '@/features/account/context';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
+
+const LoginModalContext = createContext({});
+
+export const useLoginModal = () => useContext(LoginModalContext);
 
 export const LoginModalInterceptor = () => {
   const { t } = useTranslation();
@@ -18,31 +21,17 @@ export const LoginModalInterceptor = () => {
   const { updateTokens } = useAuthContext();
   const queryClient = useQueryClient();
   const redirect = useRedirectFromUrl();
-  const { pathname } = useLocation();
-  const pathnameRef = useRef(pathname);
-  pathnameRef.current = pathname;
+  const location = useLocation();
 
   useEffect(() => {
-    const interceptor = Axios.interceptors.response.use(
-      response => response,
-      error => {
-        if (error?.response?.status === 401 && pathnameRef.current !== '/login') {
-          queryClient.cancelQueries();
-          open();
-        }
-        throw error;
-      }
-    );
+    const { pathname } = location;
+    const pathnameRef = pathname;
 
-    return () => Axios.interceptors.response.eject(interceptor);
-  }, [open, updateTokens, queryClient]);
-
-  useEffect(() => {
-    if (opened && pathname !== pathnameRef.current) {
+    if (opened && pathname !== pathnameRef) {
       updateTokens();
       close();
     }
-  }, [opened, updateTokens, close, pathname]);
+  }, [location, opened, updateTokens, close]);
 
   const handleLogin = () => {
     queryClient.refetchQueries();
@@ -56,13 +45,15 @@ export const LoginModalInterceptor = () => {
   };
 
   return (
-    <Modal
-      opened={opened}
-      onClose={handleClose}
-      trapFocus={false}
-      title={t('account:interceptor.title')}
-    >
-      <LoginForm onSuccess={handleLogin} hideRegister hideForgetPassword />
-    </Modal>
+    <LoginModalContext.Provider value={{ open, close, opened }}>
+      <Modal
+        opened={opened}
+        onClose={handleClose}
+        trapFocus={false}
+        title={t('account:interceptor.title')}
+      >
+        <LoginForm onSuccess={handleLogin} hideRegister hideForgetPassword />
+      </Modal>
+    </LoginModalContext.Provider>
   );
 };
