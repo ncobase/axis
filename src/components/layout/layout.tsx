@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useDisclosure } from '@mantine/hooks';
 
-import blurBackground from '@/assets/images/blur.webp';
+import blurBackground from '@/assets/images/body-background-image.png';
 import { LayoutContext } from '@/components/layout/context/layout';
 import { Viewport } from '@/components/viewport';
 import { LoginModalProvider } from '@/features/account/auth/login_modal_interceptor';
@@ -28,7 +28,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Viewport>{children}</Viewport>
       <LoginModalProvider />
       <div className='fixed w-full h-full top-0 -z-10  bg-transparent'>
-        <img className='w-full h-full bg-cover opacity-20' src={blurBackground} alt='' />
+        <img className='w-full h-full bg-cover opacity-10' src={blurBackground} alt='' />
       </div>
     </LayoutContext.Provider>
   );
