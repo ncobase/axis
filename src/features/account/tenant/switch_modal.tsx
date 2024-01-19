@@ -68,7 +68,7 @@ export const TenantSwitchModal = ({ openModal = false, onClose }: TenantSwitchMo
   const open = () => setOpened(true);
   const close = () => setOpened(false);
 
-  const { tenants = [] } = useUserTenants();
+  const { tenants } = useUserTenants();
 
   useEffect(() => {
     if (openModal && !opened) {

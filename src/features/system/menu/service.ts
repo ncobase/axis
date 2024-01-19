@@ -72,7 +72,7 @@ export const useListMenus = (
     config
   );
 
-  const { content: menus } = result.data || {};
+  const { content: menus = [] } = result.data || {};
   const { cursor, limit } = queryKey;
 
   const { rs, hasNextPage, nextCursor } =

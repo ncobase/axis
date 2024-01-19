@@ -104,7 +104,7 @@ export const useUserTenants = (
     config
   );
 
-  const { content: tenants } = result.data || {};
+  const { content: tenants = [] } = result.data || {};
   const { cursor, limit } = queryKey;
 
   const { rs, hasNextPage, nextCursor } =

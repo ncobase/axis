@@ -17,10 +17,10 @@ export const TenantMenu = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { hasTenant, tenant_id } = useTenantContext();
-  const { tenants = [] } = useUserTenants();
+  const { tenants } = useUserTenants();
   const { tenant } = useUserTenant(tenant_id);
   const [opened, setOpened] = useState(false);
-  const { menus = [] } = useListMenus({ type: 'tenant' });
+  const { menus } = useListMenus({ type: 'tenant' });
 
   const renderLink = (menu: MenuTree) => {
     const isTenantSwitch = menu.slug?.includes('tenant') && menu.slug?.includes('switch');
