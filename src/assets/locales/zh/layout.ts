@@ -23,7 +23,8 @@ export default {
       group: '组织',
       dictionary: '字典',
       application: '应用',
-      basic: '基础'
+      basic: '基础',
+      menu: '菜单'
     }
   },
   tenant_menu: {
