@@ -44,10 +44,10 @@ export default defineConfig(({ mode }: { mode: string }) => {
       ]
     },
     server: {
-      port: +ENV.VITE_PORT || 3200,
+      port: +ENV.VITE_PORT,
       proxy: {
         '/api': {
-          target: ENV.VITE_API_URL || 'http://localhost:3200',
+          target: ENV.VITE_API_URL,
           changeOrigin: true,
           secure: false,
           rewrite: path => path.replace(/^\/api/, '')
