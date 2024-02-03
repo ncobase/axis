@@ -62,7 +62,6 @@
     "@commitlint/config-conventional": "^18.4.4",
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/eslint-plugin-query": "^5.17.20",
-    "@tauri-apps/cli": "2.0.0-alpha.14",
     "@types/html-minifier-terser": "^7.0.2",
     "@types/loadable__component": "^5.13.8",
     "@types/node": "^20.11.5",
