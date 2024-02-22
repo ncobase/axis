@@ -1,3 +1,4 @@
+import '@mantine/core/styles.css';
 import '@/assets/styles/globals.css';
 
 /** Tailwind's Preflight Style Override */

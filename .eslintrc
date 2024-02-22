@@ -23,7 +23,15 @@
     "import/order": [
       "warn",
       {
-        "groups": [["builtin", "external"], "parent", "sibling", "index"],
+        "groups": [
+          [
+            "builtin",
+            "external"
+          ],
+          "parent",
+          "sibling",
+          "index"
+        ],
         "pathGroups": [
           {
             "pattern": "react",
@@ -31,7 +39,9 @@
             "position": "before"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["builtin"],
+        "pathGroupsExcludedImportTypes": [
+          "builtin"
+        ],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc",

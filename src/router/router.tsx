@@ -1,6 +1,5 @@
-import React, { Suspense, useMemo } from 'react';
+import React, { Suspense } from 'react';
 
-import { LoadingOverlay } from '@mantine/core';
 import { BrowserRouter, Navigate, Route } from 'react-router-dom';
 
 import { AnimatedSwitch } from '@/components/animate/switch';
@@ -22,17 +21,13 @@ import { SaleRoutes } from '@/features/sale/routes';
 import { SystemRoutes } from '@/features/system/routes';
 import { WarehouseRoutes } from '@/features/warehouse/routes';
 import { AdminGuard, AuthenticatedGuard, PublicGuard } from '@/router';
+import { SuspenseFallback } from '@/router/loadable';
 
 export const Router = () => {
-  const fallback = useMemo(
-    () => <LoadingOverlay visible overlayBlur={2} overlayOpacity={0.05} />,
-    []
-  );
-
   return (
     <BrowserRouter>
       <Layout>
-        <Suspense fallback={fallback}>
+        <Suspense fallback={<SuspenseFallback />}>
           <ErrorBoundary>
             <AnimatedSwitch>
               <Route path='/' element={<Navigate to='/dash' replace />} />

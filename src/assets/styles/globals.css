@@ -1,4 +1,12 @@
-@import url('./lib/tailwind.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer tailwind, mantine;
+
+@layer tailwind {
+  @tailwind base;
+}
 
 @layer base {
   :root {
@@ -45,4 +53,18 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9;
   }
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--mantine-colors-slate-3);
+  border-radius: 6px;
 }

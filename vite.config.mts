@@ -39,8 +39,8 @@ export default defineConfig(({ mode }: { mode: string }) => {
     plugins: setupPlugins(ENV),
     resolve: {
       alias: [
-        {find: '@', replacement: pathResolve('src')},
-        {find: '#', replacement: pathResolve('types')}
+        { find: '@', replacement: pathResolve('src') },
+        { find: '#', replacement: pathResolve('types') }
       ]
     },
     server: {
