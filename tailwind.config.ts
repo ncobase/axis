@@ -34,8 +34,8 @@ export default {
       },
       borderRadius: {
         lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        md: 'calc(var(--radius) - 2)',
+        sm: 'calc(var(--radius) - 4)'
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -87,8 +87,5 @@ export default {
       }
     }
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography'), require('daisyui')],
-  daisyui: {
-    themes: ['winter', 'dark', 'cmyk']
-  }
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')]
 } satisfies Config;

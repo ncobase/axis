@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import { useStyles } from '@/components/layout/menu/main.styles';
+import classes from '@/components/layout/menu/menu.module.css';
 import { MenuTree } from '@/features/system/menu/schema';
 
 interface MainMenuProps {
@@ -14,7 +14,6 @@ interface MainMenuProps {
 
 export const MainMenu: React.FC<MainMenuProps> = ({ menus = [] }) => {
   const { t } = useTranslation();
-  const { classes } = useStyles();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -82,7 +81,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ menus = [] }) => {
   if (!menus.length) return null;
 
   return (
-    <Group spacing={5} className={classes.links}>
+    <Group gap={5} className={classes.links}>
       {menus.map(renderLink)}
     </Group>
   );

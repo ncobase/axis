@@ -31,7 +31,7 @@ export const TenantMenu = () => {
         <React.Fragment key={menu.id || randomId()}>
           <Menu.Divider maw='90%' mx='auto' />
           <Menu.Item
-            icon={<DIcon name={menu.icon} />}
+            leftSection={<DIcon name={menu.icon} />}
             className='!text-slate-700'
             onClick={() => setOpened(true)}
           >
@@ -48,7 +48,7 @@ export const TenantMenu = () => {
     return (
       <Menu.Item
         key={menu.id || menu.label}
-        icon={<DIcon name={menu.icon} />}
+        leftSection={<DIcon name={menu.icon} />}
         className='!text-slate-700'
         onClick={() => navigate(menu.path)}
       >
@@ -83,9 +83,9 @@ export const TenantMenu = () => {
   ));
 
   return (
-    <>
+    <React.Fragment>
       {hasTenant && tenants.length > 1 ? <MenuList /> : null}
       <TenantSwitchModal openModal={opened} />
-    </>
+    </React.Fragment>
   );
 };

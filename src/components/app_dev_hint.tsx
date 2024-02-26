@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Flex, getDefaultZIndex } from '@mantine/core';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -7,14 +9,14 @@ import { useTheme } from '@/themes';
 export const AppDevHint = () => {
   const isProd = import.meta.env.PROD;
   const envName = !isProd && import.meta.env.MODE;
-  const { white, colors } = useTheme();
+  const { colors, white } = useTheme();
 
   if (!envName || isProd) {
     return null;
   }
 
   return (
-    <>
+    <React.Fragment>
       <Flex
         pos='fixed'
         style={{
@@ -35,6 +37,6 @@ export const AppDevHint = () => {
         {getInitials(envName)}
       </Flex>
       <ReactQueryDevtools />
-    </>
+    </React.Fragment>
   );
 };

@@ -15,7 +15,7 @@ export const AvatarButton = React.forwardRef<HTMLButtonElement, AvatarButtonProp
     return (
       <UnstyledButton ref={ref}>
         <Avatar radius='xl' size='sm' {...rest}>
-          {isLoading ? <Loader size='xs' /> : getInitials(rest.title || rest.alt)}
+          {isLoading ? <Loader size='sm' /> : getInitials(rest.title || rest.alt)}
         </Avatar>
       </UnstyledButton>
     );

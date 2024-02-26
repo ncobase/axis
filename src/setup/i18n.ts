@@ -31,5 +31,3 @@ i18n.on('languageChanged', lang => {
     setHtmlProperties(lang?.toLowerCase());
   }
 });
-
-export default i18n;

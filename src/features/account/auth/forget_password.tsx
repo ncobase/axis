@@ -9,11 +9,10 @@ import { ForgetPasswordProps } from '@/apis/account/auth';
 import { Footer } from '@/components/footer/footer';
 import { Page } from '@/components/layout';
 import { Logo } from '@/components/logo';
-import { useStyles } from '@/features/account/styles';
+import classes from '@/features/account/styles.module.css';
 
 export const ForgetPassword = () => {
   const { t } = useTranslation();
-  const { classes } = useStyles();
 
   const navigate = useNavigate();
 
@@ -40,21 +39,15 @@ export const ForgetPassword = () => {
             <Logo type='full-mask' height='2.25rem' />
           </Flex>
           <form id='reset-password-init-form' onSubmit={onSubmitForgetPassword} noValidate>
-            <Stack spacing='xl'>
+            <Stack gap='xl'>
               <TextInput
                 label={t('account:fields.username_or_email.label')}
                 name='username_or_email'
                 {...form.getInputProps('username_or_email')}
               />
             </Stack>
-            <Group position='apart' mt='xl'>
-              <Anchor
-                component='button'
-                type='button'
-                color='dimmed'
-                onClick={() => navigate(-1)}
-                size='xs'
-              >
+            <Group justify='space-between' mt='xl'>
+              <Anchor component='button' type='button' onClick={() => navigate(-1)} size='sm'>
                 {t('account:actions.go_back')}
               </Anchor>
               <Button type='submit'>{t('account:actions.submit')}</Button>

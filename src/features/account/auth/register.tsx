@@ -23,12 +23,11 @@ import { Footer } from '@/components/footer/footer';
 import { Page } from '@/components/layout';
 import { Logo } from '@/components/logo';
 import { useRegisterAccount } from '@/features/account/service';
-import { useStyles } from '@/features/account/styles';
+import classes from '@/features/account/styles.module.css';
 import { useRedirectFromUrl } from '@/router';
 
 export const Register = () => {
   const { t } = useTranslation();
-  const { classes } = useStyles();
   const navigate = useNavigate();
   const redirect = useRedirectFromUrl();
   const queryClient = useQueryClient();
@@ -86,7 +85,7 @@ export const Register = () => {
             <Logo type='full-mask' height='2.25rem' />
           </Flex>
           <form id='register-form' onSubmit={handleSubmit} noValidate>
-            <Stack spacing='xl'>
+            <Stack gap='xl'>
               <TextInput
                 label={t('account:fields.username.label')}
                 name='username'
@@ -119,14 +118,8 @@ export const Register = () => {
               />
             </Stack>
 
-            <Group position='apart' mt='xl'>
-              <Anchor
-                component='button'
-                type='button'
-                color='dimmed'
-                onClick={() => navigate('/login')}
-                size='xs'
-              >
+            <Group justify='space-between' mt='xl'>
+              <Anchor component='button' type='button' onClick={() => navigate('/login')} size='sm'>
                 {t('account:actions.alreadyHaveAnAccount')}
                 {t('account:actions.login')}
               </Anchor>

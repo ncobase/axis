@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Group, Header as StdHeader } from '@mantine/core';
+import { AppShell, Group } from '@mantine/core';
 
 import { AccountMenu } from '@/components/layout';
 import { MainMenu } from '@/components/layout/menu/main';
@@ -10,7 +10,7 @@ import { useListMenus } from '@/features/system/menu/service';
 import { useTheme } from '@/themes';
 
 export const Header = ({ ...rest }) => {
-  const { spacing, shadows, other } = useTheme();
+  const { spacing, shadows } = useTheme();
 
   // get main menu
   // const { menus: headerMenus = [] } = useGetMenuTree('root', 'main');
@@ -25,21 +25,20 @@ export const Header = ({ ...rest }) => {
   // console.log(tenantMenus);
 
   return (
-    <StdHeader
-      height={other.layout.header.height}
+    <AppShell.Header
       className='w-screen bg-gradient-to-r from-slate-800 via-slate-700 via-20% to-slate-800'
-      sx={{
+      style={{
         borderBottomWidth: 0,
         boxShadow: shadows.sm
       }}
       {...rest}
     >
-      <Group sx={{ height: '100%' }} position='apart'>
+      <Group style={{ height: '100%' }} justify='space-between'>
         <Group>
           <Logo w={55} h={55} type='min' logoColor='white' />
           {headerMenus.length ? <MainMenu menus={headerMenus} /> : null}
         </Group>
-        <Group px={spacing.md} spacing='sm'>
+        <Group px={spacing.md} gap='sm'>
           {/*<ActionIcon>*/}
           {/*  <DIcon name='IconBell' color={colors.whiteAlpha[7]} size={20} />*/}
           {/*</ActionIcon>*/}
@@ -57,6 +56,6 @@ export const Header = ({ ...rest }) => {
           <AccountMenu />
         </Group>
       </Group>
-    </StdHeader>
+    </AppShell.Header>
   );
 };

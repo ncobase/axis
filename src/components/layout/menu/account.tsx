@@ -21,7 +21,7 @@ import { useTheme } from '@/themes';
 //   if (!isAdmin) return null;
 //
 //   return (
-//     <>
+//     <React.Fragment>
 //       <Menu.Item
 //         // icon={<DIcon name='IconSettings' />}
 //         c={colors.slate[7]}
@@ -30,7 +30,7 @@ import { useTheme } from '@/themes';
 //         {t('layout:account_menu.system')}
 //       </Menu.Item>
 //       <Menu.Divider maw='90%' mx='auto' />
-//     </>
+//     </React.Fragment>
 //   );
 // };
 
@@ -43,7 +43,7 @@ const AppVersion = () => {
 
   return (
     <Menu.Item
-      icon={copied ? <DIcon name='IconClipboardCheck' color={colors.green[6]} /> : null}
+      leftSection={copied ? <DIcon name='IconClipboardCheck' color={colors.green[6]} /> : null}
       c={copied ? colors.green[5] : colors.slate[4]}
       onClick={() => copy(JSON.stringify(versionInfo, null, 2))}
       closeMenuOnClick={false}
@@ -79,7 +79,7 @@ export const AccountMenu = ({ ...rest }) => {
     return (
       <React.Fragment key={menu.id || menu.label}>
         <Menu.Item
-          icon={<DIcon name={menu.icon} />}
+          leftSection={<DIcon name={menu.icon} />}
           c={colors.slate[7]}
           onClick={() => navigate(menu.path)}
         >

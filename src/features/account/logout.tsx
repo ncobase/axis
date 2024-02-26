@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -16,5 +16,5 @@ export const Logout = () => {
     navigate('/login');
   }, [updateTokens, queryCache]);
 
-  return <></>;
+  return undefined;
 };

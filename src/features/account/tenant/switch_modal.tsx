@@ -36,14 +36,14 @@ const TenantOption = React.memo(
         disabled={isSelected}
         hidden={isSelected}
         my={3}
-        sx={TenantOptionStyles(isSelected, theme)}
+        style={TenantOptionStyles(isSelected, theme)}
         onClick={() => onSelect(id)}
       >
         <Group>
           {logo && <Avatar src={logo} radius='xl' />}
-          <Box sx={{ flex: 1 }}>
-            <Text weight={500}>{name}</Text>
-            <Text color='dimmed' size='xs'>
+          <Box style={{ flex: 1 }}>
+            <Text fw={500}>{name}</Text>
+            <Text c='dimmed' size='sm'>
               {slug || name}
             </Text>
           </Box>

@@ -1,0 +1,15 @@
+.link {
+  width: rem(44);
+  height: rem(44);
+  border-radius: var(--mantine-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: var(--mantine-primary-color-light);
+  }
+}
+
+.linkActive {
+  background-color: var(--mantine-primary-color-light);
+}

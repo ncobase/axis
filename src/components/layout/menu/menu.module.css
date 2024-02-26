@@ -1,0 +1,22 @@
+.links {
+}
+
+.link {
+  padding: rem(8) rem(12);
+  margin-right: rem(24);
+  border-radius: var(--mantine-radius-md);
+  text-decoration: none;
+  color: var(--mantine-color-white);
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 500;
+}
+.linkActive {
+  border-radius: 0;
+  color: var(--mantine-color-white);
+  border-bottom-width: rem(2);
+  border-bottom-color: var(--mantine-color-white);
+  border-bottom-style: solid;
+}
+.linkLabel {
+  margin-right: rem(5);
+}

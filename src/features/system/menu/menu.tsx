@@ -4,7 +4,6 @@ import { useListMenus } from '@/features/system/menu/service';
 
 export const Menu = () => {
   const { menus } = useListMenus();
-  console.log(menus);
 
   return (
     <Page sidebar>

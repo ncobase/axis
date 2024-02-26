@@ -1,0 +1,16 @@
+.label {
+  text-align: center;
+  font-weight: 600;
+  font-size: rem(180);
+  line-height: 1;
+  margin-bottom: calc(--mantine-spacing-xl * 1.5);
+  user-select: none;
+  color: var(--mantine-color-gray-2);
+}
+
+.description {
+  max-width: rem(500);
+  margin: auto;
+  margin-top: var(--mantine-spacing-xl);
+  margin-bottom: calc(--mantine-spacing-xl * 1.5);
+}

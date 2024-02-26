@@ -24,7 +24,7 @@ export const Logo: React.FC<LogoProps> = ({
 }) => {
   const LogoComponent = type === 'min' ? Min : type === 'full' ? Full : FullMask;
 
-  if (rest.hidden) return <></>;
+  if (rest.hidden) return undefined;
 
   return (
     <Flex justify='center' align='center' bg={bg} {...rest}>

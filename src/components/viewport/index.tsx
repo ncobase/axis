@@ -1,11 +1,10 @@
 import React, { FC, useEffect } from 'react';
 
-import { BoxProps } from '@mantine/core';
 import { useLocation, useNavigationType } from 'react-router-dom';
 
 import { isBrowser } from '@/helpers/ssr';
 
-interface VProps extends BoxProps {}
+interface ViewportProps extends React.PropsWithChildren {}
 
 const useScrollToTop = (): void => {
   const { pathname } = useLocation();
@@ -23,6 +22,7 @@ const useFixViewport = (): void => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
+
     if (isBrowser) {
       updateCssViewportHeight();
       window.addEventListener('resize', updateCssViewportHeight);
@@ -35,7 +35,7 @@ const useFixViewport = (): void => {
   }, []);
 };
 
-export const Viewport: FC<VProps> = ({ children }) => {
+export const Viewport: FC<ViewportProps> = ({ children }) => {
   useScrollToTop();
   useFixViewport();
   return <React.Fragment>{children}</React.Fragment>;

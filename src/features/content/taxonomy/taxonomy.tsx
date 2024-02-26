@@ -13,10 +13,10 @@ export const Taxonomy = () => {
       </button>
     ],
     extras: [
-      <>
+      <React.Fragment>
         <div>div element</div>
         <span> | </span>
-      </>,
+      </React.Fragment>,
       <button className='bg-slate-100 px-3 py-1.5 rounded-md text-xs hover:bg-blue-600 hover:text-white'>
         Button
       </button>,

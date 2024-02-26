@@ -10,7 +10,7 @@ export const AdminGuard: React.FC<React.PropsWithChildren> = ({ children }) => {
   }
 
   if (!isAdministered) {
-    return <>403</>;
+    return <React.Fragment>403</React.Fragment>;
   }
 
   return <ErrorBoundary>{children}</ErrorBoundary>;

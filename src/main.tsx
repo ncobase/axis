@@ -32,13 +32,13 @@ const mount = () => {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <Notifications {...notificationsProps} />
-        <AuthProvider>
-          <ThemeProvider>
+        <ThemeProvider>
+          <Notifications {...notificationsProps} />
+          <AuthProvider>
             <Router />
-            <AppDevHint />
-          </ThemeProvider>
-        </AuthProvider>
+          </AuthProvider>
+          <AppDevHint />
+        </ThemeProvider>
       </QueryClientProvider>
     </React.StrictMode>
   );

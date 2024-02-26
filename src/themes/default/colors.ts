@@ -1,4 +1,4 @@
-import { Tuple } from '@mantine/core';
+import { MantineColorsTuple } from '@mantine/core';
 
 export const colors = {
   whiteAlpha: [
@@ -97,4 +97,4 @@ export const colors = {
     '#9A3412',
     '#7C2D12'
   ]
-} as Record<string, Tuple<string, 10> | string>;
+} as Record<string, MantineColorsTuple>;

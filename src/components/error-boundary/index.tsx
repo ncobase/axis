@@ -11,7 +11,7 @@ const FallbackComponent = ({ error }: FallbackProps) => {
   return (
     <Flex justify='center' align='center' w='100vw' h='100vh'>
       <Alert p={4} color='error'>
-        <Anchor onClick={open} m='auto' color='red' title={t('application:actions.expand')} p={12}>
+        <Anchor onClick={open} m='auto' fz={12} title={t('application:actions.expand')} p={12}>
           {t('errors:boundary.label')}
         </Anchor>
       </Alert>
@@ -23,7 +23,7 @@ const FallbackComponent = ({ error }: FallbackProps) => {
         trapFocus={false}
       >
         {/*{error?.message ?? 'An unknown error has occurred.'}*/}
-        <Code color='red'>{error?.stack}</Code>
+        <Code>{error?.stack}</Code>
       </Modal>
     </Flex>
   );

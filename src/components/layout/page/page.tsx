@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useMemo } from 'react';
 
 import { AppShell, Container, MantineSize } from '@mantine/core';
+import { useHeadroom } from '@mantine/hooks';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
@@ -32,7 +33,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children, ...rest }): JSX.Element => 
   const mt = topbar ? { mt: other.layout.topbar.height } : {};
   const ml = submenu ? { ml: other.layout.submenu.width } : {};
 
-  if (!layout && !topbar && !submenu) return <>{children}</>;
+  if (!layout && !topbar && !submenu) return <React.Fragment>{children}</React.Fragment>;
 
   return (
     <Container p='md' {...mt} {...ml} {...containerProps} {...rest}>
@@ -71,6 +72,7 @@ interface PageProps extends React.PropsWithChildren<{}> {
   title?: string;
   layout?: boolean;
   showBack?: boolean;
+
   [key: string]: unknown;
 }
 
@@ -85,7 +87,9 @@ export const Page: React.FC<PageProps> = ({
   showBack = false,
   ...rest
 }): JSX.Element => {
+  const { other } = useTheme();
   const { t } = useTranslation();
+
   useFocusMode();
 
   const pageContextValue = useMemo(
@@ -94,11 +98,11 @@ export const Page: React.FC<PageProps> = ({
   );
 
   const renderContent = () => (
-    <>
+    <React.Fragment>
       {topbar}
       {submenu}
       <Wrapper {...rest} />
-    </>
+    </React.Fragment>
   );
 
   return (
@@ -106,11 +110,18 @@ export const Page: React.FC<PageProps> = ({
       <PageTitle suffix={t('application:title')}>{title}</PageTitle>
       {layout && !showBack ? (
         <AppShell
-          header={header ? <Header /> : undefined}
-          navbar={sidebar ? <Sidebar /> : undefined}
-          padding={0}
+          header={
+            header
+              ? {
+                  height: other.layout.header.height
+                }
+              : undefined
+          }
+          navbar={{ width: sidebar ? other.layout.sidebar.width : undefined, breakpoint: 'sm' }}
         >
-          {renderContent()}
+          {header && <Header />}
+          {sidebar && <Sidebar />}
+          <AppShell.Main>{renderContent()}</AppShell.Main>
         </AppShell>
       ) : (
         renderContent()

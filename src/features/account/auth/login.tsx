@@ -8,12 +8,11 @@ import { Footer } from '@/components/footer/footer';
 import { Page } from '@/components/layout';
 import { Logo } from '@/components/logo';
 import { LoginForm } from '@/features/account/auth/login_form';
-import { useStyles } from '@/features/account/styles';
+import classes from '@/features/account/styles.module.css';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 
 export const Login = () => {
   const { t } = useTranslation();
-  const { classes } = useStyles();
   const queryClient = useQueryClient();
   const redirect = useRedirectFromUrl();
   const onLogin = () => {

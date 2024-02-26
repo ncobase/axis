@@ -23,11 +23,11 @@ import { useLogin } from '@/features/account/service';
 import { upperFirst } from '@/helpers';
 import { useTheme } from '@/themes';
 
-interface ApiHintProps {
+interface LoginHintProps {
   setValues: (values: LoginProps) => void;
 }
 
-const ApiHint = ({ setValues }: ApiHintProps) => {
+const LoginHint = ({ setValues }: LoginHintProps) => {
   const { t } = useTranslation();
   const { colors } = useTheme();
   const isProd = import.meta.env.PROD;
@@ -41,7 +41,7 @@ const ApiHint = ({ setValues }: ApiHintProps) => {
   const username = 'admin';
   const password = 'adminn';
 
-  const handleApiHintClick = () => {
+  const handleLoginHintClick = () => {
     setValues({
       username,
       password,
@@ -59,7 +59,7 @@ const ApiHint = ({ setValues }: ApiHintProps) => {
           credentials: `${username} / ${password}`
         }}
         components={{
-          anchor: <Anchor px='xs' onClick={handleApiHintClick} />
+          anchor: <Anchor px='xs' fz='xs' onClick={handleLoginHintClick} />
         }}
       />
     </Paper>
@@ -114,7 +114,7 @@ export const LoginForm = ({
   return (
     <Box {...rest}>
       <form id='login-form' onSubmit={handleSubmit} noValidate>
-        <Stack spacing='xl'>
+        <Stack gap='xl'>
           <TextInput
             label={t('account:fields.username_or_email.label')}
             name='username'
@@ -129,7 +129,7 @@ export const LoginForm = ({
             {...form.getInputProps('password')}
           />
 
-          <Group position='apart'>
+          <Group justify='space-between'>
             <Checkbox
               label={t('account:fields.remember.label')}
               name='remember'
@@ -138,22 +138,20 @@ export const LoginForm = ({
             <Anchor
               component='button'
               type='button'
-              color='dimmed'
               onClick={() => navigate('/forget-password')}
-              size='xs'
+              size='sm'
               hidden={hideForgetPassword}
             >
               {t('account:actions.forgotPassword')}
             </Anchor>
           </Group>
-          <ApiHint setValues={form.setValues} />
-          <Group position={hideRegister ? 'right' : 'apart'}>
+          <LoginHint setValues={form.setValues} />
+          <Group justify={hideRegister ? 'right' : 'space-between'}>
             <Anchor
               component='button'
               type='button'
-              color='dimmed'
               onClick={() => navigate('/register')}
-              size='xs'
+              size='sm'
               hidden={hideRegister}
             >
               {t('account:actions.needAccount')}

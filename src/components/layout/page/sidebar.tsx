@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
-import { Divider, Navbar as StdNavbar, Text, Tooltip, UnstyledButton } from '@mantine/core';
+import { AppShell, Divider, Text, Tooltip, UnstyledButton } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import { useStyles } from '@/components/layout/page/sidebar.styles';
+import classes from '@/components/layout/page/page.module.css';
 import { Menu } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
-import { getInitials } from '@/helpers';
+import { cn, getInitials } from '@/helpers';
 import { useTheme } from '@/themes';
 
 interface SidebarProps {
@@ -17,7 +17,6 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
-  const { classes, cx } = useStyles();
   const { colors, other } = useTheme();
   const [active, setActive] = useState(activeLabel);
 
@@ -55,7 +54,7 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
       position='right'
       withArrow
       transitionProps={{ duration: 0 }}
-      className={cx(classes.link, {
+      className={cn(classes.link, {
         [classes.linkActive]: isActive || active === link.label
       })}
     >
@@ -71,7 +70,7 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
         {link.icon ? (
           <DIcon size={18} name={link.icon} />
         ) : (
-          <Text color={colors.slate[4]}>{getInitials(link.name || link.label || link.id)}</Text>
+          <Text c={colors.slate[4]}>{getInitials(link.name || link.label || link.id)}</Text>
         )}
       </UnstyledButton>
     </Tooltip>
@@ -84,10 +83,10 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   });
 
   return (
-    <StdNavbar width={{ sm: other.layout.sidebar.width }} className='shadow-sm justify-between'>
-      <StdNavbar.Section>{links}</StdNavbar.Section>
+    <AppShell.Navbar className='shadow-sm justify-between'>
+      <div className='flex flex-col items-center align-middle'>{links}</div>
       {/*Bottom Wrapper*/}
-      {/*<div className='py-4 flex justify-center'></div>*/}
-    </StdNavbar>
+      {/* <div className='py-4 flex flex-col justify-center'></div> */}
+    </AppShell.Navbar>
   );
 };
