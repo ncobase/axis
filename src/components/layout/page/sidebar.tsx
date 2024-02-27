@@ -17,7 +17,7 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
-  const { colors, other } = useTheme();
+  const { colors } = useTheme();
   const [active, setActive] = useState(activeLabel);
 
   const { t } = useTranslation();

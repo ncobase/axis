@@ -6,9 +6,9 @@
   color: var(--mantine-color-white);
   font-size: var(--mantine-font-size-sm);
   font-weight: 500;
-  &:hover{
+  &:hover {
     text-decoration: none;
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 .linkActive {
@@ -17,7 +17,7 @@
   border-bottom-width: rem(2);
   border-bottom-color: var(--mantine-color-white);
   border-bottom-style: solid;
-  &:hover{
+  &:hover {
     text-decoration: none;
   }
 }

@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useMemo } from 'react';
 
 import { AppShell, Container, MantineSize } from '@mantine/core';
-import { useHeadroom } from '@mantine/hooks';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
