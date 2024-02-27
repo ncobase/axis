@@ -115,7 +115,8 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "pnpm lint:fix"
+      "pnpm lint:fix",
+      "git add"
     ]
   },
   "config": {
