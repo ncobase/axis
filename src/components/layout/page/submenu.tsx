@@ -39,7 +39,8 @@ export const Submenu: React.FC<SubmenuProps> = () => {
       }).menus ?? []
     ).filter(menu => !menu.hidden);
   }
-  console.log(visibleSidebarMenus);
+
+  if (!visibleSidebarMenus.length) return null;
 
   return (
     <div
