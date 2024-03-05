@@ -1,4 +1,5 @@
 import '@mantine/core/styles.css';
+import '@radix-ui/themes/styles.css';
 import '@/assets/styles/globals.css';
 
 /** Tailwind's Preflight Style Override */
