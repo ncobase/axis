@@ -7,6 +7,7 @@
   justify-content: center;
   &:hover {
     background-color: var(--mantine-primary-color-light);
+    opacity: 0.75;
   }
 }
 

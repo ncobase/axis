@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import classes from '@/components/layout/page/page.module.css';
+import classes from '@/components/layout/page/sidebar.module.css';
 import { Menu } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { cn, getInitials } from '@/helpers';
@@ -48,19 +48,11 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   );
 
   const tooltipLink = (link: Menu, isActive: boolean, active: string) => (
-    <Tooltip
-      key={link.id}
-      label={t(link.label)}
-      position='right'
-      withArrow
-      transitionProps={{ duration: 0 }}
-      className={cn(classes.link, {
-        [classes.linkActive]: isActive || active === link.label
-      })}
-    >
+    <Tooltip.Floating key={link.id} label={t(link.label)}>
       <UnstyledButton
         mx='auto'
         my='xs'
+        className={cn(classes.link, { [classes.linkActive]: isActive || active === link.label })}
         onClick={() => {
           setActive(link.label);
           navigate(link.path);
@@ -73,7 +65,7 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
           <Text c={colors.slate[4]}>{getInitials(link.name || link.label || link.id)}</Text>
         )}
       </UnstyledButton>
-    </Tooltip>
+    </Tooltip.Floating>
   );
 
   const links = sidebarMenus.map((link: Menu) => {
