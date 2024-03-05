@@ -50,7 +50,6 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   const tooltipLink = (link: Menu, isActive: boolean, active: string) => (
     <Tooltip.Floating key={link.id} label={t(link.label)}>
       <UnstyledButton
-        mx='auto'
         my='xs'
         className={cn(classes.link, { [classes.linkActive]: isActive || active === link.label })}
         onClick={() => {
