@@ -28,17 +28,17 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   const isActive = (to: string) => pathname.startsWith(to);
 
   const headerMenus = useListMenus({ type: 'header' }).menus ?? [];
-  const pathArray = pathname.split('/').filter(Boolean);
-  const sidebarMenus = (
+  const pathArray = pathname.split('/').filter(part => part !== '');
+  // const parentSlug = pathArray.length > 2 ? pathArray[1] : pathArray[0];
+  const parentMenu = headerMenus.find(menu => menu.slug === pathArray[0]);
+  const visibleSidebarMenus = (
     useListMenus({
       type: 'sidebar',
-      parent: headerMenus.find(
-        (menu: Menu) => menu.slug === (pathArray[pathArray.length - 2] ?? pathArray[0]) || ''
-      )?.id
+      parent: parentMenu?.id || null
     }).menus ?? []
-  ).filter((i: Menu) => !i.hidden);
+  ).filter((menu: Menu) => !menu.hidden);
 
-  if (headerMenus.length === 0 || sidebarMenus.length === 0) return null;
+  if (headerMenus.length === 0 || visibleSidebarMenus.length === 0) return null;
 
   const isDividerLink = (link: Menu) =>
     link.name === 'Divide' && link.slug?.includes('divide') && link.path === '-';
@@ -67,7 +67,7 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
     </Tooltip.Floating>
   );
 
-  const links = sidebarMenus.map((link: Menu) => {
+  const links = visibleSidebarMenus.map((link: Menu) => {
     if (link.hidden) return null;
     if (isDividerLink(link)) return dividerLink(link);
     return tooltipLink(link, isActive(link.path), active);

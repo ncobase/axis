@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { IconPlus } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 
 import { usePageContext } from '@/components/layout';
 import { useTheme } from '@/themes';
@@ -9,6 +10,8 @@ interface SubmenuProps extends React.PropsWithChildren {}
 
 export const Submenu: React.FC<SubmenuProps> = () => {
   const { other } = useTheme();
+
+  const navigate = useNavigate();
 
   const { layout, topbar } = usePageContext();
 
@@ -21,45 +24,78 @@ export const Submenu: React.FC<SubmenuProps> = () => {
         marginTop: topbar ? other.layout.topbar.height : 0
       }}
     >
-      <div className='text-slate-600 font-bold border-b pb-2 border-dashed border-slate-200'>
+      <div className='text-slate-600 font-bold border-b pb-2 mb-2 border-dashed border-slate-200'>
         <span>模型</span>
-        <IconPlus className='float-right text-blue-600 cursor-pointer' size='16' />
+        <button className='float-right text-blue-600'>
+          <IconPlus size='16' />
+        </button>
       </div>
-      <div className='px-3 py-2 my-3 bg-slate-100 cursor-pointer rounded'>
+      <button
+        className='px-3 py-2 mb-2 bg-slate-100 w-full text-left cursor-pointer rounded'
+        onClick={() => navigate('user')}
+      >
         <span className='text-blue-600'>用户</span>
-      </div>
-      <div className='px-3 py-2 my-3 hover:bg-slate-100 cursor-pointer rounded'>
+      </button>
+      <button
+        className='px-3 py-2 mb-2 hover:bg-slate-100 w-full text-left cursor-pointer rounded'
+        onClick={() => navigate('user')}
+      >
         <span>权限</span>
-      </div>
-      <div className='px-3 py-2 my-3 hover:bg-slate-100 cursor-pointer rounded'>
+      </button>
+      <button
+        className='px-3 py-2 mb-2 hover:bg-slate-100 w-full text-left cursor-pointer rounded'
+        onClick={() => navigate('user')}
+      >
         <span>角色</span>
-      </div>
-      <div className='px-3 py-2 my-3 hover:bg-slate-100 cursor-pointer rounded'>
+      </button>
+      <button
+        className='px-3 py-2 mb-2 hover:bg-slate-100 w-full text-left cursor-pointer rounded'
+        onClick={() => navigate('user')}
+      >
         <span>站点</span>
-      </div>
-      <div className='text-slate-600 font-bold border-b pb-2 border-dashed border-slate-200'>
+      </button>
+      <div className='text-slate-600 font-bold border-b pb-2 my-2 border-dashed border-slate-200'>
         <span>组件</span>
-        <IconPlus className='float-right text-blue-600 cursor-pointer' size='16' />
+        <button className='float-right text-blue-600'>
+          <IconPlus size='16' />
+        </button>
       </div>
-      <div className='px-3 py-2 my-3 hover:bg-slate-100 cursor-pointer rounded'>
+      <button
+        className='px-3 py-2 mb-2 hover:bg-slate-100 w-full text-left cursor-pointer rounded'
+        onClick={() => navigate('user')}
+      >
         <span>元素</span>
-      </div>
-      <div className='px-3 py-2 my-3 hover:bg-slate-100 cursor-pointer rounded'>
+      </button>
+      <button
+        className='px-3 py-2 mb-2 hover:bg-slate-100 w-full text-left cursor-pointer rounded'
+        onClick={() => navigate('user')}
+      >
         <span>布局</span>
-      </div>
-      <div className='px-3 py-2 my-3 hover:bg-slate-100 cursor-pointer rounded'>
+      </button>
+      <button
+        className='px-3 py-2 mb-2 hover:bg-slate-100 w-full text-left cursor-pointer rounded'
+        onClick={() => navigate('user')}
+      >
         <span>模板</span>
-      </div>
-      <div className='text-slate-600 font-bold border-b pb-2 border-dashed border-slate-200'>
+      </button>
+      <div className='text-slate-600 font-bold border-b pb-2 my-2 border-dashed border-slate-200'>
         <span>效率</span>
-        <IconPlus className='float-right text-blue-600 cursor-pointer' size='16' />
+        <button className='float-right text-blue-600'>
+          <IconPlus size='16' />
+        </button>
       </div>
-      <div className='px-3 py-2 my-3 hover:bg-slate-100 cursor-pointer rounded'>
+      <button
+        className='px-3 py-2 mb-2 hover:bg-slate-100 w-full text-left cursor-pointer rounded'
+        onClick={() => navigate('user')}
+      >
         <span>流程</span>
-      </div>
-      <div className='px-3 py-2 my-3 hover:bg-slate-100 cursor-pointer rounded'>
+      </button>
+      <button
+        className='px-3 py-2 mb-2 hover:bg-slate-100 w-full text-left cursor-pointer rounded'
+        onClick={() => navigate('user')}
+      >
         <span>大小</span>
-      </div>
+      </button>
     </div>
   );
 };
