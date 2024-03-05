@@ -1,19 +1,45 @@
 import React from 'react';
 
 import { IconPlus } from '@tabler/icons-react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { usePageContext } from '@/components/layout';
+import { Menu } from '@/features/system/menu/schema';
+import { useListMenus } from '@/features/system/menu/service';
 import { useTheme } from '@/themes';
 
 interface SubmenuProps extends React.PropsWithChildren {}
 
 export const Submenu: React.FC<SubmenuProps> = () => {
   const { other } = useTheme();
-
+  const { pathname } = useLocation();
   const navigate = useNavigate();
-
   const { layout, topbar } = usePageContext();
+
+  const headerMenus = useListMenus({ type: 'header' }).menus ?? [];
+  const pathArray = pathname.split('/').filter(part => part !== '');
+  const parentMenu = headerMenus.find(menu => menu.slug === pathArray[0]);
+  const sidebarMenus = (
+    useListMenus({
+      type: 'sidebar',
+      parent: parentMenu?.id || null
+    }).menus ?? []
+  ).filter((menu: Menu) => !menu.hidden);
+
+  let visibleSidebarMenus: any = [];
+
+  if (pathArray.length > 1) {
+    const sidebarMenu = sidebarMenus.find(
+      menu => menu.slug === [pathArray[0], pathArray[1]].join('-')
+    );
+    visibleSidebarMenus = (
+      useListMenus({
+        type: 'submenu',
+        parent: sidebarMenu?.id || null
+      }).menus ?? []
+    ).filter(menu => !menu.hidden);
+  }
+  console.log(visibleSidebarMenus);
 
   return (
     <div
