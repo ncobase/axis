@@ -33,24 +33,24 @@ export const Profile = () => {
             <span className='font-bold text-md text-slate-800'>
               {profile?.first_name?.concat(' ').concat(profile?.last_name || '')}
             </span>
-            <Group mt={16} spacing={26}>
-              <Group spacing={5}>
+            <Group mt={16} gap={26}>
+              <Group gap={5}>
                 <DIcon name='IconShieldCheck' color={colors.gray[5]} />
               </Group>
-              <Group spacing={5}>
+              <Group gap={5}>
                 <DIcon name='IconMapPin' color={colors.gray[5]} />
                 <span className='text-xs text-slate-400'>{user?.phone}</span>
               </Group>
-              <Group spacing={5}>
+              <Group gap={5}>
                 <DIcon name='IconAt' color={colors.gray[5]} />
                 <span className='text-xs text-slate-400'>{user?.email}</span>
               </Group>
-              <Group spacing={5}>
+              <Group gap={5}>
                 <DIcon name='IconPhoneCall' color={colors.gray[5]} />
                 <span className='text-xs text-slate-400'>{user?.phone}</span>
               </Group>
             </Group>
-            <Group mt={16} spacing={38}>
+            <Group mt={16} gap={38}>
               <div className='border border-dashed border-slate-300 px-5 py-2 rounded-xl text-xs text-slate-400 text-center'>
                 <span className='font-bold'>123</span>
                 <div>项目</div>
