@@ -3,9 +3,9 @@ import React from 'react';
 import { useDisclosure } from '@mantine/hooks';
 
 import blurBackground from '@/assets/images/body-background-image.png';
-import { LayoutContext } from '@/components/layout/context/layout';
 import { Viewport } from '@/components/viewport';
 import { LoginModalProvider } from '@/features/account/auth/login_modal_interceptor';
+import { LayoutContext } from '@/layout/context/layout';
 
 interface LayoutProps {
   children: React.ReactNode;

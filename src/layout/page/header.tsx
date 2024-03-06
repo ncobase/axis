@@ -2,11 +2,11 @@ import React from 'react';
 
 import { AppShell, Group } from '@mantine/core';
 
-import { AccountMenu } from '@/components/layout';
-import { MainMenu } from '@/components/layout/menu/main';
-import { TenantMenu } from '@/components/layout/menu/tenant';
 import { Logo } from '@/components/logo';
 import { useListMenus } from '@/features/system/menu/service';
+import { AccountMenu } from '@/layout';
+import { MainMenu } from '@/layout/menu/main';
+import { TenantMenu } from '@/layout/menu/tenant';
 import { useTheme } from '@/themes';
 
 export const Header = ({ ...rest }) => {

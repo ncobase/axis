@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { usePageContext } from '@/components/layout';
 import { randomId } from '@/helpers';
+import { usePageContext } from '@/layout';
 import { useTheme } from '@/themes';
 
 export interface TopbarProps extends React.PropsWithChildren {

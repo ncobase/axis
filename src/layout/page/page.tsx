@@ -4,9 +4,9 @@ import { AppShell, Container, MantineSize } from '@mantine/core';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
-import { useFocusMode } from '@/components/layout';
-import { Header } from '@/components/layout/page/header';
-import { Sidebar } from '@/components/layout/page/sidebar';
+import { useFocusMode } from '@/layout';
+import { Header } from '@/layout/page/header';
+import { Sidebar } from '@/layout/page/sidebar';
 import { useTheme } from '@/themes';
 
 interface PageContextValue {

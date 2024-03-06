@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Container, Grid, Skeleton } from '@mantine/core';
 
-import { Page } from '@/components/layout';
+import { Page } from '@/layout';
 
 // const BoxContent = ({ children }: any) => (
 //   <Box bg='white' className='rounded-md shadow-lg shadow-slate-200/10' p={16} mb={16}>

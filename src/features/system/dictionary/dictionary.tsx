@@ -1,5 +1,5 @@
-import { Page } from '@/components/layout';
-import { Submenu } from '@/components/layout/page/submenu';
+import { Page } from '@/layout';
+import { Submenu } from '@/layout/page/submenu';
 
 export const Dictionary = () => {
   const submenu = <Submenu />;

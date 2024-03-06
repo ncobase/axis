@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import classes from '@/components/layout/menu/menu.module.css';
 import { MenuTree } from '@/features/system/menu/schema';
+import classes from '@/layout/menu/menu.module.css';
 
 interface MainMenuProps {
   menus?: MenuTree[];

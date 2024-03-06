@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import classes from '@/components/layout/page/sidebar.module.css';
 import { Menu } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { cn, getInitials } from '@/helpers';
+import classes from '@/layout/page/sidebar.module.css';
 import { useTheme } from '@/themes';
 
 interface SidebarProps {

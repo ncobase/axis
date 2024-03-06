@@ -4,8 +4,8 @@ import { Group } from '@mantine/core';
 
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
-import { Page } from '@/components/layout';
 import { useAccount } from '@/features/account/service';
+import { Page } from '@/layout';
 import { useTheme } from '@/themes';
 
 export const Profile = () => {

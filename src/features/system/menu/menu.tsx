@@ -1,6 +1,6 @@
 import { Box } from '@/components/box/box';
-import { Page } from '@/components/layout';
 import { useListMenus } from '@/features/system/menu/service';
+import { Page } from '@/layout';
 
 export const Menu = () => {
   const { menus } = useListMenus();

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Page } from '@/components/layout';
-import { Submenu } from '@/components/layout/page/submenu';
-import { Topbar } from '@/components/layout/page/topbar';
+import { Page } from '@/layout';
+import { Submenu } from '@/layout/page/submenu';
+import { Topbar } from '@/layout/page/topbar';
 
 export const User = () => {
   const topbarElement = {

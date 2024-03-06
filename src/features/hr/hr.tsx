@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Page } from '@/components/layout';
-import { Topbar } from '@/components/layout/page/topbar';
+import { Page } from '@/layout';
+import { Topbar } from '@/layout/page/topbar';
 
 export const Hr = () => {
   const title = 'HR Page';
