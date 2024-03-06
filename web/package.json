@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "postinstall": "yarn gen:version",
+    "postinstall": "esno version_info.ts",
     "dev": "vite",
     "build": "tsc && vite build",
-    "gen:version": "esno version_info.ts",
     "serve": "vite preview",
     "deploy:prod": "yarn rimraf serverless.yaml && cp infra/serverless/tencent_cloud_prod.yaml serverless.yaml && sls deploy -s prod && yarn rimraf serverless.yaml"
   },
