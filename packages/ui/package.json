@@ -1,0 +1,22 @@
+{
+  "name": "@tone/ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "UI components shared across multiple apps internally",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "dependencies": {
+    "clsx": "^2.1.0",
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@types/react": "^18.2.63",
+    "react": "^18.2.0"
+  }
+}

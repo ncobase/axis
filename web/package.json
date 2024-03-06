@@ -34,6 +34,8 @@
     "@tiptap/extension-link": "^2.2.3",
     "@tiptap/react": "^2.2.3",
     "@tiptap/starter-kit": "^2.2.3",
+    "@tone/types": "*",
+    "@tone/ui": "*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
