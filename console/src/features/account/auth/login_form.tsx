@@ -14,11 +14,11 @@ import {
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
+import { LoginProps } from '@tone/types';
 import { FetchError } from 'ofetch';
 import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { LoginProps } from '@/apis/account/auth';
 import { useLogin } from '@/features/account/service';
 import { upperFirst } from '@/helpers/common';
 import { useTheme } from '@/themes';

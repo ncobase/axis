@@ -1,6 +1,7 @@
 import { Account } from '@tone/types';
 
 import { request } from '@/apis/request';
+
 const ENDPOINT = '/account';
 
 // current user

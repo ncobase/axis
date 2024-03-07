@@ -5,18 +5,12 @@ import {
   useQuery,
   UseQueryOptions
 } from '@tanstack/react-query';
-import { Account, Tenant, Tenants } from '@tone/types';
+import { Account, LoginProps, LoginReply, RegisterProps, Tenant, Tenants } from '@tone/types';
 import i18n from 'i18next';
 import { FetchError } from 'ofetch';
 
 import { getCurrentUser } from '@/apis/account/account';
-import {
-  loginAccount,
-  LoginProps,
-  LoginReply,
-  registerAccount,
-  RegisterProps
-} from '@/apis/account/auth';
+import { loginAccount, registerAccount } from '@/apis/account/authorize';
 import { getUserTenant, getUserTenants } from '@/apis/account/tenant';
 import { useAuthContext } from '@/features/account/context';
 import { paginateByCursor } from '@/helpers/pagination';

@@ -6,5 +6,6 @@ export * from './tenant/permission';
 export * from './tenant/role';
 export * from './tenant/tenant';
 // user
-export * from './user/user';
 export * from './user/account';
+export * from './user/authorize';
+export * from './user/user';

@@ -14,11 +14,11 @@ import {
 import { isNotEmpty, matchesField, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { useQueryClient } from '@tanstack/react-query';
+import { RegisterProps } from '@tone/types';
 import { FetchError } from 'ofetch';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { RegisterProps } from '@/apis/account/auth';
 import { Footer } from '@/components/footer/footer';
 import { Logo } from '@/components/logo';
 import { useRegisterAccount } from '@/features/account/service';

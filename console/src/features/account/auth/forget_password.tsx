@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 
 import { Anchor, Button, Flex, Group, Paper, Stack, TextInput } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
+import { ForgetPasswordProps } from '@tone/types';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { ForgetPasswordProps } from '@/apis/account/auth';
 import { Footer } from '@/components/footer/footer';
 import { Logo } from '@/components/logo';
 import classes from '@/features/account/styles.module.css';
