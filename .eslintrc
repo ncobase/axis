@@ -1,4 +1,5 @@
 {
+  "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
@@ -12,6 +13,11 @@
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended"
   ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "env": {
     "es6": true,
     "browser": true,
