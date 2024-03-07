@@ -3,7 +3,7 @@ import React from 'react';
 import { Flex, getDefaultZIndex } from '@mantine/core';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { getInitials } from '@/helpers';
+import { getInitials } from '@/helpers/common';
 import { useTheme } from '@/themes';
 
 export const AppDevHint = () => {

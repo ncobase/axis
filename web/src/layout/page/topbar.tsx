@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { randomId } from '@/helpers';
+import { randomId } from '@/helpers/common';
 import { usePageContext } from '@/layout';
 import { useTheme } from '@/themes';
 

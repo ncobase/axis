@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { LoginProps } from '@/apis/account/auth';
 import { useLogin } from '@/features/account/service';
-import { upperFirst } from '@/helpers';
+import { upperFirst } from '@/helpers/common';
 import { useTheme } from '@/themes';
 
 interface LoginHintProps {

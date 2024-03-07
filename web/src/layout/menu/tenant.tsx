@@ -11,7 +11,7 @@ import { TenantSwitchModal } from '@/features/account/tenant/switch_modal';
 import { MenuTree } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { useTenantContext } from '@/features/system/tenant/context';
-import { randomId } from '@/helpers';
+import { randomId } from '@/helpers/common';
 
 export const TenantMenu = () => {
   const { t } = useTranslation();

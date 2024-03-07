@@ -1,6 +1,6 @@
 import { request } from '@/apis/request';
 import { Tenant, Tenants } from '@/features/system/tenant/schema';
-import { buildQueryString } from '@/helpers';
+import { buildQueryString } from '@/helpers/common';
 
 const ENDPOINT = '/account/tenants';
 

@@ -1,6 +1,6 @@
 import { request } from '@/apis/request';
 import { Menu, Menus, MenuTrees } from '@/features/system/menu/schema';
-import { buildQueryString } from '@/helpers';
+import { buildQueryString } from '@/helpers/common';
 
 const ENDPOINT = '/menus';
 

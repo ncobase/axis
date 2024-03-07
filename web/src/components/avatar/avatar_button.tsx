@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Avatar, AvatarProps, Loader, UnstyledButton } from '@mantine/core';
 
-import { getInitials } from '@/helpers';
+import { getInitials } from '@/helpers/common';
 
 interface AvatarButtonProps extends AvatarProps {
   isLoading?: boolean;
