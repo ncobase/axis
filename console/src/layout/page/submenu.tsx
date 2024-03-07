@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { IconPlus } from '@tabler/icons-react';
+import { Menu } from '@tone/types';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Menu } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { usePageContext } from '@/layout';
 import { useTheme } from '@/themes';
@@ -37,7 +37,7 @@ export const Submenu: React.FC<SubmenuProps> = () => {
         type: 'submenu',
         parent: sidebarMenu?.id || null
       }).menus ?? []
-    ).filter(menu => !menu.hidden);
+    ).filter(menu => !menu.hidden || !menu.disabled);
   }
 
   if (!visibleSidebarMenus.length) return null;

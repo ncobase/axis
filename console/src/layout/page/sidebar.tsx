@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 import { AppShell, Divider, Text, Tooltip, UnstyledButton } from '@mantine/core';
+import { Menu } from '@tone/types';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import { Menu } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { cn, getInitials } from '@/helpers/common';
 import classes from '@/layout/page/sidebar.module.css';
@@ -68,7 +68,7 @@ export const Sidebar = ({ activeLabel = '', onLinkClick }: SidebarProps) => {
   );
 
   const links = visibleSidebarMenus.map((link: Menu) => {
-    if (link.hidden) return null;
+    if (link.hidden || link.disabled) return null;
     if (isDividerLink(link)) return dividerLink(link);
     return tooltipLink(link, isActive(link.path), active);
   });

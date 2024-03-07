@@ -1,5 +1,6 @@
+import { Menu, Menus, MenuTrees } from '@tone/types';
+
 import { request } from '@/apis/request';
-import { Menu, Menus, MenuTrees } from '@/features/system/menu/schema';
 import { buildQueryString } from '@/helpers/common';
 
 const ENDPOINT = '/menus';

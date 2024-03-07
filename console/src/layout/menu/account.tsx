@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Menu } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
+import { MenuTree } from '@tone/types';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +10,6 @@ import versionInfo from '@/../version.json';
 import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
 import { useAccount } from '@/features/account/service';
-import { MenuTree } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { useTheme } from '@/themes';
 
@@ -64,7 +64,7 @@ export const AccountMenu = ({ ...rest }) => {
   const { menus = [] } = useListMenus({ type: 'account' });
 
   const renderMenuDropdown = (menuItems: MenuTree[]) => {
-    const visibleItems = menuItems.filter(item => !item.hidden);
+    const visibleItems = menuItems.filter(item => !item.hidden || item.disabled);
     if (!visibleItems.length) return null;
     return (
       <Menu.Dropdown>

@@ -1,8 +1,8 @@
 import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { Menu, Menus, MenuTrees } from '@tone/types';
 import { FetchError } from 'ofetch';
 
 import { createMenu, getMenu, getMenus, getMenuTree, updateMenu } from '@/apis/menu/menu';
-import { Menu, Menus, MenuTrees } from '@/features/system/menu/schema';
 import { paginateByCursor } from '@/helpers/pagination';
 
 interface MenuKeys {

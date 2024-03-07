@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Anchor, Center, Group, Menu } from '@mantine/core';
+import { MenuTree } from '@tone/types';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DIcon } from '@/components/icon/icon';
-import { MenuTree } from '@/features/system/menu/schema';
 import classes from '@/layout/menu/menu.module.css';
 
 interface MainMenuProps {

@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { Avatar, Box, Group, MantineTheme, Modal, Text, UnstyledButton } from '@mantine/core';
+import { Tenant } from '@tone/types';
 import { useTranslation } from 'react-i18next';
 
 import { useAuthContext } from '@/features/account/context';
 import { useUserTenants } from '@/features/account/service';
 import { useTenantContext } from '@/features/system/tenant/context';
-import { Tenant } from '@/features/system/tenant/schema';
 import { useRedirectFromUrl } from '@/router/use_redirect_from_url';
 import { useTheme } from '@/themes';
 

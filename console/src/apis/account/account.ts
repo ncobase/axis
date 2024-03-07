@@ -1,11 +1,6 @@
+import { Account } from '@tone/types';
+
 import { request } from '@/apis/request';
-import { User, UserProfile } from '@/features/system/user/schema';
-
-export interface Account {
-  user: User;
-  profile: UserProfile;
-}
-
 const ENDPOINT = '/account';
 
 // current user

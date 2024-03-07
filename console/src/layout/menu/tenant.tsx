@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react';
 
 import { Menu } from '@mantine/core';
+import { MenuTree } from '@tone/types';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +9,6 @@ import { AvatarButton } from '@/components/avatar/avatar_button';
 import { DIcon } from '@/components/icon/icon';
 import { useUserTenant, useUserTenants } from '@/features/account/service';
 import { TenantSwitchModal } from '@/features/account/tenant/switch_modal';
-import { MenuTree } from '@/features/system/menu/schema';
 import { useListMenus } from '@/features/system/menu/service';
 import { useTenantContext } from '@/features/system/tenant/context';
 import { randomId } from '@/helpers/common';
@@ -59,7 +59,7 @@ export const TenantMenu = () => {
   };
 
   const renderMenuDropdown = (menuItems: MenuTree[]) => {
-    const visibleItems = menuItems.filter(item => !item.hidden);
+    const visibleItems = menuItems.filter(item => !item.hidden || item.disabled);
     if (!visibleItems.length) return null;
     return <Menu.Dropdown>{visibleItems.map(renderLink)}</Menu.Dropdown>;
   };

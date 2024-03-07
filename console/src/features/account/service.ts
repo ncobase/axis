@@ -5,10 +5,11 @@ import {
   useQuery,
   UseQueryOptions
 } from '@tanstack/react-query';
+import { Account, Tenant, Tenants } from '@tone/types';
 import i18n from 'i18next';
 import { FetchError } from 'ofetch';
 
-import { Account, getCurrentUser } from '@/apis/account/account';
+import { getCurrentUser } from '@/apis/account/account';
 import {
   loginAccount,
   LoginProps,
@@ -18,7 +19,6 @@ import {
 } from '@/apis/account/auth';
 import { getUserTenant, getUserTenants } from '@/apis/account/tenant';
 import { useAuthContext } from '@/features/account/context';
-import { Tenant, Tenants } from '@/features/system/tenant/schema';
 import { paginateByCursor } from '@/helpers/pagination';
 
 interface AccountKeys {
