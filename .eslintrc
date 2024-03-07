@@ -1,6 +1,9 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "plugins": [
     "@typescript-eslint",
     "react",
@@ -82,5 +85,6 @@
       }
     ],
     "space-before-function-paren": "off"
-  }
+  },
+  "ignorePatterns": ["dist", "node_modules"]
 }
