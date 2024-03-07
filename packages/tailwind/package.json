@@ -1,0 +1,6 @@
+{
+  "name": "@tone/tailwind",
+  "version": "0.1.0",
+  "description": "common tailwindcss configuration",
+  "private": true
+}

@@ -4,6 +4,7 @@
   "repository": "git@github.com:haiyon/tone-front.git",
   "private": true,
   "workspaces": [
+    "packages/tailwind",
     "packages/types",
     "packages/ui",
     "console"
