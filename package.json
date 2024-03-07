@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
   "description": "Integrated management system",
-  "repository": "git@github.com:haiyon/tone-console.git",
+  "repository": "git@github.com:haiyon/tone-front.git",
   "private": true,
   "workspaces": [
     "packages/types",
