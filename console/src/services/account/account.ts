@@ -1,6 +1,6 @@
 import { Account } from '@tone/types';
 
-import { request } from '@/apis/request';
+import { request } from '@/services/request';
 
 const ENDPOINT = '/account';
 

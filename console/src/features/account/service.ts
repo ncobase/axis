@@ -9,11 +9,11 @@ import { Account, LoginProps, LoginReply, RegisterProps, Tenant, Tenants } from 
 import i18n from 'i18next';
 import { FetchError } from 'ofetch';
 
-import { getCurrentUser } from '@/apis/account/account';
-import { loginAccount, registerAccount } from '@/apis/account/authorize';
-import { getUserTenant, getUserTenants } from '@/apis/account/tenant';
 import { useAuthContext } from '@/features/account/context';
 import { paginateByCursor } from '@/helpers/pagination';
+import { getCurrentUser } from '@/services/account/account';
+import { loginAccount, registerAccount } from '@/services/account/authorize';
+import { getUserTenant, getUserTenants } from '@/services/account/tenant';
 
 interface AccountKeys {
   all: () => readonly ['accountService'];

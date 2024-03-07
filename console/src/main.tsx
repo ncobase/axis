@@ -1,4 +1,4 @@
-import '@/setup';
+import '@/helpers/setup';
 
 import React from 'react';
 

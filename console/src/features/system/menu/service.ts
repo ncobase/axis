@@ -2,8 +2,8 @@ import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tan
 import { Menu, Menus, MenuTrees } from '@tone/types';
 import { FetchError } from 'ofetch';
 
-import { createMenu, getMenu, getMenus, getMenuTree, updateMenu } from '@/apis/menu/menu';
 import { paginateByCursor } from '@/helpers/pagination';
+import { createMenu, getMenu, getMenus, getMenuTree, updateMenu } from '@/services/menu/menu';
 
 interface MenuKeys {
   all: () => readonly ['menuService'];

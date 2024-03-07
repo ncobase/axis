@@ -1,3 +1,5 @@
+// global
+export * from './env';
 // tenant
 export * from './tenant/dictionary';
 export * from './tenant/group';

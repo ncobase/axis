@@ -1,22 +1,6 @@
-interface HostConfig {
-  HOST: string;
-  PORT: string;
-  PATH: string;
-}
+import { EnvironmentNames, EnvironmentValue, HostVariables, LoginProps } from '@tone/types';
 
-type Environment = 'production' | 'test' | 'development';
-
-interface HostMap {
-  [key: string]: HostConfig;
-}
-
-interface UserConfig {
-  username: string;
-  password: string;
-  keep_ticket?: boolean;
-}
-
-const HOST: HostMap = {
+const HOST: EnvironmentNames = {
   development: {
     HOST: '',
     PORT: '',
@@ -34,18 +18,16 @@ const HOST: HostMap = {
   }
 };
 
-const defOps = (env: Environment): UserConfig => {
+const defOps = (env: EnvironmentValue): LoginProps => {
   switch (env) {
-    case 'production':
-      return { username: '', password: '' };
     default:
-      return { username: '', password: '' };
+      return { username: '', password: '', remember: true };
   }
 };
 
-const env: Environment = (process.env.NODE_ENV as Environment) || 'development';
+const env = (process.env.NODE_ENV as EnvironmentValue) || 'development';
 
-const HOST_ENV: HostConfig = HOST[env];
+const HOST_ENV: HostVariables = HOST[env];
 const Endpoint: string =
   HOST_ENV.PORT !== ''
     ? `${HOST_ENV.HOST}:${HOST_ENV.PORT}${HOST_ENV.PATH}`

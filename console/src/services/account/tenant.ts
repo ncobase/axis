@@ -1,7 +1,7 @@
 import { Tenant, Tenants } from '@tone/types';
 
-import { request } from '@/apis/request';
 import { buildQueryString } from '@/helpers/common';
+import { request } from '@/services/request';
 
 const ENDPOINT = '/account/tenants';
 

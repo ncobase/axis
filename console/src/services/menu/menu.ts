@@ -1,7 +1,7 @@
 import { Menu, Menus, MenuTrees } from '@tone/types';
 
-import { request } from '@/apis/request';
 import { buildQueryString } from '@/helpers/common';
+import { request } from '@/services/request';
 
 const ENDPOINT = '/menus';
 
