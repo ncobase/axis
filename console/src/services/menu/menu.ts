@@ -1,4 +1,4 @@
-import { Menu, Menus, MenuTrees } from '@tone/types';
+import { ExplicitAny, Menu, Menus, MenuTrees } from '@tone/types';
 
 import { buildQueryString } from '@/helpers/common';
 import { request } from '@/services/request';

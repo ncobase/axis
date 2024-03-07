@@ -4,7 +4,7 @@ export interface HostVariables {
   readonly PATH: string;
 }
 
-export type EnvironmentValue = 'production' | 'test' | 'development';
+type EnvironmentValue = 'production' | 'test' | 'development';
 
 export interface EnvironmentNames {
   [key: string]: HostVariables;

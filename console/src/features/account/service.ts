@@ -5,7 +5,16 @@ import {
   useQuery,
   UseQueryOptions
 } from '@tanstack/react-query';
-import { Account, LoginProps, LoginReply, RegisterProps, Tenant, Tenants } from '@tone/types';
+import {
+  Account,
+  AnyObject,
+  InferQueryKey,
+  LoginProps,
+  LoginReply,
+  RegisterProps,
+  Tenant,
+  Tenants
+} from '@tone/types';
 import i18n from 'i18next';
 import { FetchError } from 'ofetch';
 

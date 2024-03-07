@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ExplicitAny } from '@tone/types';
 import { useTranslation } from 'react-i18next';
 
 import { Error403 } from '@/components/errors/403';

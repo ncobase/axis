@@ -1,4 +1,4 @@
-import { Tenant, Tenants } from '@tone/types';
+import { AnyObject, Tenant, Tenants } from '@tone/types';
 
 import { buildQueryString } from '@/helpers/common';
 import { request } from '@/services/request';

@@ -1,5 +1,6 @@
 // global
 export * from './env';
+export * from './utilities';
 // tenant
 export * from './tenant/dictionary';
 export * from './tenant/group';

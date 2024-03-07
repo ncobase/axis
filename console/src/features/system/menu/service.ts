@@ -1,5 +1,5 @@
 import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
-import { Menu, Menus, MenuTrees } from '@tone/types';
+import { AnyObject, InferQueryKey, Menu, Menus, MenuTrees } from '@tone/types';
 import { FetchError } from 'ofetch';
 
 import { paginateByCursor } from '@/helpers/pagination';
