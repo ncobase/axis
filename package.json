@@ -6,9 +6,10 @@
   "workspaces": [
     "packages/types",
     "packages/ui",
-    "web"
+    "console"
   ],
   "scripts": {
+    "dev:console": "yarn workspace @tone/console dev",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "yarn lint --fix && yarn prettier --write",
     "prettier": "prettier \"**/*.{vue,js,jsx,ts,tsx,md,css,scss,yaml,yml}\""
