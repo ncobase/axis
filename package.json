@@ -4,11 +4,12 @@
   "repository": "git@github.com:haiyon/tone-front.git",
   "private": true,
   "workspaces": [
+    "console",
     "packages/request",
     "packages/tailwind",
     "packages/types",
     "packages/ui",
-    "console"
+    "packages/utils"
   ],
   "scripts": {
     "dev:console": "yarn workspace @tone/console dev",
