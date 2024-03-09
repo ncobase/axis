@@ -7,11 +7,13 @@
     "console",
     "packages/request",
     "packages/tailwind",
+    "packages/tsconfig",
     "packages/types",
     "packages/ui",
     "packages/utils"
   ],
   "scripts": {
+    "clean": "npx rimraf --glob '**/{node_modules,.next,dist}'",
     "dev:console": "yarn workspace @tone/console dev",
     "lint": "eslint . --ext .js,.jsx.ts,.tsx --cache",
     "lint:fix": "yarn lint --fix && yarn prettier --write",

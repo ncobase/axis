@@ -66,6 +66,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@tone/tsconfig": "*",
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/eslint-plugin-query": "^5.20.1",
     "@types/html-minifier-terser": "^7.0.2",
