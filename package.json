@@ -14,11 +14,13 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "clean": "npx rimraf --glob '**/{node_modules,.next,dist}'",
+    "clean": "npx rimraf --glob '**/{node_modules,.next,dist,.turbo}'",
+    "dev": "turbo run dev --concurrency=13",
     "dev:console": "yarn workspace @tone/console dev",
     "lint": "eslint . --ext .js,.jsx.ts,.tsx --cache",
     "lint:fix": "yarn lint --fix && yarn prettier --write",
-    "prettier": "prettier \"**/*.{vue,js,jsx,ts,tsx,md,css,scss,yaml,yml}\""
+    "prettier": "prettier \"**/*.{vue,js,jsx,ts,tsx,md,css,scss,yaml,yml}\"",
+    "build": "turbo run build"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.0.3",
@@ -33,6 +35,7 @@
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
+    "turbo": "^1.12.5",
     "typescript": "5.3.3"
   },
   "commitlint": {
