@@ -1,9 +1,11 @@
 import React from 'react';
 
-const CustomSelect = () => {};
+const CustomSelect = () => <></>;
 
-const Option = () => {};
+interface SelectOptionProps {}
 
-CustomSelect.Option = Option;
+const SelectOption: React.FC<SelectOptionProps> = () => <></>;
+
+CustomSelect.Option = SelectOption;
 
 export { CustomSelect };
