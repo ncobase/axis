@@ -1,0 +1,10 @@
+{
+  "extends": "@tone/tsconfig/react.json",
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

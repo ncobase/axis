@@ -4,13 +4,8 @@
   "repository": "git@github.com:haiyon/tone-front.git",
   "private": true,
   "workspaces": [
-    "apps/console",
-    "packages/request",
-    "packages/tailwind",
-    "packages/tsconfig",
-    "packages/types",
-    "packages/ui",
-    "packages/utils"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
     "prepare": "husky install",
