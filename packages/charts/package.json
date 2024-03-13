@@ -15,9 +15,8 @@
     "lint": "eslint src"
   },
   "dependencies": {
-    "echarts": "^5.5.0",
-    "react-dom": "^18.2.0",
-    "recharts": "^2.12.2"
+    "@ant-design/plots": "^2.1.14",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@tone/tsconfig": "*",

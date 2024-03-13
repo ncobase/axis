@@ -1,64 +1,51 @@
 import React from 'react';
 
-import {
-  Radar,
-  RadarChart as RRadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer
-} from 'recharts';
+import { Radar } from '@ant-design/plots';
 
 type Props = {};
 
 const data = [
-  {
-    subject: 'Math',
-    A: 120,
-    B: 110,
-    fullMark: 150
-  },
-  {
-    subject: 'Chinese',
-    A: 98,
-    B: 130,
-    fullMark: 150
-  },
-  {
-    subject: 'English',
-    A: 86,
-    B: 130,
-    fullMark: 150
-  },
-  {
-    subject: 'Geography',
-    A: 99,
-    B: 100,
-    fullMark: 150
-  },
-  {
-    subject: 'Physics',
-    A: 85,
-    B: 90,
-    fullMark: 150
-  },
-  {
-    subject: 'History',
-    A: 65,
-    B: 85,
-    fullMark: 150
-  }
+  { item: 'Design', type: 'a', score: 70 },
+  { item: 'Design', type: 'b', score: 30 },
+  { item: 'Development', type: 'a', score: 60 },
+  { item: 'Development', type: 'b', score: 70 },
+  { item: 'Marketing', type: 'a', score: 50 },
+  { item: 'Marketing', type: 'b', score: 60 },
+  { item: 'Users', type: 'a', score: 40 },
+  { item: 'Users', type: 'b', score: 50 },
+  { item: 'Test', type: 'a', score: 60 },
+  { item: 'Test', type: 'b', score: 70 },
+  { item: 'Language', type: 'a', score: 70 },
+  { item: 'Language', type: 'b', score: 50 },
+  { item: 'Technology', type: 'a', score: 50 },
+  { item: 'Technology', type: 'b', score: 40 },
+  { item: 'Support', type: 'a', score: 30 },
+  { item: 'Support', type: 'b', score: 40 },
+  { item: 'Sales', type: 'a', score: 60 },
+  { item: 'Sales', type: 'b', score: 40 },
+  { item: 'UX', type: 'a', score: 50 },
+  { item: 'UX', type: 'b', score: 60 }
 ];
 
-const RadarChart: React.FC<Props> = () => (
-  <ResponsiveContainer width='100%' height='100%'>
-    <RRadarChart cx='50%' cy='50%' outerRadius='80%' data={data}>
-      <PolarGrid />
-      <PolarAngleAxis dataKey='subject' />
-      <PolarRadiusAxis />
-      <Radar name='Mike' dataKey='A' stroke='#8884d8' fill='#8884d8' fillOpacity={0.6} />
-    </RRadarChart>
-  </ResponsiveContainer>
-);
+const RadarChart: React.FC<Props> = () => {
+  const config = {
+    data,
+    xField: 'item',
+    yField: 'score',
+    colorField: 'type',
+    shapeField: 'smooth',
+    area: {
+      style: {
+        fillOpacity: 0.5
+      }
+    },
+    scale: { x: { padding: 0.5, align: 0 }, y: { tickCount: 5, domainMax: 80 } },
+    axis: { x: { grid: true }, y: { zIndex: 1, title: false } },
+    style: {
+      lineWidth: 2
+    }
+  };
+  return <Radar {...config} />;
+};
 
 export { RadarChart };
