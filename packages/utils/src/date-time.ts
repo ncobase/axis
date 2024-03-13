@@ -1,9 +1,15 @@
 import { format, isValid } from 'date-fns';
 
-type DateFormatType = 'date' | 'time' | 'dateTime';
+type DateFormatType = 'year' | 'month' | 'day' | 'date' | 'time' | 'dateTime';
 
 const getFormatPattern = (type: DateFormatType) => {
   switch (type) {
+    case 'year':
+      return 'yyyy';
+    case 'month':
+      return 'MM';
+    case 'day':
+      return 'dd';
     case 'date':
       return 'yyyy-MM-dd';
     case 'time':
@@ -16,7 +22,7 @@ const getFormatPattern = (type: DateFormatType) => {
 /**
  * 格式化日期、时间
  * @param dateTime 日期时间
- * @param type 格式化类型，可选值为 'date' | 'time' | 'dateTime'
+ * @param type 格式化类型，默认 dateTime，可选值为 'year' | 'month' | 'day' | 'date' | 'time' | 'dateTime'
  * @returns 格式化后的日期/时间字符串
  */
 export const formatDateTime = (
