@@ -1,1 +1,1 @@
-export * from '@/spreadsheet/view';
+export * from './view';

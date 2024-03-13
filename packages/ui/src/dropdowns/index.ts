@@ -1,2 +1,2 @@
-export * from '@/dropdowns/menu';
-export * from '@/dropdowns/select';
+export * from './menu';
+export * from './select';
