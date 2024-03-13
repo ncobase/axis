@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Footer } from './components/footer';
 import { Header } from './components/header';
 import { Sidebar } from './components/sidebar';
 import { Submenu } from './components/submenu';
@@ -15,25 +14,22 @@ interface ShellProps extends React.PropsWithChildren {
   topbar?: React.ReactElement;
   /** <Submenu /> component */
   submenu?: React.ReactElement;
-  /** <Footer /> component */
-  footer?: React.ReactElement;
 }
 
-const Shell: React.FC<ShellProps> = ({ header, sidebar, topbar, submenu, footer, children }) => {
+const Shell: React.FC<ShellProps> = ({ header, sidebar, topbar, submenu, children }) => {
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex h-screen w-screen flex-col'>
       {header && <Header>{header}</Header>}
-      <main className='flex-1 flex bg-white'>
+      <div className='flex flex-1'>
         {sidebar && <Sidebar>{sidebar}</Sidebar>}
-        <div className='flex-1 flex flex-col'>
+        <div className='flex flex-col flex-1'>
           {topbar && <Topbar>{topbar}</Topbar>}
-          <div className='flex-1 flex'>
+          <div className='flex flex-1 overflow-auto'>
             {submenu && <Submenu>{submenu}</Submenu>}
-            {children && <div className='flex-1'>{children}</div>}
+            <div className='flex-1'>{children}</div>
           </div>
-          {footer && <Footer>{topbar}</Footer>}
         </div>
-      </main>
+      </div>
     </div>
   );
 };
