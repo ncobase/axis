@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Line } from '@ant-design/plots';
+import Line, { LineConfig } from '@ant-design/plots/es/components/line';
 
-type Props = {};
+type Props = LineConfig & {};
 
 const data = [
   { year: '1991', value: 3 },
@@ -16,14 +16,13 @@ const data = [
   { year: '1999', value: 13 }
 ];
 
-const LineChart: React.FC<Props> = () => {
+export const LineChart: React.FC<Props> = ({ ...rest }) => {
   const config = {
     data,
     xField: 'year',
     yField: 'value',
     point: {
-      shapeField: 'square',
-      sizeField: 4
+      shapeField: 'square'
     },
     interaction: {
       tooltip: {
@@ -32,9 +31,8 @@ const LineChart: React.FC<Props> = () => {
     },
     style: {
       lineWidth: 2
-    }
+    },
+    ...rest
   };
   return <Line {...config} />;
 };
-
-export { LineChart };

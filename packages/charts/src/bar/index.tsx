@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Column } from '@ant-design/plots';
+import { Column, ColumnConfig } from '@ant-design/plots';
+
+type Props = ColumnConfig & {};
 
 const data = {
   type: 'fetch',
   value: 'https://render.alipay.com/p/yuyan/180020010001215413/antd-charts/column-column.json'
 };
 
-type Props = {};
-
-const BarChart: React.FC<Props> = () => {
+export const BarChart: React.FC<Props> = ({ ...rest }) => {
   const config = {
     data,
     xField: 'letter',
@@ -22,9 +22,8 @@ const BarChart: React.FC<Props> = () => {
       y: {
         labelFormatter: '.0%'
       }
-    }
+    },
+    ...rest
   };
   return <Column {...config} />;
 };
-
-export { BarChart };

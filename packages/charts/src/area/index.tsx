@@ -1,42 +1,46 @@
 import React from 'react';
 
-import { Area } from '@ant-design/plots';
+import Area, { AreaConfig } from '@ant-design/plots/es/components/area';
 
-type Props = {};
+type Props = AreaConfig & {};
 
-const data = {
-  type: 'fetch',
-  value: 'https://gw.alipayobjects.com/os/bmw-prod/f38a8ad0-6e1f-4bb3-894c-7db50781fdec.json'
-};
+const data = [
+  { year: '1991', value: 15468 },
+  { year: '1992', value: 16100 },
+  { year: '1993', value: 15900 },
+  { year: '1994', value: 17409 },
+  { year: '1995', value: 17000 },
+  { year: '1996', value: 31056 },
+  { year: '1997', value: 31982 },
+  { year: '1998', value: 32040 },
+  { year: '1999', value: 33233 }
+];
 
-const AreaChart: React.FC<Props> = () => {
+export const AreaChart: React.FC<Props> = ({ ...rest }) => {
   const config = {
     data,
-    xField: (d: any) => new Date(d.year),
-    yField: 'revenue',
-    seriesField: 'format',
-    colorField: 'group',
-    shapeField: 'smooth',
-    stack: {
-      orderBy: 'maxIndex',
-      reverse: true
+    xField: 'year',
+    yField: 'value',
+    shapeField: 'hvh',
+    label: {
+      text: 'value',
+      style: {
+        fontSize: 10,
+        textAlign: (_, idx, arr) => {
+          if (idx === 0) return 'left';
+          if (idx === arr.length - 1) return 'right';
+          return 'center';
+        }
+      }
+    },
+    style: {
+      opacity: 0.4
     },
     axis: {
       y: { labelFormatter: '~s' }
     },
-    tooltip: { channel: 'y', valueFormatter: '.2f' },
-    line: {
-      stack: {
-        orderBy: 'maxIndex',
-        reverse: true,
-        y: 'y1'
-      },
-      style: {
-        stroke: 'white'
-      }
-    }
+    line: {},
+    ...rest
   };
   return <Area {...config} />;
 };
-
-export { AreaChart };

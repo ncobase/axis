@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Pie } from '@ant-design/plots';
+import Pie, { PieConfig } from '@ant-design/plots/es/components/pie';
+
+type Props = PieConfig & {};
 
 const data = {
   type: 'fetch',
   value: 'https://render.alipay.com/p/yuyan/180020010001215413/antd-charts/pie-doughnut.json'
 };
 
-type Props = {};
-
-const PieChart: React.FC<Props> = () => {
+export const PieChart: React.FC<Props> = ({ ...rest }) => {
   const config = {
     data,
     angleField: 'value',
@@ -36,9 +36,9 @@ const PieChart: React.FC<Props> = () => {
         palette: 'spectral',
         offset: (t: number) => t * 0.8 + 0.1
       }
-    }
+    },
+    ...rest
   };
+
   return <Pie {...config} />;
 };
-
-export { PieChart };

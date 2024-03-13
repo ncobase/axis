@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Radar } from '@ant-design/plots';
+import Radar, { RadarConfig } from '@ant-design/plots/es/components/radar';
 
-type Props = {};
+type Props = RadarConfig & {};
 
 const data = [
   { item: 'Design', type: 'a', score: 70 },
@@ -27,7 +27,7 @@ const data = [
   { item: 'UX', type: 'b', score: 60 }
 ];
 
-const RadarChart: React.FC<Props> = () => {
+export const RadarChart: React.FC<Props> = ({ ...rest }) => {
   const config = {
     data,
     xField: 'item',
@@ -43,9 +43,8 @@ const RadarChart: React.FC<Props> = () => {
     axis: { x: { grid: true }, y: { zIndex: 1, title: false } },
     style: {
       lineWidth: 2
-    }
+    },
+    ...rest
   };
   return <Radar {...config} />;
 };
-
-export { RadarChart };
