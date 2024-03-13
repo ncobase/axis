@@ -21,7 +21,6 @@
   },
   "devDependencies": {
     "@tone/tsconfig": "*",
-    "@tone/utils": "*",
     "@types/node": "^20.11.24",
     "tsup": "^8.0.2"
   }

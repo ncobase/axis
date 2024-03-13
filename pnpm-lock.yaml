@@ -345,9 +345,6 @@ importers:
       '@tone/tsconfig':
         specifier: '*'
         version: link:../tsconfig
-      '@tone/utils':
-        specifier: '*'
-        version: 'link:'
       '@types/node':
         specifier: ^20.11.24
         version: 20.11.25
