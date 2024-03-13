@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "clean": "npx rimraf --glob '**/{node_modules,.next,dist,.turbo}'",
+    "clean": "npx rimraf --glob '**/{node_modules,.next,dist,.turbo,.eslintcache}'",
     "dev": "turbo run dev --concurrency=13",
     "dev:console": "pnpm --filter @tone/console dev",
     "lint": "eslint . --ext .js,.jsx.ts,.tsx --cache",
