@@ -2,5 +2,27 @@
   "name": "@tone/utils",
   "version": "0.1.0",
   "description": "utils library",
-  "private": true
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react --minify",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "clsx": "^2.1.0",
+    "date-fns": "^3.3.1",
+    "tailwind-merge": "^2.2.1"
+  },
+  "devDependencies": {
+    "@tone/tsconfig": "*",
+    "@tone/utils": "*",
+    "@types/node": "^20.11.24",
+    "tsup": "^8.0.2"
+  }
 }

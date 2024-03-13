@@ -330,7 +330,30 @@ importers:
         specifier: ^8.0.2
         version: 8.0.2(typescript@5.3.3)
 
-  packages/utils: {}
+  packages/utils:
+    dependencies:
+      clsx:
+        specifier: ^2.1.0
+        version: 2.1.0
+      date-fns:
+        specifier: ^3.3.1
+        version: 3.3.1
+      tailwind-merge:
+        specifier: ^2.2.1
+        version: 2.2.1
+    devDependencies:
+      '@tone/tsconfig':
+        specifier: '*'
+        version: link:../tsconfig
+      '@tone/utils':
+        specifier: '*'
+        version: 'link:'
+      '@types/node':
+        specifier: ^20.11.24
+        version: 20.11.25
+      tsup:
+        specifier: ^8.0.2
+        version: 8.0.2(typescript@5.3.3)
 
 packages:
 
