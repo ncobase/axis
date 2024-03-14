@@ -1,5 +1,6 @@
 export * from './array';
 export * from './date-time';
+export * from './locals';
 export * from './money';
 export * from './number';
 export * from './object';
