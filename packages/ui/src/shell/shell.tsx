@@ -2,6 +2,8 @@ import React, { ReactNode, memo } from 'react';
 
 import { cn } from '@tone/utils';
 
+import { ShellContext } from './shell.context';
+
 interface Props extends React.PropsWithChildren {
   /** <Header /> component */
   header?: ReactNode;
@@ -14,21 +16,23 @@ interface Props extends React.PropsWithChildren {
 }
 
 export const Shell: React.FC<Props> = memo(({ children, header, sidebar, topbar, submenu }) => {
+  const mainClassName = cn(
+    'relative',
+    { 'pt-12': !!topbar }, // show topbar
+    { 'mt-14': !!header }, // show header
+    { 'ml-14': !!sidebar }, // show sidebar
+    { 'pl-44': !!submenu } // show submenu
+  );
+
   return (
-    <div className='flex flex-col min-h-screen'>
+    <ShellContext.Provider value={{ header, sidebar, topbar, submenu }}>
       {header}
-      <main className={cn('flex flex-1')}>
+      <div className={mainClassName}>
         {sidebar}
-        <div className={cn('flex flex-1 flex-col')}>
-          {topbar}
-          <div className={cn('flex flex-1')}>
-            {submenu}
-            <div className='flex-1 overflow-auto' role='main'>
-              {children}
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+        {topbar}
+        {submenu}
+        {children}
+      </div>
+    </ShellContext.Provider>
   );
 });

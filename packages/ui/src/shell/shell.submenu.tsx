@@ -2,12 +2,23 @@ import React, { HtmlHTMLAttributes, memo } from 'react';
 
 import { cn } from '@tone/utils';
 
+import { useShellContext } from './shell.context';
+
 interface Props extends React.PropsWithChildren<HtmlHTMLAttributes<HTMLDivElement>> {}
 
 export const ShellSubmenu: React.FC<Props> = memo(({ children, className, ...rest }) => {
   if (!children) return null;
+  const { header, sidebar, topbar } = useShellContext();
   const classes = cn(
-    'flex flex-col w-44 justify-start max-w-44 bg-white shadow-[1px_0_2px_0_rgba(0,0,0,0.03)]',
+    'fixed bottom-0 z-30 w-44 max-w-44 bg-white shadow-[1px_0_2px_0_rgba(0,0,0,0.03)]',
+    // show sidebar
+    { 'left-14': !!sidebar },
+    // show header && show topbar
+    { 'top-[6.5rem]': !!header && !!topbar },
+    // hide header && show topbar
+    { 'top-12': !header && !!topbar },
+    // show header && hide topbar
+    { 'top-14': !!header && !topbar },
     className
   );
   return (
@@ -16,5 +27,3 @@ export const ShellSubmenu: React.FC<Props> = memo(({ children, className, ...res
     </div>
   );
 });
-
-// sticky top-[6.5rem] bottom-0 left-14 z-30
