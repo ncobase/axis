@@ -11,7 +11,7 @@ export const ShellHeader: React.FC<Props> = memo(({ children, className, ...rest
     className
   );
   return (
-    <div className={classes} role='navigation' {...rest}>
+    <div className={classes} {...rest}>
       {children}
     </div>
   );

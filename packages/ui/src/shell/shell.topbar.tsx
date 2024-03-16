@@ -18,7 +18,7 @@ export const ShellTopbar: React.FC<Props> = memo(({ children, className, ...rest
     className
   );
   return (
-    <div className={classes} role='toolbar' {...rest}>
+    <div className={classes} {...rest}>
       {children}
     </div>
   );

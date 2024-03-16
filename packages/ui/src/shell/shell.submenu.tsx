@@ -22,7 +22,7 @@ export const ShellSubmenu: React.FC<Props> = memo(({ children, className, ...res
     className
   );
   return (
-    <div className={classes} role='navigation' {...rest}>
+    <div className={classes} {...rest}>
       {children}
     </div>
   );

@@ -6,7 +6,7 @@ import { useShellContext } from './shell.context';
 
 interface Props extends React.PropsWithChildren<HtmlHTMLAttributes<HTMLDivElement>> {}
 
-export const ShellSidebar: React.FC<Props> = ({ children, className, ...rest }) => {
+export const ShellSidebar: React.FC<Props> = memo(({ children, className, ...rest }) => {
   if (!children) return null;
   const { header } = useShellContext();
   console.log(!!header);
@@ -17,8 +17,8 @@ export const ShellSidebar: React.FC<Props> = ({ children, className, ...rest }) 
     className
   );
   return (
-    <div className={classes} role='navigation' {...rest}>
+    <div className={classes} {...rest}>
       {children}
     </div>
   );
-};
+});
