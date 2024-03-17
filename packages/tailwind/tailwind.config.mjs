@@ -2,7 +2,7 @@ const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './**/*.{js, jsx,ts,tsx}'],
+  content: ['./index.html', './src/**/*.{js, jsx,ts,tsx}', '../**/src/**/*.{js, jsx,ts,tsx}'],
   theme: {
     colors: {
       ...colors,
@@ -39,5 +39,6 @@ export default {
       }
     }
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')]
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
+  ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
 };
