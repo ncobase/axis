@@ -1,4 +1,4 @@
-import React, { ReactNode, memo } from 'react';
+import React, { Children, ReactNode, isValidElement, memo } from 'react';
 
 import { cn } from '@tone/utils';
 
@@ -18,11 +18,18 @@ interface Props extends React.PropsWithChildren {
 export const Shell: React.FC<Props> = memo(({ children, header, sidebar, topbar, submenu }) => {
   const mainClassName = cn(
     'relative',
-    { 'pt-12': !!topbar }, // show topbar
     { 'mt-14': !!header }, // show header
+    { 'pt-12': !!topbar }, // show topbar
     { 'ml-14': !!sidebar }, // show sidebar
     { 'pl-44': !!submenu } // show submenu
   );
+
+  // console.log(
+  //   `header: ${!!header}`,
+  //   `topbar: ${!!topbar}`,
+  //   `sidebar: ${!!sidebar}`,
+  //   `submenu: ${!!submenu}`
+  // );
 
   return (
     <ShellContext.Provider value={{ header, sidebar, topbar, submenu }}>
