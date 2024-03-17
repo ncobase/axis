@@ -1,38 +1,19 @@
 import React from 'react';
 
-import Line, { LineConfig } from '@ant-design/plots/es/components/line';
+import Charts, { Props as ChartProps } from 'react-apexcharts';
 
-type Props = LineConfig & {};
+type LineTypes = 'line';
 
-const data = [
-  { year: '1991', value: 3 },
-  { year: '1992', value: 4 },
-  { year: '1993', value: 3.5 },
-  { year: '1994', value: 5 },
-  { year: '1995', value: 4.9 },
-  { year: '1996', value: 6 },
-  { year: '1997', value: 7 },
-  { year: '1998', value: 9 },
-  { year: '1999', value: 13 }
-];
+type Props = ChartProps & {
+  type?: LineTypes;
+};
 
-export const LineChart: React.FC<Props> = ({ ...rest }) => {
-  const config = {
-    data,
-    xField: 'year',
-    yField: 'value',
-    point: {
-      shapeField: 'square'
-    },
-    interaction: {
-      tooltip: {
-        marker: false
-      }
-    },
-    style: {
-      lineWidth: 2
-    },
-    ...rest
-  };
-  return <Line {...config} />;
+export const LineChart: React.FC<Props> = ({
+  type = 'line',
+  options,
+  series,
+  height = 380,
+  ...rest
+}) => {
+  return <Charts options={options} series={series} type={type} height={height} {...rest} />;
 };

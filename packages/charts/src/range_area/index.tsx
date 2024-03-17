@@ -2,14 +2,14 @@ import React from 'react';
 
 import Charts, { Props as ChartProps } from 'react-apexcharts';
 
-type RadarTypes = 'radar';
+type RangeAreaTypes = 'rangeArea';
 
 type Props = ChartProps & {
-  type?: RadarTypes;
+  type?: RangeAreaTypes;
 };
 
-export const RadarChart: React.FC<Props> = ({
-  type = 'radar',
+export const RangeAreaChart: React.FC<Props> = ({
+  type = 'rangeArea',
   options,
   series,
   height = 380,

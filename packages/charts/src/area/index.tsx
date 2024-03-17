@@ -1,46 +1,19 @@
 import React from 'react';
 
-import Area, { AreaConfig } from '@ant-design/plots/es/components/area';
+import Charts, { Props as ChartProps } from 'react-apexcharts';
 
-type Props = AreaConfig & {};
+type AreaTypes = 'area';
 
-const data = [
-  { year: '1991', value: 15468 },
-  { year: '1992', value: 16100 },
-  { year: '1993', value: 15900 },
-  { year: '1994', value: 17409 },
-  { year: '1995', value: 17000 },
-  { year: '1996', value: 31056 },
-  { year: '1997', value: 31982 },
-  { year: '1998', value: 32040 },
-  { year: '1999', value: 33233 }
-];
+type Props = ChartProps & {
+  type?: AreaTypes;
+};
 
-export const AreaChart: React.FC<Props> = ({ ...rest }) => {
-  const config = {
-    data,
-    xField: 'year',
-    yField: 'value',
-    shapeField: 'hvh',
-    label: {
-      text: 'value',
-      style: {
-        fontSize: 10,
-        textAlign: (_, idx, arr) => {
-          if (idx === 0) return 'left';
-          if (idx === arr.length - 1) return 'right';
-          return 'center';
-        }
-      }
-    },
-    style: {
-      opacity: 0.4
-    },
-    axis: {
-      y: { labelFormatter: '~s' }
-    },
-    line: {},
-    ...rest
-  };
-  return <Area {...config} />;
+export const AreaChart: React.FC<Props> = ({
+  type = 'area',
+  options,
+  series,
+  height = 380,
+  ...rest
+}) => {
+  return <Charts options={options} series={series} type={type} height={height} {...rest} />;
 };

@@ -1,29 +1,19 @@
 import React from 'react';
 
-import { Column, ColumnConfig } from '@ant-design/plots';
+import Charts, { Props as ChartProps } from 'react-apexcharts';
 
-type Props = ColumnConfig & {};
+type BarTypes = 'bar';
 
-const data = {
-  type: 'fetch',
-  value: 'https://render.alipay.com/p/yuyan/180020010001215413/antd-charts/column-column.json'
+type Props = ChartProps & {
+  type?: BarTypes;
 };
 
-export const BarChart: React.FC<Props> = ({ ...rest }) => {
-  const config = {
-    data,
-    xField: 'letter',
-    yField: 'frequency',
-    label: {
-      text: (d: any) => `${(d.frequency * 100).toFixed(1)}%`,
-      textBaseline: 'bottom'
-    },
-    axis: {
-      y: {
-        labelFormatter: '.0%'
-      }
-    },
-    ...rest
-  };
-  return <Column {...config} />;
+export const BarChart: React.FC<Props> = ({
+  type = 'bar',
+  options,
+  series,
+  height = 380,
+  ...rest
+}) => {
+  return <Charts options={options} series={series} type={type} height={height} {...rest} />;
 };

@@ -15,7 +15,8 @@
     "lint": "eslint src"
   },
   "dependencies": {
-    "@ant-design/plots": "^2.1.14",
+    "apexcharts": "^3.47.0",
+    "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

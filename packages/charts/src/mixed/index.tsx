@@ -2,14 +2,14 @@ import React from 'react';
 
 import Charts, { Props as ChartProps } from 'react-apexcharts';
 
-type RadarTypes = 'radar';
+type MixedTypes = 'line';
 
 type Props = ChartProps & {
-  type?: RadarTypes;
+  type?: MixedTypes;
 };
 
-export const RadarChart: React.FC<Props> = ({
-  type = 'radar',
+export const MixedChart: React.FC<Props> = ({
+  type = 'line',
   options,
   series,
   height = 380,
