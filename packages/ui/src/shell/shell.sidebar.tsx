@@ -10,7 +10,7 @@ export const ShellSidebar: React.FC<Props> = memo(({ children, className, ...res
   if (!children) return null;
   const { header } = useShellContext();
   const classes = cn(
-    'fixed bottom-0 left-0 z-[998] w-14 bg-white shadow-[1px_0_2px_0_rgba(0,0,0,0.03)]',
+    'fixed top-0 bottom-0 left-0 z-[998] w-14 bg-white shadow-[1px_0_2px_0_rgba(0,0,0,0.03)]',
     // show header
     { 'top-14': !!header },
     className
