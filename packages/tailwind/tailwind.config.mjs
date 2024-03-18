@@ -1,4 +1,6 @@
-const colors = require('tailwindcss/colors');
+import tailwindTypography from '@tailwindcss/typography';
+import colors from 'tailwindcss/colors';
+import tailwindAnimate from 'tailwindcss-animate';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -39,6 +41,6 @@ export default {
       }
     }
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
+  plugins: [tailwindAnimate, tailwindTypography],
   ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
 };

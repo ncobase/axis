@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "common tailwindcss configuration",
   "private": true,
+  "main": "./index.mjs",
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.18",
