@@ -17,19 +17,16 @@ interface Props extends React.PropsWithChildren {
 
 export const Shell: React.FC<Props> = memo(({ children, header, sidebar, topbar, submenu }) => {
   const mainClassName = cn(
-    'relative',
-    { 'mt-14': !!header }, // show header
-    { 'pt-12': !!topbar }, // show topbar
-    { 'ml-14': !!sidebar }, // show sidebar
-    { 'pl-44': !!submenu } // show submenu
+    'flex flex-shrink-0 flex-1 flex-row relative',
+    // show header
+    { 'mt-14': !!header },
+    // show topbar
+    { 'pt-12': !!topbar },
+    // show sidebar
+    { 'ml-14': !!sidebar },
+    // show submenu
+    { 'pl-44': !!submenu }
   );
-
-  // console.log(
-  //   `header: ${!!header}`,
-  //   `topbar: ${!!topbar}`,
-  //   `sidebar: ${!!sidebar}`,
-  //   `submenu: ${!!submenu}`
-  // );
 
   return (
     <ShellContext.Provider value={{ header, sidebar, topbar, submenu }}>
