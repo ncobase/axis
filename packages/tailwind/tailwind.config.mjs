@@ -1,7 +1,7 @@
 import tailwindTypography from '@tailwindcss/typography';
 import tailwindAnimate from 'tailwindcss-animate';
 
-import { brand, slate, success, warning, error, gray } from './colors.mjs';
+import { brand, slate, success, warning, error } from './colors.mjs';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -15,7 +15,6 @@ export default {
       colors: {
         blue: brand,
         brand,
-        gray,
         green: success,
         success,
         red: error,
