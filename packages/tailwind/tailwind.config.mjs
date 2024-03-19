@@ -25,6 +25,9 @@ export default {
         slate,
         blueGray: slate
       },
+      fontSize: {
+        base: ['0.75rem', { lineHeight: '1rem' }]
+      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },
