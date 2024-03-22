@@ -2,10 +2,10 @@ import React from 'react';
 
 import { cn } from '@tone/utils';
 
-export type Sizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type TSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
 export interface ContainerProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
-  size?: Sizes | string | number;
+  size?: TSizes | string | number;
 }
 
 export const Container: React.FC<ContainerProps> = ({ className, size = 'full', ...rest }) => {
