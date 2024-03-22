@@ -5,7 +5,7 @@ import { brand, slate, success, warning, error } from './colors.mjs';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js, jsx,ts,tsx}', '../**/src/**/*.{js, jsx,ts,tsx}'],
+  content: ['./index.html', './src/**/*.{js, jsx,ts,tsx}', '../**/src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     container: {
       center: true,

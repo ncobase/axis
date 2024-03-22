@@ -15,9 +15,11 @@ interface Props extends React.PropsWithChildren {
   submenu?: ReactNode;
 }
 
+const defaultStyling = 'flex flex-shrink-0 flex-1 flex-row relative';
+
 export const Shell: React.FC<Props> = memo(({ children, header, sidebar, topbar, submenu }) => {
   const mainClassName = cn(
-    'flex flex-shrink-0 flex-1 flex-row relative',
+    defaultStyling,
     // show header
     { 'mt-14': !!header },
     // show topbar
