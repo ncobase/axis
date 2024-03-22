@@ -65,9 +65,9 @@ export const buttonStyling: IButtonStyling = {
     disabled: `cursor-not-allowed !opacity-75`
   },
   slate: {
-    default: `bg-slate-500 text-white`,
-    hover: `hover:bg-slate-500/85`,
-    pressed: `focus:bg-slate-600/90`,
+    default: `bg-slate-50 text-gray-500`,
+    hover: `hover:bg-slate-100/85`,
+    pressed: `focus:bg-slate-100/90`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   unstyle: {
