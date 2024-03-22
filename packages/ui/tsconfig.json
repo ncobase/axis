@@ -2,7 +2,7 @@
   "extends": "@tone/tsconfig/react.json",
   "include": [
     "."
-  ],
+, "../../apps/console/src/themes"  ],
   "exclude": [
     "node_modules",
     "dist"
