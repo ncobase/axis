@@ -7,11 +7,11 @@ import { brand, slate, success, warning, error } from './colors.mjs';
 export default {
   content: ['./index.html', './src/**/*.{js, jsx,ts,tsx}', '../**/src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    container: {
-      center: true,
-      padding: '1rem'
-    },
     extend: {
+      container: {
+        center: true,
+        padding: '1rem'
+      },
       colors: {
         blue: brand,
         brand,
