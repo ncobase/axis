@@ -4,7 +4,7 @@ import { cn } from '@tone/utils';
 
 import { ShellContext } from './shell.context';
 
-interface Props extends React.PropsWithChildren {
+interface IProps extends React.PropsWithChildren {
   /** <Header /> component */
   header?: ReactNode;
   /** <Sidebar /> component */
@@ -17,7 +17,7 @@ interface Props extends React.PropsWithChildren {
 
 const defaultStyling = 'flex flex-shrink-0 flex-1 flex-row relative';
 
-export const Shell: React.FC<Props> = memo(({ children, header, sidebar, topbar, submenu }) => {
+export const Shell: React.FC<IProps> = memo(({ children, header, sidebar, topbar, submenu }) => {
   const mainClassName = cn(
     defaultStyling,
     // show header

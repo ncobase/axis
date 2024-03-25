@@ -1,4 +1,4 @@
 import React from 'react';
-interface Props {}
+interface IProps {}
 
-export const SpreadsheetHeader: React.FC<Props> = () => <></>;
+export const SpreadsheetHeader: React.FC<IProps> = () => <></>;

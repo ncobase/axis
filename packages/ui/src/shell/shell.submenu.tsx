@@ -4,12 +4,12 @@ import { cn } from '@tone/utils';
 
 import { useShellContext } from './shell.context';
 
-interface Props extends React.PropsWithChildren<HtmlHTMLAttributes<HTMLDivElement>> {}
+interface IProps extends React.PropsWithChildren<HtmlHTMLAttributes<HTMLDivElement>> {}
 
 const defaultStyling =
   'fixed top-0 bottom-0 left-0 z-[997] flex flex-shrink-0 flex-col w-44 max-w-44 bg-white shadow-[1px_0_2px_0_rgba(0,0,0,0.03)]';
 
-export const ShellSubmenu: React.FC<Props> = memo(({ children, className, ...rest }) => {
+export const ShellSubmenu: React.FC<IProps> = memo(({ children, className, ...rest }) => {
   if (!children) return null;
   const { header, sidebar, topbar } = useShellContext();
   const classes = cn(

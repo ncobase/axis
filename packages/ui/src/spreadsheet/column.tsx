@@ -1,5 +1,5 @@
 import React from 'react';
 
-type Props = {};
+interface IProps {}
 
-export const SpreadsheetColumn: React.FC<Props> = () => <></>;
+export const SpreadsheetColumn: React.FC<IProps> = () => <></>;
