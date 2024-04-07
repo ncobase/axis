@@ -21,7 +21,7 @@
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
   },
   "devDependencies": {
-    "@tone/tsconfig": "*",
+    "@tone/tsconfig": "workspace:*",
     "@types/node": "^20.11.24",
     "tsup": "^8.0.2"
   }

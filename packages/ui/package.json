@@ -34,9 +34,9 @@
     "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
-    "@tone/tailwind": "*",
-    "@tone/tsconfig": "*",
-    "@tone/utils": "*",
+    "@tone/tailwind": "workspace:*",
+    "@tone/tsconfig": "workspace:*",
+    "@tone/utils": "workspace:*",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.63",
     "react": "^18.2.0",

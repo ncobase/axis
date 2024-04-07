@@ -20,8 +20,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@tone/tsconfig": "*",
-    "@tone/utils": "*",
+    "@tone/tsconfig": "workspace:*",
+    "@tone/utils": "workspace:*",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.63",
     "react": "^18.2.0",
