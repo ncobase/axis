@@ -32,17 +32,17 @@ const Calendar = ({ className, classNames, showOutsideDays = true, ...props }: C
         head_row: 'flex',
         head_cell: 'rounded-md w-8 font-normal text-[0.8rem]',
         row: 'flex w-full mt-0.5 first:mt-0 last:mb-0',
-        cell: 'h-8 w-8 m-0.5 text-center p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-pink-500/50  first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
+        cell: 'h-8 w-8 m-0.5 text-center p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
         day: cn(
           getButtonStyling('unstyle', 'md'),
           'h-8 w-8 m-1 p-0 font-normal aria-selected:opacity-100'
         ),
         day_range_end: 'day-range-end',
-        day_selected: 'bg-blue-500 text-white hover:bg-blue-500/55 focus:bg-blue-500',
-        day_today: 'bg-pink-500 text-white hover:bg-pink-500/55 focus:bg-pink-500',
-        day_outside: 'day-outside opacity-50 aria-selected:bg-pink-500/50 aria-selected:opacity-30',
+        day_selected: '!bg-brand-600 text-white hover:!bg-brand-600/55 focus:!bg-brand-600',
+        day_today: '', // bg-red-500 text-white hover:bg-red-500/55 focus:bg-red-500',
+        day_outside: 'day-outside opacity-50 aria-selected:opacity-30',
         day_disabled: 'opacity-50',
-        day_range_middle: 'aria-selected:bg-slate-100 aria-selected:text-slate-500',
+        day_range_middle: 'aria-selected:!bg-slate-100 aria-selected:!text-slate-500',
         day_hidden: 'invisible',
         ...classNames
       }}
