@@ -27,7 +27,7 @@ export const Shell: React.FC<IProps> = memo(({ children, header, sidebar, topbar
     // show sidebar
     { 'ml-14': !!sidebar },
     // show submenu
-    { 'pl-44': !!submenu }
+    { 'pl-36': !!submenu }
   );
 
   return (
