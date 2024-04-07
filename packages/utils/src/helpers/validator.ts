@@ -1,9 +1,9 @@
 import { isArray, isNumber, isObject } from './raw_type';
 
 /**
- * 验证数字类型或初始化为0
+ * 验证数字类型或初始化为 0
  * @param val 要验证或初始化的值。
- * @returns 如果值为数字，则返回该数字；否则返回0。
+ * @returns 如果值为数字，则返回该数字；否则返回 0。
  */
 export const verifyNumber = (val: unknown): number => {
   val = !isNumber(val) ? Number(val) : val || 0;
