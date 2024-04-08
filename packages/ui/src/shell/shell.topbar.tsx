@@ -7,7 +7,7 @@ import { useShellContext } from './shell.context';
 interface IProps extends React.PropsWithChildren<HtmlHTMLAttributes<HTMLDivElement>> {}
 
 const defaultStyling =
-  'fixed left-0 top-0 right-0 z-[998] flex flex-shrink-0 min-h-12 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]';
+  'fixed left-0 top-0 right-0 z-[997] flex flex-shrink-0 min-h-12 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]';
 
 export const ShellTopbar: React.FC<IProps> = memo(({ children, className, ...rest }) => {
   if (!children) return null;
