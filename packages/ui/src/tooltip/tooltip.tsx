@@ -8,7 +8,7 @@ const TooltipProvider = TooltipPrimitive.Provider;
 const Tooltip = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>
->(({ delayDuration = 350, ...props }) => (
+>(({ delayDuration = 350, ...props }, _ref) => (
   <TooltipPrimitive.Root delayDuration={delayDuration} {...props} />
 ));
 Tooltip.displayName = TooltipPrimitive.Root.displayName;
