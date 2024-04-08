@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "clean": "npx rimraf --glob '**/{node_modules,.next,dist,.turbo,.eslintcache}'",
     "dev": "turbo run dev",
-    "dev:console": "pnpm --filter @tone/console dev",
+    "dev:digital": "pnpm --filter @tone/digital dev",
     "lint": "eslint . --ext .js,.jsx.ts,.tsx --cache",
     "lint:fix": "pnpm lint --fix && pnpm prettier --write",
     "prettier": "prettier \"**/*.{vue,js,jsx,ts,tsx,md,css,scss,yaml,yml}\"",

@@ -54,7 +54,7 @@ importers:
         specifier: 5.4.4
         version: 5.4.4
 
-  apps/console:
+  apps/digital:
     dependencies:
       '@mantine/form':
         specifier: ^7.7.1
