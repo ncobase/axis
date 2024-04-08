@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { cn } from '@tone/utils';
 import { zhCN } from 'date-fns/locale';
