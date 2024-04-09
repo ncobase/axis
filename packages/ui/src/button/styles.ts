@@ -72,8 +72,8 @@ export const buttonStyling: IButtonStyling = {
   },
   unstyle: {
     default: `bg-transparent text-slate-500`,
-    hover: `hover:bg-slate-50/85`,
-    pressed: `focus:bg-slate-100/90`,
+    hover: `hover:opacity-80`,
+    pressed: `focus:opacity-90`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   'outline-primary': {
