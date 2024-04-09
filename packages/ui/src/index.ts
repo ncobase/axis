@@ -3,6 +3,7 @@ export * from './calendar';
 export * from './code-highlighter';
 export * from './container';
 export * from './dialog';
+export * from './divider';
 export * from './dropdown';
 export * from './forms';
 export * from './icon';
