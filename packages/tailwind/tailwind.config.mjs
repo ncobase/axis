@@ -25,7 +25,7 @@ export default {
         blueGray: slate
       },
       screens: {
-        '3xl': '1792px'
+        '3xl': '112rem'
       },
       fontSize: {
         xs: '0.675rem',
