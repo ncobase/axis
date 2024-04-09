@@ -47,6 +47,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
   );
 });
 
-Button.displayName = 'plane-ui-button';
+Button.displayName = 'Button';
 
 export { Button };
