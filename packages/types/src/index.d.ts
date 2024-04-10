@@ -10,6 +10,12 @@ export * from './core/permission';
 export * from './core/role';
 export * from './core/tenant';
 export * from './core/user';
-// user
+// account
 export * from './account/account';
 export * from './account/authorize';
+
+// content
+export * from './content/comment';
+export * from './content/tag';
+export * from './content/taxonomy';
+export * from './content/topic';
