@@ -46,9 +46,9 @@ export const success = {
 };
 
 /**
- * Error colors base on the red color
+ * Danger colors base on the red color
  */
-export const error = {
+export const danger = {
   50: '#FEF2F2',
   100: '#FEE2E2',
   200: '#FECACA',
