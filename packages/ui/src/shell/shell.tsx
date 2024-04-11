@@ -15,20 +15,19 @@ interface IProps extends React.PropsWithChildren {
   submenu?: ReactNode;
 }
 
-const defaultStyling = 'flex flex-shrink-0 flex-1 flex-row relative';
+const defaultStyling = 'relative h-full';
 
 export const Shell: React.FC<IProps> = memo(({ children, header, sidebar, topbar, submenu }) => {
-  const mainClassName = cn(
-    defaultStyling,
-    // show header
-    { 'mt-14': !!header },
-    // show topbar
-    { 'pt-12': !!topbar },
-    // show sidebar
-    { 'ml-14': !!sidebar },
-    // show submenu
-    { 'pl-36': !!submenu }
-  );
+  const mainClassName = cn(defaultStyling, {
+    // header and topbar conditions
+    'mt-14': !!header && !topbar, // show header && hide topbar
+    'mt-12': !header && !!topbar, // show topbar && hide header
+    'mt-[6.5rem]': !!header && !!topbar, // show header && show topbar
+    // sidebar and submenu conditions
+    'ml-14': !!sidebar && !submenu, // show sidebar && hide submenu
+    'ml-36': !sidebar && !!submenu, // show submenu && hide sidebar
+    'ml-[12.5rem]': !!sidebar && !!submenu // show sidebar && show submenu
+  });
 
   return (
     <ShellContext.Provider value={{ header, sidebar, topbar, submenu }}>
