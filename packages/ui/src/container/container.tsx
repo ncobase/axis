@@ -9,16 +9,11 @@ export interface ContainerProps extends React.HtmlHTMLAttributes<HTMLDivElement>
 }
 
 export const Container: React.FC<ContainerProps> = ({ className, size = 'full', ...rest }) => {
-  const sizes = {
-    xs: '',
-    sm: '',
-    md: '',
-    lg: '',
-    xl: '',
-    '2xl': ''
-  };
+  const classes = cn(
+    'flex flex-col overflow-y-auto container mx-auto p-4',
+    `max-w-${[size]}`,
+    className
+  );
 
-  const classess = cn('container mx-auto p-4', `max-w-${[size]}`, className, sizes[size]);
-
-  return <div className={classess} {...rest}></div>;
+  return <div className={classes} {...rest} />;
 };
