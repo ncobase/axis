@@ -26,7 +26,7 @@ export interface IButtonStyling {
 enum buttonSizeStyling {
   xs = `px-1.5 py-0.5 rounded-sm text-xs inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
   sm = `px-2 py-1 rounded-sm text-xs inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
-  md = `px-3 py-1.5 rounded-sm inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
+  md = `px-3 py-1.5 rounded-md inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
   lg = `px-4 py-2 rounded-md inline-flex  items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
   xl = `px-5 py-2.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
   ratio = `px-3 py-1.5 rounded-md inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`
