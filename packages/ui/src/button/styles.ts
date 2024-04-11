@@ -12,7 +12,7 @@ export type TButtonVariant =
   | 'link'
   | 'unstyle';
 
-export type TButtonSizes = 'sm' | 'md' | 'lg' | 'xl' | 'ratio';
+export type TButtonSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'ratio';
 
 export interface IButtonStyling {
   [key: string]: {
@@ -24,19 +24,21 @@ export interface IButtonStyling {
 }
 // px-3 py-1.5 inline-block bg-white border border-slate-100 hover:bg-slate-100 rounded-md text-slate-500 disabled:opacity-55 disabled:pointer-events-none
 enum buttonSizeStyling {
+  xs = `px-1.5 py-0.5 rounded-sm text-xs inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
   sm = `px-2 py-1 rounded-sm text-xs inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
-  md = `px-3 py-1.5 rounded-md inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
-  lg = `px-4 py-2 rounded-lg inline-flex  items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
-  xl = `px-5 py-2.5 rounded-xl inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
-  ratio = `p-2 rounded-md inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`
+  md = `px-3 py-1.5 rounded-sm inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
+  lg = `px-4 py-2 rounded-md inline-flex  items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
+  xl = `px-5 py-2.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
+  ratio = `px-3 py-1.5 rounded-md inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`
 }
 
 enum buttonIconStyling {
+  xs = 'h-1.5 w-1.5 inline-flex justify-center items-center overflow-hidden my-0.5 flex-shrink-0',
   sm = 'h-2.5 w-2.5 inline-flex justify-center items-center overflow-hidden my-0.5 flex-shrink-0',
   md = 'h-3.5 w-3.5 inline-flex justify-center items-center overflow-hidden my-0.5 flex-shrink-0',
   lg = 'h-4.5 w-4.5 inline-flex justify-center items-center overflow-hidden my-0.5 flex-shrink-0',
   xl = 'h-5.5 w-5.5 inline-flex justify-center items-center overflow-hidden my-0.5 flex-shrink-0',
-  ratio = `w-auto inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`
+  ratio = `px-3 py-1.5 inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`
 }
 
 export const buttonStyling: IButtonStyling = {
