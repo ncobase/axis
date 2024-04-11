@@ -22,14 +22,14 @@ export interface IButtonStyling {
     disabled: string;
   };
 }
-// px-3 py-1.5 inline-block bg-white border border-slate-100 hover:bg-slate-100 rounded-md text-slate-500 disabled:opacity-55 disabled:pointer-events-none
+
 enum buttonSizeStyling {
   xs = `px-1.5 py-0.5 rounded-sm text-xs inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
   sm = `px-2 py-1 rounded-sm text-xs inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
   md = `px-3 py-1.5 rounded-md inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
   lg = `px-4 py-2 rounded-md inline-flex  items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
   xl = `px-5 py-2.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`,
-  ratio = `px-3 py-1.5 rounded-md inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`
+  ratio = `px-2 py-1.5 rounded-md inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`
 }
 
 enum buttonIconStyling {
@@ -38,7 +38,7 @@ enum buttonIconStyling {
   md = 'h-3.5 w-3.5 inline-flex justify-center items-center overflow-hidden my-0.5 flex-shrink-0',
   lg = 'h-4.5 w-4.5 inline-flex justify-center items-center overflow-hidden my-0.5 flex-shrink-0',
   xl = 'h-5.5 w-5.5 inline-flex justify-center items-center overflow-hidden my-0.5 flex-shrink-0',
-  ratio = `px-3 py-1.5 inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`
+  ratio = `inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center`
 }
 
 export const buttonStyling: IButtonStyling = {
@@ -67,8 +67,8 @@ export const buttonStyling: IButtonStyling = {
     disabled: `cursor-not-allowed !opacity-75`
   },
   slate: {
-    default: `bg-slate-50 text-gray-500`,
-    hover: `hover:bg-slate-100/85 [&>svg]:hover:stroke-slate-400`,
+    default: `bg-slate-50/55 text-slate-400`,
+    hover: `hover:bg-slate-100/85 hover:text-slate-500 [&>svg]:hover:stroke-slate-400`,
     pressed: `focus:bg-slate-100/90 [&>svg]:hover:stroke-slate-400`,
     disabled: `cursor-not-allowed !opacity-75 [&>svg]:stroke-slate-400/65`
   },
@@ -80,31 +80,31 @@ export const buttonStyling: IButtonStyling = {
   },
   'outline-primary': {
     default: `border border-brand-600 text-brand-600 [&>svg]:stroke-brand-600`,
-    hover: `hover:border-brand-600/65 hover:text-brand-600/65 hover:bg-brand-50 [&>svg]:hover:stroke-brand-600/65`,
+    hover: `hover:border-brand-600/65 hover:bg-brand-50 [&>svg]:hover:stroke-brand-600/65`,
     pressed: `focus:border-brand-700/90 foucs:text-brand-700/90 [&>svg]:hover:stroke-brand-700/90`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   'outline-success': {
     default: `border border-success-500 text-success-500 [&>svg]:stroke-success-500`,
-    hover: `hover:border-success-500/65 hover:text-success-500/65 hover:bg-success-50 [&>svg]:hover:stroke-success-500/65`,
+    hover: `hover:border-success-500/65 hover:bg-success-50 [&>svg]:hover:stroke-success-500/65`,
     pressed: `focus:border-success-600/90 foucs:text-success-600/90 [&>svg]:hover:stroke-success-600/90`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   'outline-warning': {
     default: `border border-warning-500 text-warning-500 [&>svg]:stroke-warning-500`,
-    hover: `hover:border-warning-500/65 hover:text-warning-500/65 hover:bg-warning-50 [&>svg]:hover:stroke-warning-500/65`,
+    hover: `hover:border-warning-500/65 hover:bg-warning-50 [&>svg]:hover:stroke-warning-500/65`,
     pressed: `focus:border-warning-600/90 foucs:text-warning-600/90 [&>svg]:hover:stroke-warning-600/90`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   'outline-danger': {
     default: `border border-danger-500 text-danger-500 [&>svg]:stroke-danger-500`,
-    hover: `hover:border-danger-500/65 hover:text-danger-500/65 hover:bg-danger-50 [&>svg]:hover:stroke-danger-500/65`,
+    hover: `hover:border-danger-500/65 hover:bg-danger-50 [&>svg]:hover:stroke-danger-500/65`,
     pressed: `focus:border-danger-600/90 foucs:text-danger-600/90 [&>svg]:hover:stroke-danger-600/90`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   'outline-slate': {
-    default: `border border-slate-100 text-slate-500 [&>svg]:stroke-slate-400/65`,
-    hover: `hover:border-slate-100/65 hover:text-slate-500/65 hover:bg-slate-50 [&>svg]:hover:stroke-slate-400`,
+    default: `border border-slate-200/65 text-slate-500/65 [&>svg]:stroke-slate-400/65`,
+    hover: `hover:border-slate-100/65 hover:text-slate-500 hover:bg-slate-50 [&>svg]:hover:stroke-slate-400`,
     pressed: `focus:border-slate-200/90 foucs:text-slate-600/90 [&>svg]:hover:stroke-slate-400`,
     disabled: `cursor-not-allowed !opacity-75`
   },
