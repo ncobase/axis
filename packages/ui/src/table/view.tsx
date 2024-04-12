@@ -8,30 +8,48 @@ import { ITableHeaderCellProps } from './row';
 import { Table } from './table';
 
 interface ITableViewProps {
+  paginated?: boolean;
   className?: string;
   data: any[];
   header: ITableHeaderCellProps[];
-  itemsPerPage?: number;
+  pageSize?: number;
 }
 
 export const TableView: React.FC<ITableViewProps> = ({
+  paginated = true,
   data,
   header,
-  itemsPerPage = 10,
+  pageSize = 20,
   className
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
+  if (!data.length) return <EmptyData />;
+
+  if (!paginated) {
+    return (
+      <div
+        className={cn(
+          'flex flex-col justify-between h-full bg-white rounded-md mt-4 overflow-hidden',
+          className
+        )}
+      >
+        <div className='flex-0 inline-flex overflow-auto'>
+          <Table data={data} header={header} />
+        </div>
+      </div>
+    );
+  }
+
   const totalItems = data.length;
-  const lastItemIndex = currentPage * itemsPerPage;
-  const firstItemIndex = lastItemIndex - itemsPerPage;
+  const clampedPageSize = Math.min(pageSize, totalItems);
+  const lastItemIndex = currentPage * clampedPageSize;
+  const firstItemIndex = lastItemIndex - clampedPageSize;
   const currentItems = data.slice(firstItemIndex, lastItemIndex);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-
-  if (!data.length) return <EmptyData />;
 
   return (
     <div
@@ -45,7 +63,7 @@ export const TableView: React.FC<ITableViewProps> = ({
       </div>
       <Pagination
         totalItems={totalItems}
-        itemsPerPage={itemsPerPage}
+        pageSize={pageSize}
         currentPage={currentPage}
         onPageChange={handlePageChange}
       />

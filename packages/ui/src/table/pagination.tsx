@@ -8,19 +8,19 @@ import { Icons } from '../icon';
 interface IPaginationProps {
   className?: string;
   totalItems: number;
-  itemsPerPage: number;
+  pageSize: number;
   currentPage: number;
   onPageChange: (page: number) => void;
 }
 
 export const Pagination: React.FC<IPaginationProps> = ({
   totalItems,
-  itemsPerPage,
+  pageSize,
   currentPage,
   onPageChange,
   className
 }) => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.ceil(totalItems / pageSize);
 
   const handlePageChange = (page: number) => {
     onPageChange(page);
