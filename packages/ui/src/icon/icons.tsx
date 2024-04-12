@@ -3,7 +3,7 @@ import React from 'react';
 import * as TIcons from '@tabler/icons-react';
 
 interface IProps extends TIcons.IconProps {
-  name: keyof typeof TIcons;
+  name: keyof typeof TIcons | string;
 }
 
 export const Icons: React.FC<IProps> = ({ name, size = 16, stroke = 1.5, ...rest }) => {
