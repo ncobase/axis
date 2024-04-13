@@ -7,15 +7,17 @@ import { Icons } from '../icon';
 
 import { TableDataCellActions } from './actions';
 
-export interface ITableHeaderCellProps {
-  className?: string;
+export interface ITableCellBaseProps {
+  name?: string;
   keyName?: string;
   parser?: any;
-  name?: string;
-  children?: React.ReactNode;
   icon?: string;
   actions?: any;
+  className?: string;
+  children?: React.ReactNode;
 }
+
+export interface ITableHeaderCellProps extends ITableCellBaseProps {}
 
 export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   keyName,
@@ -63,7 +65,7 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   );
 };
 
-export interface ITableDataCellProps extends ITableHeaderCellProps {
+export interface ITableDataCellProps extends ITableCellBaseProps {
   className?: string;
   children?: React.ReactNode;
   record?: any;
