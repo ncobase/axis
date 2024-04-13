@@ -23,3 +23,8 @@ export interface UserProfile {
   links?: object[];
   extra?: object;
 }
+
+export interface Users {
+  content: User[];
+  total: number;
+}
