@@ -2,63 +2,78 @@
  * Brand base on the blue color
  */
 export const brand = {
-  50: '#EFF6FF',
-  100: '#DBEAFE',
-  200: '#BFDBFE',
-  300: '#93C5FD',
-  400: '#60A5FA',
-  500: '#3B82F6',
-  600: '#2563EB',
-  700: '#1D4ED8',
-  800: '#1E40AF',
-  900: '#1E3A8A'
+  50: '#eff4ff',
+  100: '#dbe6fe',
+  200: '#bfd3fe',
+  300: '#93b4fd',
+  400: '#6090fa',
+  500: '#3b76f6',
+  600: '#2563eb',
+  700: '#1d58d8',
+  800: '#1e4baf',
+  900: '#1e408a',
+  950: '#172a54'
 };
+
+/**
+ * Primary base on the brand color
+ */
+export const primary = brand;
+
 /**
  * Slate and blueGray color
  */
 export const slate = {
-  50: '#F8FAFC',
-  100: '#F1F5F9',
-  200: '#E2E8F0',
-  300: '#CBD5E1',
-  400: '#94A3B8',
-  500: '#64748B',
-  600: '#475569',
-  700: '#334155',
-  800: '#1E293B',
-  900: '#0F172A'
+  50: '#f6f7f9',
+  100: '#eceff2',
+  200: '#d5dbe2',
+  300: '#b0bbc9',
+  400: '#8596ab',
+  500: '#667a91',
+  600: '#516278',
+  700: '#475569',
+  800: '#394453',
+  900: '#333b47',
+  950: '#22272f'
 };
+
+/**
+ * Secondary base on the slate color
+ */
+export const secondary = slate;
 
 /**
  * Success base on the green color
  */
 export const success = {
-  50: '#F0FDF4',
-  100: '#DCFCE7',
-  200: '#BBF7D0',
-  300: '#86EFAC',
-  400: '#4ADE80',
-  500: '#22C55E',
-  600: '#16A34A',
-  700: '#15803D',
-  800: '#166534',
-  900: '#14532D'
+  50: '#f0fdf5',
+  100: '#dcfce8',
+  200: '#bbf7d1',
+  300: '#86efad',
+  400: '#4ade81',
+  500: '#22c55e',
+  600: '#16a34a',
+  700: '#15803c',
+  800: '#166533',
+  900: '#14532b',
+  950: '#052e14'
 };
 
 /**
  * Danger colors base on the red color
  */
 export const danger = {
-  50: '#FEF2F2',
-  100: '#FEE2E2',
-  200: '#FECACA',
-  300: '#FCA5A5',
-  400: '#F87171',
-  500: '#EF4444',
-  600: '#DC2626',
-  700: '#B91C1C',
-  800: '#991B1B',
-  900: '#7F1D1D'
+  50: '#fef2f2',
+  100: '#fee2e2',
+  200: '#fecaca',
+  300: '#fca5a5',
+  400: '#f87171',
+  500: '#ef4444',
+  600: '#dc2626',
+  700: '#b91c1c',
+  800: '#991b1b',
+  900: '#7f1d1d',
+  950: '#450a0a'
 };
 
 /**
@@ -66,14 +81,15 @@ export const danger = {
  */
 
 export const warning = {
-  50: '#FFF7ED',
-  100: '#FFEDD5',
-  200: '#FED7AA',
-  300: '#FDBA74',
-  400: '#FB923C',
-  500: '#F97316',
-  600: '#EA580C',
-  700: '#C2410C',
-  800: '#9A3412',
-  900: '#7C2D12'
+  50: '#fff3ed',
+  100: '#ffe3d5',
+  200: '#fec7aa',
+  300: '#fda374',
+  400: '#fb7d3c',
+  500: '#f96416',
+  600: '#ea580c',
+  700: '#c24a0c',
+  800: '#9a4112',
+  900: '#7c3612',
+  950: '#431c07'
 };

@@ -1,7 +1,7 @@
 import tailwindTypography from '@tailwindcss/typography';
 import tailwindAnimate from 'tailwindcss-animate';
 
-import { brand, slate, success, warning, danger } from './colors.mjs';
+import { brand, primary, secondary, slate, success, warning, danger } from './colors.mjs';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -23,8 +23,10 @@ export default {
         padding: '1rem'
       },
       colors: {
-        blue: brand,
         brand,
+        primary,
+        secondary,
+        blue: brand,
         green: success,
         success,
         red: danger,

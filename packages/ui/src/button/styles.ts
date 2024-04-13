@@ -1,13 +1,15 @@
 export type TButtonVariant =
   | 'primary'
-  | 'outline-primary'
+  | 'secondary'
   | 'success'
-  | 'outline-success'
   | 'warning'
-  | 'outline-warning'
   | 'danger'
-  | 'outline-danger'
   | 'slate'
+  | 'outline-primary'
+  | 'outline-secondary'
+  | 'outline-success'
+  | 'outline-warning'
+  | 'outline-danger'
   | 'outline-slate'
   | 'link'
   | 'unstyle';
@@ -48,6 +50,12 @@ export const buttonStyling: IButtonStyling = {
     pressed: `focus:bg-brand-700/90 [&>svg]:hover:stroke-white/85`,
     disabled: `cursor-not-allowed !opacity-75`
   },
+  secondary: {
+    default: `bg-slate-50/55 text-slate-400`,
+    hover: `hover:bg-slate-100/85 hover:text-slate-500 [&>svg]:hover:stroke-slate-400`,
+    pressed: `focus:bg-slate-100/90 [&>svg]:hover:stroke-slate-400`,
+    disabled: `cursor-not-allowed !opacity-75 [&>svg]:stroke-slate-400/65`
+  },
   success: {
     default: `bg-success-500 text-white [&>svg]:stroke-white`,
     hover: `hover:bg-success-500/85 [&>svg]:hover:stroke-white/85`,
@@ -82,6 +90,12 @@ export const buttonStyling: IButtonStyling = {
     default: `border border-brand-600 text-brand-600 [&>svg]:stroke-brand-600`,
     hover: `hover:border-brand-600/65 hover:bg-brand-50 [&>svg]:hover:stroke-brand-600/65`,
     pressed: `focus:border-brand-700/90 foucs:text-brand-700/90 [&>svg]:hover:stroke-brand-700/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-secondary': {
+    default: `border border-slate-200/65 text-slate-500/65 [&>svg]:stroke-slate-400/65`,
+    hover: `hover:border-slate-100/65 hover:text-slate-500 hover:bg-slate-50 [&>svg]:hover:stroke-slate-400`,
+    pressed: `focus:border-slate-200/90 foucs:text-slate-600/90 [&>svg]:hover:stroke-slate-400`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   'outline-success': {
