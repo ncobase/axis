@@ -10,13 +10,12 @@ interface ITableHeaderProps {
 }
 
 export const TableHeader: React.FC<ITableHeaderProps> = ({ className, header }) => {
+  const calsses = cn(
+    'sticky top-0 left-0 z-50 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]',
+    className
+  );
   return (
-    <thead
-      className={cn(
-        'sticky top-0 left-0 z-50 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]',
-        className
-      )}
-    >
+    <thead className={calsses}>
       <TableRow>
         {header.map((props, index) => (
           <TableHeaderCell key={index} {...props} />

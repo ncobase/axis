@@ -11,8 +11,9 @@ interface ITableBodyProps {
 }
 
 export const TableBody: React.FC<ITableBodyProps> = ({ header, data, className }) => {
+  const classes = cn(className);
   return (
-    <tbody className={cn(className)}>
+    <tbody className={classes}>
       {data.map((item, index) => (
         <TableRow key={item.id || index} index={index}>
           {header &&

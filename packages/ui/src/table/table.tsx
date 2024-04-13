@@ -13,10 +13,13 @@ interface ITableProps {
 }
 
 export const Table: React.FC<ITableProps> = ({ data, header, className }) => {
+  const classes = cn(
+    'divide-y divide-slate-100 border-0 w-full table-auto inline-table',
+    className
+  );
+
   return (
-    <table
-      className={cn('divide-y divide-slate-100 border-0 w-full table-auto inline-table', className)}
-    >
+    <table className={classes}>
       <TableHeader header={header} />
       <TableBody header={header} data={data} />
     </table>

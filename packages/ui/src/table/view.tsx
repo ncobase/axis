@@ -26,14 +26,14 @@ export const TableView: React.FC<ITableViewProps> = ({
 
   if (!data.length) return <EmptyData />;
 
+  const classes = cn(
+    'flex flex-col justify-between h-full bg-white rounded-md mt-4 overflow-hidden',
+    className
+  );
+
   if (!paginated) {
     return (
-      <div
-        className={cn(
-          'flex flex-col justify-between h-full bg-white rounded-md mt-4 overflow-hidden',
-          className
-        )}
-      >
+      <div className={classes}>
         <div className='flex-0 inline-flex overflow-auto'>
           <Table data={data} header={header} />
         </div>
@@ -52,12 +52,7 @@ export const TableView: React.FC<ITableViewProps> = ({
   };
 
   return (
-    <div
-      className={cn(
-        'flex flex-col justify-between h-full bg-white rounded-md mt-4 overflow-hidden',
-        className
-      )}
-    >
+    <div className={classes}>
       <div className='flex-0 inline-flex overflow-auto'>
         <Table data={currentItems} header={header} />
       </div>
