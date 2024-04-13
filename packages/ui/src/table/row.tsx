@@ -17,6 +17,16 @@ export interface ITableCellBaseProps {
   children?: React.ReactNode;
 }
 
+const isAction = (key: string = ''): boolean => {
+  return (
+    key.toLocaleLowerCase() === 'actions' ||
+    key.toLocaleLowerCase() === 'action' ||
+    key === '操作' ||
+    key.toLocaleLowerCase() === 'operation' ||
+    key.toLocaleLowerCase() === 'operations'
+  );
+};
+
 export interface ITableHeaderCellProps extends ITableCellBaseProps {}
 
 export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
@@ -28,10 +38,7 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
 }) => {
   const classes = cn('bg-gray-50 text-start', className);
 
-  if (
-    (keyName || '').toLocaleLowerCase() === 'actions' ||
-    (name || '').toLocaleLowerCase() === 'actions'
-  ) {
+  if (isAction(keyName) || isAction(name)) {
     return <th scope='col' className={classes} />;
   }
 
@@ -80,10 +87,7 @@ export const TableDataCell: React.FC<ITableDataCellProps> = ({
   parser,
   actions
 }) => {
-  if (
-    (keyName || '').toLocaleLowerCase() === 'actions' ||
-    (name || '').toLocaleLowerCase() === 'actions'
-  ) {
+  if (isAction(keyName) || isAction(name)) {
     return <ActionCell actions={actions} />;
   }
 
