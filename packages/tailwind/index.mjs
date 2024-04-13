@@ -1,8 +1,3 @@
-import resolveConfig from 'tailwindcss/resolveConfig';
+export { default as postcss } from './postcss.config.mjs';
 
-import config from './tailwind.config.mjs';
-
-const tailwindConfig = resolveConfig(config);
-
-export default tailwindConfig;
-export { tailwindConfig };
+export { default as tailwind } from './tailwind.config.mjs';

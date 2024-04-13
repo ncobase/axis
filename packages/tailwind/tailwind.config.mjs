@@ -5,7 +5,17 @@ import { brand, slate, success, warning, danger } from './colors.mjs';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js, jsx,ts,tsx}', '../**/src/**/*.{js,jsx,ts,tsx}'],
+  content: [
+    './index.html',
+    './src/**/*.{js,jsx,ts,tsx, mdx}',
+    '../**/src/**/*.{js,jsx,ts,tsx,mdx}',
+    './app/**/*.{js,jsx,ts,tsx,mdx}',
+    '../**/app/**/*.{js,jsx,ts,tsx,mdx}',
+    './pages/**/*.{js,jsx,ts,tsx,mdx}',
+    '../**/pages/**/*.{js,jsx,ts,tsx,mdx}',
+    './components/**/*.{js,jsx,ts,tsx,mdx}',
+    '../**/components/**/*.{js,jsx,ts,tsx,mdx}'
+  ],
   theme: {
     extend: {
       container: {

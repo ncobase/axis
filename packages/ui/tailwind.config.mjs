@@ -1,1 +1,1 @@
-export { default } from '@tone/tailwind/tailwind.config.mjs';
+export { tailwind as default } from '@tone/tailwind';

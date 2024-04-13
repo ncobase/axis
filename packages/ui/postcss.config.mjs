@@ -1,1 +1,1 @@
-export { default } from '@tone/tailwind/postcss.config.mjs';
+export { postcss as default } from '@tone/tailwind';
