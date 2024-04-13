@@ -9,7 +9,7 @@ interface DividerProps {
   color?:
     | 'white'
     | 'black'
-    | 'brand'
+    | 'primary'
     | 'slate'
     | 'gray'
     | 'red'

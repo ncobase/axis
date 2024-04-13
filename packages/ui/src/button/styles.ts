@@ -45,9 +45,9 @@ enum buttonIconStyling {
 
 export const buttonStyling: IButtonStyling = {
   primary: {
-    default: `bg-brand-600 text-white [&>svg]:stroke-white`,
-    hover: `hover:bg-brand-600/85 [&>svg]:hover:stroke-white/85`,
-    pressed: `focus:bg-brand-700/90 [&>svg]:hover:stroke-white/85`,
+    default: `bg-primary-600 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-primary-600/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-primary-700/90 [&>svg]:hover:stroke-white/85`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   secondary: {
@@ -87,9 +87,9 @@ export const buttonStyling: IButtonStyling = {
     disabled: `cursor-not-allowed !opacity-75 [&>svg]:stroke-slate-400/65`
   },
   'outline-primary': {
-    default: `border border-brand-600 text-brand-600 [&>svg]:stroke-brand-600`,
-    hover: `hover:border-brand-600/65 hover:bg-brand-50 [&>svg]:hover:stroke-brand-600/65`,
-    pressed: `focus:border-brand-700/90 foucs:text-brand-700/90 [&>svg]:hover:stroke-brand-700/90`,
+    default: `border border-primary-600 text-primary-600 [&>svg]:stroke-primary-600`,
+    hover: `hover:border-primary-600/65 hover:bg-primary-50 [&>svg]:hover:stroke-primary-600/65`,
+    pressed: `focus:border-primary-700/90 foucs:text-primary-700/90 [&>svg]:hover:stroke-primary-700/90`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   'outline-secondary': {
@@ -123,10 +123,10 @@ export const buttonStyling: IButtonStyling = {
     disabled: `cursor-not-allowed !opacity-75`
   },
   link: {
-    default: `text-brand-500 hover:text-brand-600 [&>svg]:stroke-brand-500 hover:[&>svg]:text-brand-500/65 [data-state=checked]:text-brand-600 [data-state=checked]:hover:text-brand-600 [data-state=checked]:[&>svg]:stroke-brand-600 [data-state=checked]:hover:[&>svg]:stroke-brand-600`,
-    hover: `hover:text-brand-500/65 [data-state=checked]:text-brand-500/65 [data-state=checked]:hover:text-brand-500/65 [data-state=checked]:[&>svg]:stroke-brand-500/65 [data-state=checked]:hover:[&>svg]:stroke-brand-500/65`,
-    pressed: `focus:text-brand-600/90 [data-state=checked]:text-brand-600/90 [data-state=checked]:hover:text-brand-600/90 [data-state=checked]:[&>svg]:stroke-brand-600/90 [data-state=checked]:hover:[&>svg]:stroke-brand-600/90`,
-    disabled: `cursor-not-allowed !text-brand-400 !opacity-75`
+    default: `text-primary-500 hover:text-primary-600 [&>svg]:stroke-primary-500 hover:[&>svg]:text-primary-500/65 [data-state=checked]:text-primary-600 [data-state=checked]:hover:text-primary-600 [data-state=checked]:[&>svg]:stroke-primary-600 [data-state=checked]:hover:[&>svg]:stroke-primary-600`,
+    hover: `hover:text-primary-500/65 [data-state=checked]:text-primary-500/65 [data-state=checked]:hover:text-primary-500/65 [data-state=checked]:[&>svg]:stroke-primary-500/65 [data-state=checked]:hover:[&>svg]:stroke-primary-500/65`,
+    pressed: `focus:text-primary-600/90 [data-state=checked]:text-primary-600/90 [data-state=checked]:hover:text-primary-600/90 [data-state=checked]:[&>svg]:stroke-primary-600/90 [data-state=checked]:hover:[&>svg]:stroke-primary-600/90`,
+    disabled: `cursor-not-allowed !text-primary-400 !opacity-75`
   }
 };
 
