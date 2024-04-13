@@ -24,12 +24,12 @@ export const TableView: React.FC<ITableViewProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  if (!data.length) return <EmptyData />;
-
   const classes = cn(
-    'flex flex-col justify-between h-full bg-white rounded-md mt-4 overflow-hidden',
+    'flex flex-col justify-between h-full bg-white rounded-md overflow-hidden shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]',
     className
   );
+
+  if (!data.length) return <EmptyData className={classes} />;
 
   if (!paginated) {
     return (
