@@ -113,7 +113,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
         </Tooltip>
         {totalPages > 1 && (
           <form onSubmit={handleJumpToPage} className='flex items-center gap-x-3'>
-            <span className='text-slate-400'>共 {totalPages} 页，跳转至</span>
+            <span className='text-slate-400'>共 {totalPages} 页，跳转</span>
             <Input
               type='number'
               name='pageInput'
@@ -121,16 +121,9 @@ export const Pagination: React.FC<IPaginationProps> = ({
               max={totalPages}
               defaultValue={currentPage.toString()}
               aria-hidden
-              className='px-2 py-0.5 w-12'
+              className='px-2 py-0.5 max-w-12'
             />
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button type='submit' variant='slate' size='ratio'>
-                  <Icons name='IconArrowForwardUp' />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side='bottom'>跳转</TooltipContent>
-            </Tooltip>
+            <span className='text-slate-400 pr-1'>页</span>
           </form>
         )}
       </div>
