@@ -124,7 +124,7 @@ export const buttonStyling: IButtonStyling = {
   },
   link: {
     default: `text-primary-500 hover:text-primary-600 [&>svg]:stroke-primary-500 hover:[&>svg]:text-primary-500/65 [data-state=checked]:text-primary-600 [data-state=checked]:hover:text-primary-600 [data-state=checked]:[&>svg]:stroke-primary-600 [data-state=checked]:hover:[&>svg]:stroke-primary-600`,
-    hover: `hover:text-primary-500/65 [data-state=checked]:text-primary-500/65 [data-state=checked]:hover:text-primary-500/65 [data-state=checked]:[&>svg]:stroke-primary-500/65 [data-state=checked]:hover:[&>svg]:stroke-primary-500/65`,
+    hover: `hover:text-primary-500/95 [data-state=checked]:text-primary-500/95 [data-state=checked]:hover:text-primary-500/95 [data-state=checked]:[&>svg]:stroke-primary-500/95 [data-state=checked]:hover:[&>svg]:stroke-primary-500/95`,
     pressed: `focus:text-primary-600/90 [data-state=checked]:text-primary-600/90 [data-state=checked]:hover:text-primary-600/90 [data-state=checked]:[&>svg]:stroke-primary-600/90 [data-state=checked]:hover:[&>svg]:stroke-primary-600/90`,
     disabled: `cursor-not-allowed !text-primary-400 !opacity-75`
   }
