@@ -53,3 +53,24 @@ export function param2Obj(url: string): Record<string, any> {
       '"}'
   );
 }
+
+/**
+ * 判断当前路径是否与目标路径匹配
+ * @param currentPath 当前路径
+ * @param to 目标路径
+ * @param depth 匹配深度，默认为 1
+ * @returns 如果匹配则返回 true，否则返回 false
+ */
+export const isPathMatching = (currentPath: string, to: string, depth: number = 1) => {
+  if (!!to && currentPath === to) {
+    return true;
+  }
+  const currentPathParts = currentPath.split('/').filter(p => p);
+  const toPathParts = to.split('/').filter(p => p);
+  for (let i = 0; i < depth; i++) {
+    if (currentPathParts[i] !== toPathParts[i]) {
+      return false;
+    }
+  }
+  return true;
+};
