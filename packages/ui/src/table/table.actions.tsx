@@ -3,7 +3,7 @@ import React from 'react';
 import { DropdownTrigger, DropdownContent, DropdownItem, Dropdown } from '../dropdown';
 import { Icons } from '../icon';
 
-import { ITableDataCellProps } from './row';
+import { ITableDataCellProps } from './table.row';
 
 interface ITableDataCellActionsProps extends ITableDataCellProps {}
 

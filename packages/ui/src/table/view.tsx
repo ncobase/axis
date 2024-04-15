@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { cn } from '@tone/utils';
 
-import { EmptyData } from './empty';
-import { Pagination } from './pagination';
-import { ITableHeaderCellProps } from './row';
 import { Table } from './table';
+import { TableProvider } from './table.context';
+import { EmptyData } from './table.empty';
+import { Pagination } from './table.pagination';
+import { ITableHeaderCellProps } from './table.row';
 
 interface ITableViewProps {
   paginated?: boolean;
+  selected?: boolean;
   className?: string;
   data: any[];
   header: ITableHeaderCellProps[];
@@ -17,11 +19,17 @@ interface ITableViewProps {
 
 export const TableView: React.FC<ITableViewProps> = ({
   paginated = true,
+  selected,
   data,
   header,
-  pageSize = 20,
+  pageSize = 10,
   className
 }) => {
+  const tableContextValue = useMemo(
+    () => ({ selected, paginated, header, data, pageSize }),
+    [selected, paginated, header, data, pageSize]
+  );
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const classes = cn(
@@ -33,11 +41,13 @@ export const TableView: React.FC<ITableViewProps> = ({
 
   if (!paginated) {
     return (
-      <div className={classes}>
-        <div className='flex-0 inline-flex overflow-auto'>
-          <Table data={data} header={header} />
+      <TableProvider value={tableContextValue}>
+        <div className={classes}>
+          <div className='flex-0 inline-flex overflow-auto'>
+            <Table data={data} />
+          </div>
         </div>
-      </div>
+      </TableProvider>
     );
   }
 
@@ -52,16 +62,18 @@ export const TableView: React.FC<ITableViewProps> = ({
   };
 
   return (
-    <div className={classes}>
-      <div className='flex-0 inline-flex overflow-auto'>
-        <Table data={currentItems} header={header} />
+    <TableProvider value={tableContextValue}>
+      <div className={classes}>
+        <div className='flex-0 inline-flex overflow-auto'>
+          <Table data={currentItems} />
+        </div>
+        <Pagination
+          totalItems={totalItems}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       </div>
-      <Pagination
-        totalItems={totalItems}
-        pageSize={pageSize}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
-    </div>
+    </TableProvider>
   );
 };

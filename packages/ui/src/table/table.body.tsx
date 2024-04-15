@@ -2,20 +2,31 @@ import React from 'react';
 
 import { cn } from '@tone/utils';
 
-import { ITableHeaderCellProps, TableDataCell, TableRow } from './row';
+import { Checkbox } from '../forms';
+
+import { useTable } from './table.context';
+import { TableDataCell, TableRow } from './table.row';
 
 interface ITableBodyProps {
-  header?: ITableHeaderCellProps[];
   className?: string;
   data: any[];
 }
 
-export const TableBody: React.FC<ITableBodyProps> = ({ header, data, className }) => {
+export const TableBody: React.FC<ITableBodyProps> = ({ className, data }) => {
+  const { selected, header } = useTable();
+
   const classes = cn(className);
+  console.log(data);
+
   return (
     <tbody className={classes}>
       {data.map((item, index) => (
         <TableRow key={item.id || index} index={index}>
+          {selected && (
+            <TableDataCell name='chekbox' record={item}>
+              <Checkbox className='rounded-sm' />
+            </TableDataCell>
+          )}
           {header &&
             header.map(({ name, keyName, ...rest }) => (
               <TableDataCell

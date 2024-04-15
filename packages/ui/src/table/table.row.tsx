@@ -5,7 +5,7 @@ import { cn } from '@tone/utils';
 import { DropdownTrigger, DropdownContent, DropdownItem, Dropdown } from '../dropdown';
 import { Icons } from '../icon';
 
-import { TableDataCellActions } from './actions';
+import { TableDataCellActions } from './table.actions';
 
 export interface ITableCellBaseProps {
   name?: string;
@@ -27,9 +27,12 @@ const isAction = (key: string = ''): boolean => {
   );
 };
 
-export interface ITableHeaderCellProps extends ITableCellBaseProps {}
+export interface ITableHeaderCellProps extends ITableCellBaseProps {
+  filter?: boolean;
+}
 
 export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
+  filter = true,
   keyName,
   name,
   icon,
@@ -49,24 +52,26 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
           {icon && <Icons name={icon} className='stroke-slate-400/65' size={14} />}
           {children ? children : name}
         </div>
-        <div className='flex ml-3 gap-x-1'>
-          {/* <div className='flex items-center'>
+        {filter && (
+          <div className='flex ml-3 gap-x-1'>
+            {/* <div className='flex items-center'>
    <Icons name='IconFilterCheck' size={12} />
    </div> */}
-          <Dropdown>
-            <DropdownTrigger>
-              <Icons name='IconChevronDown' />
-            </DropdownTrigger>
-            <DropdownContent>
-              <DropdownItem className='py-1'>
-                <Icons name='IconSortAZ' size={18} className='stroke-slate-400' />
-              </DropdownItem>
-              <DropdownItem className='py-1'>
-                <Icons name='IconSortZA' size={18} className='stroke-slate-400' />
-              </DropdownItem>
-            </DropdownContent>
-          </Dropdown>
-        </div>
+            <Dropdown>
+              <DropdownTrigger>
+                <Icons name='IconChevronDown' />
+              </DropdownTrigger>
+              <DropdownContent>
+                <DropdownItem className='py-1'>
+                  <Icons name='IconSortAZ' size={18} className='stroke-slate-400' />
+                </DropdownItem>
+                <DropdownItem className='py-1'>
+                  <Icons name='IconSortZA' size={18} className='stroke-slate-400' />
+                </DropdownItem>
+              </DropdownContent>
+            </Dropdown>
+          </div>
+        )}
       </div>
     </th>
   );
