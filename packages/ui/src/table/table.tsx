@@ -15,7 +15,6 @@ export const Table: React.FC<ITableProps> = ({ className, data }) => {
     'divide-y divide-slate-100 border-0 w-full table-auto inline-table',
     className
   );
-  console.log(data);
 
   return (
     <table className={classes}>

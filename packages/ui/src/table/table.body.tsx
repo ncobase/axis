@@ -16,7 +16,6 @@ export const TableBody: React.FC<ITableBodyProps> = ({ className, data }) => {
   const { selected, header } = useTable();
 
   const classes = cn(className);
-  console.log(data);
 
   return (
     <tbody className={classes}>
