@@ -97,7 +97,7 @@ export const TableDataCell: React.FC<ITableDataCellProps> = ({
   }
 
   const classes = cn(
-    'h-11 min-w-8 after:absolute after:w-full border-b-[0.03125rem] border-gray-100 hover:bg-gray-50 truncate',
+    'h-11 min-w-8 after:absolute after:w-full border-b-[0.03125rem] border-gray-100 truncate',
     className
   );
 
@@ -120,12 +120,12 @@ export const TableRow: React.FC<ITableRowProps> = ({ className, children, index 
   if (!children) return null;
 
   const classes = cn(
-    'odd:bg-white even:bg-gray-50 [&>th]:font-medium [&>th]:text-slate-600 text-slate-500',
+    'odd:bg-white even:bg-gray-50 [&>th]:font-medium [&>th]:text-slate-600 text-slate-500 font-normal',
     '[&>th:first-child]:sticky [&>th:first-child]:left-0 [&>th:first-child]:z-10 [&>th:last-child]:sticky [&>th:last-child]:right-0 [&>th:last-child]:z-10',
     '[&>td:first-child]:sticky [&>td:first-child]:left-0 [&>td:first-child]:z-10 [&>td:last-child]:sticky [&>td:last-child]:right-0 [&>td:last-child]:z-10',
     index % 2 === 0
-      ? '[&>td]:bg-white [&>td]:hover:bg-gray-50]'
-      : '[&>td]:bg-gray-50 [&>td]:hover:bg-gray-50',
+      ? '[&>td:first-child]:bg-white [&>td:last-child]:bg-white'
+      : '[&>td:first-child]:bg-gray-50 [&>td:last-child]:bg-gray-50',
     className
   );
 
@@ -134,7 +134,7 @@ export const TableRow: React.FC<ITableRowProps> = ({ className, children, index 
 
 export const ActionCell: React.FC<{ actions: any }> = ({ actions }) => {
   return (
-    <td className='h-11 min-w-8 after:absolute after:w-full border-b-[0.03125rem] border-gray-100 hover:bg-gray-50 truncate'>
+    <td className='h-11 min-w-8 after:absolute after:w-full border-b-[0.03125rem] border-gray-100 truncate'>
       <div className='w-full h-full inline-flex px-2 hover:[&>button]:bg-white [&>button]:p-2 [&>button]:rounded-full items-center justify-center'>
         <TableDataCellActions actions={actions} />
       </div>
