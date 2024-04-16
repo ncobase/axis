@@ -5,7 +5,7 @@ import { cn } from '@tone/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const labelVariants = cva(
-  'leading-[0.875rem] peer peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-slate-600 hover:text-slate-600/85'
+  'leading-[15px] peer peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-slate-600 hover:text-slate-600/85'
 );
 
 const Label = React.forwardRef<
