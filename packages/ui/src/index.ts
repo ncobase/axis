@@ -4,6 +4,7 @@ export * from './calendar';
 export * from './card';
 export * from './code-highlighter';
 export * from './container';
+export * from './datepicker';
 export * from './dialog';
 export * from './divider';
 export * from './dropdown';
