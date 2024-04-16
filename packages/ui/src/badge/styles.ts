@@ -22,11 +22,11 @@ export interface IBadgeStyling {
 }
 
 enum badgeSizeStyling {
-  xs = 'h-1 w-1 rounded-full inline-flex items-center justify-center text-xs',
-  sm = 'h-2 w-2 rounded-full inline-flex items-center justify-center text-xs',
-  md = 'h-3 w-3 rounded-full inline-flex items-center justify-center text-xs',
-  lg = 'h-4 w-4 rounded-full inline-flex items-center justify-center text-xs',
-  xl = 'h-5 w-5 rounded-full inline-flex items-center justify-center text-xs'
+  xs = 'h-1 w-1 rounded-full inline-flex items-center justify-center text-xs [&>svg]:w-1 [&>svg]:h-1 [&>svg]:my-0.5',
+  sm = 'h-2 w-2 rounded-full inline-flex items-center justify-center text-xs [&>svg]:w-2 [&>svg]:h-2 [&>svg]:my-0.5',
+  md = 'h-3 w-3 rounded-full inline-flex items-center justify-center text-xs [&>svg]:w-3 [&>svg]:h-3 [&>svg]:my-0.5',
+  lg = 'h-4 w-4 rounded-full inline-flex items-center justify-center text-sm [&>svg]:w-3 [&>svg]:h-3 [&>svg]:my-0.5',
+  xl = 'h-5 w-5 rounded-full inline-flex items-center justify-center text-md [&>svg]:w-4 [&>svg]:h-4 [&>svg]:my-0.5'
 }
 
 export const badgeStyling: IBadgeStyling = {
