@@ -13,9 +13,18 @@ interface IDatePickerProps {
   className?: string;
   defaultValue?: Date | DateRange;
   onChange?: (date: Date | DateRange | null) => void;
+  disabled?: boolean;
 }
 
-const SingleDatePicker: React.FC<IDatePickerProps> = ({ className, defaultValue, onChange }) => {
+const datePickerStyles = `
+'flex px-3 py-2.5 w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65 shadow-[0.03125rem_0.03125rem_0.125rem_0_rgba(0,0,0,0.03)] focus:border-primary-600 text-slate-500 gap-3 justify-start text-left font-normal disabled:cursor-not-allowed disabled:opacity-55 disabled:pointer-events-none'`;
+
+const SingleDatePicker: React.FC<IDatePickerProps> = ({
+  className,
+  defaultValue,
+  onChange,
+  disabled
+}) => {
   const [date, setDate] = useState<Date | null>((defaultValue as Date) || null);
 
   useEffect(() => {
@@ -32,14 +41,7 @@ const SingleDatePicker: React.FC<IDatePickerProps> = ({ className, defaultValue,
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant='unstyle'
-          className={cn(
-            'flex px-3 py-2.5 w-full bg-slate-50 hover:bg-slate-50/65 border border-slate-100 focus:border-primary-600 text-slate-500 gap-3 justify-start text-left font-normal',
-            !date && 'text-slate-400',
-            className
-          )}
-        >
+        <Button variant='unstyle' className={cn(datePickerStyles, className)} disabled={disabled}>
           <Icons name='IconCalendar' />
           {date ? (
             formatDateTime(date, 'date')
@@ -55,7 +57,12 @@ const SingleDatePicker: React.FC<IDatePickerProps> = ({ className, defaultValue,
   );
 };
 
-const RangeDatePicker: React.FC<IDatePickerProps> = ({ className, defaultValue, onChange }) => {
+const RangeDatePicker: React.FC<IDatePickerProps> = ({
+  className,
+  defaultValue,
+  onChange,
+  disabled
+}) => {
   const [dateRange, setDateRange] = useState<DateRange | undefined>(
     (defaultValue as DateRange) || undefined
   );
@@ -73,15 +80,12 @@ const RangeDatePicker: React.FC<IDatePickerProps> = ({ className, defaultValue, 
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild disabled>
         <Button
           id='date'
           variant='outline-slate'
-          className={cn(
-            'bg-slate-50 py-2.5 w-full justify-start text-left font-normal shadow-[0.03125rem_0.03125rem_0.125rem_0_rgba(0,0,0,0.03)]',
-            !dateRange && 'text-slate-400',
-            className
-          )}
+          className={cn(datePickerStyles, !dateRange && 'text-slate-400', className)}
+          disabled={disabled}
         >
           <Icons name='IconCalendar' className='mr-2' />
           {dateRange?.from ? (
@@ -114,18 +118,11 @@ const RangeDatePicker: React.FC<IDatePickerProps> = ({ className, defaultValue, 
   );
 };
 
-const DatePicker: React.FC<IDatePickerProps> = ({
-  mode = 'single',
-  defaultValue,
-  onChange,
-  className
-}) => {
+const DatePicker: React.FC<IDatePickerProps> = ({ mode = 'single', ...rest }) => {
   if (mode === 'range') {
-    return (
-      <RangeDatePicker className={className} defaultValue={defaultValue} onChange={onChange} />
-    );
+    return <RangeDatePicker {...rest} />;
   }
-  return <SingleDatePicker className={className} defaultValue={defaultValue} onChange={onChange} />;
+  return <SingleDatePicker {...rest} />;
 };
 
 export { DatePicker };
