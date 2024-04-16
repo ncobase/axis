@@ -18,9 +18,9 @@
     "build": "turbo run build --filter=!./apps/*"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.2.1",
-    "@commitlint/config-conventional": "^19.1.0",
-    "@types/node": "^20.12.5",
+    "@commitlint/cli": "^19.2.2",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@types/node": "^20.12.7",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -32,7 +32,7 @@
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "turbo": "^1.13.2",
-    "typescript": "5.4.4"
+    "typescript": "5.4.5"
   },
   "commitlint": {
     "extends": [
