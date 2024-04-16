@@ -31,52 +31,58 @@ enum badgeSizeStyling {
 
 export const badgeStyling: IBadgeStyling = {
   primary: {
-    default: 'bg-primary-500 text-white',
-    hover: 'hover:bg-opacity-85'
+    default: 'bg-primary-500 text-white [&>svg]:stroke-white',
+    hover: 'hover:bg-opacity-85 &[data-state=checked]:bg-opacity-85 [&>svg]:stroke-white/95'
   },
   secondary: {
-    default: 'bg-secondary-500 text-white',
-    hover: 'hover:bg-opacity-85'
+    default: 'bg-secondary-500 text-white [&>svg]:stroke-white',
+    hover: 'hover:bg-opacity-85 &[data-state=checked]:bg-opacity-85 [&>svg]:stroke-white/95'
   },
   success: {
-    default: 'bg-success-500 text-white',
-    hover: 'hover:bg-opacity-85'
+    default: 'bg-success-500 text-white [&>svg]:stroke-white',
+    hover: 'hover:bg-opacity-85 &[data-state=checked]:bg-opacity-85 [&>svg]:stroke-white/95'
   },
   warning: {
-    default: 'bg-warning-500 text-white',
-    hover: 'hover:bg-opacity-85'
+    default: 'bg-warning-500 text-white [&>svg]:stroke-white',
+    hover: 'hover:bg-opacity-85 &[data-state=checked]:bg-opacity-85 [&>svg]:stroke-white/95'
   },
   danger: {
-    default: 'bg-danger-500 text-white',
-    hover: 'hover:bg-opacity-85'
+    default: 'bg-danger-500 text-white [&>svg]:stroke-white',
+    hover: 'hover:bg-opacity-85 &[data-state=checked]:bg-opacity-85 [&>svg]:stroke-white/95'
   },
   slate: {
-    default: 'bg-slate-500 text-white',
-    hover: 'hover:bg-opacity-85'
+    default: 'bg-slate-500 text-white [&>svg]:stroke-white',
+    hover: 'hover:bg-opacity-85 &[data-state=checked]:bg-opacity-85 [&>svg]:stroke-white/95'
   },
   'outline-primary': {
-    default: 'text-primary-500 border border-primary-500',
-    hover: 'hover:text-primary-500/95 hover:border-opacity-85'
+    default: 'text-primary-500 border border-primary-500 [&>svg]:stroke-primary-500',
+    hover:
+      'hover:text-primary-500/95 hover:border-opacity-85 [data-state=checked]:text-primary-500/95 [&>svg]:stroke-primary-500/95'
   },
   'outline-secondary': {
-    default: 'text-secondary-500 border border-secondary-500',
-    hover: 'hover:text-secondary-500/95 hover:border-opacity-85'
+    default: 'text-secondary-500 border border-secondary-500 &[>svg]:stroke-secondary-500',
+    hover:
+      'hover:text-secondary-500/95 hover:border-opacity-85 [data-state=checked]:text-secondary-500/95 [&>svg]:stroke-secondary-500/95'
   },
   'outline-success': {
-    default: 'text-success-500 border border-success-500',
-    hover: 'hover:text-success-500/95 hover:border-opacity-85'
+    default: 'text-success-500 border border-success-500 [&>svg]:stroke-success-500',
+    hover:
+      'hover:text-success-500/95 hover:border-opacity-85 [data-state=checked]:text-success-500/95 [&>svg]:stroke-success-500/95'
   },
   'outline-warning': {
-    default: 'text-warning-500 border border-warning-500',
-    hover: 'hover:text-warning-500/95 hover:border-opacity-85'
+    default: 'text-warning-500 border border-warning-500 &[>svg]:stroke-warning-500',
+    hover:
+      'hover:text-warning-500/95 hover:border-opacity-85 [data-state=checked]:text-warning-500/95 [&>svg]:stroke-warning-500/95'
   },
   'outline-danger': {
-    default: 'text-danger-500 border border-danger-500',
-    hover: 'hover:text-danger-500/95 hover:border-opacity-85'
+    default: 'text-danger-500 border border-danger-500 [&>svg]:stroke-danger-500',
+    hover:
+      'hover:text-danger-500/95 hover:border-opacity-85 [data-state=checked]:text-danger-500/95 [&>svg]:stroke-danger-500/95'
   },
   'outline-slate': {
-    default: 'text-slate-500 border border-slate-500',
-    hover: 'hover:text-slate-500/95 hover:border-opacity-85'
+    default: 'text-slate-500 border border-slate-500 [&>svg]:stroke-slate-500',
+    hover:
+      'hover:text-slate-500/95 hover:border-opacity-85 [data-state=checked]:text-slate-500/95 [&>svg]:stroke-slate-500/95'
   }
 };
 
