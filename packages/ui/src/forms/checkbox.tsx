@@ -16,6 +16,8 @@ const Checkbox = React.forwardRef<
       'disabled:cursor-not-allowed disabled:opacity-55 disabled:hover:opacity-65',
       'data-[state=checked]:border-primary-600 data-[state=checked]:text-primary-600',
       '[&+label]:cursor-pointer [&+label]:inline-flex [&+label]:items-center [&+label]:text-nowrap',
+      'disabled:[&+label]:cursor-not-allowed disabled:[&+label]:opacity-55 disabled:[&+label]:hover:opacity-65',
+      'data-[state=checked]:[&+label]:text-primary-600',
       className
     )}
     {...props}
