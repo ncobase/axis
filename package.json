@@ -12,8 +12,8 @@
     "clean": "npx rimraf --glob '**/{node_modules,.next,dist,.turbo,.eslintcache}'",
     "dev": "turbo run dev",
     "dev:digital": "pnpm --filter @tone/digital dev",
-    "lint": "eslint . --ext .js,.jsx.ts,.tsx --cache",
-    "lint:fix": "pnpm lint --fix && pnpm prettier --write",
+    "lint": "turbo run lint --filter=!./apps/cards",
+    "lint:fix": "pnpm lint -- --fix && pnpm prettier --write",
     "prettier": "prettier \"**/*.{vue,js,jsx,ts,tsx,md,css,scss,yaml,yml}\"",
     "build": "turbo run build --filter=!./apps/*"
   },
@@ -21,7 +21,7 @@
     "@commitlint/cli": "^19.2.2",
     "@commitlint/config-conventional": "^19.2.2",
     "@types/node": "^20.12.7",
-    "eslint": "^8.57.0",
+    "eslint": "^8",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.8.0",
@@ -47,7 +47,7 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "pnpm lint:fix"
+      "pnpm lint"
     ]
   },
   "config": {
