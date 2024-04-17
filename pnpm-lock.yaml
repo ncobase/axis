@@ -56,15 +56,15 @@ importers:
 
   apps/cards:
     dependencies:
+      '@tone/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tone/charts':
         specifier: workspace:*
         version: link:../../packages/charts
       '@tone/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      '@tone/utils':
-        specifier: workspace:*
-        version: link:../../packages/utils
       next:
         specifier: 14.2.1
         version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
@@ -102,6 +102,9 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
+      '@tone/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tanstack/react-query':
         specifier: ^5.29.2
         version: 5.29.2(react@18.2.0)
@@ -120,9 +123,6 @@ importers:
       '@tone/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      '@tone/utils':
-        specifier: workspace:*
-        version: link:../../packages/utils
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -184,15 +184,15 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
     devDependencies:
-      '@tanstack/eslint-plugin-query':
-        specifier: ^5.28.11
-        version: 5.28.11(eslint@8.57.0)(typescript@5.4.5)
       '@tone/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
       '@tone/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
+      '@tanstack/eslint-plugin-query':
+        specifier: ^5.28.11
+        version: 5.28.11(eslint@8.57.0)(typescript@5.4.5)
       '@types/html-minifier-terser':
         specifier: ^7.0.2
         version: 7.0.2
@@ -393,9 +393,6 @@ importers:
       tailwind-merge:
         specifier: ^2.2.2
         version: 2.2.2
-      xlsx:
-        specifier: https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz
-        version: '@cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz'
     devDependencies:
       '@tone/tsconfig':
         specifier: workspace:*
@@ -7508,12 +7505,4 @@ packages:
       tiny-case: 1.0.3
       toposort: 2.0.2
       type-fest: 2.19.0
-    dev: false
-
-  '@cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz':
-    resolution: {tarball: https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz}
-    name: xlsx
-    version: 0.20.1
-    engines: {node: '>=0.8'}
-    hasBin: true
     dev: false

@@ -17,8 +17,7 @@
   "dependencies": {
     "clsx": "^2.1.0",
     "date-fns": "^3.6.0",
-    "tailwind-merge": "^2.2.2",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
+    "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {
     "@tone/tsconfig": "workspace:*",
