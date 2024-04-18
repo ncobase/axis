@@ -1,9 +1,9 @@
 export interface User {
-  id: string;
-  username: string;
-  email: string;
-  phone: string;
-  status: number;
+  id?: string;
+  username?: string;
+  email?: string;
+  phone?: string;
+  status?: number;
   created_by?: string;
   created_at?: string;
   updated_by?: string;
@@ -11,16 +11,15 @@ export interface User {
 }
 
 export interface UserProfile {
-  id: string;
+  id?: string;
   first_name?: string;
   last_name?: string;
-  certified: boolean;
-  language: string;
   display_name?: string;
   short_bio?: string;
   about?: string;
   thumbnail?: string;
-  links?: object[];
+  language?: string;
+  links?: any[];
   extra?: object;
 }
 
