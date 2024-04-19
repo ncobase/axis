@@ -175,9 +175,10 @@ const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
         <div className='flex flex-wrap gap-4 py-3.5'>
           {options.length === 0 && renderSingleOption(rest.label)}
           {options.length === 1 && renderSingleOption(options[0]['label'] || '')}
-          {options.map((option, index) => (
-            <RenderOption key={index} option={option} type='checkbox' {...rest} />
-          ))}
+          {options.length > 1 &&
+            options.map((option, index) => (
+              <RenderOption key={index} option={option} type='checkbox' {...rest} />
+            ))}
         </div>
       </Field>
     );
@@ -198,9 +199,10 @@ const RadioField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
             <RenderOption type='radio' option={{ label: rest.label, value: '0' }} {...rest} />
           )}
           {options.length === 1 && <RenderOption type='radio' option={options[0]} {...rest} />}
-          {options?.map((option, index) => (
-            <RenderOption key={index} option={option} type='radio' {...rest} />
-          ))}
+          {options.length > 1 &&
+            options?.map((option, index) => (
+              <RenderOption key={index} option={option} type='radio' {...rest} />
+            ))}
         </RadioGroup>
       </Field>
     );
