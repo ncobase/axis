@@ -129,61 +129,82 @@ const SelectField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
   )
 );
 
-const RenderOption = React.forwardRef<any, any>(({ option, onChange, type, ...rest }, _ref) => {
-  const { label, value } = typeof option === 'object' ? option : { label: option, value: option };
-  const id = `${rest.name}-${value}`.replace(/\./g, '-');
+const RenderOption = React.forwardRef<any, any>(
+  ({ option, type, onChange, defaultValue, ...rest }, _ref) => {
+    const { label, value } = typeof option === 'object' ? option : { label: option, value: option };
+    const id = `${rest.name}-${value}`.replace(/\./g, '-');
 
-  const handleChange = (checked: boolean) => {
-    const updatedValue = checked
-      ? [...rest.value, value]
-      : rest.value.filter((val: any) => val !== value);
-    onChange(updatedValue);
-  };
-
-  return (
-    <div className='inline-flex items-center space-x-2'>
-      {type === 'checkbox' ? (
-        <Checkbox
-          id={id}
-          onCheckedChange={handleChange}
-          defaultChecked={rest.defaultValue?.includes(value)}
-          {...rest}
-        />
-      ) : (
-        <RadioGroupItem id={id} value={value} />
-      )}
-      <Label htmlFor={id}>{label}</Label>
-    </div>
-  );
-});
+    return (
+      <div className='inline-flex items-center space-x-2'>
+        {type === 'checkbox' ? (
+          <Checkbox
+            id={id}
+            onCheckedChange={checked => {
+              const updatedValue = checked
+                ? [...(defaultValue || []), value]
+                : (defaultValue || []).filter((val: any) => val !== value);
+              onChange(updatedValue);
+            }}
+            defaultChecked={defaultValue?.includes(value)}
+            {...rest}
+          />
+        ) : (
+          <RadioGroupItem id={id} value={value} />
+        )}
+        <Label htmlFor={id}>{label}</Label>
+      </div>
+    );
+  }
+);
 
 const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
-  ({ options, ...rest }, ref) => (
-    <Field {...rest} ref={ref}>
-      <div className='flex flex-wrap gap-4 py-3.5'>
-        {options?.map((option, index) => (
-          <RenderOption key={index} option={option} type='checkbox' {...rest} />
-        ))}
+  ({ className, options = [], ...rest }, ref) => {
+    const renderSingleOption = label => (
+      <div className='inline-flex items-center space-x-2'>
+        <Checkbox
+          id={`${rest.name}`}
+          onCheckedChange={rest.onChange}
+          defaultChecked={rest.defaultValue}
+          {...rest}
+        />
+        <Label htmlFor={`${rest.name}`}>{label || rest.label}</Label>
       </div>
-    </Field>
-  )
+    );
+    return (
+      <Field {...rest} ref={ref} className={className}>
+        <div className='flex flex-wrap gap-4 py-3.5'>
+          {options.length === 0 && renderSingleOption(rest.label)}
+          {options.length === 1 && renderSingleOption(options[0]['label'] || '')}
+          {options.map((option, index) => (
+            <RenderOption key={index} option={option} type='checkbox' {...rest} />
+          ))}
+        </div>
+      </Field>
+    );
+  }
 );
 
 const RadioField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
-  ({ options, onChange, defaultValue, ...rest }, ref) => (
-    <Field {...rest} ref={ref}>
-      <RadioGroup
-        {...rest}
-        className='flex flex-wrap gap-4 py-3.5'
-        defaultValue={defaultValue}
-        onValueChange={onChange}
-      >
-        {options?.map((option, index) => (
-          <RenderOption key={index} option={option} type='radio' {...rest} />
-        ))}
-      </RadioGroup>
-    </Field>
-  )
+  ({ className, onChange, defaultValue, options = [], ...rest }, ref) => {
+    return (
+      <Field {...rest} ref={ref} className={className}>
+        <RadioGroup
+          {...rest}
+          className='flex flex-wrap gap-4 py-3.5'
+          defaultValue={defaultValue}
+          onValueChange={onChange}
+        >
+          {options.length === 0 && (
+            <RenderOption type='radio' option={{ label: rest.label, value: '0' }} {...rest} />
+          )}
+          {options.length === 1 && <RenderOption type='radio' option={options[0]} {...rest} />}
+          {options?.map((option, index) => (
+            <RenderOption key={index} option={option} type='radio' {...rest} />
+          ))}
+        </RadioGroup>
+      </Field>
+    );
+  }
 );
 
 export {
