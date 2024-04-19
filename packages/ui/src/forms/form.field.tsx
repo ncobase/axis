@@ -5,9 +5,8 @@ import { FieldError } from 'react-hook-form';
 
 import { Label } from './label';
 
-interface FieldProps extends React.ComponentPropsWithoutRef<'div'> {
+interface FieldProps extends React.ComponentProps<'div'> {
   required?: boolean;
-  className?: string;
   label?: React.ReactNode;
   elements?: React.ReactNode;
   error?: FieldError;
