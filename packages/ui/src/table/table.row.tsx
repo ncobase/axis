@@ -93,7 +93,7 @@ export const TableDataCell: React.FC<ITableDataCellProps> = ({
   actions
 }) => {
   if (isAction(keyName) || isAction(name)) {
-    return <ActionCell actions={actions} />;
+    return <ActionCell record={record} actions={actions} />;
   }
 
   const classes = cn(
@@ -132,11 +132,11 @@ export const TableRow: React.FC<ITableRowProps> = ({ className, children, index 
   return <tr className={classes}>{children}</tr>;
 };
 
-export const ActionCell: React.FC<{ actions: any }> = ({ actions }) => {
+export const ActionCell: React.FC<{ actions: any; record: any }> = ({ actions, record }) => {
   return (
     <td className='h-11 min-w-8 after:absolute after:w-full border-b-[0.03125rem] border-gray-100 truncate'>
       <div className='w-full h-full inline-flex px-2 hover:[&>button]:bg-white [&>button]:p-2 [&>button]:rounded-full items-center justify-center'>
-        <TableDataCellActions actions={actions} />
+        <TableDataCellActions record={record} actions={actions} />
       </div>
     </td>
   );
