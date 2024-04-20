@@ -9,7 +9,7 @@ interface FormViewProps extends React.FormHTMLAttributes<HTMLFormElement> {
   control?: Control;
   errors?: FieldValues;
   children?: React.ReactNode;
-  fields: FieldConfigProps[];
+  fields?: FieldConfigProps[];
 }
 export const Form = React.forwardRef<HTMLFormElement, FormViewProps>(
   ({ children, className, onSubmit, fields, control, ...props }, ref) => {

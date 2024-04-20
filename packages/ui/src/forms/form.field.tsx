@@ -29,13 +29,18 @@ interface FieldProps extends FieldConfigProps {
 }
 
 const Field: React.FC<FieldProps> = React.forwardRef<any, FieldProps>(
-  ({ label, className, error, errors, name, children, rules, ...rest }, ref) => {
+  ({ label, hideLabel = false, className, error, errors, name, children, rules, ...rest }, ref) => {
     const rendered = children || <Input {...rest} ref={ref} />;
-    const errorMessage = errors ? getValueByPath(errors, name)?.message || error?.message : null;
+    const errorMessage = errors
+      ? getValueByPath(errors, name)?.message
+      : error
+        ? error?.message
+        : null || null;
     const required = rules?.required || rest.required || false;
+
     return (
       <div className={cn('flex flex-col gap-y-1', className)} ref={ref}>
-        {label && (
+        {label && !hideLabel && (
           <Label className='text-slate-900 font-medium'>
             {required && <span className='text-danger-400 pr-2'>*</span>}
             {label}
@@ -170,9 +175,12 @@ const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
         <Label htmlFor={`${rest.name}`}>{label || rest.label}</Label>
       </div>
     );
+
+    // if (options.length === 0) return renderSingleOption(rest.label);
+    // if (options.length === 1) return renderSingleOption(options[0]['label'] || '');
     return (
       <Field {...rest} ref={ref} className={className}>
-        <div className='flex flex-wrap gap-4 py-3.5'>
+        <div className='flex flex-wrap gap-4'>
           {options.length === 0 && renderSingleOption(rest.label)}
           {options.length === 1 && renderSingleOption(options[0]['label'] || '')}
           {options.length > 1 &&
@@ -191,7 +199,7 @@ const RadioField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
       <Field {...rest} ref={ref} className={className}>
         <RadioGroup
           {...rest}
-          className='flex flex-wrap gap-4 py-3.5'
+          className='flex flex-wrap gap-4'
           defaultValue={defaultValue}
           onValueChange={onChange}
         >
