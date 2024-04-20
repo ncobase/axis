@@ -13,14 +13,56 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '.
 import { Textarea } from './textarea';
 
 interface FieldConfigProps extends React.ComponentProps<any> {
+  /**
+   * The title of the field
+   */
+  title?: string;
+  /**
+   * The name of the field
+   * @example
+   *   name='name'
+   *   name='profile.name'
+   */
   name?: any;
+  /**
+   * The default value of the field
+   */
   defaultValue?: any;
+  /**
+   * The type of the field
+   * valid values: 'input', 'textarea', 'select', 'checkbox', 'radio', 'number', 'date', 'date-range'
+   */
   type?: any;
+  /**
+   * The rules of the field
+   * @see https://react-hook-form.com/api/useform/register
+   */
   rules?: RegisterOptions;
+  /**
+   * The errors of the form
+   * @see https://react-hook-form.com/api/useform
+   */
   errors?: FieldValues;
+  /**
+   * The options of the field, if type is 'select', 'checkbox', 'radio'
+   * @example
+   *   options={['Option 1', 'Option 2', 'Option 3']}
+   *   options={[{ label: 'Option 1', value: 1 }, { label: 'Option 2', value: 2 }, { label: 'Option 3', value: 3 }]}
+   *   options={[1, 2, 3]}
+   */
   options?: { [key: string]: any }[] | string[] | number[];
+  /**
+   * If the field is required, the error message will be displayed
+   */
   required?: boolean;
+  /**
+   * The className of the field
+   */
   className?: string;
+  /**
+   * The className of the children wrapper, if type is 'checkbox', 'radio'
+   */
+  elementClassName?: string;
 }
 
 interface FieldProps extends FieldConfigProps {
@@ -162,7 +204,7 @@ const RenderOption = React.forwardRef<any, any>(
 );
 
 const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
-  ({ className, options = [], ...rest }, ref) => {
+  ({ className, options = [], elementClassName, ...rest }, ref) => {
     const renderSingleOption = label => (
       <div className='inline-flex items-center space-x-2 [&>label]:hover:cursor-pointer'>
         <Checkbox
@@ -176,7 +218,7 @@ const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
     );
     return (
       <Field {...rest} ref={ref} className={className}>
-        <div className='flex flex-wrap gap-4'>
+        <div className={cn('flex flex-wrap gap-4', elementClassName)}>
           {options.length === 0 && renderSingleOption(rest.label)}
           {options.length === 1 && renderSingleOption(options[0]['label'] || '')}
           {options.length > 1 &&
@@ -190,12 +232,12 @@ const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
 );
 
 const RadioField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
-  ({ className, onChange, defaultValue, options = [], ...rest }, ref) => {
+  ({ className, onChange, defaultValue, options = [], elementClassName, ...rest }, ref) => {
     return (
       <Field {...rest} ref={ref} className={className}>
         <RadioGroup
           {...rest}
-          className='flex flex-wrap gap-4'
+          className={cn('flex flex-wrap gap-4', elementClassName)}
           defaultValue={defaultValue}
           onValueChange={onChange}
         >
