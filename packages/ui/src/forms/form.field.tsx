@@ -13,7 +13,6 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '.
 import { Textarea } from './textarea';
 
 interface FieldConfigProps extends React.ComponentProps<any> {
-  label?: string;
   name?: any;
   defaultValue?: any;
   type?: any;
@@ -29,7 +28,7 @@ interface FieldProps extends FieldConfigProps {
 }
 
 const Field: React.FC<FieldProps> = React.forwardRef<any, FieldProps>(
-  ({ label, hideLabel = false, className, error, errors, name, children, rules, ...rest }, ref) => {
+  ({ title, className, error, errors, name, children, rules, ...rest }, ref) => {
     const rendered = children || <Input {...rest} ref={ref} />;
     const errorMessage = errors
       ? getValueByPath(errors, name)?.message
@@ -40,10 +39,10 @@ const Field: React.FC<FieldProps> = React.forwardRef<any, FieldProps>(
 
     return (
       <div className={cn('flex flex-col gap-y-1', className)} ref={ref}>
-        {label && !hideLabel && (
+        {title && (
           <Label className='text-slate-900 font-medium'>
             {required && <span className='text-danger-400 pr-2'>*</span>}
-            {label}
+            {title}
           </Label>
         )}
         {rendered}
@@ -172,12 +171,9 @@ const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
           defaultChecked={rest.defaultValue}
           {...rest}
         />
-        <Label htmlFor={`${rest.name}`}>{label || rest.label}</Label>
+        <Label htmlFor={`${rest.name}`}>{label || rest.title}</Label>
       </div>
     );
-
-    // if (options.length === 0) return renderSingleOption(rest.label);
-    // if (options.length === 1) return renderSingleOption(options[0]['label'] || '');
     return (
       <Field {...rest} ref={ref} className={className}>
         <div className='flex flex-wrap gap-4'>
@@ -204,7 +200,7 @@ const RadioField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
           onValueChange={onChange}
         >
           {options.length === 0 && (
-            <RenderOption type='radio' option={{ label: rest.label, value: '0' }} {...rest} />
+            <RenderOption type='radio' option={{ label: rest.title, value: '0' }} {...rest} />
           )}
           {options.length === 1 && <RenderOption type='radio' option={options[0]} {...rest} />}
           {options.length > 1 &&
