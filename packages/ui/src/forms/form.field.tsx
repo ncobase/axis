@@ -115,7 +115,7 @@ const SelectField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
     <Field {...rest} ref={ref}>
       <Select {...rest} onValueChange={onChange} defaultValue={defaultValue}>
         <SelectTrigger>
-          <SelectValue placeholder='Please select' />
+          <SelectValue placeholder='请选择' />
         </SelectTrigger>
         <SelectContent>
           {options?.map((option, index) => (
@@ -135,7 +135,7 @@ const RenderOption = React.forwardRef<any, any>(
     const id = `${rest.name}-${value}`.replace(/\./g, '-');
 
     return (
-      <div className='inline-flex items-center space-x-2'>
+      <div className='inline-flex items-center space-x-2 [&>label]:hover:cursor-pointer'>
         {type === 'checkbox' ? (
           <Checkbox
             id={id}
@@ -160,7 +160,7 @@ const RenderOption = React.forwardRef<any, any>(
 const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
   ({ className, options = [], ...rest }, ref) => {
     const renderSingleOption = label => (
-      <div className='inline-flex items-center space-x-2'>
+      <div className='inline-flex items-center space-x-2 [&>label]:hover:cursor-pointer'>
         <Checkbox
           id={`${rest.name}`}
           onCheckedChange={rest.onChange}
