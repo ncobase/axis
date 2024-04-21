@@ -97,8 +97,8 @@ export const Dialog: React.FC<DialogViewProps> = ({
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent className={cn(className)}>
         {title || description ? (
-          <DialogHeader>
-            {title && <DialogTitle>{title}</DialogTitle>}
+          <DialogHeader className='-mx-6 px-6'>
+            {title && <DialogTitle className='text-base font-medium'>{title}</DialogTitle>}
             {description && <DialogDescription>{description}</DialogDescription>}
           </DialogHeader>
         ) : null}
@@ -106,7 +106,7 @@ export const Dialog: React.FC<DialogViewProps> = ({
           {children}
         </ScrollView>
         {(footer || onCancel || onConfirm) && (
-          <DialogFooter className='border-t border-slate-100 pt-6'>
+          <DialogFooter className='border-t border-slate-100 pt-6 -mx-6 px-6'>
             {footer}
             {!footer && onCancel && (
               <Button onClick={onCancel} variant='secondary'>
