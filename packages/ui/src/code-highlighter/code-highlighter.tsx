@@ -5,7 +5,7 @@ import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export const CodeHighlighter = ({ children, ...rest }) => {
   return (
-    <SyntaxHighlighter style={atomDark} {...rest} language='javascript'>
+    <SyntaxHighlighter showLineNumbers style={atomDark} {...rest} language='javascript'>
       {children}
     </SyntaxHighlighter>
   );
