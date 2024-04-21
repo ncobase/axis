@@ -11,7 +11,7 @@ const Tooltip = React.forwardRef<
 >(({ delayDuration = 350, ...props }, _ref) => (
   <TooltipPrimitive.Root delayDuration={delayDuration} {...props} />
 ));
-Tooltip.displayName = TooltipPrimitive.Root.displayName;
+Tooltip.displayName = 'Tooltip';
 
 const TooltipTrigger = TooltipPrimitive.Trigger;
 
@@ -29,6 +29,6 @@ const TooltipContent = React.forwardRef<
     {...props}
   />
 ));
-TooltipContent.displayName = TooltipPrimitive.Content.displayName;
+TooltipContent.displayName = 'TooltipContent';
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
