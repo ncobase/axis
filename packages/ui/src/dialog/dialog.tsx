@@ -84,12 +84,11 @@ export const Dialog: React.FC<DialogViewProps> = ({
 
   useEffect(() => {
     setOpen(isOpen);
-    return () => setOpen(false);
   }, [isOpen]);
 
   const handleChange = () => {
-    setOpen(!open);
-    if (!open && onChange) onChange();
+    setOpen(prevStatus => !prevStatus);
+    onChange?.();
   };
 
   return (
