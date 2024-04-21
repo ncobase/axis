@@ -99,7 +99,9 @@ export const Dialog: React.FC<DialogViewProps> = ({
         {title || description ? (
           <DialogHeader className='-mx-6 px-6'>
             {title && <DialogTitle className='text-base font-medium'>{title}</DialogTitle>}
-            {description && <DialogDescription>{description}</DialogDescription>}
+            {description && (
+              <DialogDescription className='whitespace-pre-line'>{description}</DialogDescription>
+            )}
           </DialogHeader>
         ) : null}
         <ScrollView className={cn('flex-1', !(title || description) ? 'pt-6' : '')}>
