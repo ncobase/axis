@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { cn } from '@tone/utils';
 
 import { Button } from '../button';
+import { ScrollView } from '../views';
 
 import {
   DialogTrigger,
@@ -65,9 +66,9 @@ export const Dialog: React.FC<DialogViewProps> = ({
             {description && <DialogDescription>{description}</DialogDescription>}
           </DialogHeader>
         ) : null}
-        <div className={cn('flex-1 overflow-auto', !(title || description) ? 'pt-6' : '')}>
+        <ScrollView className={cn('flex-1', !(title || description) ? 'pt-6' : '')}>
           {children}
-        </div>
+        </ScrollView>
         {(footer || onCancel || onConfirm) && (
           <DialogFooter className='border-t border-slate-100 pt-6'>
             {footer}

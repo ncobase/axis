@@ -10,7 +10,7 @@ interface ScrollViewProps {
 
 export const ScrollView: React.FC<ScrollViewProps> = ({ children, className, style }) => {
   return (
-    <div className={cn('w-full h-full py-4 overflow-auto', className)} style={style}>
+    <div className={cn('w-full h-full overflow-auto', className)} style={style}>
       {children}
     </div>
   );
