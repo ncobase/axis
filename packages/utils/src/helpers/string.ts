@@ -37,3 +37,27 @@ export function getByteLen(val: string): number {
   }
   return Math.floor(len);
 }
+
+/**
+ * 去除字符串两边的空格
+ * @param str 输入的字符串
+ * @returns {string}
+ */
+
+export function trim(str: string): string {
+  return str.replace(/(^\s*)|(\s*$)/g, '');
+}
+
+/**
+ * 拼接完整姓名
+ * 格式：姓、中间字、名
+ * @param firstName 姓
+ * @param middleName 中间字
+ * @param lastName 名
+ * @returns {string}
+ */
+export function joinName(firstName?: string, middleName?: string, lastName?: string): string {
+  const fullName =
+    `${firstName?.trim() ?? ''} ${middleName?.trim() ?? ''} ${lastName?.trim() ?? ''}`.trim();
+  return fullName;
+}
