@@ -16,17 +16,53 @@ import {
 } from './dialog.elements';
 
 interface DialogViewProps {
+  /**
+   * Dialog title
+   */
   title?: string;
+  /**
+   * Dialog description
+   */
   description?: string;
+  /**
+   * Dialog children elements
+   */
   children?: React.ReactNode;
+  /**
+   * Dialog trigger, it should be a button or a link
+   */
   trigger?: React.ReactNode;
+  /**
+   * Dialog footer, any element
+   */
   footer?: React.ReactNode;
+  /**
+   * Dialog className
+   */
   className?: string;
+  /**
+   * Is dialog open, default is false
+   */
   isOpen?: boolean;
+  /**
+   * Callback when dialog is open or close
+   */
   onChange?: () => void;
+  /**
+   * Cancel button, if footer is not defined it will be displayed
+   */
   onCancel?: () => void;
+  /**
+   * Cancel button text, default is 'Cancel'
+   */
   cancelText?: string;
+  /**
+   * Confirm button, if footer is not defined it will be displayed
+   */
   onConfirm?: () => void;
+  /**
+   * Confirm button text, default is 'Confirm'
+   */
   confirmText?: string;
 }
 
