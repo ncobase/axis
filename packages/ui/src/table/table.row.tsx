@@ -102,7 +102,7 @@ export const TableDataCell: React.FC<ITableDataCellProps> = ({
   );
 
   return (
-    <td className={classes} title={record[keyName] || ''}>
+    <td className={classes} title={record[keyName].toString() || ''}>
       <div className='w-full h-full max-w-full px-3 py-2 flex items-center'>
         {children ? children : parser ? parser(record[keyName], record) : record[keyName]}
       </div>
