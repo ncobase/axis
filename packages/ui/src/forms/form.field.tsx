@@ -129,15 +129,11 @@ const FieldRender = React.forwardRef<any, FieldConfigProps>(({ type, ...props },
 
 const InputField = React.forwardRef<HTMLInputElement, FieldConfigProps>(
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  ({ onChange, defaultValue, ...rest }, ref) => {
-    console.log(rest);
-
-    return (
-      <Field {...rest} ref={ref}>
-        <Input onChange={onChange} {...rest} ref={ref} />
-      </Field>
-    );
-  }
+  ({ onChange, defaultValue, ...rest }, ref) => (
+    <Field {...rest} ref={ref}>
+      <Input onChange={onChange} {...rest} ref={ref} />
+    </Field>
+  )
 );
 
 const NumberField = React.forwardRef<HTMLInputElement, FieldConfigProps>(
