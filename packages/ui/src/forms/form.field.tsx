@@ -4,6 +4,7 @@ import { cn, getValueByPath } from '@tone/utils';
 import { FieldError, FieldValues, RegisterOptions } from 'react-hook-form';
 
 import { DatePicker } from '../datepicker';
+import { Switch } from '../switch';
 
 import { Checkbox } from './checkbox';
 import { Input } from './input';
@@ -118,6 +119,8 @@ const FieldRender = React.forwardRef<any, FieldConfigProps>(({ type, ...props },
       return <SelectField ref={ref} {...props} />;
     case 'checkbox':
       return <CheckboxField ref={ref} {...props} />;
+    case 'switch':
+      return <SwitchField ref={ref} {...props} />;
     case 'radio':
       return <RadioField ref={ref} {...props} />;
     case 'number':
@@ -263,6 +266,20 @@ const RadioField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
       </Field>
     );
   }
+);
+
+const SwitchField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  ({ onChange, defaultValue, elementClassName, ...rest }, ref) => (
+    <Field {...rest} ref={ref}>
+      <Switch
+        onCheckedChange={onChange}
+        defaultChecked={defaultValue}
+        {...rest}
+        className={elementClassName}
+      />
+    </Field>
+  )
 );
 
 export {
