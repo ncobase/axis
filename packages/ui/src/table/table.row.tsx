@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@tone/utils';
+import { cn, isNumber, isString } from '@tone/utils';
 
 import { DropdownTrigger, DropdownContent, DropdownItem, Dropdown } from '../dropdown';
 import { Icons } from '../icon';
@@ -101,8 +101,12 @@ export const TableDataCell: React.FC<ITableDataCellProps> = ({
     className
   );
 
+  const tdAttributes = {
+    title: isString(record[keyName]) || isNumber(record[keyName]) ? record[keyName] : undefined
+  };
+
   return (
-    <td className={classes} title={record[keyName].toString() || ''}>
+    <td className={classes} {...tdAttributes}>
       <div className='w-full h-full max-w-full px-3 py-2 flex items-center'>
         {children ? children : parser ? parser(record[keyName], record) : record[keyName]}
       </div>
