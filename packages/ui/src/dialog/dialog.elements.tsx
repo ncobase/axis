@@ -18,7 +18,7 @@ const DialogClose = React.forwardRef<
   <DialogPrimitive.Close
     ref={ref}
     className={cn(
-      'absolute right-3 top-3 rounded-full p-1 text-default-11 hover:bg-default-1/10 focus:outline-none',
+      'absolute right-3.5 top-3.5 rounded-full p-1 text-default-11 hover:bg-default-1/10 focus:outline-none hover:shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:[&>svg]:stroke-danger-400',
       className
     )}
     {...props}
@@ -52,7 +52,7 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed left-[50%] top-[50%] z-[9999] flex flex-col w-full max-w-[81lvw] h-[86lvh] translate-x-[-50%] bg-white translate-y-[-50%] gap-4 p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg',
+        'fixed left-[50%] top-[38%] z-[9999] flex flex-col w-[60lvw] h-[60lvh]  max-w-[81lvw] max-h-[86lvh] translate-x-[-50%] bg-white translate-y-[-50%] gap-4 p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg',
         className
       )}
       {...props}
