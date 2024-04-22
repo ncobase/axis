@@ -80,6 +80,10 @@ const Field: React.FC<FieldProps> = React.forwardRef<any, FieldProps>(
         : null || null;
     const required = rules?.required || rest.required || false;
 
+    if (rest.type === 'hidden') {
+      return rendered;
+    }
+
     return (
       <div className={cn('flex flex-col gap-y-1', className)} ref={ref}>
         {title && (
