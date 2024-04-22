@@ -12,10 +12,11 @@ interface FormViewProps extends React.FormHTMLAttributes<HTMLFormElement> {
   fields?: FieldConfigProps[];
 }
 export const Form = React.forwardRef<HTMLFormElement, FormViewProps>(
-  ({ children, className, onSubmit, fields, control, ...props }, ref) => {
+  ({ id, children, className, onSubmit, fields, control, ...props }, ref) => {
     if (!fields && !children) return null;
     return (
       <form
+        id={id}
         ref={ref}
         className={cn('grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4', className)}
         {...props}

@@ -30,7 +30,7 @@ interface FieldConfigProps extends React.ComponentProps<any> {
   defaultValue?: any;
   /**
    * The type of the field
-   * valid values: 'input', 'textarea', 'select', 'checkbox', 'radio', 'number', 'date', 'date-range'
+   * valid values: 'input', 'password', 'textarea', 'select', 'checkbox', 'radio', 'number', 'date', 'date-range'
    */
   type?: any;
   /**
@@ -123,13 +123,15 @@ const FieldRender = React.forwardRef<any, FieldConfigProps>(({ type, ...props },
     case 'number':
       return <NumberField ref={ref} {...props} />;
     default:
-      return <InputField ref={ref} {...props} />;
+      return <InputField type={type} ref={ref} {...props} />;
   }
 });
 
 const InputField = React.forwardRef<HTMLInputElement, FieldConfigProps>(
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   ({ onChange, defaultValue, ...rest }, ref) => {
+    console.log(rest);
+
     return (
       <Field {...rest} ref={ref}>
         <Input onChange={onChange} {...rest} ref={ref} />
