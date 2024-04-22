@@ -2,7 +2,7 @@ export interface Menu {
   id: string;
   name?: string;
   label: string;
-  icon?: any; // string is Tabler Icons
+  icon?: ExplicitAny; // string is Tabler Icons
   slug?: string;
   path: string;
   type?: string;

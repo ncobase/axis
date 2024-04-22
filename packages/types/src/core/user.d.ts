@@ -19,7 +19,7 @@ export interface UserProfile {
   about?: string;
   thumbnail?: string;
   language?: string;
-  links?: any[];
+  links?: ExplicitAny[];
   extra?: object;
 }
 
