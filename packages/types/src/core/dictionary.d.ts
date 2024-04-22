@@ -4,6 +4,7 @@ export interface Dictionary {
   slug?: string;
   type?: string;
   value?: string;
+  description?: string;
   tenant?: string;
   created_by?: string;
   created_at?: string;
