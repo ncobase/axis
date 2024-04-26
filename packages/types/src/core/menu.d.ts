@@ -1,22 +1,24 @@
 export interface Menu {
-  id: string;
+  id?: string;
   name?: string;
-  label: string;
-  icon?: ExplicitAny; // string is Tabler Icons
+  label?: string;
   slug?: string;
-  path: string;
   type?: string;
+  path?: string;
   target?: string;
-  certified?: boolean;
+  icon?: string;
   perms?: string;
   hidden?: boolean;
   order?: number;
   disabled?: boolean;
-  properties?: object;
+  extras?: object | object[] | null;
+  parent?: string;
+  tenant?: string;
   created_by?: string;
   created_at?: string;
   updated_by?: string;
   updated_at?: string;
+  children?: Menu[];
 }
 
 export interface MenuTree extends Menu {
