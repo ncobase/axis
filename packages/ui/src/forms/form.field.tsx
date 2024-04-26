@@ -26,6 +26,10 @@ interface FieldConfigProps extends React.ComponentProps<any> {
    */
   name?: any;
   /**
+   * The placeholder of the field, if type is 'input', 'password', 'textarea', 'number'
+   */
+  placeholder?: string;
+  /**
    * The default value of the field
    */
   defaultValue?: any;
@@ -136,27 +140,27 @@ const FieldRender = React.forwardRef<any, FieldConfigProps>(({ type, ...props },
 
 const InputField = React.forwardRef<HTMLInputElement, FieldConfigProps>(
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  ({ onChange, defaultValue, ...rest }, ref) => (
+  ({ onChange, defaultValue, placeholder, ...rest }, ref) => (
     <Field {...rest} ref={ref}>
-      <Input onChange={onChange} {...rest} ref={ref} />
+      <Input onChange={onChange} placeholder={placeholder} {...rest} ref={ref} />
     </Field>
   )
 );
 
 const NumberField = React.forwardRef<HTMLInputElement, FieldConfigProps>(
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  ({ onChange, defaultValue, ...rest }, ref) => (
+  ({ onChange, defaultValue, placeholder, ...rest }, ref) => (
     <Field {...rest} ref={ref}>
-      <Input type='number' onChange={onChange} {...rest} ref={ref} />
+      <Input type='number' onChange={onChange} placeholder={placeholder} {...rest} ref={ref} />
     </Field>
   )
 );
 
 const TextareaField = React.forwardRef<HTMLTextAreaElement, FieldConfigProps>(
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  ({ onChange, defaultValue, ...rest }, ref) => (
+  ({ onChange, defaultValue, placeholder, ...rest }, ref) => (
     <Field {...rest} ref={ref}>
-      <Textarea onChange={onChange} {...rest} ref={ref} />
+      <Textarea onChange={onChange} placeholder={placeholder} {...rest} ref={ref} />
     </Field>
   )
 );
@@ -174,11 +178,11 @@ const DateRangeField = React.forwardRef<HTMLDivElement, FieldConfigProps>((props
 ));
 
 const SelectField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
-  ({ options, onChange, defaultValue, ...rest }, ref) => (
+  ({ options, onChange, defaultValue, placeholder, ...rest }, ref) => (
     <Field {...rest} ref={ref}>
       <Select {...rest} onValueChange={onChange} defaultValue={defaultValue}>
         <SelectTrigger>
-          <SelectValue placeholder='请选择' />
+          <SelectValue placeholder={placeholder || '请选择'} />
         </SelectTrigger>
         <SelectContent>
           {options?.map((option, index) => (
