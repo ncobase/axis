@@ -26,15 +26,9 @@ export default {
         brand,
         primary,
         secondary,
-        blue: brand,
-        green: success,
         success,
-        red: danger,
         danger,
-        yellow: warning,
-        warning,
-        slate,
-        blueGray: slate
+        warning
       },
       screens: {
         '3xl': '112rem'

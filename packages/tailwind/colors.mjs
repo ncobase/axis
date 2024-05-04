@@ -2,16 +2,17 @@
  * Brand base on the blue color
  */
 export const brand = {
-  50: '#EFF6FF',
-  100: '#DBEAFE',
-  200: '#BFDBFE',
-  300: '#93C5FD',
-  400: '#60A5FA',
-  500: '#3B82F6',
-  600: '#2563EB',
+  50: '#EDF1FD',
+  100: '#E0E7FB',
+  200: '#BCCBF6',
+  300: '#9CB3F2',
+  400: '#7897ED',
+  500: '#597FE9',
+  600: '#3563E4',
   700: '#1D4ED8',
-  800: '#1E40AF',
-  900: '#1E3A8A'
+  800: '#133590',
+  900: '#0A1A48',
+  950: '#050D24'
 };
 
 /**
@@ -36,40 +37,54 @@ export const slate = {
 };
 
 /**
- * Secondary base on the slate color
+ * Secondary colors
  */
-export const secondary = slate;
+export const secondary = {
+  50: '#F2F3F8',
+  100: '#E4E7F1',
+  200: '#C9CEE3',
+  300: '#AEB6D6',
+  400: '#939EC8',
+  500: '#7885BA',
+  600: '#5D6DAC',
+  700: '#4D5B96',
+  800: '#343E65',
+  900: '#1A1F33',
+  950: '#0C0E18'
+};
 
 /**
  * Success base on the green color
  */
 export const success = {
-  50: '#F0FDF4',
-  100: '#DCFCE7',
-  200: '#BBF7D0',
-  300: '#86EFAC',
-  400: '#4ADE80',
-  500: '#22C55E',
-  600: '#16A34A',
+  50: '#E9FBF0',
+  100: '#D3F8E1',
+  200: '#A7F1C2',
+  300: '#7CE9A4',
+  400: '#50E285',
+  500: '#23D765',
+  600: '#1CAB50',
   700: '#15803D',
-  800: '#166534',
-  900: '#14532D'
+  800: '#0E5327',
+  900: '#072C15',
+  950: '#04160A'
 };
 
 /**
  * Danger colors base on the red color
  */
 export const danger = {
-  50: '#FEF2F2',
-  100: '#FEE2E2',
-  200: '#FECACA',
-  300: '#FCA5A5',
-  400: '#F87171',
-  500: '#EF4444',
-  600: '#DC2626',
+  50: '#FCEDED',
+  100: '#FADCDC',
+  200: '#F4B4B4',
+  300: '#EE9090',
+  400: '#E96D6D',
+  500: '#E34545',
+  600: '#DD2222',
   700: '#B91C1C',
-  800: '#991B1B',
-  900: '#7F1D1D'
+  800: '#7C1313',
+  900: '#3E0909',
+  950: '#1F0505'
 };
 
 /**
@@ -77,14 +92,15 @@ export const danger = {
  */
 
 export const warning = {
-  50: '#FFF7ED',
-  100: '#FFEDD5',
-  200: '#FED7AA',
-  300: '#FDBA74',
-  400: '#FB923C',
-  500: '#F97316',
-  600: '#EA580C',
+  50: '#FEF1EC',
+  100: '#FCDFD4',
+  200: '#FAC3AD',
+  300: '#F7A382',
+  400: '#F5875C',
+  500: '#F26731',
+  600: '#EB4D0F',
   700: '#C2410C',
-  800: '#9A3412',
-  900: '#7C2D12'
+  800: '#822B08',
+  900: '#3E1404',
+  950: '#220B02'
 };

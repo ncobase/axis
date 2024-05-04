@@ -89,7 +89,7 @@ const Field: React.FC<FieldProps> = React.forwardRef<any, FieldProps>(
     }
 
     return (
-      <div className={cn('flex flex-col gap-y-1', className)} ref={ref}>
+      <div className={cn('flex flex-col gap-y-2', className)} ref={ref}>
         {title && (
           <Label className='text-slate-900 font-medium'>
             {required && <span className='text-danger-400 pr-2'>*</span>}
