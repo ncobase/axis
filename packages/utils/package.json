@@ -17,6 +17,8 @@
   "dependencies": {
     "clsx": "^2.1.0",
     "date-fns": "^3.6.0",
+    "jsencrypt": "^3.3.2",
+    "nanoid": "^5.0.7",
     "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {
