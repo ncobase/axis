@@ -11,8 +11,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 interface IDatePickerProps {
   mode?: 'single' | 'range';
   className?: string;
-  defaultValue?: Date | DateRange;
-  onChange?: (date: Date | DateRange | null) => void;
+  defaultValue?: Date | DateRange | string;
+  onChange?: (date: Date | DateRange | undefined) => void;
   disabled?: boolean;
 }
 
@@ -25,7 +25,7 @@ const SingleDatePicker: React.FC<IDatePickerProps> = ({
   onChange,
   disabled
 }) => {
-  const [date, setDate] = useState<Date | null>((defaultValue as Date) || null);
+  const [date, setDate] = useState<Date | undefined>((defaultValue as Date) || undefined);
 
   useEffect(() => {
     if (defaultValue) {
@@ -33,7 +33,7 @@ const SingleDatePicker: React.FC<IDatePickerProps> = ({
     }
   }, [defaultValue]);
 
-  const handleSelect = (selectedDate: Date | null) => {
+  const handleSelect = (selectedDate: Date | undefined) => {
     setDate(selectedDate);
     onChange?.(selectedDate);
   };
@@ -73,7 +73,7 @@ const RangeDatePicker: React.FC<IDatePickerProps> = ({
     }
   }, [defaultValue]);
 
-  const handleSelect = (selectedRange: DateRange | null) => {
+  const handleSelect = (selectedRange: DateRange | undefined) => {
     setDateRange(selectedRange);
     onChange?.(selectedRange);
   };

@@ -4,8 +4,8 @@
  * @returns {string}
  */
 
-import { cleanArray } from './array';
-import { isObject } from './raw_type';
+import { cleanArray } from '../helpers/array';
+import { isObject } from '../helpers/raw_type';
 
 export function buildQueryString(params: Record<string, any>): string {
   if (!isObject(params)) {

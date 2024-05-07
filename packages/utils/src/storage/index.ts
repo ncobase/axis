@@ -1,4 +1,4 @@
-import { isObject, isArray } from './raw_type';
+import { isObject, isArray } from '../helpers/raw_type';
 
 const get = (key: string, parse = false) => {
   let value = localStorage.getItem(key) as any;

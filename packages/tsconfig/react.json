@@ -3,7 +3,7 @@
   "display": "React Library",
   "extends": "./base.json",
   "compilerOptions": {
-    "jsx": "preserve",
+    "jsx": "react",
     "lib": [
       "dom",
       "dom.iterable",
@@ -11,6 +11,12 @@
     ],
     "module": "esnext",
     "target": "esnext",
-    "sourceMap": true
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "noEmit": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
   }
 }

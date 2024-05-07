@@ -87,7 +87,7 @@ export const TableDataCell: React.FC<ITableDataCellProps> = ({
   className,
   children,
   record,
-  keyName,
+  keyName = '',
   name,
   parser,
   actions
@@ -120,7 +120,7 @@ interface ITableRowProps {
   index?: number;
 }
 
-export const TableRow: React.FC<ITableRowProps> = ({ className, children, index }) => {
+export const TableRow: React.FC<ITableRowProps> = ({ className, children, index = 0 }) => {
   if (!children) return null;
 
   const classes = cn(

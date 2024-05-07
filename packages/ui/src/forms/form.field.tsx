@@ -51,11 +51,9 @@ interface FieldConfigProps extends React.ComponentProps<any> {
   /**
    * The options of the field, if type is 'select', 'checkbox', 'radio'
    * @example
-   *   options={['Option 1', 'Option 2', 'Option 3']}
    *   options={[{ label: 'Option 1', value: 1 }, { label: 'Option 2', value: 2 }, { label: 'Option 3', value: 3 }]}
-   *   options={[1, 2, 3]}
    */
-  options?: { [key: string]: any }[] | string[] | number[];
+  options?: Record<string, any>[];
   /**
    * If the field is required, the error message will be displayed
    */
@@ -187,7 +185,7 @@ const SelectField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
         <SelectContent>
           {options?.map((option, index) => (
             <SelectItem key={index} value={option.value as string}>
-              {option.label}
+              {option.label || option.value}
             </SelectItem>
           ))}
         </SelectContent>
@@ -226,7 +224,7 @@ const RenderOption = React.forwardRef<any, any>(
 
 const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
   ({ className, options = [], elementClassName, ...rest }, ref) => {
-    const renderSingleOption = label => (
+    const renderSingleOption = (label: string) => (
       <div className='inline-flex items-center space-x-2 [&>label]:hover:cursor-pointer'>
         <Checkbox
           id={`${rest.name}`}
