@@ -37,7 +37,7 @@ interface FieldConfigProps extends React.ComponentProps<any> {
   defaultValue?: any;
   /**
    * The type of the field
-   * valid values: 'input', 'password', 'textarea', 'select', 'checkbox', 'radio', 'number', 'date', 'date-range', 'switch', 'hidden'
+   * valid values: 'input | text', 'password', 'textarea', 'select', 'checkbox', 'radio', 'number', 'date', 'date-range', 'switch', 'hidden'
    */
   type?: 'date-range' | 'switch' | HTMLInputTypeAttribute | HTMLButtonElement['type'];
   /**
@@ -148,8 +148,6 @@ const FieldRender = memo(
         return <SwitchField ref={ref} {...props} />;
       case 'radio':
         return <RadioField ref={ref} {...props} />;
-      case 'number':
-        return <NumberField ref={ref} {...props} />;
       default:
         return <InputField type={type} ref={ref} {...props} />;
     }
@@ -197,68 +195,35 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
             ref={ref}
             className={cn(rest.className, prependIcon && 'pl-9', appendIcon && 'pr-9')}
           />
-          {appendIcon && (
-            <Button
-              className={cn(
-                'absolute right-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
-                appendIconClick && 'cursor-pointer'
-              )}
-              variant='unstyle'
-              onClick={appendIconClick}
-              size='ratio'
+          {rest.type === 'number' && (
+            <div
+              className={cn('flex flex-col absolute right-1 top-1/2 transform -translate-y-1/2')}
             >
-              <Icons name={appendIcon} />
-            </Button>
+              <Button
+                className={cn('outline-none py-0 mt-0.5')}
+                variant='unstyle'
+                size='ratio'
+                onClick={() => {
+                  const newValue = parseInt(rest.value) + 1 || 0;
+                  onChange(newValue);
+                }}
+              >
+                <Icons name='IconChevronUp' />
+              </Button>
+              <Button
+                className={cn('outline-none py-0 -mt-0.5')}
+                variant='unstyle'
+                size='ratio'
+                onClick={() => {
+                  const newValue = parseInt(rest.value) - 1 || 0;
+                  onChange(newValue);
+                }}
+              >
+                <Icons name='IconChevronDown' />
+              </Button>
+            </div>
           )}
-        </div>
-      </Field>
-    );
-  }
-);
-
-// TODO: arrow control
-const NumberField = forwardRef<HTMLInputElement, FieldConfigProps>(
-  (
-    {
-      onChange,
-      defaultValue,
-      placeholder,
-      prependIcon,
-      prependIconClick,
-      appendIcon,
-      appendIconClick,
-      ...rest
-    },
-    ref
-  ) => {
-    if (rest.value === undefined && defaultValue !== undefined) {
-      rest.value = defaultValue;
-    }
-
-    return (
-      <Field {...rest} ref={ref}>
-        <div className='relative'>
-          {prependIcon && (
-            <Button
-              className={cn(
-                'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
-                prependIconClick && 'cursor-pointer'
-              )}
-              onClick={prependIconClick}
-              variant='unstyle'
-              size='ratio'
-            >
-              <Icons name={prependIcon} />
-            </Button>
-          )}
-          <Input
-            onChange={onChange}
-            placeholder={placeholder}
-            {...rest}
-            ref={ref}
-            className={cn(rest.className, prependIcon && 'pl-9', appendIcon && 'pr-9')}
-          />
-          {appendIcon && (
+          {rest.type !== 'number' && appendIcon && (
             <Button
               className={cn(
                 'absolute right-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
@@ -434,6 +399,5 @@ export {
   SelectField,
   CheckboxField,
   RadioField,
-  NumberField,
   type FieldConfigProps
 };

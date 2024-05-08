@@ -67,7 +67,7 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        'relative z-[999] max-h-96 overflow-hidden rounded-md border border-slate-200/65 bg-white data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        'relative z-[999] max-h-96 overflow-hidden rounded-md shadow-[0_0_6px_rgba(0,0,0,0.05)] divide-y divide-slate-100 bg-white data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
         position === 'popper' &&
           'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
         className
@@ -78,7 +78,6 @@ const SelectContent = React.forwardRef<
       <SelectScrollUpButton />
       <SelectPrimitive.Viewport
         className={cn(
-          'p-1',
           position === 'popper' &&
             'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]'
         )}
@@ -110,7 +109,9 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex w-full select-none items-center justify-between rounded-sm py-2.5 pl-3 pr-2 gap-x-2 data-[disabled]:pointer-events-none data-[disabled]:opacity-55',
+      'relative flex w-full select-none items-center justify-between rounded-sm py-2.5 pl-4 pr-3 gap-x-2 cursor-pointer',
+      'hover:bg-slate-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
+      'data-[disabled]:pointer-events-none data-[disabled]:opacity-55',
       className
     )}
     {...props}
