@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { HTMLInputTypeAttribute, forwardRef, memo } from 'react';
 
 import { cn, getValueByPath } from '@tone/utils';
 import { FieldError, FieldValues, RegisterOptions } from 'react-hook-form';
 
+import { Button } from '../button';
 import { DatePicker } from '../datepicker';
+import { Icons } from '../icon';
 import { Switch } from '../switch';
 
 import { Checkbox } from './checkbox';
@@ -35,9 +37,27 @@ interface FieldConfigProps extends React.ComponentProps<any> {
   defaultValue?: any;
   /**
    * The type of the field
-   * valid values: 'input', 'password', 'textarea', 'select', 'checkbox', 'radio', 'number', 'date', 'date-range'
+   * valid values: 'input', 'password', 'textarea', 'select', 'checkbox', 'radio', 'number', 'date', 'date-range', 'switch', 'hidden'
    */
-  type?: any;
+  type?: 'date-range' | 'switch' | HTMLInputTypeAttribute | HTMLButtonElement['type'];
+  /**
+   * The prepend icon of the field
+   */
+  prependIcon?: string;
+  /**
+   * The click event of the prepend icon
+   * @returns void
+   */
+  prependIconClick?: () => void;
+  /**
+   * The append icon of the field
+   */
+  appendIcon?: string;
+  /**
+   * The click event of the append icon
+   * @returns void
+   */
+  appendIconClick?: () => void;
   /**
    * The rules of the field
    * @see https://react-hook-form.com/api/useform/register
@@ -72,14 +92,14 @@ interface FieldProps extends FieldConfigProps {
   error?: FieldError;
 }
 
-const Field: React.FC<FieldProps> = React.forwardRef<any, FieldProps>(
+const Field = forwardRef<any, FieldProps>(
   ({ title, className, error, errors, name, children, rules, ...rest }, ref) => {
     const rendered = children || <Input {...rest} ref={ref} />;
     const errorMessage = errors
       ? getValueByPath(errors, name)?.message
       : error
         ? error?.message
-        : null || null;
+        : null;
     const required = rules?.required || rest.required || false;
 
     if (rest.type === 'hidden') {
@@ -101,101 +121,213 @@ const Field: React.FC<FieldProps> = React.forwardRef<any, FieldProps>(
   }
 );
 
-const FieldViewer = React.forwardRef<HTMLDivElement, FieldConfigProps>(
-  ({ children, ...rest }, ref) => {
+const FieldViewer = forwardRef<HTMLDivElement, FieldConfigProps>(({ children, ...rest }, ref) => {
+  return (
+    <Field {...rest} ref={ref}>
+      <div className='border-b border-slate-100 py-2.5 max-h-16 overflow-auto w-full inline-block text-slate-600'>
+        {children || '-'}
+      </div>
+    </Field>
+  );
+});
+
+const FieldRender = memo(
+  forwardRef<any, FieldConfigProps>(({ type, ...props }, ref) => {
+    switch (type) {
+      case 'textarea':
+        return <TextareaField ref={ref} {...props} />;
+      case 'date':
+        return <DateField ref={ref} {...props} />;
+      case 'date-range':
+        return <DateRangeField ref={ref} {...props} />;
+      case 'select':
+        return <SelectField ref={ref} {...props} />;
+      case 'checkbox':
+        return <CheckboxField ref={ref} {...props} />;
+      case 'switch':
+        return <SwitchField ref={ref} {...props} />;
+      case 'radio':
+        return <RadioField ref={ref} {...props} />;
+      case 'number':
+        return <NumberField ref={ref} {...props} />;
+      default:
+        return <InputField type={type} ref={ref} {...props} />;
+    }
+  })
+);
+
+const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
+  (
+    {
+      onChange,
+      defaultValue,
+      placeholder,
+      prependIcon,
+      prependIconClick,
+      appendIcon,
+      appendIconClick,
+      ...rest
+    },
+    ref
+  ) => {
+    if (rest.value === undefined && defaultValue !== undefined) {
+      rest.value = defaultValue;
+    }
+
     return (
       <Field {...rest} ref={ref}>
-        <div className='border-b border-slate-100 py-2.5 max-h-16 overflow-auto w-full inline-block text-slate-600'>
-          {children || '-'}
+        <div className='relative'>
+          {prependIcon && (
+            <Button
+              className={cn(
+                'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                prependIconClick && 'cursor-pointer'
+              )}
+              onClick={prependIconClick}
+              variant='unstyle'
+              size='ratio'
+            >
+              <Icons name={prependIcon} />
+            </Button>
+          )}
+          <Input
+            onChange={onChange}
+            placeholder={placeholder}
+            {...rest}
+            ref={ref}
+            className={cn(rest.className, prependIcon && 'pl-9', appendIcon && 'pr-9')}
+          />
+          {appendIcon && (
+            <Button
+              className={cn(
+                'absolute right-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                appendIconClick && 'cursor-pointer'
+              )}
+              variant='unstyle'
+              onClick={appendIconClick}
+              size='ratio'
+            >
+              <Icons name={appendIcon} />
+            </Button>
+          )}
         </div>
       </Field>
     );
   }
 );
 
-const FieldRender = React.forwardRef<any, FieldConfigProps>(({ type, ...props }, ref) => {
-  switch (type) {
-    case 'textarea':
-      return <TextareaField ref={ref} {...props} />;
-    case 'date':
-      return <DateField ref={ref} {...props} />;
-    case 'date-range':
-      return <DateRangeField ref={ref} {...props} />;
-    case 'select':
-      return <SelectField ref={ref} {...props} />;
-    case 'checkbox':
-      return <CheckboxField ref={ref} {...props} />;
-    case 'switch':
-      return <SwitchField ref={ref} {...props} />;
-    case 'radio':
-      return <RadioField ref={ref} {...props} />;
-    case 'number':
-      return <NumberField ref={ref} {...props} />;
-    default:
-      return <InputField type={type} ref={ref} {...props} />;
+// TODO: arrow control
+const NumberField = forwardRef<HTMLInputElement, FieldConfigProps>(
+  (
+    {
+      onChange,
+      defaultValue,
+      placeholder,
+      prependIcon,
+      prependIconClick,
+      appendIcon,
+      appendIconClick,
+      ...rest
+    },
+    ref
+  ) => {
+    if (rest.value === undefined && defaultValue !== undefined) {
+      rest.value = defaultValue;
+    }
+
+    return (
+      <Field {...rest} ref={ref}>
+        <div className='relative'>
+          {prependIcon && (
+            <Button
+              className={cn(
+                'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                prependIconClick && 'cursor-pointer'
+              )}
+              onClick={prependIconClick}
+              variant='unstyle'
+              size='ratio'
+            >
+              <Icons name={prependIcon} />
+            </Button>
+          )}
+          <Input
+            onChange={onChange}
+            placeholder={placeholder}
+            {...rest}
+            ref={ref}
+            className={cn(rest.className, prependIcon && 'pl-9', appendIcon && 'pr-9')}
+          />
+          {appendIcon && (
+            <Button
+              className={cn(
+                'absolute right-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                appendIconClick && 'cursor-pointer'
+              )}
+              variant='unstyle'
+              onClick={appendIconClick}
+              size='ratio'
+            >
+              <Icons name={appendIcon} />
+            </Button>
+          )}
+        </div>
+      </Field>
+    );
   }
-});
-
-const InputField = React.forwardRef<HTMLInputElement, FieldConfigProps>(
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  ({ onChange, defaultValue, placeholder, ...rest }, ref) => (
-    <Field {...rest} ref={ref}>
-      <Input onChange={onChange} placeholder={placeholder} {...rest} ref={ref} />
-    </Field>
-  )
 );
 
-const NumberField = React.forwardRef<HTMLInputElement, FieldConfigProps>(
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  ({ onChange, defaultValue, placeholder, ...rest }, ref) => (
-    <Field {...rest} ref={ref}>
-      <Input type='number' onChange={onChange} placeholder={placeholder} {...rest} ref={ref} />
-    </Field>
-  )
+const TextareaField = forwardRef<HTMLTextAreaElement, FieldConfigProps>(
+  ({ onChange, defaultValue, placeholder, ...rest }, ref) => {
+    if (rest.value === undefined && defaultValue !== undefined) {
+      rest.value = defaultValue;
+    }
+    return (
+      <Field {...rest} ref={ref}>
+        <Textarea onChange={onChange} placeholder={placeholder} {...rest} ref={ref} />
+      </Field>
+    );
+  }
 );
 
-const TextareaField = React.forwardRef<HTMLTextAreaElement, FieldConfigProps>(
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  ({ onChange, defaultValue, placeholder, ...rest }, ref) => (
-    <Field {...rest} ref={ref}>
-      <Textarea onChange={onChange} placeholder={placeholder} {...rest} ref={ref} />
-    </Field>
-  )
-);
-
-const DateField = React.forwardRef<HTMLDivElement, FieldConfigProps>((props, ref) => (
+const DateField = forwardRef<HTMLDivElement, FieldConfigProps>((props, ref) => (
   <Field {...props} ref={ref}>
     <DatePicker mode='single' {...props} />
   </Field>
 ));
 
-const DateRangeField = React.forwardRef<HTMLDivElement, FieldConfigProps>((props, ref) => (
+const DateRangeField = forwardRef<HTMLDivElement, FieldConfigProps>((props, ref) => (
   <Field {...props} ref={ref}>
     <DatePicker mode='range' {...props} />
   </Field>
 ));
 
-const SelectField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
-  ({ options, onChange, defaultValue, placeholder, ...rest }, ref) => (
-    <Field {...rest} ref={ref}>
-      <Select {...rest} onValueChange={onChange} defaultValue={defaultValue}>
-        <SelectTrigger>
-          <SelectValue placeholder={placeholder || '请选择'} />
-        </SelectTrigger>
-        <SelectContent>
-          {options?.map((option, index) => (
-            <SelectItem key={index} value={option.value as string}>
-              {option.label || option.value}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </Field>
-  )
+const SelectField = forwardRef<HTMLDivElement, FieldConfigProps>(
+  ({ options, onChange, defaultValue, placeholder, ...rest }, ref) => {
+    if (rest.value === undefined && defaultValue !== undefined) {
+      rest.value = defaultValue;
+    }
+    return (
+      <Field {...rest} ref={ref}>
+        <Select {...rest} onValueChange={onChange} defaultValue={defaultValue}>
+          <SelectTrigger>
+            <SelectValue placeholder={placeholder || '请选择'} />
+          </SelectTrigger>
+          <SelectContent>
+            {options?.map((option, index) => (
+              <SelectItem key={index} value={option.value as string}>
+                {option.label || option.value}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </Field>
+    );
+  }
 );
 
-const RenderOption = React.forwardRef<any, any>(
-  ({ option, type, onChange, defaultValue, ...rest }, _ref) => {
+const RenderOption = memo(
+  forwardRef<any, any>(({ option, type, onChange, defaultValue, ...rest }, _ref) => {
     const { label, value } = typeof option === 'object' ? option : { label: option, value: option };
     const id = `${rest.name}-${value}`.replace(/\./g, '-');
 
@@ -219,11 +351,13 @@ const RenderOption = React.forwardRef<any, any>(
         <Label htmlFor={id}>{label}</Label>
       </div>
     );
-  }
+  })
 );
 
-const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
-  ({ className, options = [], elementClassName, ...rest }, ref) => {
+const CheckboxField = forwardRef<HTMLDivElement, FieldConfigProps>(
+  // Discard:
+  //   - type
+  ({ className, options = [], elementClassName, type: _, ...rest }, ref) => {
     const renderSingleOption = (label: string) => (
       <div className='inline-flex items-center space-x-2 [&>label]:hover:cursor-pointer'>
         <Checkbox
@@ -250,7 +384,7 @@ const CheckboxField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
   }
 );
 
-const RadioField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
+const RadioField = forwardRef<HTMLDivElement, FieldConfigProps>(
   ({ className, onChange, defaultValue, options = [], elementClassName, ...rest }, ref) => {
     return (
       <Field {...rest} ref={ref} className={className}>
@@ -274,15 +408,16 @@ const RadioField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
   }
 );
 
-const SwitchField = React.forwardRef<HTMLDivElement, FieldConfigProps>(
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  ({ onChange, defaultValue, elementClassName, ...rest }, ref) => (
+const SwitchField = forwardRef<HTMLDivElement, FieldConfigProps>(
+  // Discard:
+  //   - type
+  ({ onChange, defaultValue, elementClassName, type: _, ...rest }, ref) => (
     <Field {...rest} ref={ref}>
       <Switch
         onCheckedChange={onChange}
         defaultChecked={defaultValue}
-        {...rest}
         className={elementClassName}
+        {...rest}
       />
     </Field>
   )
