@@ -10,6 +10,20 @@ export type TODO = any;
 export type ExplicitAny = any;
 
 /**
+ * 使用此类型来声明异步或同步
+ */
+type AsyncOrSync<T> = Promise<T> | T;
+
+/**
+ * 使用此类型来声明异步或同步的返回
+ */
+export type AsyncOrSyncReturnType<T extends (...args: any) => any> = T extends (
+  ...args: any
+) => AsyncOrSync<infer R>
+  ? R
+  : any;
+
+/**
  * 使用此类型将第一种类型的键覆盖为第二种。
  */
 export type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
