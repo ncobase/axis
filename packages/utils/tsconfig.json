@@ -2,9 +2,7 @@
   "extends": "@tone/tsconfig/base.json",
   "compilerOptions": {
     "strict": true,
-    "noEmit": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
   },
   "include": [
     "."
