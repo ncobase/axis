@@ -243,13 +243,28 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
 );
 
 const TextareaField = forwardRef<HTMLTextAreaElement, FieldConfigProps>(
-  ({ onChange, defaultValue, placeholder, ...rest }, ref) => {
+  ({ onChange, defaultValue, placeholder, appendIcon, appendIconClick, ...rest }, ref) => {
     if (rest.value === undefined && defaultValue !== undefined) {
       rest.value = defaultValue;
     }
     return (
       <Field {...rest} ref={ref}>
-        <Textarea onChange={onChange} placeholder={placeholder} {...rest} ref={ref} />
+        <div className='relative'>
+          <Textarea onChange={onChange} placeholder={placeholder} {...rest} ref={ref} />
+          {appendIcon && (
+            <Button
+              className={cn(
+                'absolute right-1 top-1 cursor-default outline-none',
+                appendIconClick && 'cursor-pointer'
+              )}
+              variant='unstyle'
+              onClick={appendIconClick}
+              size='ratio'
+            >
+              <Icons name={appendIcon} />
+            </Button>
+          )}
+        </div>
       </Field>
     );
   }
