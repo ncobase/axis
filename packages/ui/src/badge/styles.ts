@@ -31,7 +31,7 @@ enum badgeSizeStyling {
 
 export const badgeStyling: IBadgeStyling = {
   primary: {
-    default: 'bg-primary-500 text-white [&>svg]:stroke-white',
+    default: 'bg-primary-600 text-white [&>svg]:stroke-white',
     hover: 'hover:bg-opacity-85 &[data-state=checked]:bg-opacity-85 [&>svg]:stroke-white/95'
   },
   secondary: {
@@ -55,9 +55,9 @@ export const badgeStyling: IBadgeStyling = {
     hover: 'hover:bg-opacity-85 &[data-state=checked]:bg-opacity-85 [&>svg]:stroke-white/95'
   },
   'outline-primary': {
-    default: 'text-primary-500 border border-primary-500 [&>svg]:stroke-primary-500',
+    default: 'text-primary-600 border border-primary-600 [&>svg]:stroke-primary-600',
     hover:
-      'hover:text-primary-500/95 hover:border-opacity-85 [data-state=checked]:text-primary-500/95 [&>svg]:stroke-primary-500/95'
+      'hover:text-primary-600/95 hover:border-opacity-85 [data-state=checked]:text-primary-600/95 [&>svg]:stroke-primary-600/95'
   },
   'outline-secondary': {
     default: 'text-secondary-500 border border-secondary-500 &[>svg]:stroke-secondary-500',
