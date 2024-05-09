@@ -81,7 +81,7 @@ const DropdownItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center rounded-sm px-3 py-2.5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-slate-50 text-gray-500',
+      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2.5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-slate-50 text-slate-500',
       inset && 'pl-8',
       className
     )}
@@ -97,7 +97,7 @@ const DropdownCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center rounded-sm px-3 py-2.5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50  hover:bg-slate-50 text-gray-500',
+      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2.5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50  hover:bg-slate-50 text-slate-500',
       className
     )}
     checked={checked}
@@ -120,7 +120,7 @@ const DropdownRadioItem = React.forwardRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center rounded-sm px-3 py-2.5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-slate-50 text-gray-500',
+      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2.5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-slate-50 text-slate-500',
       className
     )}
     {...props}
