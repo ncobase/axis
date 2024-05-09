@@ -283,14 +283,30 @@ const DateRangeField = forwardRef<HTMLDivElement, FieldConfigProps>((props, ref)
 ));
 
 const SelectField = forwardRef<HTMLDivElement, FieldConfigProps>(
-  ({ options, onChange, defaultValue, placeholder, ...rest }, ref) => {
+  (
+    { options, onChange, defaultValue, placeholder, prependIcon, prependIconClick, ...rest },
+    ref
+  ) => {
     if (rest.value === undefined && defaultValue !== undefined) {
       rest.value = defaultValue;
     }
     return (
       <Field {...rest} ref={ref}>
         <Select {...rest} onValueChange={onChange} defaultValue={defaultValue}>
-          <SelectTrigger>
+          <SelectTrigger className={cn('relative', prependIcon && 'pl-9')}>
+            {prependIcon && (
+              <Button
+                className={cn(
+                  'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                  prependIconClick && 'cursor-pointer'
+                )}
+                onClick={prependIconClick}
+                variant='unstyle'
+                size='ratio'
+              >
+                <Icons name={prependIcon} />
+              </Button>
+            )}
             <SelectValue placeholder={placeholder || '请选择'} />
           </SelectTrigger>
           <SelectContent>

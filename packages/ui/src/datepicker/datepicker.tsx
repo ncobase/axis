@@ -87,7 +87,7 @@ const RangeDatePicker: React.FC<IDatePickerProps> = ({
           className={cn(datePickerStyles, !dateRange && 'text-slate-400', className)}
           disabled={disabled}
         >
-          <Icons name='IconCalendar' className='mr-2' />
+          <Icons name='IconCalendar' />
           {dateRange?.from ? (
             dateRange.to ? (
               <>
