@@ -110,7 +110,7 @@ export const Dialog: React.FC<DialogViewProps> = ({
           <DialogFooter className='border-t border-slate-100 pt-6 -mx-6 px-6'>
             {footer}
             {!footer && onCancel && (
-              <Button onClick={onCancel} variant='secondary'>
+              <Button onClick={onCancel} variant='slate'>
                 {cancelText || 'Cancel'}
               </Button>
             )}
