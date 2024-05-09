@@ -50,52 +50,28 @@ export const buttonStyling: IButtonStyling = {
     pressed: `focus:bg-primary-700/90 [&>svg]:hover:stroke-white/85`,
     disabled: `cursor-not-allowed !opacity-75`
   },
-  secondary: {
-    default: `bg-slate-50/55 text-slate-400`,
-    hover: `hover:bg-slate-100/85 hover:text-slate-500 [&>svg]:hover:stroke-slate-400`,
-    pressed: `focus:bg-slate-100/90 [&>svg]:hover:stroke-slate-400`,
-    disabled: `cursor-not-allowed !opacity-75 [&>svg]:stroke-slate-400/65`
-  },
-  success: {
-    default: `bg-success-500 text-white [&>svg]:stroke-white`,
-    hover: `hover:bg-success-500/85 [&>svg]:hover:stroke-white/85`,
-    pressed: `focus:bg-success-600/90 [&>svg]:hover:stroke-white/85`,
-    disabled: `cursor-not-allowed !opacity-75`
-  },
-  warning: {
-    default: `bg-warning-500 text-white [&>svg]:stroke-white`,
-    hover: `hover:bg-warning-500/85 [&>svg]:hover:stroke-white/85`,
-    pressed: `focus:bg-warning-600/90 [&>svg]:hover:stroke-white/85`,
-    disabled: `cursor-not-allowed !opacity-75`
-  },
-  danger: {
-    default: `bg-danger-500 text-white [&>svg]:stroke-white`,
-    hover: `hover:bg-danger-500/85 [&>svg]:hover:stroke-white/85`,
-    pressed: `focus:bg-danger-600/90 [&>svg]:hover:stroke-white/85`,
-    disabled: `cursor-not-allowed !opacity-75`
-  },
-  slate: {
-    default: `bg-slate-50/55 text-slate-400`,
-    hover: `hover:bg-slate-100/85 hover:text-slate-500 [&>svg]:hover:stroke-slate-400`,
-    pressed: `focus:bg-slate-100/90 [&>svg]:hover:stroke-slate-400`,
-    disabled: `cursor-not-allowed !opacity-75 [&>svg]:stroke-slate-400/65`
-  },
-  unstyle: {
-    default: `bg-transparent text-slate-500 [&>svg]:stroke-slate-400/65 hover:[&>svg]:stroke-slate-400 focus:[&>svg]:stroke-slate-400`,
-    hover: `hover:opacity-80 [data-state=checked]:opacity-80 [data-state=checked]:hover:opacity-80 [data-state=checked]:[&>svg]:stroke-slate-400 [data-state=checked]:hover:[&>svg]:stroke-slate-400 [&>svg]:stroke-slate-400`,
-    pressed: `focus:opacity-90 [data-state=checked]:opacity-90 [data-state=checked]:hover:opacity-90 [data-state=checked]:[&>svg]:stroke-slate-400 [data-state=checked]:hover:[&>svg]:stroke-slate-400 [&>svg]:stroke-slate-400`,
-    disabled: `cursor-not-allowed !opacity-75 [&>svg]:stroke-slate-400/65`
-  },
   'outline-primary': {
     default: `border border-primary-600 text-primary-600 [&>svg]:stroke-primary-600`,
     hover: `hover:border-primary-600/65 hover:bg-primary-50 [&>svg]:hover:stroke-primary-600/65`,
     pressed: `focus:border-primary-700/90 foucs:text-primary-700/90 [&>svg]:hover:stroke-primary-700/90`,
     disabled: `cursor-not-allowed !opacity-75`
   },
+  secondary: {
+    default: `bg-secondary-100/45 text-secondary-400`,
+    hover: `hover:bg-secondary-100/85 hover:text-secondary-500 [&>svg]:hover:stroke-secondary-400`,
+    pressed: `focus:bg-secondary-100/90 [&>svg]:hover:stroke-secondary-400`,
+    disabled: `cursor-not-allowed !opacity-75 [&>svg]:stroke-secondary-400/65`
+  },
   'outline-secondary': {
-    default: `border border-slate-200/65 text-slate-500/65 [&>svg]:stroke-slate-400/65`,
-    hover: `hover:border-slate-100/65 hover:text-slate-500 hover:bg-slate-50 [&>svg]:hover:stroke-slate-400`,
-    pressed: `focus:border-slate-200/90 foucs:text-slate-600/90 [&>svg]:hover:stroke-slate-400`,
+    default: `border border-secondary-200/65 text-secondary-500/65 [&>svg]:stroke-secondary-400/65`,
+    hover: `hover:border-secondary-100/65 hover:text-secondary-500 hover:bg-secondary-50 [&>svg]:hover:stroke-secondary-400`,
+    pressed: `focus:border-secondary-200/90 foucs:text-secondary-600/90 [&>svg]:hover:stroke-secondary-400`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  success: {
+    default: `bg-success-500 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-success-500/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-success-600/90 [&>svg]:hover:stroke-white/85`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   'outline-success': {
@@ -104,10 +80,22 @@ export const buttonStyling: IButtonStyling = {
     pressed: `focus:border-success-600/90 foucs:text-success-600/90 [&>svg]:hover:stroke-success-600/90`,
     disabled: `cursor-not-allowed !opacity-75`
   },
+  warning: {
+    default: `bg-warning-500 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-warning-500/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-warning-600/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
   'outline-warning': {
     default: `border border-warning-500 text-warning-500 [&>svg]:stroke-warning-500`,
     hover: `hover:border-warning-500/65 hover:bg-warning-50 [&>svg]:hover:stroke-warning-500/65`,
     pressed: `focus:border-warning-600/90 foucs:text-warning-600/90 [&>svg]:hover:stroke-warning-600/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  danger: {
+    default: `bg-danger-500 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-danger-500/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-danger-600/90 [&>svg]:hover:stroke-white/85`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   'outline-danger': {
@@ -115,6 +103,12 @@ export const buttonStyling: IButtonStyling = {
     hover: `hover:border-danger-500/65 hover:bg-danger-50 [&>svg]:hover:stroke-danger-500/65`,
     pressed: `focus:border-danger-600/90 foucs:text-danger-600/90 [&>svg]:hover:stroke-danger-600/90`,
     disabled: `cursor-not-allowed !opacity-75`
+  },
+  slate: {
+    default: `bg-slate-100/45 text-slate-400`,
+    hover: `hover:bg-slate-100/85 hover:text-slate-500 [&>svg]:hover:stroke-slate-400`,
+    pressed: `focus:bg-slate-100/90 [&>svg]:hover:stroke-slate-400`,
+    disabled: `cursor-not-allowed !opacity-75 [&>svg]:stroke-slate-400/65`
   },
   'outline-slate': {
     default: `border border-slate-200/65 text-slate-500/65 [&>svg]:stroke-slate-400/65`,
@@ -127,6 +121,12 @@ export const buttonStyling: IButtonStyling = {
     hover: `hover:text-primary-500/95 [data-state=checked]:text-primary-500/95 [data-state=checked]:hover:text-primary-500/95 [data-state=checked]:[&>svg]:stroke-primary-500/95 [data-state=checked]:hover:[&>svg]:stroke-primary-500/95`,
     pressed: `focus:text-primary-600/90 [data-state=checked]:text-primary-600/90 [data-state=checked]:hover:text-primary-600/90 [data-state=checked]:[&>svg]:stroke-primary-600/90 [data-state=checked]:hover:[&>svg]:stroke-primary-600/90`,
     disabled: `cursor-not-allowed !text-primary-400 !opacity-75`
+  },
+  unstyle: {
+    default: `bg-transparent text-slate-500 [&>svg]:stroke-slate-400/65 hover:[&>svg]:stroke-slate-400 focus:[&>svg]:stroke-slate-400`,
+    hover: `hover:opacity-80 [data-state=checked]:opacity-80 [data-state=checked]:hover:opacity-80 [data-state=checked]:[&>svg]:stroke-slate-400 [data-state=checked]:hover:[&>svg]:stroke-slate-400 [&>svg]:stroke-slate-400`,
+    pressed: `focus:opacity-90 [data-state=checked]:opacity-90 [data-state=checked]:hover:opacity-90 [data-state=checked]:[&>svg]:stroke-slate-400 [data-state=checked]:hover:[&>svg]:stroke-slate-400 [&>svg]:stroke-slate-400`,
+    disabled: `cursor-not-allowed !opacity-75 [&>svg]:stroke-slate-400/65`
   }
 };
 
