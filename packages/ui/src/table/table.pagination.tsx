@@ -37,8 +37,8 @@ export const Pagination: React.FC<IPaginationProps> = ({
 
   const handleJumpToPage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const pageInput = e.currentTarget.pageInput.value;
-    const pageNumber = parseInt(pageInput, 10);
+    const { pageInput } = e.currentTarget;
+    const pageNumber = parseInt(pageInput.value, 10);
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       onPageChange(pageNumber);
     }
@@ -63,7 +63,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               <Icons name='IconChevronLeftPipe' />
             </Button>
           </TooltipTrigger>
-          <TooltipContent side='bottom'>第一页</TooltipContent>
+          <TooltipContent side='bottom'>First Page</TooltipContent>
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -76,13 +76,13 @@ export const Pagination: React.FC<IPaginationProps> = ({
               <Icons name='IconChevronLeft' />
             </Button>
           </TooltipTrigger>
-          <TooltipContent side='bottom'>上一页</TooltipContent>
+          <TooltipContent side='bottom'>Previous Page</TooltipContent>
         </Tooltip>
       </div>
       <div className='flex items-center justify-center gap-x-1 text-slate-400'>
-        显示<span className='font-bold'>{startIndex}</span>至
-        <span className='font-bold'>{endIndex}</span>
-        条记录，共 <span className='font-bold'>{totalItems}</span> 条
+        Displaying <span className='font-bold'>{startIndex}</span> to{' '}
+        <span className='font-bold'>{endIndex}</span> of{' '}
+        <span className='font-bold'>{totalItems}</span> items
       </div>
       <div className='flex items-center justify-between gap-3'>
         <Tooltip>
@@ -96,7 +96,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               <Icons name='IconChevronRight' />
             </Button>
           </TooltipTrigger>
-          <TooltipContent side='bottom'>下一页</TooltipContent>
+          <TooltipContent side='bottom'>Next Page</TooltipContent>
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -109,21 +109,22 @@ export const Pagination: React.FC<IPaginationProps> = ({
               <Icons name='IconChevronRightPipe' />
             </Button>
           </TooltipTrigger>
-          <TooltipContent side='bottom'>最后一页</TooltipContent>
+          <TooltipContent side='bottom'>Last Page</TooltipContent>
         </Tooltip>
         {totalPages > 1 && (
           <form onSubmit={handleJumpToPage} className='flex items-center gap-x-3'>
-            <span className='text-slate-400'>共 {totalPages} 页，跳转</span>
+            <span className='text-slate-400 text-nowrap'>
+              Page {currentPage} of {totalPages}, Go to
+            </span>
             <Input
               type='number'
               name='pageInput'
               min='1'
               max={totalPages}
               defaultValue={currentPage.toString()}
-              aria-hidden
               className='px-2 py-0.5 max-w-12'
             />
-            <span className='text-slate-400 pr-1'>页</span>
+            <span className='text-slate-400'>page</span>
           </form>
         )}
       </div>

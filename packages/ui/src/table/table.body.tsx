@@ -1,37 +1,40 @@
 import React from 'react';
 
-import { cn } from '@tone/utils';
-
 import { Checkbox } from '../forms';
 
+import { TableCell } from './table.cell';
 import { useTable } from './table.context';
-import { TableDataCell, TableRow } from './table.row';
+import { TableRow } from './table.row';
 
-interface ITableBodyProps {
+interface ITableBodyProps<T = any> {
   className?: string;
-  data: any[];
+  data: T[];
 }
 
 export const TableBody: React.FC<ITableBodyProps> = ({ className, data }) => {
-  const { selected, header } = useTable();
+  const { selected, columns, onSelectRow, selectedRows } = useTable();
 
-  const classes = cn(className);
+  const isSelected = (record: any) => selectedRows.includes(record);
 
   return (
-    <tbody className={classes}>
+    <tbody className={className}>
       {data.map((item, index) => (
         <TableRow key={item.id || index} index={index}>
           {selected && (
-            <TableDataCell name='chekbox' record={item}>
-              <Checkbox className='rounded-sm' />
-            </TableDataCell>
+            <TableCell key='selection' title='selection' record={item}>
+              <Checkbox
+                className='rounded-sm'
+                checked={isSelected(item)}
+                onCheckedChange={() => onSelectRow(item)}
+              />
+            </TableCell>
           )}
-          {header &&
-            header.map(({ name, keyName, ...rest }) => (
-              <TableDataCell
-                key={keyName || name}
-                name={name}
-                keyName={keyName}
+          {columns &&
+            columns.map(({ title, code, ...rest }, index) => (
+              <TableCell
+                key={code || title || index}
+                title={title}
+                code={code}
                 record={item}
                 {...rest}
               />

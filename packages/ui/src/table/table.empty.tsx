@@ -11,7 +11,7 @@ interface IEmptyDataProps {
 }
 
 export const EmptyData: React.FC<IEmptyDataProps> = ({ label = 'No data', className }) => {
-  const classes = cn(className, 'items-center justify-center');
+  const classes = cn(className, 'items-center justify-center flex flex-col');
   return (
     <div className={classes}>
       <Icons name='IconInbox' size={64} stroke={0.5} className='stroke-slate-400' />

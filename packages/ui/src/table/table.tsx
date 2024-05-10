@@ -5,9 +5,9 @@ import { cn } from '@tone/utils';
 import { TableBody } from './table.body';
 import { TableHeader } from './table.header';
 
-interface ITableProps {
+interface ITableProps<T = any> {
   className?: string;
-  data: any[];
+  data: T[];
 }
 
 export const Table: React.FC<ITableProps> = ({ className, data }) => {
