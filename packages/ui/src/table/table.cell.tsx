@@ -82,7 +82,7 @@ const TableCell: React.FC<ITableCellProps> = ({
   );
 };
 
-const ActionCell: React.FC<ITableCellProps> = ({ actions, record }) => {
+const ActionCell: React.FC<ITableCellProps> = ({ actions = [], record }) => {
   return (
     <td className='h-11 min-w-8 after:absolute after:w-full border-b-[0.03125rem] border-gray-100 truncate'>
       <div className='w-full h-full inline-flex px-2 hover:[&>button]:bg-white [&>button]:p-2 [&>button]:rounded-full items-center justify-center'>
