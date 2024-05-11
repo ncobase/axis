@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { cn, isString, isNumber, isUndefined, isBoolean } from '@tone/utils';
 
@@ -10,6 +10,7 @@ import {
   DropdownItem,
   DropdownTrigger
 } from '../dropdown';
+import { Input } from '../forms';
 import { Icons } from '../icon';
 
 import { useTable } from './table.context';
@@ -70,13 +71,13 @@ const TableCell: React.FC<ITableCellProps> = ({
   );
 
   const tdAttributes = {
-    title: isString(record[code]) || isNumber(record[code]) ? record[code] : undefined
+    title: isString(record?.[code]) || isNumber(record?.[code]) ? record[code] : undefined
   };
 
   return (
     <td className={classes} {...tdAttributes}>
       <div className='w-full h-full max-w-full px-3 py-2 flex items-center'>
-        {children ? children : parser ? parser(record[code], record) : record[code]}
+        {children ? children : parser ? parser(record?.[code], record) : record?.[code]}
       </div>
     </td>
   );
@@ -109,14 +110,48 @@ export interface ITableHeaderCellProps extends ITableCellBaseProps {
 
 const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   visible,
-  filter = false, // TODO: implement filter
+  filter = true, // TODO: implement filter
   title,
   code,
   icon,
   className,
   children
 }) => {
-  const { columns, toggleColumn, visibleControl } = useTable();
+  const { filter: filterState, setFilter, visibleControl } = useTable();
+  const [filterValue, setFilterValue] = useState('');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | null>(null);
+
+  useEffect(() => {
+    if (filterState.config[code]?.value !== filterValue) {
+      // @ts-expect-error
+      setFilter(prevFilter => ({
+        ...prevFilter,
+        config: {
+          ...prevFilter.config,
+          [code]: {
+            ...prevFilter.config[code],
+            value: filterValue
+          }
+        }
+      }));
+    }
+  }, [filterValue, code]);
+
+  useEffect(() => {
+    if (filterState.config[code]?.sortOrder !== sortOrder) {
+      // @ts-expect-error
+      setFilter(prevFilter => ({
+        ...prevFilter,
+        config: {
+          ...prevFilter.config,
+          [code]: {
+            ...prevFilter.config[code],
+            sortOrder
+          }
+        }
+      }));
+    }
+  }, [sortOrder, code]);
 
   if (isBoolean(visible) && !visible) return null;
 
@@ -125,10 +160,20 @@ const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   if (isActionColumn(code) || isActionColumn(title)) {
     return (
       <th scope='col' className={cn(classes, className, 'text-center w-8')}>
-        {visibleControl && <CustomColumn header={columns} toggleColumn={toggleColumn} />}
+        <div className='h-9 w-full flex items-center justify-between gap-x-1.5 px-3 py-2'>
+          {visibleControl && <CustomColumn />}
+        </div>
       </th>
     );
   }
+
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterValue(e.target.value);
+  };
+
+  const handleSortChange = (order: 'asc' | 'desc' | null) => {
+    setSortOrder(order);
+  };
 
   return (
     <th scope='col' className={cn(classes, className)}>
@@ -137,36 +182,67 @@ const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
           {icon && <Icons name={icon} className='stroke-slate-400/65' size={14} />}
           {children ? children : title}
         </div>
-        {filter && <FilterDropdown code={code} />}
+        {filter && (
+          <FilterDropdown
+            code={code}
+            filterValue={filterValue}
+            handleFilterChange={handleFilterChange}
+            handleSortChange={handleSortChange}
+          />
+        )}
       </div>
     </th>
   );
 };
 
-const FilterDropdown: React.FC<{ code: string }> = () => {
-  // const { setFilter } = useTable();
-  // const [filterValue, setFilterValue] = useState('');
-  // const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  // setFilterValue(e.target.value);
-  // setFilter((prevFilter) => ({
-  //   ...prevFilter,
-  //   config: {
-  //     ...prevFilter.config,
-  //     [code]: e.target.value
-  //   }
-  // }));
-  // };
+const FilterDropdown: React.FC<{
+  code: string;
+  filterValue: string;
+  handleFilterChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSortChange: (order: 'asc' | 'desc' | null) => void;
+}> = ({ code, filterValue, handleFilterChange, handleSortChange }) => {
+  const { filter: filterState } = useTable();
+
   return (
-    <div className='flex ml-3 gap-x-1'>
-      <DropdownWrapper icon='IconChevronDown'>
-        <DropdownItem>
-          <Icons name='IconSortAZ' size={18} className='stroke-slate-400' />
+    <DropdownWrapper icon='IconChevronDown'>
+      <DropdownItem onSelect={event => event.preventDefault()} className='hover:bg-white'>
+        <Input
+          type='text'
+          value={filterValue}
+          onChange={handleFilterChange}
+          placeholder='Search...'
+          className='max-w-28 py-1.5'
+        />
+      </DropdownItem>
+      <DropdownItem
+        onClick={() => handleSortChange('asc')}
+        className={cn(
+          'flex items-center gap-x-1',
+          filterState.config[code]?.sortOrder === 'asc' &&
+            'bg-slate-100 text-slate-800 [&>svg]:stroke-slate-800'
+        )}
+      >
+        <Icons name='IconSortAZ' className='stroke-slate-400' />
+        升序
+      </DropdownItem>
+      <DropdownItem
+        onClick={() => handleSortChange('desc')}
+        className={cn(
+          'flex items-center gap-x-1',
+          filterState.config[code]?.sortOrder === 'desc' &&
+            'bg-slate-100 text-slate-800 [&>svg]:stroke-slate-800'
+        )}
+      >
+        <Icons name='IconSortZA' className='stroke-slate-400' />
+        降序
+      </DropdownItem>
+      {filterState.config[code]?.sortOrder && (
+        <DropdownItem onClick={() => handleSortChange(null)} className='flex items-center gap-x-1'>
+          <Icons name='IconRestore' className='stroke-slate-400' />
+          重置
         </DropdownItem>
-        <DropdownItem>
-          <Icons name='IconSortZA' size={18} className='stroke-slate-400' />
-        </DropdownItem>
-      </DropdownWrapper>
-    </div>
+      )}
+    </DropdownWrapper>
   );
 };
 
@@ -186,13 +262,11 @@ const DropdownWrapper: React.FC<{ icon: string; children: React.ReactNode }> = (
   );
 };
 
-const CustomColumn: React.FC<{
-  header: ITableHeaderCellProps[];
-  toggleColumn: (name: string) => void;
-}> = ({ header, toggleColumn }) => {
+const CustomColumn: React.FC = () => {
+  const { columns, toggleColumn } = useTable();
   return (
     <DropdownWrapper icon='IconColumns'>
-      {header.map((column, index) =>
+      {columns.map((column, index) =>
         isActionColumn(column.code) || isActionColumn(column.title) ? null : (
           <DropdownCheckboxItem
             key={index}

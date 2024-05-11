@@ -13,7 +13,7 @@ interface ITableHeaderProps {
 }
 
 export const TableHeader: React.FC<ITableHeaderProps> = ({ className }) => {
-  const { selected, columns, onSelectAllRows, selectedRows, data } = useTable();
+  const { selected, columns = [], onSelectAllRows, selectedRows, data } = useTable();
   const classes = cn(
     'sticky top-0 left-0 z-50 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]',
     className

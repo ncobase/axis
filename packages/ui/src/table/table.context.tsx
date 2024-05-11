@@ -8,6 +8,8 @@ export interface ITableContext<T = any> {
   data: T[];
   header?: ITableHeaderCellProps[];
   columns?: ITableHeaderCellProps[];
+  setColumns?: (header: ITableHeaderCellProps[]) => void;
+  toggleColumn?: (key: string) => void;
   paginated?: boolean;
   selected?: boolean;
   visibleControl?: boolean;
@@ -21,13 +23,9 @@ export interface ITableContext<T = any> {
   };
   filter?: {
     enabled: boolean;
-    config?: {
-      [key: string]: T;
-    };
+    config: Record<string, { value?: T; sortOrder?: 'asc' | 'desc' | null }>;
   };
-  setColumns?: (header: ITableHeaderCellProps[]) => void;
   setFilter?: (filter: ITableContext<T>['filter']) => void;
-  toggleColumn?: (key: string) => void;
 }
 
 const defaultTableContext: ITableContext = {
@@ -59,7 +57,7 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
         ? { ...column, visible: isUndefined(column.visible) ? false : !column.visible }
         : column
     );
-    setColumns(newHeader);
+    setColumns(newHeader || []);
   };
 
   useEffect(() => {
@@ -92,6 +90,7 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
       }
     }
   };
+
   return <TableContext.Provider value={tableContextValue}>{children}</TableContext.Provider>;
 };
 

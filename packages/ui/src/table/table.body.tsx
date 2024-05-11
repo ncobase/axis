@@ -12,7 +12,7 @@ interface ITableBodyProps<T = any> {
 }
 
 export const TableBody: React.FC<ITableBodyProps> = ({ className, data }) => {
-  const { selected, columns, onSelectRow, selectedRows } = useTable();
+  const { selected, selectedRows, columns = [], onSelectRow } = useTable();
 
   const isSelected = (record: any) => selectedRows.includes(record);
 
@@ -29,16 +29,9 @@ export const TableBody: React.FC<ITableBodyProps> = ({ className, data }) => {
               />
             </TableCell>
           )}
-          {columns &&
-            columns.map(({ title, code, ...rest }, index) => (
-              <TableCell
-                key={code || title || index}
-                title={title}
-                code={code}
-                record={item}
-                {...rest}
-              />
-            ))}
+          {columns.map(column => (
+            <TableCell key={column.code || column.title || 'default'} {...column} record={item} />
+          ))}
         </TableRow>
       ))}
     </tbody>

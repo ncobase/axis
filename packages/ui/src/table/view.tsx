@@ -16,7 +16,7 @@ export const TableView: React.FC<TableViewProps> = ({
   paginated = true,
   pageSize = 10,
   className,
-  filter,
+  filter = { enabled: false, config: {} },
   ...rest
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,7 +76,6 @@ export const TableView: React.FC<TableViewProps> = ({
     <TableProvider value={tableContextValue}>
       <div className={classes}>
         <Table data={currentItems} />
-
         {paginated && (
           <Pagination
             totalItems={filteredData.length}
