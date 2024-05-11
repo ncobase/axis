@@ -15,16 +15,16 @@
     "lint": "eslint src/**/* --ext .js,.jsx.ts,.tsx"
   },
   "dependencies": {
-    "apexcharts": "^3.48.0",
+    "apexcharts": "^3.49.0",
     "react-apexcharts": "^1.4.1",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@tone/tsconfig": "workspace:*",
     "@tone/utils": "workspace:*",
-    "@types/node": "^20.12.7",
-    "@types/react": "^18.2.79",
-    "react": "^18.2.0",
+    "@types/node": "^20.12.11",
+    "@types/react": "^18.3.1",
+    "react": "^18.3.1",
     "tsup": "^8.0.2"
   }
 }
