@@ -219,7 +219,7 @@ const FilterDropdown: React.FC<{
         className={cn(
           'flex items-center gap-x-1',
           filterState.config[code]?.sortOrder === 'asc' &&
-            'bg-slate-100 text-slate-800 [&>svg]:stroke-slate-800'
+            'bg-slate-50 text-slate-800 [&>svg]:stroke-slate-800'
         )}
       >
         <Icons name='IconSortAZ' className='stroke-slate-400' />
@@ -230,7 +230,7 @@ const FilterDropdown: React.FC<{
         className={cn(
           'flex items-center gap-x-1',
           filterState.config[code]?.sortOrder === 'desc' &&
-            'bg-slate-100 text-slate-800 [&>svg]:stroke-slate-800'
+            'bg-slate-50 text-slate-800 [&>svg]:stroke-slate-800'
         )}
       >
         <Icons name='IconSortZA' className='stroke-slate-400' />
