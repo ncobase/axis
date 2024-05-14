@@ -161,24 +161,26 @@ export const Pagination: React.FC<IPaginationProps> = ({
           </TooltipTrigger>
           <TooltipContent side='bottom'>{lastPage}</TooltipContent>
         </Tooltip>
-        <div className='flex items-center'>
-          <span className='text-slate-400 text-nowrap mr-2'>{perPageText}</span>
-          <Select
-            defaultValue={pageSizes.find(size => size === pageSize)?.toString()}
-            onValueChange={(size: string) => handlePageSizeChange(parseInt(size, 10))}
-          >
-            <SelectTrigger className='py-1.5 bg-slate-50'>
-              <SelectValue placeholder='Select' />
-            </SelectTrigger>
-            <SelectContent>
-              {pageSizes.map(size => (
-                <SelectItem key={size} value={size.toString()}>
-                  {size}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        {pageSizes.length > 1 && (
+          <div className='flex items-center'>
+            <span className='text-slate-400 text-nowrap mr-2'>{perPageText}</span>
+            <Select
+              defaultValue={pageSizes.find(size => size === pageSize)?.toString()}
+              onValueChange={(size: string) => handlePageSizeChange(parseInt(size, 10))}
+            >
+              <SelectTrigger className='py-1.5 bg-slate-50'>
+                <SelectValue placeholder='Select' />
+              </SelectTrigger>
+              <SelectContent>
+                {pageSizes.map(size => (
+                  <SelectItem key={size} value={size.toString()}>
+                    {size}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
         {totalPages > 1 && (
           <form onSubmit={handleJumpToPage} className='flex items-center gap-x-3'>
             <span className='text-slate-400 text-nowrap'>
