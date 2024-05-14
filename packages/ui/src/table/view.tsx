@@ -13,13 +13,16 @@ export const TableView: React.FC<TableViewProps> = ({
   header,
   data,
   selected,
-  paginated = true,
-  pageSize = 10,
+  paginated,
+  pageSize,
+  pageSizes,
+  paginationTexts,
   className,
   filter = { enabled: false, config: {} },
   ...rest
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageSize, setCurrentPageSize] = useState(pageSize);
 
   const filteredData = useMemo(() => {
     if (!filter?.enabled || !filter?.config) {
@@ -40,11 +43,23 @@ export const TableView: React.FC<TableViewProps> = ({
       data: filteredData,
       selected,
       paginated,
-      pageSize,
+      pageSize: currentPageSize,
+      pageSizes,
+      paginationTexts,
       filter,
       ...rest
     }),
-    [header, filteredData, selected, paginated, pageSize, filter, rest]
+    [
+      header,
+      filteredData,
+      selected,
+      paginated,
+      currentPageSize,
+      pageSizes,
+      paginationTexts,
+      filter,
+      rest
+    ]
   );
 
   const classes = cn(
@@ -67,7 +82,7 @@ export const TableView: React.FC<TableViewProps> = ({
   }
 
   const totalItems = filteredData.length;
-  const clampedPageSize = Math.min(pageSize, totalItems);
+  const clampedPageSize = Math.min(currentPageSize, totalItems);
   const lastItemIndex = currentPage * clampedPageSize;
   const firstItemIndex = lastItemIndex - clampedPageSize;
   const currentItems = filteredData.slice(firstItemIndex, lastItemIndex);
@@ -79,9 +94,15 @@ export const TableView: React.FC<TableViewProps> = ({
         {paginated && (
           <Pagination
             totalItems={filteredData.length}
-            pageSize={pageSize}
+            pageSize={currentPageSize}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
+            onPageSizeChange={size => {
+              setCurrentPageSize(size);
+              setCurrentPage(1);
+            }}
+            pageSizes={pageSizes}
+            texts={paginationTexts}
           />
         )}
       </div>

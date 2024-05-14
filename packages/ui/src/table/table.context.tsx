@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { isArray, isUndefined } from '@tone/utils';
 
 import { ITableHeaderCellProps } from './table.cell';
+import { IPaginationProps } from './table.pagination';
 
 export interface ITableContext<T = any> {
   data: T[];
@@ -11,10 +12,12 @@ export interface ITableContext<T = any> {
   setColumns?: (header: ITableHeaderCellProps[]) => void;
   toggleColumn?: (key: string) => void;
   paginated?: boolean;
+  pageSize?: IPaginationProps['pageSize'];
+  paginationTexts?: IPaginationProps['texts'];
+  pageSizes?: IPaginationProps['pageSizes'];
   selected?: boolean;
   visibleControl?: boolean;
   className?: string;
-  pageSize?: number;
   selectedRows?: T[];
   onSelectRow?: (row: T) => void;
   onSelectAllRows?: (rows: string | T[]) => void;
@@ -31,7 +34,6 @@ export interface ITableContext<T = any> {
 const defaultTableContext: ITableContext = {
   data: [],
   header: [],
-  pageSize: 10,
   selectedRows: [],
   filter: {
     enabled: false,
