@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { cn } from '@tone/utils';
 
@@ -20,12 +20,13 @@ export interface IPaginationProps {
     previousPage?: string;
     nextPage?: string;
     lastPage?: string;
-    pageText?: string;
+    totalText?: string;
     ofText?: string;
     goToText?: string;
     displayingText?: string;
     toText?: string;
     itemsText?: string;
+    pageText?: string;
     perPageText?: string;
   };
 }
@@ -35,12 +36,13 @@ const defaultTexts = {
   previousPage: 'Previous Page',
   nextPage: 'Next Page',
   lastPage: 'Last Page',
-  pageText: 'Page',
+  totalText: 'Total',
   ofText: 'of',
   goToText: 'Go to',
   displayingText: 'Displaying',
   toText: 'to',
   itemsText: 'items',
+  pageText: 'Page',
   perPageText: 'Per Page'
 };
 
@@ -59,40 +61,53 @@ export const Pagination: React.FC<IPaginationProps> = ({
     previousPage,
     nextPage,
     lastPage,
-    pageText,
+    totalText,
     ofText,
     goToText,
     displayingText,
     toText,
     itemsText,
+    pageText,
     perPageText
   } = { ...defaultTexts, ...texts };
 
-  const totalPages = Math.ceil(totalItems / pageSize);
-  const startIndex = (currentPage - 1) * pageSize + 1;
-  const endIndex = Math.min(currentPage * pageSize, totalItems);
+  const totalPages = useMemo(() => Math.ceil(totalItems / pageSize), [totalItems, pageSize]);
+  const startIndex = useMemo(() => (currentPage - 1) * pageSize + 1, [currentPage, pageSize]);
+  const endIndex = useMemo(
+    () => Math.min(currentPage * pageSize, totalItems),
+    [currentPage, pageSize, totalItems]
+  );
 
-  const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      onPageChange(page);
-    }
-  };
+  const handlePageChange = useCallback(
+    (page: number) => {
+      if (page >= 1 && page <= totalPages) {
+        onPageChange(page);
+      }
+    },
+    [onPageChange, totalPages]
+  );
+
+  const handleJumpToPage = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const pageInput = e.currentTarget.elements.namedItem['pageInput'] as HTMLInputElement;
+      const pageNumber = parseInt(pageInput.value, 10);
+      if (pageNumber >= 1 && pageNumber <= totalPages) {
+        onPageChange(pageNumber);
+      }
+    },
+    [onPageChange, totalPages]
+  );
+
+  const handlePageSizeChange = useCallback(
+    (size: number) => {
+      onPageSizeChange(size);
+    },
+    [onPageSizeChange]
+  );
 
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
-
-  const handleJumpToPage = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { pageInput } = e.currentTarget;
-    const pageNumber = parseInt(pageInput.value, 10);
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      onPageChange(pageNumber);
-    }
-  };
-
-  const handlePageSizeChange = (size: number) => {
-    onPageSizeChange(size);
-  };
 
   const classes = cn(
     'flex items-center justify-between px-2 py-4 shadow-[0_-1px_2px_0_rgba(0,0,0,0.03)]',
@@ -169,7 +184,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               onValueChange={(size: string) => handlePageSizeChange(parseInt(size, 10))}
             >
               <SelectTrigger className='py-1.5 bg-slate-50'>
-                <SelectValue placeholder='Select' />
+                <SelectValue placeholder='选择' />
               </SelectTrigger>
               <SelectContent>
                 {pageSizes.map(size => (
@@ -184,7 +199,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
         {totalPages > 1 && (
           <form onSubmit={handleJumpToPage} className='flex items-center gap-x-3'>
             <span className='text-slate-400 text-nowrap'>
-              {pageText} {currentPage} {ofText} {totalPages}, {goToText}
+              {totalText} {totalPages} {pageText}，{goToText}
             </span>
             <Input
               type='number'
