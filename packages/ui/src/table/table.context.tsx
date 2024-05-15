@@ -19,6 +19,7 @@ export interface ITableContext<T = any> {
   visibleControl?: boolean;
   className?: string;
   selectedRows?: T[];
+  emptyDataLabel?: string;
   onSelectRow?: (row: T) => void;
   onSelectAllRows?: (rows: string | T[]) => void;
   actions?: {

@@ -37,6 +37,7 @@ export const TableView: React.FC<TableViewProps> = ({
   pageSize,
   pageSizes,
   paginationTexts,
+  emptyDataLabel,
   className,
   filter = { enabled: false, config: {} },
   ...rest
@@ -66,6 +67,7 @@ export const TableView: React.FC<TableViewProps> = ({
       pageSize: currentPageSize,
       pageSizes,
       paginationTexts,
+      emptyDataLabel,
       filter,
       ...rest
     }),
@@ -77,6 +79,7 @@ export const TableView: React.FC<TableViewProps> = ({
       currentPageSize,
       pageSizes,
       paginationTexts,
+      emptyDataLabel,
       filter,
       rest
     ]
@@ -87,7 +90,7 @@ export const TableView: React.FC<TableViewProps> = ({
     className
   );
 
-  if (!filteredData.length) return <EmptyData className={classes} />;
+  if (!filteredData.length) return <EmptyData className={classes} label={emptyDataLabel} />;
 
   if (!paginated) {
     return (
