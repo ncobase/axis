@@ -2,15 +2,11 @@ import React from 'react';
 
 import { cn } from '@tone/utils';
 
-import { Label } from '../forms';
-import { Icons } from '../icon';
+import { Label } from '../../forms';
+import { Icons } from '../../icon';
 
-interface IEmptyDataProps {
-  className?: string;
-  label?: string;
-}
-
-export const EmptyData: React.FC<IEmptyDataProps> = ({ label = 'No data', className }) => {
+export const EmptyData = (props: any) => {
+  const { label = 'No data', className } = props;
   const classes = cn(className, 'items-center justify-center flex flex-col');
   return (
     <div className={classes}>

@@ -3,13 +3,8 @@ import React from 'react';
 import { cn } from '@tone/utils';
 
 export const isActionColumn = (key: string = ''): boolean => {
-  return (
-    key.toLocaleLowerCase() === 'actions' ||
-    key.toLocaleLowerCase() === 'action' ||
-    key === '操作' ||
-    key.toLocaleLowerCase() === 'operation' ||
-    key.toLocaleLowerCase() === 'operations'
-  );
+  const actionKeys = ['actions', 'action', '操作', 'operation', 'operations'];
+  return actionKeys.includes(key.toLowerCase());
 };
 
 interface ITableRowProps {

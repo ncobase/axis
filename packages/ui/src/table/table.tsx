@@ -2,9 +2,9 @@ import React, { useMemo, useState } from 'react';
 
 import { cn } from '@tone/utils';
 
+import { EmptyData } from './components/empty';
 import { TableBody } from './table.body';
 import { ITableContext, TableProvider } from './table.context';
-import { EmptyData } from './table.empty';
 import { TableHeader } from './table.header';
 import { Pagination } from './table.pagination';
 
