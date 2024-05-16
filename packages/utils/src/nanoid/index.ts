@@ -1,6 +1,6 @@
 import { customAlphabet } from 'nanoid';
 
-import { LOWERCASE, NUMBER, UPPERCASE } from '../consts/char';
+import { LOWERCASE, NUMBER, UPPERCASE, SYMBOL } from '../consts/char';
 
 class Generator {
   private static readonly alphabet: string = NUMBER + LOWERCASE + UPPERCASE;
@@ -22,9 +22,24 @@ class Generator {
     return customAlphabet(Generator.alphabet, size)();
   }
 
+  static Lowercase(l?: number): string {
+    const size: number = Generator.getSize(l);
+    return customAlphabet(LOWERCASE, size)();
+  }
+
+  static Uppercase(l?: number): string {
+    const size: number = Generator.getSize(l);
+    return customAlphabet(UPPERCASE, size)();
+  }
+
   static Number(l?: number): string {
     const size: number = Generator.getSize(l);
     return customAlphabet(NUMBER, size)();
+  }
+
+  static Symbol(l?: number): string {
+    const size: number = Generator.getSize(l);
+    return customAlphabet(SYMBOL, size)();
   }
 
   static PrimaryKey(l?: number): () => string {
