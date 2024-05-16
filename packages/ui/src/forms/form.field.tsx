@@ -79,6 +79,13 @@ interface FieldConfigProps extends React.ComponentProps<any> {
    */
   required?: boolean;
   /**
+   * The value component of the field
+   * @returns void
+   * @example
+   *   valueComponent={(onChange) => onChange('value')}
+   */
+  valueComponent?: any;
+  /**
    * The className of the field
    */
   className?: string;
@@ -164,6 +171,7 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
       prependIconClick,
       appendIcon,
       appendIconClick,
+      valueComponent,
       ...rest
     },
     ref
@@ -237,13 +245,17 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
             </Button>
           )}
         </div>
+        {valueComponent && valueComponent({ onChange, ...rest })}
       </Field>
     );
   }
 );
 
 const TextareaField = forwardRef<HTMLTextAreaElement, FieldConfigProps>(
-  ({ onChange, defaultValue, placeholder, appendIcon, appendIconClick, ...rest }, ref) => {
+  (
+    { onChange, defaultValue, placeholder, appendIcon, appendIconClick, valueComponent, ...rest },
+    ref
+  ) => {
     if (rest.value === undefined && defaultValue !== undefined) {
       rest.value = defaultValue;
     }
@@ -265,6 +277,7 @@ const TextareaField = forwardRef<HTMLTextAreaElement, FieldConfigProps>(
             </Button>
           )}
         </div>
+        {valueComponent && valueComponent({ onChange, ...rest })}
       </Field>
     );
   }
