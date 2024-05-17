@@ -21,6 +21,13 @@ interface FieldConfigProps extends React.ComponentProps<any> {
    */
   title?: string;
   /**
+   * The description of the field
+   * @example
+   *   desc='description'
+   *   desc={<div>description</div>}
+   */
+  desc?: React.ReactNode;
+  /**
    * The name of the field
    * @example
    *   name='name'
@@ -100,7 +107,7 @@ interface FieldProps extends FieldConfigProps {
 }
 
 const Field = forwardRef<any, FieldProps>(
-  ({ title, className, error, errors, name, children, rules, ...rest }, ref) => {
+  ({ title, className, error, errors, name, children, desc, rules, ...rest }, ref) => {
     const rendered = children || <Input {...rest} ref={ref} />;
     const errorMessage = errors
       ? getValueByPath(errors, name)?.message
@@ -123,6 +130,12 @@ const Field = forwardRef<any, FieldProps>(
         )}
         {rendered}
         {errorMessage && <div className='text-danger-400'>{errorMessage}</div>}
+        {desc && (
+          <div className='text-slate-400/80 leading-5 text-wrap text-justify'>
+            <Icons name='IconInfoCircle' className='mr-1 inline-block -mt-1' />
+            {desc}
+          </div>
+        )}
       </div>
     );
   }
