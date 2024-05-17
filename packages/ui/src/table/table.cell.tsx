@@ -88,12 +88,12 @@ const ActionCell: React.FC<ITableCellProps> = ({ actions = [], record }) => {
 };
 
 export interface ITableHeaderCellProps extends ITableCellBaseProps {
-  filter?: boolean;
+  filter?: 'sort' | 'toggle' | 'date' | 'date-range' | boolean;
 }
 
 const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   visible,
-  filter = true, // TODO: implement filter
+  filter = 'sort', // TODO: implement filter
   title,
   code,
   icon,
@@ -165,7 +165,7 @@ const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
           {icon && <Icons name={icon} className='stroke-slate-400/65' size={14} />}
           {children ? children : title}
         </div>
-        {filter && (
+        {filter && filter === 'sort' && (
           <SortFilter
             code={code}
             filterValue={filterValue}
