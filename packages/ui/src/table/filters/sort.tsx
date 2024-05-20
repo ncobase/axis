@@ -17,7 +17,7 @@ export const SortFilter: React.FC<{
   const { filter: filterState } = useTable();
   return (
     <DropdownWrapper icon='IconChevronDown'>
-      <DropdownItem onSelect={event => event.preventDefault()} className='hover:bg-white'>
+      <DropdownItem onSelect={event => event.preventDefault()} className='hover:bg-white hidden'>
         <Input
           type='text'
           value={filterValue}

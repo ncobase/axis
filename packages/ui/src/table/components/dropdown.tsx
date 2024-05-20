@@ -4,10 +4,12 @@ import { Button } from '../../button';
 import { Dropdown, DropdownContent, DropdownTrigger } from '../../dropdown';
 import { Icons } from '../../icon';
 
-export const DropdownWrapper: React.FC<{ icon: string; children: React.ReactNode }> = ({
-  icon,
-  children
-}) => {
+export const DropdownWrapper: React.FC<{
+  icon: string;
+  align?: 'end' | 'start' | 'center';
+  alignOffset?: number;
+  children: React.ReactNode;
+}> = ({ icon, children, align = 'end', alignOffset = -15 }) => {
   return (
     <Dropdown>
       <DropdownTrigger asChild>
@@ -15,7 +17,9 @@ export const DropdownWrapper: React.FC<{ icon: string; children: React.ReactNode
           <Icons name={icon} />
         </Button>
       </DropdownTrigger>
-      <DropdownContent>{children}</DropdownContent>
+      <DropdownContent align={align} alignOffset={alignOffset}>
+        {children}
+      </DropdownContent>
     </Dropdown>
   );
 };
