@@ -1,8 +1,8 @@
 {
-  "name": "@tone/tailwind",
-  "version": "0.1.0",
-  "description": "common tailwindcss configuration",
+  "name": "@ncotone/tailwind",
+  "version": "0.0.1",
   "private": true,
+  "description": "common tailwindcss configuration",
   "main": "./index.mjs",
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.13",

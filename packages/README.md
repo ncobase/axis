@@ -1,11 +1,9 @@
 # Packages
 
-| Name     | Description                                                                       |
-| -------- | --------------------------------------------------------------------------------- |
-| charts   | charts library base on the [ApexCharts](https://apexcharts.com/react-chart-demos) |
-| request  | request library and middleware                                                    |
-| tailwind | Common tailwindcss configuration                                                  |
-| types    | Types Packages                                                                    |
-| ui       | Common UI components                                                              |
-| utils    | Utils library                                                                     |
-| ...      |                                                                                   |
+| Name     | Description                                                                                                        |
+| -------- | ------------------------------------------------------------------------------------------------------------------ |
+| tailwind | Common tailwindcss configuration                                                                                   |
+| types    | Types Packages                                                                                                     |
+| react    | UI components library for React, charts library base on the [ApexCharts](https://apexcharts.com/react-chart-demos) |
+| utils    | Utils library                                                                                                      |
+| ...      |                                                                                                                    |

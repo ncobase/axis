@@ -1,8 +1,7 @@
 {
-  "version": "0.1.0",
-  "description": "Integrated management system",
-  "repository": "git@github.com:haiyon/tone-front.git",
   "private": true,
+  "description": "NcoTone frontend project",
+  "repository": "git@github.com:haiyon/ncotone-frontend.git",
   "workspaces": [
     "apps/*",
     "packages/*",
@@ -12,8 +11,8 @@
     "prepare": "husky install",
     "clean": "npx rimraf --glob '**/{node_modules,.next,dist,.turbo,.eslintcache}'",
     "dev": "turbo run dev",
-    "dev:digital": "pnpm dev --filter=@tone/digital --filter='./packages/*'",
-    "lint": "turbo run lint --filter=!./apps/cards",
+    "dev:ncotone": "pnpm dev --filter=@ncotone/ncotone --filter='./packages/*'",
+    "lint": "turbo run lint",
     "lint:fix": "pnpm lint -- --fix && pnpm prettier --write",
     "prettier": "prettier \"**/*.{vue,js,jsx,ts,tsx,md,css,scss,yaml,yml}\"",
     "build": "turbo run build --filter=!./apps/*"

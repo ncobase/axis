@@ -1,6 +1,6 @@
 {
-  "name": "@tone/types",
-  "version": "0.1.0",
+  "name": "@ncotone/types",
+  "version": "0.0.1",
   "private": true,
   "main": "./src/index.d.ts"
 }

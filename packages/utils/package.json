@@ -1,8 +1,8 @@
 {
-  "name": "@tone/utils",
-  "version": "0.1.0",
-  "description": "utils library",
+  "name": "@ncotone/utils",
+  "version": "0.0.1",
   "private": true,
+  "description": "utils library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -22,7 +22,7 @@
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
-    "@tone/tsconfig": "workspace:*",
+    "@ncotone/tsconfig": "workspace:*",
     "@types/node": "^20.12.11",
     "tsup": "^8.0.2"
   }

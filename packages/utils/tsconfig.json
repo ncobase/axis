@@ -1,5 +1,5 @@
 {
-  "extends": "@tone/tsconfig/base.json",
+  "extends": "@ncotone/tsconfig/base.json",
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,

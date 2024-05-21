@@ -1,6 +1,0 @@
-{
-  "name": "@tone/request",
-  "version": "0.1.0",
-  "description": "request library and middleware",
-  "private": true
-}

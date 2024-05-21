@@ -1,9 +1,9 @@
 {
-  "name": "@tone/tsconfig",
-  "version": "0.1.0",
+  "name": "@ncotone/tsconfig",
+  "version": "0.0.1",
   "private": true,
   "files": [
     "base.json",
-    "react-library.json"
+    "react.json"
   ]
 }
