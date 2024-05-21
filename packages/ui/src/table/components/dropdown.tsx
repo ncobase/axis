@@ -9,7 +9,7 @@ export const DropdownWrapper: React.FC<{
   align?: 'end' | 'start' | 'center';
   alignOffset?: number;
   children: React.ReactNode;
-}> = ({ icon, children, align = 'end', alignOffset = -15 }) => {
+}> = ({ icon, children, align = 'end', alignOffset = -10 }) => {
   return (
     <Dropdown>
       <DropdownTrigger asChild>

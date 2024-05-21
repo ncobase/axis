@@ -11,7 +11,7 @@ import { DropdownWrapper } from './dropdown';
 export const ToggleColumn: React.FC = () => {
   const { columns, toggleColumn } = useTable();
   return (
-    <DropdownWrapper icon='IconColumns'>
+    <DropdownWrapper icon='IconColumns' alignOffset={-12}>
       {columns.map((column, index) =>
         isActionColumn(column.code) || isActionColumn(column.title) ? null : (
           <DropdownCheckboxItem
