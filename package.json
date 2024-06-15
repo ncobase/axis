@@ -1,7 +1,7 @@
 {
   "private": true,
   "description": "NcoTone frontend project",
-  "repository": "git@github.com:haiyon/ncotone-frontend.git",
+  "repository": "git@github.com:ncotone/frontend.git",
   "workspaces": [
     "apps/*",
     "packages/*",
