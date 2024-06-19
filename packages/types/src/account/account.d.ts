@@ -1,4 +1,4 @@
-import { User, UserProfile } from '../core/user';
+import { User, UserProfile } from '../system/user';
 
 export interface Account {
   user: User;

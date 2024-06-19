@@ -1,9 +1,11 @@
-export interface Role {
+export interface Permission {
   id?: string;
   name?: string;
-  slug?: string;
-  disabled?: boolean;
+  action?: string;
+  subject?: string;
   description?: string;
+  default?: boolean;
+  disabled?: true;
   extras?: object | null;
   parent?: string;
   group?: string;
@@ -14,15 +16,7 @@ export interface Role {
   updated_at?: string;
 }
 
-export interface RoleTree extends Role {
-  children?: Role[];
-}
-
-export interface RoleTrees {
-  content: RoleTree[];
-}
-
-export interface Roles {
-  content: Role[];
+export interface Permissions {
+  content: Permission[];
   total: number;
 }

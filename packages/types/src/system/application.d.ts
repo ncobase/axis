@@ -17,14 +17,6 @@ export interface Application {
   updated_at?: string;
 }
 
-export interface ApplicationTree extends Application {
-  children?: Application[];
-}
-
-export interface ApplicationTrees {
-  content: ApplicationTree[];
-}
-
 export interface Applications {
   content: Application[];
   total: number;
