@@ -1,7 +1,6 @@
 {
   "name": "@ncotone/react",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.1-alpha.0",
   "description": "UI components library for React",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

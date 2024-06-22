@@ -1,7 +1,6 @@
 {
   "name": "@ncotone/tailwind",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.1-alpha.0",
   "description": "common tailwindcss configuration",
   "main": "./index.mjs",
   "dependencies": {

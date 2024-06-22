@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "tasks": {
     "lint": {
       "cache": false
     },
@@ -19,6 +19,10 @@
       "dependsOn": [
         "^build"
       ]
+    },
+    "publish": {
+      "cache": false,
+      "dependsOn": ["^build"]
     }
   }
 }

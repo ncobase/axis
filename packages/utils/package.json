@@ -1,7 +1,6 @@
 {
   "name": "@ncotone/utils",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.1-alpha.0",
   "description": "utils library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
