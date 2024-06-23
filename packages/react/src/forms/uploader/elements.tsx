@@ -234,7 +234,7 @@ export const FileUploaderContent: React.FC<FileUploaderContentProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={cn('w-full px-1')} ref={containerRef} aria-description='content file holder'>
+    <div className={cn('w-full px-1')} ref={containerRef}>
       <div
         {...props}
         className={cn(

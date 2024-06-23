@@ -8,7 +8,7 @@ type Props = ChartProps & {
   type?: RangeAreaTypes;
 };
 
-export const RangeAreaChart: React.FC<Props> = ({
+const RangeAreaChart: React.FC<Props> = ({
   type = 'rangeArea',
   options,
   series,
@@ -17,3 +17,5 @@ export const RangeAreaChart: React.FC<Props> = ({
 }) => {
   return <Charts options={options} series={series} type={type} height={height} {...rest} />;
 };
+
+export default RangeAreaChart;

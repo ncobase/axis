@@ -8,12 +8,8 @@ type Props = ChartProps & {
   type?: MixedTypes;
 };
 
-export const MixedChart: React.FC<Props> = ({
-  type = 'line',
-  options,
-  series,
-  height = 380,
-  ...rest
-}) => {
+const MixedChart: React.FC<Props> = ({ type = 'line', options, series, height = 380, ...rest }) => {
   return <Charts options={options} series={series} type={type} height={height} {...rest} />;
 };
+
+export default MixedChart;

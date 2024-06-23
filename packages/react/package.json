@@ -1,6 +1,6 @@
 {
   "name": "@ncotone/react",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.4",
   "description": "UI components library for React",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -9,11 +9,12 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react --minify",
+    "build": "tsup --config tsup.config.ts --minify",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "lint": "eslint src/**/* --ext .js,.jsx.ts,.tsx"
   },
   "dependencies": {
+    "@ncotone/tailwind": "workspace:*",
     "@ncotone/utils": "workspace:*",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -46,7 +47,6 @@
     "vaul": "^0.9.1"
   },
   "devDependencies": {
-    "@ncotone/tailwind": "workspace:*",
     "@ncotone/tsconfig": "workspace:*",
     "@types/node": "^20.12.11",
     "@types/react": "^18.3.1",

@@ -8,12 +8,8 @@ type Props = ChartProps & {
   type?: BarTypes;
 };
 
-export const BarChart: React.FC<Props> = ({
-  type = 'bar',
-  options,
-  series,
-  height = 380,
-  ...rest
-}) => {
+const BarChart: React.FC<Props> = ({ type = 'bar', options, series, height = 380, ...rest }) => {
   return <Charts options={options} series={series} type={type} height={height} {...rest} />;
 };
+
+export default BarChart;

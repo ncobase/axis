@@ -8,12 +8,8 @@ type Props = ChartProps & {
   type?: LineTypes;
 };
 
-export const LineChart: React.FC<Props> = ({
-  type = 'line',
-  options,
-  series,
-  height = 380,
-  ...rest
-}) => {
+const LineChart: React.FC<Props> = ({ type = 'line', options, series, height = 380, ...rest }) => {
   return <Charts options={options} series={series} type={type} height={height} {...rest} />;
 };
+
+export default LineChart;

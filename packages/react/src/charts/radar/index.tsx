@@ -8,7 +8,7 @@ type Props = ChartProps & {
   type?: RadarTypes;
 };
 
-export const RadarChart: React.FC<Props> = ({
+const RadarChart: React.FC<Props> = ({
   type = 'radar',
   options,
   series,
@@ -17,3 +17,5 @@ export const RadarChart: React.FC<Props> = ({
 }) => {
   return <Charts options={options} series={series} type={type} height={height} {...rest} />;
 };
+
+export default RadarChart;
