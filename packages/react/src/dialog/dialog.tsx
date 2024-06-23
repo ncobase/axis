@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 
 import { Button } from '../button';
 import { ScrollView } from '../views';

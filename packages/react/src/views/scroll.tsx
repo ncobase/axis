@@ -1,6 +1,6 @@
 import React, { CSSProperties, ReactNode } from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 
 interface ScrollViewProps {
   children?: ReactNode;

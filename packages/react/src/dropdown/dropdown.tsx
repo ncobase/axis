@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 
 import { Icons } from '../icon';

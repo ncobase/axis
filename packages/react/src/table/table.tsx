@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 
 import { EmptyData } from './components/empty';
 import { TableBody } from './table.body';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
 

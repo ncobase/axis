@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 import { Drawer as DrawerPrimitive } from 'vaul';
 
 const Drawer = ({

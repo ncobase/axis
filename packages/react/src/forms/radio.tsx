@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 
 import { Icons } from '../icon';

@@ -1,6 +1,6 @@
 import React, { forwardRef, HTMLInputTypeAttribute, memo } from 'react';
 
-import { cn, getValueByPath } from '@ncotone/utils';
+import { cn, getValueByPath } from '@ncobase/utils';
 import { FieldError, FieldValues, RegisterOptions } from 'react-hook-form';
 
 import { Button } from '../button';

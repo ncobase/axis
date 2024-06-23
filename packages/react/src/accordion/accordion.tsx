@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 
 import { Icons } from '../icon';

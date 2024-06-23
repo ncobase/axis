@@ -1,5 +1,5 @@
 {
-  "name": "@ncotone/types",
+  "name": "@ncobase/types",
   "version": "0.0.1-alpha.0",
   "main": "./src/index.d.ts"
 }

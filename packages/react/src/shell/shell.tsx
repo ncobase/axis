@@ -1,6 +1,6 @@
 import React, { memo, ReactNode } from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 
 import { ShellContext } from './shell.context';
 

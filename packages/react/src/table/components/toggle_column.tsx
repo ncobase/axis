@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { isBoolean, isUndefined } from '@ncotone/utils';
+import { isBoolean, isUndefined } from '@ncobase/utils';
 
 import { DropdownCheckboxItem } from '../../dropdown';
 import { useTable } from '../table.context';

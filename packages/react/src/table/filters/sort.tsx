@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn, sortTree } from '@ncotone/utils';
+import { cn, sortTree } from '@ncobase/utils';
 
 import { DropdownItem } from '../../dropdown';
 import { Input } from '../../forms';

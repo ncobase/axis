@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
 import { Icons } from '../icon';

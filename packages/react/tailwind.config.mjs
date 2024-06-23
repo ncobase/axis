@@ -1,1 +1,1 @@
-export { tailwind as default } from '@ncotone/tailwind';
+export { tailwind as default } from '@ncobase/tailwind';

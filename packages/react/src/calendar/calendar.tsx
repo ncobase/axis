@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 import { zhCN } from 'date-fns/locale';
 import { DayPicker } from 'react-day-picker';
 

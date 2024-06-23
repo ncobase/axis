@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 
 export const isActionColumn = (key: string = ''): boolean => {
   const actionKeys = ['actions', 'action', '操作', 'operation', 'operations'];

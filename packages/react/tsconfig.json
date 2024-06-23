@@ -1,5 +1,5 @@
 {
-  "extends": "@ncotone/tsconfig/react.json",
+  "extends": "@ncobase/tsconfig/react.json",
   "include": [
     "."
   ],

@@ -1,1 +1,1 @@
-export { postcss as default } from '@ncotone/tailwind';
+export { postcss as default } from '@ncobase/tailwind';

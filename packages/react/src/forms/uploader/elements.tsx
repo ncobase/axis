@@ -9,7 +9,7 @@ import React, {
   useState
 } from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 import { Accept, DropzoneOptions, DropzoneState, FileRejection, useDropzone } from 'react-dropzone';
 import { toast } from 'sonner';
 

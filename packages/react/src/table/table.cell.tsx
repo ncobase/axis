@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { cn, isBoolean, isNumber, isString } from '@ncotone/utils';
+import { cn, isBoolean, isNumber, isString } from '@ncobase/utils';
 
 import { Icons } from '../icon';
 

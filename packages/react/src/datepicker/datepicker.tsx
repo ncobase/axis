@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { cn, formatDateTime } from '@ncotone/utils';
+import { cn, formatDateTime } from '@ncobase/utils';
 import { DateRange } from 'react-day-picker';
 
 import { Button } from '../button';

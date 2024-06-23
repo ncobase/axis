@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 

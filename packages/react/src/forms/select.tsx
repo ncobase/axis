@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
 import { Icons } from '../icon';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 
 const HoverCard = HoverCardPrimitive.Root;

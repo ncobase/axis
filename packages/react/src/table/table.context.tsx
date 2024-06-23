@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-import { isArray, isUndefined } from '@ncotone/utils';
+import { isArray, isUndefined } from '@ncobase/utils';
 
 import { ITableHeaderCellProps } from './table.cell';
 import { IPaginationProps } from './table.pagination';

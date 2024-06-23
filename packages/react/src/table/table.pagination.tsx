@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 
 import { Button } from '../button';
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../forms';

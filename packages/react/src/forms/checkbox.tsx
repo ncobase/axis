@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncotone/utils';
+import { cn } from '@ncobase/utils';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
 import { Icons } from '../icon';
