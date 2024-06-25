@@ -14,6 +14,7 @@ import { Label } from './label';
 import { RadioGroup, RadioGroupItem } from './radio';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 import { Textarea } from './textarea';
+import { Uploader, UploaderProps } from './uploader';
 
 interface FieldConfigProps extends React.ComponentProps<any> {
   /**
@@ -168,6 +169,8 @@ const FieldRender = memo(
         return <SwitchField ref={ref} {...props} />;
       case 'radio':
         return <RadioField ref={ref} {...props} />;
+      case 'uploader':
+        return <UploaderField ref={ref} {...props} />;
       default:
         return <InputField type={type} ref={ref} {...props} />;
     }
@@ -443,6 +446,16 @@ const SwitchField = forwardRef<HTMLDivElement, FieldConfigProps>(
       />
     </Field>
   )
+);
+
+const UploaderField = forwardRef<HTMLDivElement, FieldConfigProps & UploaderProps>(
+  ({ onChange, defaultValue, ...rest }, ref) => {
+    return (
+      <Field {...rest} ref={ref}>
+        <Uploader value={rest.value || defaultValue} onValueChange={onChange} {...rest} />
+      </Field>
+    );
+  }
 );
 
 export {
