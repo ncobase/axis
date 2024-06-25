@@ -29,6 +29,7 @@ type FileUploaderContextType = {
   setActiveIndex: Dispatch<SetStateAction<number>>;
   orientation: 'horizontal' | 'vertical';
   direction: DirectionOptions;
+  isSingleFile: boolean;
 };
 
 const FileUploaderContext = createContext<FileUploaderContextType | null>(null);
@@ -42,8 +43,8 @@ export const useFileUpload = () => {
 };
 
 export type FileUploaderProps = {
-  value: File[] | null;
-  onValueChange: (value: File[] | null) => void;
+  value: File | File[] | null;
+  onValueChange: (value: File | File[] | null) => void;
   dropzoneOptions?: DropzoneOptions;
   orientation?: 'horizontal' | 'vertical';
   maxFiles?: number;
@@ -67,16 +68,20 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
   const [isLOF, setIsLOF] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  const reSelectAll = maxFiles === 1;
+  const isSingleFile = maxFiles === 1;
   const direction: DirectionOptions = props.dir === 'rtl' ? 'rtl' : 'ltr';
 
   const removeFileFromSet = useCallback(
     (i: number) => {
       if (!value) return;
-      const newFiles = value.filter((_, index) => index !== i);
-      onValueChange(newFiles);
+      if (isSingleFile) {
+        onValueChange(null);
+      } else {
+        const newFiles = (value as File[]).filter((_, index) => index !== i);
+        onValueChange(newFiles.length > 0 ? newFiles : null);
+      }
     },
-    [value, onValueChange]
+    [value, onValueChange, isSingleFile]
   );
 
   const handleKeyDown = useCallback(
@@ -86,14 +91,16 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
 
       if (!value) return;
 
+      const files = Array.isArray(value) ? value : [value];
+
       const moveNext = () => {
         const nextIndex = activeIndex + 1;
-        setActiveIndex(nextIndex > value.length - 1 ? 0 : nextIndex);
+        setActiveIndex(nextIndex > files.length - 1 ? 0 : nextIndex);
       };
 
       const movePrev = () => {
         const nextIndex = activeIndex - 1;
-        setActiveIndex(nextIndex < 0 ? value.length - 1 : nextIndex);
+        setActiveIndex(nextIndex < 0 ? files.length - 1 : nextIndex);
       };
 
       const prevKey =
@@ -121,7 +128,7 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
       } else if (e.key === 'Delete' || e.key === 'Backspace') {
         if (activeIndex !== -1) {
           removeFileFromSet(activeIndex);
-          if (value.length - 1 === 0) {
+          if (files.length - 1 === 0) {
             setActiveIndex(-1);
             return;
           }
@@ -131,31 +138,27 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
         setActiveIndex(-1);
       }
     },
-    [value, activeIndex, removeFileFromSet]
+    [value, activeIndex, removeFileFromSet, orientation, direction]
   );
 
   const onDrop = useCallback(
     (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
-      const files = acceptedFiles;
-
-      if (!files) {
-        toast.error('file error , probably too big');
+      if (!acceptedFiles.length) {
+        toast.error('File error, probably too big');
         return;
       }
 
-      const newValues: File[] = value ? [...value] : [];
-
-      if (reSelectAll) {
-        newValues.splice(0, newValues.length);
+      if (isSingleFile) {
+        onValueChange(acceptedFiles[0]);
+      } else {
+        const newValues = value ? (Array.isArray(value) ? [...value] : [value]) : [];
+        acceptedFiles.forEach(file => {
+          if (newValues.length < maxFiles) {
+            newValues.push(file);
+          }
+        });
+        onValueChange(newValues);
       }
-
-      files.forEach(file => {
-        if (newValues.length < maxFiles) {
-          newValues.push(file);
-        }
-      });
-
-      onValueChange(newValues);
 
       if (rejectedFiles.length > 0) {
         for (let i = 0; i < rejectedFiles.length; i++) {
@@ -170,22 +173,22 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
         }
       }
     },
-    [reSelectAll, value]
+    [isSingleFile, value, onValueChange, maxFiles, maxSize]
   );
 
   useEffect(() => {
-    if (!value) return;
-    if (value.length === maxFiles) {
-      setIsLOF(true);
+    if (!value) {
+      setIsLOF(false);
       return;
     }
-    setIsLOF(false);
+    const files = Array.isArray(value) ? value : [value];
+    setIsLOF(files.length >= maxFiles);
   }, [value, maxFiles]);
 
   const opts: DropzoneOptions = {
-    accept: accept,
-    maxFiles: maxFiles,
-    maxSize: maxSize,
+    accept,
+    maxFiles,
+    maxSize,
     ...dropzoneOptions
   };
 
@@ -206,14 +209,15 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
         activeIndex,
         setActiveIndex,
         orientation,
-        direction
+        direction,
+        isSingleFile
       }}
     >
       <div
         {...props}
         onKeyDownCapture={handleKeyDown}
         className={cn('grid w-full focus:outline-none overflow-hidden ', className, {
-          'gap-2': value && value.length > 0
+          'gap-2': value && (Array.isArray(value) ? value.length > 0 : true)
         })}
         dir={props.dir}
       >
@@ -251,37 +255,94 @@ export const FileUploaderContent: React.FC<FileUploaderContentProps> = ({
 
 type FileUploaderItemProps = {
   index: number;
+  file: File;
+  onRemove: (index: number) => void;
+  isSingleFile: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export const FileUploaderItem: React.FC<FileUploaderItemProps> = ({
   className,
   index,
-  children,
+  file,
+  onRemove,
+  isSingleFile,
   ...props
 }) => {
-  const { removeFileFromSet, activeIndex, direction } = useFileUpload();
-  const isSelected = index === activeIndex;
+  const [isHovered, setIsHovered] = useState(false);
+  const { direction } = useFileUpload();
+
+  const renderFilePreview = () => {
+    if (file?.type.includes('image')) {
+      return (
+        <img
+          src={URL.createObjectURL(file)}
+          alt={file.name}
+          loading='lazy'
+          className={cn('object-cover', isSingleFile ? 'size-10 mr-2' : 'w-full h-full')}
+        />
+      );
+    } else if (file?.type.includes('video')) {
+      return (
+        <video
+          src={URL.createObjectURL(file)}
+          className={cn('object-cover', isSingleFile ? 'size-10 mr-2' : 'w-full h-full')}
+        >
+          <track kind='captions' />
+        </video>
+      );
+    } else {
+      return (
+        <div
+          className={cn(
+            'bg-gray-100 text-gray-400 flex items-center justify-center',
+            isSingleFile ? 'size-10 mr-2' : 'w-full h-full'
+          )}
+        >
+          <Icons name='IconFile' className='w-6 h-6' stroke={1} />
+        </div>
+      );
+    }
+  };
+
   return (
     <div
       {...props}
       className={cn(
         getButtonStyling('unstyle', 'md'),
-        'h-6 p-1 justify-between cursor-pointer relative',
-        className,
-        isSelected ? 'bg-muted' : ''
+        'justify-between cursor-pointer relative group',
+        isSingleFile ? 'px-3 py-2.5 flex items-center' : 'w-24 h-24 p-1',
+        className
       )}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div className='font-medium leading-none tracking-tight flex items-center gap-1.5 h-full w-full'>
-        {children}
-      </div>
+      {renderFilePreview()}
+      {isSingleFile && <span className='text-sm truncate flex-1 ml-2'>{file.name}</span>}
       <Button
         variant='unstyle'
-        className={cn('absolute p-0.5', direction === 'rtl' ? 'top-0 left-0' : 'top-0 right-0')}
-        onClick={() => removeFileFromSet(index)}
-        title='Click to remove file'
+        className={cn(
+          'absolute p-1 bg-slate-100 dark:bg-slate-800 text-white rounded-full transition-opacity',
+          isHovered ? 'opacity-100' : 'opacity-0',
+          isSingleFile ? 'top-1/2 -translate-y-1/2' : 'top-1',
+          direction === 'rtl' ? 'left-1' : 'right-1'
+        )}
+        onClick={() => onRemove(index)}
+        title='Remove file'
       >
-        <Icons name='IconTrash' className='stroke-slate-400' stroke={1} />
+        <Icons
+          name='IconTrash'
+          className='w-3 h-3 stroke-slate-800 dark:stroke-slate-100'
+          stroke={2}
+        />
       </Button>
+      {!isSingleFile && (
+        <div
+          className='absolute bottom-1 left-1 right-1 text-xs truncate text-white bg-black bg-opacity-50 p-1 rounded'
+          title={file.name}
+        >
+          {file.name}
+        </div>
+      )}
     </div>
   );
 };
@@ -294,13 +355,13 @@ export const FileInput: React.FC<FileInputProps> = ({ className, children, ...pr
   return (
     <div
       {...props}
-      className={`relative w-full ${
+      className={`relative w-full focus:outline-none focus:ring-0 ${
         isLOF ? 'opacity-50 cursor-not-allowed ' : 'cursor-pointer '
       }${className ? ` ${className}` : ''}`}
     >
       <div
         className={cn(
-          `w-full rounded-lg duration-300 ease-in-out
+          `w-full rounded-lg duration-300 ease-in-out focus:outline-none focus:ring-0
          ${
            dropzoneState.isDragAccept
              ? 'border-green-500'
@@ -318,7 +379,7 @@ export const FileInput: React.FC<FileInputProps> = ({ className, children, ...pr
         ref={dropzoneState.inputRef}
         disabled={isLOF}
         {...dropzoneState.getInputProps()}
-        className={`${isLOF ? 'cursor-not-allowed' : ''} rounded-none outline-none w-full`}
+        className={`${isLOF ? 'cursor-not-allowed' : ''} rounded-none outline-none w-full focus:outline-none focus:ring-0`}
       />
     </div>
   );
