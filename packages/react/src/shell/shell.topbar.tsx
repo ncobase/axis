@@ -16,7 +16,7 @@ export const ShellTopbar: React.FC<IProps> = memo(({ children, className, ...res
     defaultStyling,
     // show sidebar
     { 'left-[3.5rem]': !!sidebar && !sidebarExpanded },
-    { 'left-[12rem]': !!sidebar && sidebarExpanded },
+    { 'left-[10rem]': !!sidebar && sidebarExpanded },
     // show header
     { 'top-[3.5rem]': !!header },
     className

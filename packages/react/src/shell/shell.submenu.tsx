@@ -16,7 +16,7 @@ export const ShellSubmenu: React.FC<IProps> = memo(({ children, className, ...re
     defaultStyling,
     // show sidebar
     { 'left-[3.5rem]': !!sidebar && !sidebarExpanded },
-    { 'left-[12rem]': !!sidebar && sidebarExpanded },
+    { 'left-[10rem]': !!sidebar && sidebarExpanded },
     // show header && show topbar
     { 'top-[6.5rem]': !!header && !!topbar },
     // hide header && show topbar

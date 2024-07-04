@@ -18,7 +18,7 @@ export const ShellSidebar: React.FC<IProps> = memo(({ children, className, ...re
     { 'top-[3.5rem]': !!header },
     // sidebar expanded state
     { 'min-w-[3.5rem]': !!sidebar && !sidebarExpanded },
-    { 'min-w-[12rem]': !!sidebar && sidebarExpanded },
+    { 'min-w-[10rem]': !!sidebar && sidebarExpanded },
     className
   );
   return (
