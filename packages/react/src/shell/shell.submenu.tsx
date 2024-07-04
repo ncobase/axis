@@ -11,17 +11,18 @@ const defaultStyling =
 
 export const ShellSubmenu: React.FC<IProps> = memo(({ children, className, ...rest }) => {
   if (!children) return null;
-  const { header, sidebar, topbar } = useShellContext();
+  const { header, topbar, sidebar, sidebarExpanded } = useShellContext();
   const classes = cn(
     defaultStyling,
     // show sidebar
-    { 'left-14': !!sidebar },
+    { 'left-[3.5rem]': !!sidebar && !sidebarExpanded },
+    { 'left-[12rem]': !!sidebar && sidebarExpanded },
     // show header && show topbar
     { 'top-[6.5rem]': !!header && !!topbar },
     // hide header && show topbar
-    { 'top-12': !header && !!topbar },
+    { 'top-[3rem]': !header && !!topbar },
     // show header && hide topbar
-    { 'top-14': !!header && !topbar },
+    { 'top-[3.5rem]': !!header && !topbar },
     className
   );
   return (

@@ -9,6 +9,8 @@ interface ShellContextValue {
   topbar?: ReactNode;
   /** <Submenu /> component */
   submenu?: ReactNode;
+  /** Sidebar expanded state */
+  sidebarExpanded?: boolean;
 }
 
 const defaultValue: ShellContextValue = {};

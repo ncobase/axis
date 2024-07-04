@@ -11,13 +11,14 @@ const defaultStyling =
 
 export const ShellTopbar: React.FC<IProps> = memo(({ children, className, ...rest }) => {
   if (!children) return null;
-  const { header, sidebar } = useShellContext();
+  const { header, sidebar, sidebarExpanded } = useShellContext();
   const classes = cn(
     defaultStyling,
     // show sidebar
-    { 'left-14': !!sidebar },
+    { 'left-[3.5rem]': !!sidebar && !sidebarExpanded },
+    { 'left-[12rem]': !!sidebar && sidebarExpanded },
     // show header
-    { 'top-14': !!header },
+    { 'top-[3.5rem]': !!header },
     className
   );
   return (
