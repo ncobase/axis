@@ -87,8 +87,12 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
       }
     },
     onSelectAllRows: (rows: string | any[]) => {
-      if (isArray(rows) && rows.length === 0) {
-        setSelectedRows([]);
+      if (isArray(rows)) {
+        if (rows.length === 0) {
+          setSelectedRows([]);
+        } else {
+          setSelectedRows(rows);
+        }
       } else {
         setSelectedRows(value.data);
       }
