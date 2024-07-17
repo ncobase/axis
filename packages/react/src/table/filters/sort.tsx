@@ -14,15 +14,15 @@ export const SortFilter: React.FC<{
   handleFilterChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSortChange: (order: 'asc' | 'desc' | null) => void;
 }> = ({ code, filterValue, handleFilterChange, handleSortChange }) => {
-  const { filter: filterState, data, setData, originalData } = useTable();
+  const { filter: filterState, internalData, setInternalData, originalData } = useTable();
 
   const handleSort = (order: 'asc' | 'desc' | null) => {
     handleSortChange(order);
-    if (order && setData) {
-      const sortedData = sortTree(data, code as keyof (typeof data)[0], order);
-      setData(sortedData);
+    if (order && setInternalData) {
+      const sortedData = sortTree(internalData, code as keyof (typeof internalData)[0], order);
+      setInternalData(sortedData);
     } else {
-      setData(originalData);
+      setInternalData(originalData);
     }
   };
 

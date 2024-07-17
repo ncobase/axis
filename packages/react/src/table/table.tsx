@@ -9,15 +9,7 @@ import { TableHeader } from './table.header';
 import { Pagination } from './table.pagination';
 
 export interface TableViewProps extends ITableContext {
-  fetchData?: (params: {
-    cursor: string | null;
-    limit: number;
-    filter: Record<string, any>;
-  }) => Promise<{
-    content: any[];
-    total: number;
-    nextCursor: string | null;
-  }>;
+  data?: any[];
   className?: string;
   filter?: {
     enabled: boolean;
@@ -41,8 +33,7 @@ export const TableView: React.FC<TableViewProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageSize, setCurrentPageSize] = useState(initialPageSize);
-  const [data, setData] = useState(initialData || []);
-  // TODO: remove this, use remote data instead
+  const [internalData, setInternalData] = useState(initialData || []);
   const [originalData, setOriginalData] = useState(initialData || []);
   const [total, setTotal] = useState(initialData?.length || 0);
   const [loading, setLoading] = useState(false);
@@ -51,69 +42,65 @@ export const TableView: React.FC<TableViewProps> = ({
   const [currentFilter, setCurrentFilter] = useState(filter.config);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
 
-  const isBackendPagination = !!fetchData;
-
-  useEffect(() => {
-    if (!isBackendPagination) {
-      setData(initialData || []);
-      setOriginalData(initialData || []);
-      setTotal(initialData?.length || 0);
-    }
-  }, [initialData, isBackendPagination]);
+  const isBackendPagination = !!fetchData && !initialData?.length;
 
   const loadData = useCallback(
-    async (cursor: string | null, limit: number, filter: Record<string, any>) => {
+    async (cursorParam: string, limitParam: number) => {
       if (!isBackendPagination) return;
       setLoading(true);
       try {
         const result = await fetchData({
-          cursor: cursor || '',
-          limit,
-          filter
+          cursor: cursorParam || '',
+          limit: limitParam
         });
-        setData(result.content);
-        setTotal(result.total);
-        setCursor(result.nextCursor);
-        return result;
+        setInternalData(result?.items || []);
+        setOriginalData(result?.items || []);
+        setTotal(result?.total || 0);
+        setCursor(result?.next);
+        return result || {};
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     },
-    [fetchData, isBackendPagination]
+    [isBackendPagination, fetchData]
   );
 
   useEffect(() => {
-    if (isBackendPagination) {
-      loadData(null, currentPageSize, currentFilter);
+    if (isBackendPagination && !internalData?.length && !initialData?.length) {
+      loadData('', currentPageSize);
+    } else if (!isBackendPagination && initialData?.length) {
+      setInternalData(initialData || []);
+      setOriginalData(initialData || []);
     }
-  }, [loadData, currentPageSize, currentFilter, isBackendPagination]);
+  }, [isBackendPagination, currentPageSize, initialData, loadData, fetchData]);
 
   const handleFilter = useCallback(
     (newFilter: Record<string, any>) => {
       setCurrentFilter(newFilter);
       setCurrentPage(1);
+      setCursor(null);
+      setCursorStack([]);
       if (isBackendPagination) {
-        setCursor(null);
-        setCursorStack([]);
+        loadData(null, currentPageSize);
       }
     },
-    [isBackendPagination]
+    [isBackendPagination, loadData, currentPageSize, fetchData]
   );
 
   const handlePageChange = useCallback(
     async (newPage: number) => {
       if (isBackendPagination) {
         if (newPage > currentPage) {
-          const result = await loadData(cursor, currentPageSize, currentFilter);
+          const result = await loadData(cursor, currentPageSize);
           if (result) {
-            setCursorStack(prev => [...prev, cursor]);
+            setCursorStack(prev => [...prev, cursor as string]);
             setCurrentPage(newPage);
           }
         } else if (newPage < currentPage && cursorStack.length > 0) {
           const prevCursor = cursorStack[cursorStack.length - 2] || null;
-          const result = await loadData(prevCursor, currentPageSize, currentFilter);
+          const result = await loadData(prevCursor, currentPageSize);
           if (result) {
             setCursorStack(prev => prev.slice(0, -1));
             setCurrentPage(newPage);
@@ -123,28 +110,20 @@ export const TableView: React.FC<TableViewProps> = ({
         setCurrentPage(newPage);
       }
     },
-    [
-      currentPage,
-      cursor,
-      currentPageSize,
-      currentFilter,
-      loadData,
-      cursorStack,
-      isBackendPagination
-    ]
+    [currentPage, cursor, currentPageSize, loadData, cursorStack, isBackendPagination]
   );
 
   const handlePageSizeChange = useCallback(
     (newSize: number) => {
       setCurrentPageSize(newSize);
       setCurrentPage(1);
+      setCursor(null);
+      setCursorStack([]);
       if (isBackendPagination) {
-        setCursor(null);
-        setCursorStack([]);
-        loadData(null, newSize, currentFilter);
+        loadData(null, newSize);
       }
     },
-    [currentFilter, loadData, isBackendPagination]
+    [loadData, isBackendPagination]
   );
 
   const handleRowSelection = useCallback((row: any) => {
@@ -160,7 +139,7 @@ export const TableView: React.FC<TableViewProps> = ({
 
   const filteredData = useMemo(() => {
     if (!isBackendPagination && filter?.enabled && filter?.config) {
-      return data.filter(item =>
+      return internalData.filter(item =>
         Object.entries(filter.config).every(([key, value]) => {
           const itemValue = item[key];
           return (
@@ -169,22 +148,22 @@ export const TableView: React.FC<TableViewProps> = ({
         })
       );
     }
-    return data;
-  }, [data, filter, isBackendPagination]);
+    return internalData || [];
+  }, [internalData, filter, isBackendPagination]);
 
   const paginatedData = useMemo(() => {
     if (!isBackendPagination && paginated) {
       const startIndex = (currentPage - 1) * currentPageSize;
-      return filteredData.slice(startIndex, startIndex + currentPageSize);
+      return filteredData?.slice(startIndex, startIndex + currentPageSize);
     }
-    return filteredData;
+    return filteredData || [];
   }, [filteredData, currentPage, currentPageSize, paginated, isBackendPagination]);
 
   const tableContextValue = useMemo(
     () => ({
       header,
-      data: paginatedData,
-      setData,
+      internalData: paginatedData,
+      setInternalData,
       originalData,
       setOriginalData,
       selected,

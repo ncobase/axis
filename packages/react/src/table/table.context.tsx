@@ -6,8 +6,15 @@ import { ITableHeaderCellProps } from './table.cell';
 import { IPaginationProps } from './table.pagination';
 
 export interface ITableContext<T = any> {
-  data: T[];
-  setData?: (data: T[]) => void;
+  fetchData?: (params: { cursor: string; limit: number }) => Promise<{
+    items: any[];
+    total: number;
+    next: string;
+    has_next?: boolean;
+  }>;
+  loadData?: any;
+  internalData?: T[];
+  setInternalData?: (internalData: T[]) => void;
   originalData?: T[];
   setOriginalData?: (data: T[]) => void;
   header?: ITableHeaderCellProps[];
@@ -36,7 +43,7 @@ export interface ITableContext<T = any> {
 }
 
 const defaultTableContext: ITableContext = {
-  data: [],
+  internalData: [],
   header: [],
   selectedRows: [],
   filter: {
@@ -94,7 +101,7 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
           setSelectedRows(rows);
         }
       } else {
-        setSelectedRows(value.data);
+        setSelectedRows(value.internalData || []);
       }
     }
   };

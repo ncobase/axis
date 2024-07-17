@@ -13,21 +13,21 @@ interface ITableHeaderProps {
 }
 
 export const TableHeader: React.FC<ITableHeaderProps> = ({ className }) => {
-  const { selected, columns = [], onSelectAllRows, selectedRows, data } = useTable();
+  const { selected, columns = [], onSelectAllRows, selectedRows, internalData } = useTable();
   const classes = cn(
     'sticky top-0 left-0 z-50 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]',
     className
   );
 
   const handleSelectAll = () => {
-    if (selectedRows.length === data.length) {
+    if (selectedRows.length === internalData.length) {
       onSelectAllRows([]);
     } else {
       onSelectAllRows(columns.map((h: any) => h.code));
     }
   };
 
-  const isAllSelected = selectedRows.length === data.length;
+  const isAllSelected = selectedRows.length === internalData.length;
 
   return (
     <thead className={classes}>
