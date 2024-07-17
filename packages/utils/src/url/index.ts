@@ -8,13 +8,27 @@ import { cleanArray } from '../helpers/array';
 import { isObject } from '../helpers/raw_type';
 
 export function buildQueryString(params: Record<string, any>): string {
-  if (!isObject(params)) {
+  if (!isObject(params) || params === null) {
     return '';
   }
+
   const searchParams = new URLSearchParams();
+
+  // 预留：移除 SQL 注入
+  const removeIllegalSQLChars = (str: string): string => {
+    return str;
+  };
+
   for (const [key, value] of Object.entries(params)) {
-    searchParams.append(key, String(value));
+    if (value !== undefined && value !== null) {
+      let trimmedValue = String(value).trim();
+      trimmedValue = removeIllegalSQLChars(trimmedValue);
+      if (trimmedValue !== '') {
+        searchParams.append(key, trimmedValue);
+      }
+    }
   }
+
   return searchParams.toString();
 }
 
