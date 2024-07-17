@@ -87,8 +87,8 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
     filter,
     setFilter,
     onSelectRow: (row: any) => {
-      if (selectedRows?.includes(row)) {
-        setSelectedRows(selectedRows.filter(r => r !== row));
+      if (selectedRows?.some(r => r.id === row.id)) {
+        setSelectedRows(selectedRows.filter(r => r.id !== row.id));
       } else {
         setSelectedRows([...selectedRows, row]);
       }

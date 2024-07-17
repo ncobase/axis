@@ -20,14 +20,15 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({ className }) => {
   );
 
   const handleSelectAll = () => {
+    if (!Array.isArray(internalData)) return;
     if (selectedRows.length === internalData.length) {
       onSelectAllRows([]);
     } else {
-      onSelectAllRows(columns.map((h: any) => h.code));
+      onSelectAllRows(internalData);
     }
   };
 
-  const isAllSelected = selectedRows.length === internalData.length;
+  const isAllSelected = selectedRows.length === internalData.length && internalData.length > 0;
 
   return (
     <thead className={classes}>
