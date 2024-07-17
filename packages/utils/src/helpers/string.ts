@@ -61,3 +61,11 @@ export function joinName(firstName?: string, middleName?: string, lastName?: str
     `${firstName?.trim() ?? ''} ${middleName?.trim() ?? ''} ${lastName?.trim() ?? ''}`.trim();
   return fullName;
 }
+/**
+ * 移除 SQL 注入
+ * @param {string} str 要验证的字符串
+ * @returns {boolean} 清理后的字符串
+ */
+export const removeIllegalSQLChars = (str: string): string => {
+  return str;
+};

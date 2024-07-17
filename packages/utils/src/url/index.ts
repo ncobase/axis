@@ -6,6 +6,7 @@
 
 import { cleanArray } from '../helpers/array';
 import { isObject } from '../helpers/raw_type';
+import { removeIllegalSQLChars } from '../helpers/string';
 
 export function buildQueryString(params: Record<string, any>): string {
   if (!isObject(params) || params === null) {
@@ -13,11 +14,6 @@ export function buildQueryString(params: Record<string, any>): string {
   }
 
   const searchParams = new URLSearchParams();
-
-  // 预留：移除 SQL 注入
-  const removeIllegalSQLChars = (str: string): string => {
-    return str;
-  };
 
   for (const [key, value] of Object.entries(params)) {
     if (value !== undefined && value !== null) {
