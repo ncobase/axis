@@ -6,7 +6,7 @@ import { ITableHeaderCellProps } from './table.cell';
 import { IPaginationProps } from './table.pagination';
 
 export interface ITableContext<T = any> {
-  fetchData?: (params: { cursor: string; limit: number }) => Promise<{
+  fetchData?: (params?: { cursor?: string; limit?: number }) => Promise<{
     items: any[];
     total: number;
     next: string;

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 
-import { cn } from '@ncobase/utils';
+import { cleanJsonValues, cn } from '@ncobase/utils';
 
 import { EmptyData } from './components/empty';
 import { TableBody } from './table.body';
@@ -23,7 +23,7 @@ export const TableView: React.FC<TableViewProps> = ({
   fetchData,
   selected,
   paginated,
-  pageSize: initialPageSize = 20,
+  pageSize,
   pageSizes = [5, 10, 20, 50, 100],
   paginationTexts,
   emptyDataLabel,
@@ -32,7 +32,7 @@ export const TableView: React.FC<TableViewProps> = ({
   ...rest
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageSize, setCurrentPageSize] = useState(initialPageSize);
+  const [currentPageSize, setCurrentPageSize] = useState(pageSize);
   const [internalData, setInternalData] = useState(initialData || []);
   const [originalData, setOriginalData] = useState(initialData || []);
   const [total, setTotal] = useState(initialData?.length || 0);
@@ -45,14 +45,11 @@ export const TableView: React.FC<TableViewProps> = ({
   const isBackendPagination = !!fetchData && !initialData?.length;
 
   const loadData = useCallback(
-    async (cursorParam: string, limitParam: number) => {
+    async (cursor?: string, limit?: number) => {
       if (!isBackendPagination) return;
       setLoading(true);
       try {
-        const result = await fetchData({
-          cursor: cursorParam || '',
-          limit: limitParam
-        });
+        const result = await fetchData(cleanJsonValues({ cursor, limit }));
         setInternalData(result?.items || []);
         setOriginalData(result?.items || []);
         setTotal(result?.total || 0);
@@ -83,7 +80,7 @@ export const TableView: React.FC<TableViewProps> = ({
       setCursor(null);
       setCursorStack([]);
       if (isBackendPagination) {
-        loadData(null, currentPageSize);
+        loadData('', currentPageSize);
       }
     },
     [isBackendPagination, loadData, currentPageSize, fetchData]
@@ -120,7 +117,7 @@ export const TableView: React.FC<TableViewProps> = ({
       setCursor(null);
       setCursorStack([]);
       if (isBackendPagination) {
-        loadData(null, newSize);
+        loadData('', newSize);
       }
     },
     [loadData, isBackendPagination]
