@@ -29,6 +29,8 @@ export interface IPaginationProps {
     pageText?: string;
     perPageText?: string;
   };
+  hasNextPage?: boolean;
+  hasPrevPage?: boolean;
 }
 
 const defaultTexts = {
@@ -48,13 +50,15 @@ const defaultTexts = {
 
 export const Pagination: React.FC<IPaginationProps> = ({
   totalItems,
-  pageSize = 10,
-  pageSizes = [5, 10, 25, 50, 100],
+  pageSize = 1024,
   currentPage,
+  pageSizes,
   onPageChange,
   onPageSizeChange,
   className,
-  texts = {}
+  texts = {},
+  hasNextPage,
+  hasPrevPage
 }) => {
   const {
     firstPage,
@@ -123,7 +127,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(1)}
-              disabled={isFirstPage}
+              disabled={!hasPrevPage || isFirstPage}
             >
               <Icons name='IconChevronLeftPipe' />
             </Button>
@@ -136,7 +140,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(currentPage - 1)}
-              disabled={isFirstPage}
+              disabled={!hasPrevPage || isFirstPage}
             >
               <Icons name='IconChevronLeft' />
             </Button>
@@ -156,7 +160,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={isLastPage}
+              disabled={!hasNextPage || isLastPage}
             >
               <Icons name='IconChevronRight' />
             </Button>
@@ -169,7 +173,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(totalPages)}
-              disabled={isLastPage}
+              disabled={!hasNextPage || isLastPage}
             >
               <Icons name='IconChevronRightPipe' />
             </Button>

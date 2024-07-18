@@ -2,16 +2,12 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { isArray, isUndefined } from '@ncobase/utils';
 
+import { PaginationParams, PaginationResult } from './table';
 import { ITableHeaderCellProps } from './table.cell';
 import { IPaginationProps } from './table.pagination';
 
 export interface ITableContext<T = any> {
-  fetchData?: (params?: { cursor?: string; limit?: number }) => Promise<{
-    items: any[];
-    total: number;
-    next: string;
-    has_next?: boolean;
-  }>;
+  fetchData?: (params: PaginationParams) => Promise<PaginationResult<T>>;
   loadData?: any;
   internalData?: T[];
   setInternalData?: (internalData: T[]) => void;
