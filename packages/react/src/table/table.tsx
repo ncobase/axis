@@ -10,7 +10,6 @@ import { Pagination } from './table.pagination';
 
 export interface PaginationParams {
   cursor?: string;
-  offset?: number;
   limit?: number;
   direction?: 'forward' | 'backward';
   filter?: { [key: string]: any };
@@ -23,7 +22,6 @@ export interface PaginationResult<T> {
   prev_cursor?: string;
   has_next_page?: boolean;
   has_prev_page?: boolean;
-  offset: number;
 }
 
 export interface TableViewProps extends ITableContext {
@@ -62,7 +60,8 @@ export const TableView: React.FC<TableViewProps> = ({
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [prevCursor, setPrevCursor] = useState<string | null>(null);
-  const [offset, setOffset] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPrevPage, setHasPrevPage] = useState(false);
 
   const isBackendPagination = !!fetchData && !initialData?.length;
 
@@ -77,11 +76,12 @@ export const TableView: React.FC<TableViewProps> = ({
         setTotal(result?.total || 0);
         setNextCursor(result?.next_cursor || null);
         setPrevCursor(result?.prev_cursor || null);
-        setOffset(result?.offset || 0);
+        setHasNextPage(result?.has_next_page || false);
+        setHasPrevPage(result?.has_prev_page || false);
         return result;
       } catch (error) {
         console.error('Error fetching data:', error);
-        return { items: [], total: 0, has_next_page: false, has_prev_page: false, offset: 0 };
+        return { items: [], total: 0, has_next_page: false, has_prev_page: false };
       } finally {
         setLoading(false);
       }
@@ -95,6 +95,7 @@ export const TableView: React.FC<TableViewProps> = ({
     } else if (!isBackendPagination && initialData?.length) {
       setInternalData(initialData || []);
       setOriginalData(initialData || []);
+      setTotal(initialData?.length);
     }
   }, [isBackendPagination, currentPageSize, initialData, loadData]);
 
@@ -114,14 +115,8 @@ export const TableView: React.FC<TableViewProps> = ({
       if (isBackendPagination) {
         const direction = newPage > currentPage ? 'forward' : 'backward';
         const cursor = direction === 'forward' ? nextCursor : prevCursor;
-        const newOffset =
-          direction === 'forward'
-            ? offset + currentPageSize
-            : Math.max(0, offset - currentPageSize);
-
         const result = await loadData({
           cursor,
-          offset: newOffset,
           limit: currentPageSize,
           direction,
           filter: currentFilter
@@ -139,10 +134,10 @@ export const TableView: React.FC<TableViewProps> = ({
       currentPage,
       nextCursor,
       prevCursor,
-      offset,
       currentPageSize,
       loadData,
-      currentFilter
+      currentFilter,
+      total
     ]
   );
 
@@ -156,6 +151,7 @@ export const TableView: React.FC<TableViewProps> = ({
     },
     [isBackendPagination, loadData]
   );
+
   const handleRowSelection = useCallback((row: any) => {
     setSelectedRows(prev => {
       const isSelected = prev.some(selectedRow => selectedRow.id === row.id);
@@ -241,16 +237,12 @@ export const TableView: React.FC<TableViewProps> = ({
   return (
     <TableProvider value={tableContextValue}>
       <div className={classes}>
-        {paginatedData.length === 0 && currentPageSize > 1 ? (
-          <EmptyData loading={loading} className={classes} label={noMoreDataLabel} />
-        ) : (
-          <div className='overflow-x-auto'>
-            <table className='w-full table-auto'>
-              <TableHeader />
-              <TableBody data={paginatedData} />
-            </table>
-          </div>
-        )}
+        <div className='overflow-x-auto'>
+          <table className='w-full table-auto'>
+            <TableHeader />
+            <TableBody data={paginatedData} />
+          </table>
+        </div>
         {paginated && (
           <Pagination
             totalItems={isBackendPagination ? total : filteredData.length}
@@ -260,6 +252,8 @@ export const TableView: React.FC<TableViewProps> = ({
             onPageSizeChange={handlePageSizeChange}
             pageSizes={pageSizes}
             texts={paginationTexts}
+            hasNextPage={hasNextPage}
+            hasPrevPage={hasPrevPage}
           />
         )}
       </div>

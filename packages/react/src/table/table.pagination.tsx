@@ -50,19 +50,21 @@ const defaultTexts = {
 
 export const Pagination: React.FC<IPaginationProps> = ({
   totalItems,
-  pageSize = 1024,
+  pageSize,
   currentPage,
   pageSizes,
   onPageChange,
   onPageSizeChange,
   className,
-  texts = {}
+  texts = {},
+  hasNextPage,
+  hasPrevPage
 }) => {
   const {
-    firstPage,
+    // firstPage,
     previousPage,
     nextPage,
-    lastPage,
+    // lastPage,
     // totalText,
     ofText,
     // goToText,
@@ -73,8 +75,14 @@ export const Pagination: React.FC<IPaginationProps> = ({
     perPageText
   } = { ...defaultTexts, ...texts };
 
-  const totalPages = useMemo(() => Math.ceil(totalItems / pageSize), [totalItems, pageSize]);
-  const startIndex = useMemo(() => (currentPage - 1) * pageSize + 1, [currentPage, pageSize]);
+  const totalPages = useMemo(
+    () => Math.max(1, Math.ceil(totalItems / pageSize)),
+    [totalItems, pageSize]
+  );
+  const startIndex = useMemo(
+    () => Math.min((currentPage - 1) * pageSize + 1, totalItems),
+    [currentPage, pageSize, totalItems]
+  );
   const endIndex = useMemo(
     () => Math.min(currentPage * pageSize, totalItems),
     [currentPage, pageSize, totalItems]
@@ -102,19 +110,20 @@ export const Pagination: React.FC<IPaginationProps> = ({
   // );
 
   const handlePageSizeChange = useCallback(
-    (size: number) => {
-      const newTotalPages = Math.ceil(totalItems / size);
+    (size: string) => {
+      const newSize = parseInt(size, 10);
+      const newTotalPages = Math.max(1, Math.ceil(totalItems / newSize));
       const newCurrentPage = Math.min(currentPage, newTotalPages);
-      onPageSizeChange(size);
+      onPageSizeChange(newSize);
       if (newCurrentPage !== currentPage) {
         onPageChange(newCurrentPage);
       }
     },
-    [onPageSizeChange, onPageChange, totalItems, currentPage]
+    [onPageSizeChange, onPageChange, totalItems, currentPage, pageSize]
   );
 
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === totalPages;
+  // const isFirstPage = currentPage === 1;
+  // const isLastPage = currentPage === totalPages;
 
   const classes = cn(
     'flex items-center justify-between px-2 py-4 shadow-[0_-1px_2px_0_rgba(0,0,0,0.03)]',
@@ -124,7 +133,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
   return (
     <div className={classes}>
       <div className='flex items-center justify-between gap-3'>
-        <Tooltip>
+        {/* <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant='slate'
@@ -136,14 +145,14 @@ export const Pagination: React.FC<IPaginationProps> = ({
             </Button>
           </TooltipTrigger>
           <TooltipContent side='bottom'>{firstPage}</TooltipContent>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(currentPage - 1)}
-              disabled={isFirstPage}
+              disabled={!hasPrevPage}
             >
               <Icons name='IconChevronLeft' />
             </Button>
@@ -163,14 +172,14 @@ export const Pagination: React.FC<IPaginationProps> = ({
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={isLastPage}
+              disabled={!hasNextPage}
             >
               <Icons name='IconChevronRight' />
             </Button>
           </TooltipTrigger>
           <TooltipContent side='bottom'>{nextPage}</TooltipContent>
         </Tooltip>
-        <Tooltip>
+        {/* <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant='slate'
@@ -182,16 +191,13 @@ export const Pagination: React.FC<IPaginationProps> = ({
             </Button>
           </TooltipTrigger>
           <TooltipContent side='bottom'>{lastPage}</TooltipContent>
-        </Tooltip>
+        </Tooltip> */}
         {pageSizes.length > 1 && (
           <div className='flex items-center'>
             <span className='text-slate-400 text-nowrap mr-2'>{perPageText}</span>
-            <Select
-              value={pageSize.toString()}
-              onValueChange={(size: string) => handlePageSizeChange(parseInt(size, 10))}
-            >
+            <Select value={pageSize.toString()} onValueChange={handlePageSizeChange}>
               <SelectTrigger className='py-1.5 bg-slate-50'>
-                <SelectValue placeholder='选择' />
+                <SelectValue placeholder='Select' />
               </SelectTrigger>
               <SelectContent>
                 {pageSizes.map(size => (
