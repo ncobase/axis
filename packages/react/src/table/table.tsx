@@ -9,8 +9,10 @@ import { TableHeader } from './table.header';
 import { Pagination } from './table.pagination';
 
 export interface PaginationParams {
-  limit?: number;
   cursor?: string;
+  offset?: number;
+  limit?: number;
+  direction?: 'forward' | 'backward';
   filter?: { [key: string]: any };
 }
 
@@ -21,11 +23,13 @@ export interface PaginationResult<T> {
   prev_cursor?: string;
   has_next_page?: boolean;
   has_prev_page?: boolean;
+  offset: number;
 }
 
 export interface TableViewProps extends ITableContext {
   data?: any[];
   className?: string;
+  loading?: boolean;
   filter?: {
     enabled: boolean;
     config: Record<string, any>;
@@ -36,6 +40,7 @@ export const TableView: React.FC<TableViewProps> = ({
   header,
   data: initialData,
   fetchData,
+  loading: initialLoading = false,
   selected,
   paginated,
   pageSize: initialPageSize,
@@ -51,49 +56,44 @@ export const TableView: React.FC<TableViewProps> = ({
   const [internalData, setInternalData] = useState(initialData || []);
   const [originalData, setOriginalData] = useState(initialData || []);
   const [total, setTotal] = useState(initialData?.length || 0);
-  const [loading, setLoading] = useState(false);
-  const [cursor, setCursor] = useState(null);
-  const [cursorStack, setCursorStack] = useState([]);
+  const [loading, setLoading] = useState(initialLoading || false);
   const [currentFilter, setCurrentFilter] = useState(filter.config);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
-  const [hasNextPage, setHasNextPage] = useState(false);
-  const [hasPrevPage, setHasPrevPage] = useState(false);
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [prevCursor, setPrevCursor] = useState<string | null>(null);
+  const [offset, setOffset] = useState(0);
 
-  const isBackendPagination = !!fetchData;
+  const isBackendPagination = !!fetchData && !initialData?.length;
 
   const loadData = useCallback(
     async (params: PaginationParams) => {
-      if (!isBackendPagination)
-        return {
-          items: originalData,
-          total: originalData.length,
-          has_next_page: false,
-          has_prev_page: false
-        };
+      if (!isBackendPagination || !fetchData) return;
+      console.log('loadData', params);
+
       setLoading(true);
       try {
         const result = await fetchData(cleanJsonValues(params) as PaginationParams);
         setInternalData(result?.items || []);
         setOriginalData(result?.items || []);
         setTotal(result?.total || 0);
-        setCursor(result?.next_cursor || null);
-        setHasNextPage(result?.has_next_page || false);
-        setHasPrevPage(result?.has_prev_page || false);
-        return result || { items: [], total: 0, has_next_page: false, has_prev_page: false };
+        setNextCursor(result?.next_cursor || null);
+        setPrevCursor(result?.prev_cursor || null);
+        setOffset(result?.offset || 0);
+        return result;
       } catch (error) {
         console.error('Error fetching data:', error);
-        return { items: [], total: 0, has_next_page: false, has_prev_page: false };
+        return { items: [], total: 0, has_next_page: false, has_prev_page: false, offset: 0 };
       } finally {
         setLoading(false);
       }
     },
-    [isBackendPagination, originalData, fetchData]
+    [isBackendPagination, fetchData]
   );
 
   useEffect(() => {
-    if (isBackendPagination && !internalData.length) {
+    if (isBackendPagination && !internalData.length && !initialData?.length) {
       loadData({ limit: currentPageSize });
-    } else if (!isBackendPagination) {
+    } else if (!isBackendPagination && initialData?.length) {
       setInternalData(initialData || []);
       setOriginalData(initialData || []);
     }
@@ -103,8 +103,6 @@ export const TableView: React.FC<TableViewProps> = ({
     newFilter => {
       setCurrentFilter(newFilter);
       setCurrentPage(1);
-      setCursor(null);
-      setCursorStack([]);
       if (isBackendPagination) {
         loadData({ limit: currentPageSize, filter: newFilter });
       }
@@ -113,35 +111,46 @@ export const TableView: React.FC<TableViewProps> = ({
   );
 
   const handlePageChange = useCallback(
-    async newPage => {
+    async (newPage: number) => {
       if (isBackendPagination) {
-        if (newPage > currentPage && cursor) {
-          const result = await loadData({ cursor, limit: currentPageSize });
-          if (result) {
-            setCursorStack(prev => [...prev, cursor]);
-            setCurrentPage(newPage);
-          }
-        } else if (newPage < currentPage && cursorStack.length > 0) {
-          const prevCursor = cursorStack[cursorStack.length - 2] || null;
-          const result = await loadData({ cursor: prevCursor, limit: currentPageSize });
-          if (result) {
-            setCursorStack(prev => prev.slice(0, -1));
-            setCurrentPage(newPage);
-          }
+        const direction = newPage > currentPage ? 'forward' : 'backward';
+        const cursor = direction === 'forward' ? nextCursor : prevCursor;
+        const newOffset =
+          direction === 'forward'
+            ? offset + currentPageSize
+            : Math.max(0, offset - currentPageSize);
+
+        const result = await loadData({
+          cursor,
+          offset: newOffset,
+          limit: currentPageSize,
+          direction,
+          filter: currentFilter
+        });
+
+        if (result) {
+          setCurrentPage(newPage);
         }
       } else {
         setCurrentPage(newPage);
       }
     },
-    [isBackendPagination, currentPage, cursor, currentPageSize, loadData, cursorStack]
+    [
+      isBackendPagination,
+      currentPage,
+      nextCursor,
+      prevCursor,
+      offset,
+      currentPageSize,
+      loadData,
+      currentFilter
+    ]
   );
 
   const handlePageSizeChange = useCallback(
-    newSize => {
+    (newSize: number) => {
       setCurrentPageSize(newSize);
       setCurrentPage(1);
-      setCursor(null);
-      setCursorStack([]);
       if (isBackendPagination) {
         loadData({ limit: newSize });
       }
@@ -227,7 +236,7 @@ export const TableView: React.FC<TableViewProps> = ({
   );
 
   if (paginatedData.length === 0 && !loading) {
-    return <EmptyData className={classes} label={emptyDataLabel} />;
+    return <EmptyData loading={loading} className={classes} label={emptyDataLabel} />;
   }
 
   return (
@@ -248,12 +257,6 @@ export const TableView: React.FC<TableViewProps> = ({
             onPageSizeChange={handlePageSizeChange}
             pageSizes={pageSizes}
             texts={paginationTexts}
-            hasNextPage={
-              isBackendPagination
-                ? hasNextPage
-                : currentPage * currentPageSize < filteredData.length
-            }
-            hasPrevPage={isBackendPagination ? hasPrevPage : currentPage > 1}
           />
         )}
       </div>

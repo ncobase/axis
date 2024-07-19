@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { cn } from '@ncobase/utils';
 
@@ -56,9 +56,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
   onPageChange,
   onPageSizeChange,
   className,
-  texts = {},
-  hasNextPage,
-  hasPrevPage
+  texts = {}
 }) => {
   const {
     firstPage,
@@ -81,6 +79,12 @@ export const Pagination: React.FC<IPaginationProps> = ({
     () => Math.min(currentPage * pageSize, totalItems),
     [currentPage, pageSize, totalItems]
   );
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      onPageChange(totalPages);
+    }
+  }, [totalPages, currentPage, onPageChange]);
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -105,9 +109,14 @@ export const Pagination: React.FC<IPaginationProps> = ({
 
   const handlePageSizeChange = useCallback(
     (size: number) => {
+      const newTotalPages = Math.ceil(totalItems / size);
+      const newCurrentPage = Math.min(currentPage, newTotalPages);
       onPageSizeChange(size);
+      if (newCurrentPage !== currentPage) {
+        onPageChange(newCurrentPage);
+      }
     },
-    [onPageSizeChange]
+    [onPageSizeChange, onPageChange, totalItems, currentPage]
   );
 
   const isFirstPage = currentPage === 1;
@@ -127,7 +136,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(1)}
-              disabled={!hasPrevPage || isFirstPage}
+              disabled={isFirstPage}
             >
               <Icons name='IconChevronLeftPipe' />
             </Button>
@@ -140,7 +149,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(currentPage - 1)}
-              disabled={!hasPrevPage || isFirstPage}
+              disabled={isFirstPage}
             >
               <Icons name='IconChevronLeft' />
             </Button>
@@ -160,7 +169,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={!hasNextPage || isLastPage}
+              disabled={isLastPage}
             >
               <Icons name='IconChevronRight' />
             </Button>
@@ -173,7 +182,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(totalPages)}
-              disabled={!hasNextPage || isLastPage}
+              disabled={isLastPage}
             >
               <Icons name='IconChevronRightPipe' />
             </Button>
@@ -184,7 +193,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
           <div className='flex items-center'>
             <span className='text-slate-400 text-nowrap mr-2'>{perPageText}</span>
             <Select
-              defaultValue={pageSizes.find(size => size === pageSize)?.toString()}
+              value={pageSize.toString()}
               onValueChange={(size: string) => handlePageSizeChange(parseInt(size, 10))}
             >
               <SelectTrigger className='py-1.5 bg-slate-50'>
