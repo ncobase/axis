@@ -46,7 +46,8 @@ export const TableView: React.FC<TableViewProps> = ({
   pageSize: initialPageSize,
   pageSizes = [5, 10, 20, 50, 100],
   paginationTexts,
-  emptyDataLabel,
+  emptyDataLabel = 'No Data',
+  noMoreDataLabel = 'No More Data',
   className,
   filter = { enabled: false, config: {} },
   ...rest
@@ -68,8 +69,6 @@ export const TableView: React.FC<TableViewProps> = ({
   const loadData = useCallback(
     async (params: PaginationParams) => {
       if (!isBackendPagination || !fetchData) return;
-      console.log('loadData', params);
-
       setLoading(true);
       try {
         const result = await fetchData(cleanJsonValues(params) as PaginationParams);
@@ -100,7 +99,7 @@ export const TableView: React.FC<TableViewProps> = ({
   }, [isBackendPagination, currentPageSize, initialData, loadData]);
 
   const handleFilter = useCallback(
-    newFilter => {
+    (newFilter: React.SetStateAction<Record<string, any>>) => {
       setCurrentFilter(newFilter);
       setCurrentPage(1);
       if (isBackendPagination) {
@@ -235,19 +234,23 @@ export const TableView: React.FC<TableViewProps> = ({
     className
   );
 
-  if (paginatedData.length === 0 && !loading) {
+  if (paginatedData.length === 0 && !loading && currentPage === 1) {
     return <EmptyData loading={loading} className={classes} label={emptyDataLabel} />;
   }
 
   return (
     <TableProvider value={tableContextValue}>
       <div className={classes}>
-        <div className='overflow-x-auto'>
-          <table className='w-full table-auto'>
-            <TableHeader />
-            <TableBody data={paginatedData} />
-          </table>
-        </div>
+        {paginatedData.length === 0 && currentPageSize > 1 ? (
+          <EmptyData loading={loading} className={classes} label={noMoreDataLabel} />
+        ) : (
+          <div className='overflow-x-auto'>
+            <table className='w-full table-auto'>
+              <TableHeader />
+              <TableBody data={paginatedData} />
+            </table>
+          </div>
+        )}
         {paginated && (
           <Pagination
             totalItems={isBackendPagination ? total : filteredData.length}

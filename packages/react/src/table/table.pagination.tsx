@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { cn } from '@ncobase/utils';
 
 import { Button } from '../button';
-import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../forms';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../forms';
 import { Icons } from '../icon';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
 
@@ -63,13 +63,13 @@ export const Pagination: React.FC<IPaginationProps> = ({
     previousPage,
     nextPage,
     lastPage,
-    totalText,
+    // totalText,
     ofText,
-    goToText,
+    // goToText,
     displayingText,
     toText,
     itemsText,
-    pageText,
+    // pageText,
     perPageText
   } = { ...defaultTexts, ...texts };
 
@@ -80,12 +80,6 @@ export const Pagination: React.FC<IPaginationProps> = ({
     [currentPage, pageSize, totalItems]
   );
 
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      onPageChange(totalPages);
-    }
-  }, [totalPages, currentPage, onPageChange]);
-
   const handlePageChange = useCallback(
     (page: number) => {
       if (page >= 1 && page <= totalPages) {
@@ -95,17 +89,17 @@ export const Pagination: React.FC<IPaginationProps> = ({
     [onPageChange, totalPages]
   );
 
-  const handleJumpToPage = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const pageInput = e.currentTarget.elements.namedItem['pageInput'] as HTMLInputElement;
-      const pageNumber = parseInt(pageInput.value, 10);
-      if (pageNumber >= 1 && pageNumber <= totalPages) {
-        onPageChange(pageNumber);
-      }
-    },
-    [onPageChange, totalPages]
-  );
+  // const handleJumpToPage = useCallback(
+  //   (e: React.FormEvent<HTMLFormElement>) => {
+  //     e.preventDefault();
+  //     const pageInput = e.currentTarget.elements.namedItem['pageInput'] as HTMLInputElement;
+  //     const pageNumber = parseInt(pageInput.value, 10);
+  //     if (pageNumber >= 1 && pageNumber <= totalPages) {
+  //       onPageChange(pageNumber);
+  //     }
+  //   },
+  //   [onPageChange, totalPages]
+  // );
 
   const handlePageSizeChange = useCallback(
     (size: number) => {
@@ -209,7 +203,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
             </Select>
           </div>
         )}
-        {totalPages > 1 && (
+        {/* {totalPages > 1 && (
           <form onSubmit={handleJumpToPage} className='flex items-center gap-x-3'>
             <span className='text-slate-400 text-nowrap'>
               {totalText} {totalPages} {pageText}，{goToText}
@@ -224,7 +218,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
             />
             <span className='text-slate-400'>{pageText}</span>
           </form>
-        )}
+        )} */}
       </div>
     </div>
   );
