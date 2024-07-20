@@ -45,7 +45,6 @@ export const TableView: React.FC<TableViewProps> = ({
   pageSizes = [5, 10, 20, 50, 100],
   paginationTexts,
   emptyDataLabel = 'No Data',
-  noMoreDataLabel = 'No More Data',
   className,
   filter = { enabled: false, config: {} },
   ...rest
@@ -230,8 +229,10 @@ export const TableView: React.FC<TableViewProps> = ({
     className
   );
 
-  if (paginatedData.length === 0 && !loading && currentPage === 1) {
-    return <EmptyData loading={loading} className={classes} label={emptyDataLabel} />;
+  if (loading) {
+    return <EmptyData loading={loading} className={classes} />;
+  } else if (paginatedData.length === 0 && currentPage === 1) {
+    return <EmptyData className={classes} label={emptyDataLabel} />;
   }
 
   return (
