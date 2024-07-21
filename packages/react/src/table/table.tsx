@@ -50,7 +50,7 @@ export const TableView: React.FC<TableViewProps> = ({
   ...rest
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageSize, setCurrentPageSize] = useState(initialPageSize);
+  const [currentPageSize, setCurrentPageSize] = useState(initialPageSize || 20);
   const [internalData, setInternalData] = useState(initialData || []);
   const [originalData, setOriginalData] = useState(initialData || []);
   const [total, setTotal] = useState(initialData?.length || 0);
@@ -62,8 +62,10 @@ export const TableView: React.FC<TableViewProps> = ({
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPrevPage, setHasPrevPage] = useState(false);
 
-  const isBackendPagination = !!fetchData && !initialData?.length;
-
+  // backend pagination
+  const [isBackendPagination, setIsBackendPagination] = useState(
+    !!fetchData && !initialData?.length
+  );
   const loadData = useCallback(
     async (params: PaginationParams) => {
       if (!isBackendPagination || !fetchData) return;
@@ -181,16 +183,19 @@ export const TableView: React.FC<TableViewProps> = ({
       const startIndex = (currentPage - 1) * currentPageSize;
       return filteredData.slice(startIndex, startIndex + currentPageSize);
     }
+
     return filteredData;
   }, [filteredData, currentPage, currentPageSize, paginated, isBackendPagination]);
 
   const tableContextValue = useMemo(
     () => ({
       header,
-      internalData: paginatedData,
+      internalData: filteredData,
       setInternalData,
       originalData,
       setOriginalData,
+      isBackendPagination,
+      setIsBackendPagination,
       selected,
       paginated,
       pageSize: currentPageSize,

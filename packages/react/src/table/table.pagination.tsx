@@ -3,9 +3,11 @@ import React, { useCallback, useMemo } from 'react';
 import { cn } from '@ncobase/utils';
 
 import { Button } from '../button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../forms';
+import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../forms';
 import { Icons } from '../icon';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
+
+import { useTable } from './table.context';
 
 export interface IPaginationProps {
   className?: string;
@@ -61,19 +63,21 @@ export const Pagination: React.FC<IPaginationProps> = ({
   hasPrevPage
 }) => {
   const {
-    // firstPage,
+    firstPage,
     previousPage,
     nextPage,
-    // lastPage,
-    // totalText,
+    lastPage,
+    totalText,
     ofText,
-    // goToText,
+    goToText,
     displayingText,
     toText,
     itemsText,
-    // pageText,
+    pageText,
     perPageText
   } = { ...defaultTexts, ...texts };
+
+  const { isBackendPagination } = useTable();
 
   const totalPages = useMemo(
     () => Math.max(1, Math.ceil(totalItems / pageSize)),
@@ -97,17 +101,19 @@ export const Pagination: React.FC<IPaginationProps> = ({
     [onPageChange, totalPages]
   );
 
-  // const handleJumpToPage = useCallback(
-  //   (e: React.FormEvent<HTMLFormElement>) => {
-  //     e.preventDefault();
-  //     const pageInput = e.currentTarget.elements.namedItem['pageInput'] as HTMLInputElement;
-  //     const pageNumber = parseInt(pageInput.value, 10);
-  //     if (pageNumber >= 1 && pageNumber <= totalPages) {
-  //       onPageChange(pageNumber);
-  //     }
-  //   },
-  //   [onPageChange, totalPages]
-  // );
+  const handleJumpToPage = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const pageInput = e.currentTarget.elements.namedItem('pageInput') as HTMLInputElement;
+      console.log(pageInput);
+
+      const pageNumber = parseInt(pageInput.value, 10);
+      if (pageNumber >= 1 && pageNumber <= totalPages) {
+        onPageChange(pageNumber);
+      }
+    },
+    [onPageChange, totalPages]
+  );
 
   const handlePageSizeChange = useCallback(
     (size: string) => {
@@ -122,8 +128,8 @@ export const Pagination: React.FC<IPaginationProps> = ({
     [onPageSizeChange, onPageChange, totalItems, currentPage, pageSize]
   );
 
-  // const isFirstPage = currentPage === 1;
-  // const isLastPage = currentPage === totalPages;
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === totalPages;
 
   const classes = cn(
     'flex items-center justify-between px-2 py-4 shadow-[0_-1px_2px_0_rgba(0,0,0,0.03)]',
@@ -133,26 +139,30 @@ export const Pagination: React.FC<IPaginationProps> = ({
   return (
     <div className={classes}>
       <div className='flex items-center justify-between gap-3'>
-        {/* <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant='slate'
-              size='ratio'
-              onClick={() => handlePageChange(1)}
-              disabled={isFirstPage}
-            >
-              <Icons name='IconChevronLeftPipe' />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side='bottom'>{firstPage}</TooltipContent>
-        </Tooltip> */}
+        {!isBackendPagination && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant='slate'
+                size='ratio'
+                onClick={() => handlePageChange(1)}
+                disabled={isFirstPage}
+              >
+                <Icons name='IconChevronLeftPipe' />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side='bottom'>{firstPage}</TooltipContent>
+          </Tooltip>
+        )}
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(currentPage - 1)}
-              disabled={!hasPrevPage}
+              disabled={
+                (isBackendPagination && !hasPrevPage) || (!isBackendPagination && isFirstPage)
+              }
             >
               <Icons name='IconChevronLeft' />
             </Button>
@@ -172,26 +182,30 @@ export const Pagination: React.FC<IPaginationProps> = ({
               variant='slate'
               size='ratio'
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={!hasNextPage}
+              disabled={
+                (isBackendPagination && !hasNextPage) || (!isBackendPagination && isLastPage)
+              }
             >
               <Icons name='IconChevronRight' />
             </Button>
           </TooltipTrigger>
           <TooltipContent side='bottom'>{nextPage}</TooltipContent>
         </Tooltip>
-        {/* <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant='slate'
-              size='ratio'
-              onClick={() => handlePageChange(totalPages)}
-              disabled={isLastPage}
-            >
-              <Icons name='IconChevronRightPipe' />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side='bottom'>{lastPage}</TooltipContent>
-        </Tooltip> */}
+        {!isBackendPagination && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant='slate'
+                size='ratio'
+                onClick={() => handlePageChange(totalPages)}
+                disabled={isLastPage}
+              >
+                <Icons name='IconChevronRightPipe' />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side='bottom'>{lastPage}</TooltipContent>
+          </Tooltip>
+        )}
         {pageSizes.length > 1 && (
           <div className='flex items-center'>
             <span className='text-slate-400 text-nowrap mr-2'>{perPageText}</span>
@@ -209,7 +223,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
             </Select>
           </div>
         )}
-        {/* {totalPages > 1 && (
+        {!isBackendPagination && totalPages > 1 && (
           <form onSubmit={handleJumpToPage} className='flex items-center gap-x-3'>
             <span className='text-slate-400 text-nowrap'>
               {totalText} {totalPages} {pageText}，{goToText}
@@ -224,7 +238,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
             />
             <span className='text-slate-400'>{pageText}</span>
           </form>
-        )} */}
+        )}
       </div>
     </div>
   );
