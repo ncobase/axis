@@ -104,10 +104,8 @@ export const Pagination: React.FC<IPaginationProps> = ({
   const handleJumpToPage = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const pageInput = e.currentTarget.elements.namedItem('pageInput') as HTMLInputElement;
-      console.log(pageInput);
-
-      const pageNumber = parseInt(pageInput.value, 10);
+      const jumpInput = e.currentTarget.elements.namedItem('jumpInput') as HTMLInputElement;
+      const pageNumber = parseInt(jumpInput.value, 10);
       if (pageNumber >= 1 && pageNumber <= totalPages) {
         onPageChange(pageNumber);
       }
@@ -230,7 +228,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
             </span>
             <Input
               type='number'
-              name='pageInput'
+              name='jumpInput'
               min='1'
               max={totalPages}
               defaultValue={currentPage.toString()}
