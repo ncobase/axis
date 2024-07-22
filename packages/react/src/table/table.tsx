@@ -32,6 +32,8 @@ export interface TableViewProps extends ITableContext {
     enabled: boolean;
     config: Record<string, any>;
   };
+  expandComponent?: ITableBodyProps['expandComponent'];
+  maxTreeLevel?: ITableBodyProps['maxTreeLevel'];
 }
 
 export const TableView: React.FC<TableViewProps> = ({
@@ -46,8 +48,9 @@ export const TableView: React.FC<TableViewProps> = ({
   paginationTexts,
   emptyDataLabel = 'No Data',
   className,
-  expandedContent,
-  maxLevel = 0,
+  expandComponent,
+  maxTreeLevel,
+  isAllExpanded,
   filter = { enabled: false, config: {} },
   ...rest
 }) => {
@@ -150,13 +153,31 @@ export const TableView: React.FC<TableViewProps> = ({
   );
 
   const handleRowSelection = useCallback((row: any) => {
+    const recursivelySelectChildren = (children: any[], selected: any[], select: boolean) => {
+      children.forEach(child => {
+        const isChildSelected = selected.some(r => r.id === child.id);
+        if (select && !isChildSelected) {
+          selected.push(child);
+        } else if (!select && isChildSelected) {
+          selected = selected.filter(r => r.id !== child.id);
+        }
+        if (child.children && child.children.length > 0) {
+          selected = recursivelySelectChildren(child.children, selected, select);
+        }
+      });
+      return selected;
+    };
+
     setSelectedRows(prev => {
       const isSelected = prev.some(selectedRow => selectedRow.id === row.id);
-      if (isSelected) {
-        return prev.filter(selectedRow => selectedRow.id !== row.id);
-      } else {
-        return [...prev, row];
+      const updatedSelectedRows = isSelected
+        ? prev.filter(selectedRow => selectedRow.id !== row.id)
+        : [...prev, row];
+
+      if (row.children && row.children.length > 0) {
+        return recursivelySelectChildren(row.children, updatedSelectedRows, !isSelected);
       }
+      return updatedSelectedRows;
     });
   }, []);
 
@@ -190,8 +211,9 @@ export const TableView: React.FC<TableViewProps> = ({
       originalData,
       setOriginalData,
       isBackendPagination,
-      selected,
+      selected: !(maxTreeLevel !== undefined || expandComponent !== undefined) ? selected : false,
       paginated,
+      isAllExpanded,
       pageSize: currentPageSize,
       pageSizes,
       paginationTexts,
@@ -218,6 +240,7 @@ export const TableView: React.FC<TableViewProps> = ({
       currentFilter,
       handleFilter,
       selectedRows,
+      isAllExpanded,
       handleRowSelection,
       rest
     ]
@@ -239,8 +262,12 @@ export const TableView: React.FC<TableViewProps> = ({
       <div className={classes}>
         <div className='overflow-x-auto'>
           <table className='w-full table-auto'>
-            <TableHeader />
-            <TableBody data={paginatedData} expandedContent={expandedContent} maxLevel={maxLevel} />
+            <TableHeader expandComponent={expandComponent} maxTreeLevel={maxTreeLevel} />
+            <TableBody
+              data={paginatedData}
+              expandComponent={expandComponent}
+              maxTreeLevel={maxTreeLevel}
+            />
           </table>
         </div>
         {paginated && (

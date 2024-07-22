@@ -34,8 +34,9 @@ export interface ITableContext<T = any> {
   actions?: {
     [key: string]: () => void;
   };
-  expandedContent?: ITableBodyProps<T>['expandedContent'];
-  maxLevel?: ITableBodyProps<T>['maxLevel'];
+  onExpandAll?: () => void;
+  onCollapseAll?: () => void;
+  isAllExpanded?: boolean;
   filter?: {
     enabled: boolean;
     config: Record<string, { value?: string | string[]; sortOrder?: 'asc' | 'desc' | null }>;
@@ -62,12 +63,65 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
   const [columns, setColumns] = useState<ITableHeaderCellProps[]>(defaultTableContext.header);
   const [selectedRows, setSelectedRows] = useState<any[]>(defaultTableContext.selectedRows);
   const [filter, setFilter] = useState<ITableContext['filter']>(defaultTableContext.filter);
+  const [isAllExpanded, setIsAllExpanded] = useState(value.isAllExpanded || false);
 
   useEffect(() => {
     if (value.header && value.header.length > 0) {
       setColumns(value.header);
     }
   }, [value.header]);
+
+  const handleSelectRow = (row: any) => {
+    const isSelected = selectedRows?.some(r => r.id === row.id);
+    const updatedSelectedRows = isSelected
+      ? selectedRows.filter(r => r.id !== row.id)
+      : [...selectedRows, row];
+
+    // Recursive selection for child rows
+    const recursivelySelectChildren = (children: any[], selected: any[]) => {
+      children.forEach(child => {
+        const isChildSelected = selected.some(r => r.id === child.id);
+        if (isSelected && isChildSelected) {
+          selected = selected.filter(r => r.id !== child.id);
+        } else if (!isSelected && !isChildSelected) {
+          selected.push(child);
+        }
+        if (child.children && child.children.length > 0) {
+          selected = recursivelySelectChildren(child.children, selected);
+        }
+      });
+      return selected;
+    };
+
+    if (row.children && row.children.length > 0) {
+      setSelectedRows(recursivelySelectChildren(row.children, updatedSelectedRows));
+    } else {
+      setSelectedRows(updatedSelectedRows);
+    }
+  };
+
+  const handleSelectAllRows = (rows: string | any[]) => {
+    const flattenRows = (data: any[]): any[] => {
+      return data.reduce((acc, item) => {
+        acc.push(item);
+        if (item.children && item.children.length > 0) {
+          acc = acc.concat(flattenRows(item.children));
+        }
+        return acc;
+      }, []);
+    };
+
+    if (Array.isArray(rows)) {
+      if (rows.length === 0) {
+        setSelectedRows([]);
+      } else {
+        const allRows = flattenRows(rows);
+        setSelectedRows(allRows);
+      }
+    } else {
+      setSelectedRows(value.internalData || []);
+    }
+  };
 
   const tableContextValue: ITableContext = {
     ...defaultTableContext,
@@ -87,24 +141,11 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
     },
     filter,
     setFilter,
-    onSelectRow: (row: any) => {
-      if (selectedRows?.some(r => r.id === row.id)) {
-        setSelectedRows(selectedRows.filter(r => r.id !== row.id));
-      } else {
-        setSelectedRows([...selectedRows, row]);
-      }
-    },
-    onSelectAllRows: (rows: string | any[]) => {
-      if (isArray(rows)) {
-        if (rows.length === 0) {
-          setSelectedRows([]);
-        } else {
-          setSelectedRows(rows);
-        }
-      } else {
-        setSelectedRows(value.internalData || []);
-      }
-    }
+    onSelectRow: handleSelectRow,
+    onSelectAllRows: handleSelectAllRows,
+    onExpandAll: () => setIsAllExpanded(true),
+    onCollapseAll: () => setIsAllExpanded(false),
+    isAllExpanded
   };
 
   return <TableContext.Provider value={tableContextValue}>{children}</TableContext.Provider>;
