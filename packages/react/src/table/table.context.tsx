@@ -14,7 +14,6 @@ export interface ITableContext<T = any> {
   originalData?: T[];
   setOriginalData?: (data: T[]) => void;
   isBackendPagination?: boolean;
-  setIsBackendPagination?: (isBackendPagination: boolean) => void;
   header?: ITableHeaderCellProps[];
   columns?: ITableHeaderCellProps[];
   setColumns?: (header: ITableHeaderCellProps[]) => void;
