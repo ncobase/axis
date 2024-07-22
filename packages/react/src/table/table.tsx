@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { cleanJsonValues, cn } from '@ncobase/utils';
 
 import { EmptyData } from './components/empty';
-import { TableBody } from './table.body';
+import { ITableBodyProps, TableBody } from './table.body';
 import { ITableContext, TableProvider } from './table.context';
 import { TableHeader } from './table.header';
 import { Pagination } from './table.pagination';
@@ -16,7 +16,7 @@ export interface PaginationParams {
 }
 
 export interface PaginationResult<T> {
-  items: T[];
+  items: ITableBodyProps<T>['data'];
   total: number;
   next_cursor?: string;
   prev_cursor?: string;
@@ -25,7 +25,7 @@ export interface PaginationResult<T> {
 }
 
 export interface TableViewProps extends ITableContext {
-  data?: any[];
+  data?: ITableBodyProps['data'];
   className?: string;
   loading?: boolean;
   filter?: {
@@ -46,6 +46,8 @@ export const TableView: React.FC<TableViewProps> = ({
   paginationTexts,
   emptyDataLabel = 'No Data',
   className,
+  expandedContent,
+  maxLevel = 0,
   filter = { enabled: false, config: {} },
   ...rest
 }) => {
@@ -238,7 +240,7 @@ export const TableView: React.FC<TableViewProps> = ({
         <div className='overflow-x-auto'>
           <table className='w-full table-auto'>
             <TableHeader />
-            <TableBody data={paginatedData} />
+            <TableBody data={paginatedData} expandedContent={expandedContent} maxLevel={maxLevel} />
           </table>
         </div>
         {paginated && (

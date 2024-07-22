@@ -3,16 +3,17 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { isArray, isUndefined } from '@ncobase/utils';
 
 import { PaginationParams, PaginationResult } from './table';
+import { ITableBodyProps } from './table.body';
 import { ITableHeaderCellProps } from './table.cell';
 import { IPaginationProps } from './table.pagination';
 
 export interface ITableContext<T = any> {
   fetchData?: (params: PaginationParams) => Promise<PaginationResult<T>>;
   loadData?: any;
-  internalData?: T[];
-  setInternalData?: (internalData: T[]) => void;
-  originalData?: T[];
-  setOriginalData?: (data: T[]) => void;
+  internalData?: ITableBodyProps<T>['data'];
+  setInternalData?: (internalData: ITableBodyProps<T>['data']) => void;
+  originalData?: ITableBodyProps<T>['data'];
+  setOriginalData?: (data: ITableBodyProps<T>['data']) => void;
   isBackendPagination?: boolean;
   header?: ITableHeaderCellProps[];
   columns?: ITableHeaderCellProps[];
@@ -25,17 +26,19 @@ export interface ITableContext<T = any> {
   selected?: boolean;
   visibleControl?: boolean;
   className?: string;
-  selectedRows?: T[];
+  selectedRows?: ITableBodyProps<T>['data'];
   emptyDataLabel?: string;
   noMoreDataLabel?: string;
   onSelectRow?: (row: T) => void;
-  onSelectAllRows?: (rows: string | T[]) => void;
+  onSelectAllRows?: (rows: string | ITableBodyProps<T>['data']) => void;
   actions?: {
     [key: string]: () => void;
   };
+  expandedContent?: ITableBodyProps<T>['expandedContent'];
+  maxLevel?: ITableBodyProps<T>['maxLevel'];
   filter?: {
     enabled: boolean;
-    config: Record<string, { value?: T; sortOrder?: 'asc' | 'desc' | null }>;
+    config: Record<string, { value?: string | string[]; sortOrder?: 'asc' | 'desc' | null }>;
   };
   setFilter?: (filter: ITableContext<T>['filter']) => void;
 }
