@@ -9,6 +9,7 @@ import { TableHeader } from './table.header';
 import { Pagination } from './table.pagination';
 
 export interface PaginationParams {
+  children?: boolean;
   cursor?: string;
   limit?: number;
   direction?: 'forward' | 'backward';
