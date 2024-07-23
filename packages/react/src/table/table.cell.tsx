@@ -75,6 +75,9 @@ const TableCell: React.FC<ITableCellProps> = ({
         },
         {} as Record<string, any>
       );
+    } else if (typeof key === 'string' && key.includes('.')) {
+      const keys = key.split('.');
+      return keys.reduce((acc, k) => (acc && typeof acc === 'object' ? acc[k] : undefined), record);
     } else {
       return record?.[key];
     }

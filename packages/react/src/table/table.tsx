@@ -251,9 +251,9 @@ export const TableView: React.FC<TableViewProps> = ({
     className
   );
 
-  if (loading) {
+  if (loading && paginatedData.length === 0) {
     return <EmptyData loading={loading} className={classes} />;
-  } else if (paginatedData.length === 0 && currentPage === 1) {
+  } else if (paginatedData.length === 0) {
     return <EmptyData className={classes} label={emptyDataLabel} />;
   }
 

@@ -6,7 +6,13 @@ import { Button } from '../button';
 import { Icons } from '../icon';
 
 export const isActionColumn = (key: string = ''): boolean => {
-  const actionKeys = ['actions', 'action', '操作', 'operation', 'operations'];
+  const actionKeys = [
+    'action-column',
+    'actionColumn',
+    '操作列',
+    'operation-column',
+    'operationColumn'
+  ];
   return actionKeys.includes(key.toLowerCase());
 };
 
