@@ -64,14 +64,39 @@ const TableCell: React.FC<ITableCellProps> = ({
     className
   );
 
+  const getValueFromRecord = (key: string | string[] | object) => {
+    if (Array.isArray(key)) {
+      return key.map((k: string | number) => record?.[k]).filter(val => val !== undefined);
+    } else if (typeof key === 'object') {
+      return Object.entries(key).reduce(
+        (acc, [k, v]) => {
+          acc[k] = record?.[v];
+          return acc;
+        },
+        {} as Record<string, any>
+      );
+    } else {
+      return record?.[key];
+    }
+  };
+
+  const value = getValueFromRecord(code);
+
+  const formatValue = (val: any) => {
+    if (typeof val === 'object' && val !== null) {
+      return JSON.stringify(val);
+    }
+    return val;
+  };
+
   const tdAttributes = {
-    title: isString(record?.[code]) || isNumber(record?.[code]) ? record[code] : undefined
+    title: isString(value) || isNumber(value) ? value : undefined
   };
 
   return (
     <td className={classes} {...tdAttributes}>
       <div className='w-full h-full max-w-full px-3 py-2 flex items-center'>
-        {children ? children : parser ? parser(record?.[code], record) : record?.[code]}
+        {children ? children : parser ? parser(formatValue(value), record) : formatValue(value)}
       </div>
     </td>
   );
