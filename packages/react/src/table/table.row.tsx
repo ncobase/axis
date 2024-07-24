@@ -103,7 +103,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
                         onToggleExpand();
                       }}
                       className={cn(
-                        'p-1 rounded-full hover:bg-gray-200 transition-colors duration-200 flex-shrink-0',
+                        'p-1 rounded-full hover:bg-gray-200 transition-colors duration-200',
                         `ml-${level * 2}`
                       )}
                     >

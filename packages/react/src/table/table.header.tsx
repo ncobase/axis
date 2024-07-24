@@ -64,7 +64,7 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
           </TableHeaderCell>
         )}
         {canTree && (
-          <TableHeaderCell title='tree' filter={false}>
+          <TableHeaderCell title='tree' filter={false} className='!w-0 [&>div]:!px-1'>
             <Button
               onClick={isAllExpanded ? onCollapseAll : onExpandAll}
               variant='unstyle'

@@ -26,7 +26,7 @@ export interface ITableCellBaseProps<T = any> {
   /**
    * column value parser
    */
-  parser?: T;
+  parser?: (value: string, record?: object | T) => React.ReactNode;
   /**
    * column icon
    */
@@ -39,11 +39,11 @@ export interface ITableCellBaseProps<T = any> {
   children?: React.ReactNode;
 }
 
-interface ITableCellProps extends ITableCellBaseProps {
-  record?: any;
+interface ITableCellProps<T extends object> extends ITableCellBaseProps {
+  record?: T;
 }
 
-const TableCell: React.FC<ITableCellProps> = ({
+const TableCell: React.FC<ITableCellProps<any>> = ({
   className,
   children,
   record,
@@ -105,7 +105,7 @@ const TableCell: React.FC<ITableCellProps> = ({
   );
 };
 
-const ActionCell: React.FC<ITableCellProps> = ({ actions = [], record }) => {
+const ActionCell: React.FC<ITableCellProps<any>> = ({ actions = [], record }) => {
   return (
     <td className='h-11 min-w-8 after:absolute after:w-full border-b-[0.03125rem] border-gray-100 truncate'>
       <div className='w-full h-full inline-flex px-2 hover:[&>button]:bg-white [&>button]:p-2 [&>button]:rounded-full items-center justify-center'>

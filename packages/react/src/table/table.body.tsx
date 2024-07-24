@@ -88,7 +88,14 @@ export const TableBody: React.FC<ITableBodyProps> = ({
             />
           </TableCell>
         )}
-        {canTree && <TableCell key='tree' title='tree' record={item} className='!w-0' />}
+        {canTree && (
+          <TableCell
+            key='tree'
+            title='tree'
+            record={item}
+            className='!w-0 [&>div]:!px-0 [&>div]:!pl-2'
+          />
+        )}
         {columns.map(column => (
           <TableCell key={column.code || column.title || 'default'} {...column} record={item} />
         ))}
