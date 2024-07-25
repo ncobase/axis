@@ -26,7 +26,7 @@ export interface ITableCellBaseProps<T = any> {
   /**
    * column value parser
    */
-  parser?: (value: string, record?: object | T) => React.ReactNode;
+  parser?: (value?: string, record?: object | T) => React.ReactNode | T;
   /**
    * column icon
    */
