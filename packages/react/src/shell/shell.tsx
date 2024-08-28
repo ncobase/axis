@@ -32,7 +32,7 @@ export const Shell: React.FC<IProps> = memo(
         'pt-[6.5rem]': !!header && !!topbar, // show header && show topbar
         // sidebar and submenu conditions
         'pl-[3.5rem]': !!sidebar && !submenu && !sidebarExpanded, // show sidebar && hide submenu && sidebar collapsed
-        'pl-[10rem]': !!sidebar && !submenu && sidebarExpanded, // show sidebar && hide submenu && sidebar expanded
+        'pl-[9.5rem]': !!sidebar && !submenu && sidebarExpanded, // show sidebar && hide submenu && sidebar expanded
         'pl-[9rem]': !sidebar && !!submenu && !sidebarExpanded, // show submenu && hide sidebar
         'pl-[14rem]': !sidebar && !!submenu && sidebarExpanded, // show submenu && hide sidebar && sidebar expanded
         'pl-[12.5rem]': !!sidebar && !!submenu && !sidebarExpanded, // show sidebar && show submenu && sidebar collapsed
