@@ -130,7 +130,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
   const isLastPage = currentPage === totalPages;
 
   const classes = cn(
-    'flex items-center justify-between px-2 py-4 shadow-[0_-1px_2px_0_rgba(0,0,0,0.03)]',
+    'flex items-center justify-between px-2 py-2 shadow-[0_-1px_2px_0_rgba(0,0,0,0.03)]',
     className
   );
 
