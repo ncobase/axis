@@ -121,14 +121,19 @@ export const Dialog: React.FC<DialogViewProps> = ({
             {description && (
               <DialogDescription className='whitespace-pre-line'>{description}</DialogDescription>
             )}
-            <Button
-              variant='unstyle'
-              size='ratio'
-              className='absolute top-3 right-12 rounded-full p-1 text-default-11 hover:bg-default-1/10 focus:outline-none hover:shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:[&>svg]:stroke-danger-400'
-              onClick={handleMaximize}
+            <div
+              className='absolute top-3 right-12 flex items-center gap-2'
+              id='dialog-header-actions'
             >
-              <Icons name={isMaximized ? 'IconWindowMinimize' : 'IconWindowMaximize'} size={16} />
-            </Button>
+              <Button
+                variant='unstyle'
+                size='ratio'
+                className='rounded-full p-1 text-default-11 hover:bg-default-1/10 focus:outline-none hover:shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:[&>svg]:stroke-danger-400'
+                onClick={handleMaximize}
+              >
+                <Icons name={isMaximized ? 'IconWindowMinimize' : 'IconWindowMaximize'} size={16} />
+              </Button>
+            </div>
           </DialogHeader>
         ) : null}
         <ScrollView className={cn('flex-1', !(title || description) ? 'pt-6' : '')}>
