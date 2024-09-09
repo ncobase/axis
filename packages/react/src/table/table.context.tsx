@@ -111,7 +111,7 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
       }, []);
     };
 
-    if (Array.isArray(rows)) {
+    if (isArray(rows)) {
       if (rows.length === 0) {
         setSelectedRows([]);
       } else {

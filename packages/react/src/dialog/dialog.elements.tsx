@@ -27,6 +27,7 @@ const DialogClose = React.forwardRef<
     <span className='sr-only'>Close</span>
   </DialogPrimitive.Close>
 ));
+DialogClose.displayName = 'DialogClose';
 
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
