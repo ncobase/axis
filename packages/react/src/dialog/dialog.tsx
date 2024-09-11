@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { cn } from '@ncobase/utils';
 
 import { Button } from '../button';
-import { Icons } from '../icon';
 import { ScrollView } from '../views';
 
 import {
@@ -66,9 +65,9 @@ interface DialogViewProps {
    */
   confirmText?: string;
   /**
-   * Is dialog maximized, default is false
+   * Dialog header toolbar elements
    */
-  isMaximized?: boolean;
+  toolbar?: React.ReactNode;
 }
 
 export const Dialog: React.FC<DialogViewProps> = ({
@@ -83,7 +82,7 @@ export const Dialog: React.FC<DialogViewProps> = ({
   onConfirm,
   confirmText,
   className,
-  isMaximized: defaultIsMaximized = false,
+  toolbar,
   children
 }) => {
   const [open, setOpen] = useState(isOpen);
@@ -97,43 +96,24 @@ export const Dialog: React.FC<DialogViewProps> = ({
     onChange?.();
   };
 
-  const [isMaximized, setIsMaximized] = useState(defaultIsMaximized);
-  const defaultSize =
-    'w-[78lvw] h-[76lvh] max-w-[90lvw] max-h-[86lvh] shadow-lg rounded-lg -translate-x-[50%] -translate-y-[55%]';
-  const maximizedSize =
-    '!w-[100lvw] !h-[100lvh] max-w-[100lvw] max-h-[100lvh] shadow-none !rounded-none -translate-x-[50%] -translate-y-[50%]';
-  const handleMaximize = () => {
-    setIsMaximized(prevStatus => !prevStatus);
-  };
-
   return (
     <DialogRoot open={open} onOpenChange={handleChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      <DialogContent
-        className={cn(className, {
-          [maximizedSize]: isMaximized,
-          [defaultSize]: !isMaximized
-        })}
-      >
+      <DialogContent className={cn(className)}>
         {title || description ? (
           <DialogHeader className='-mx-6 px-6'>
             {title && <DialogTitle className='text-base font-medium'>{title}</DialogTitle>}
             {description && (
               <DialogDescription className='whitespace-pre-line'>{description}</DialogDescription>
             )}
-            <div
-              className='absolute top-3 right-12 flex items-center gap-2'
-              id='dialog-header-actions'
-            >
-              <Button
-                variant='unstyle'
-                size='ratio'
-                className='rounded-full p-1 text-default-11 hover:bg-default-1/10 focus:outline-none hover:shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:[&>svg]:stroke-danger-400'
-                onClick={handleMaximize}
+            {toolbar && (
+              <div
+                className='absolute top-3 right-12 flex items-center gap-2'
+                id='dialog-header-actions'
               >
-                <Icons name={isMaximized ? 'IconWindowMinimize' : 'IconWindowMaximize'} size={16} />
-              </Button>
-            </div>
+                {toolbar}
+              </div>
+            )}
           </DialogHeader>
         ) : null}
         <ScrollView className={cn('flex-1', !(title || description) ? 'pt-6' : '')}>
