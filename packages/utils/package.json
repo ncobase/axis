@@ -15,14 +15,14 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.1.0",
     "jsencrypt": "^3.3.2",
     "nanoid": "^3.3.7",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.5.3"
   },
   "devDependencies": {
     "@ncobase/tsconfig": "workspace:*",
-    "@types/node": "^20.12.11",
-    "tsup": "^8.0.2"
+    "@types/node": "^22.7.4",
+    "tsup": "^8.3.0"
   }
 }
