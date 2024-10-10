@@ -103,9 +103,7 @@ export const Dialog: React.FC<DialogViewProps> = ({
         {title || description ? (
           <DialogHeader className='-mx-6 px-6'>
             {title && <DialogTitle className='text-base font-medium'>{title}</DialogTitle>}
-            {description && (
-              <DialogDescription className='whitespace-pre-line'>{description}</DialogDescription>
-            )}
+            <DialogDescription className='whitespace-pre-line'>{description}</DialogDescription>
             {toolbar && (
               <div
                 className='absolute top-3 right-12 flex items-center gap-2'
