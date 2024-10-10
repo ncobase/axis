@@ -5,12 +5,32 @@ export type TButtonVariant =
   | 'warning'
   | 'danger'
   | 'slate'
+  | 'blue'
+  | 'indigo'
+  | 'purple'
+  | 'pink'
+  | 'rose'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'teal'
+  | 'cyan'
   | 'outline-primary'
   | 'outline-secondary'
   | 'outline-success'
   | 'outline-warning'
   | 'outline-danger'
   | 'outline-slate'
+  | 'outline-blue'
+  | 'outline-indigo'
+  | 'outline-purple'
+  | 'outline-pink'
+  | 'outline-rose'
+  | 'outline-orange'
+  | 'outline-yellow'
+  | 'outline-green'
+  | 'outline-teal'
+  | 'outline-cyan'
   | 'link'
   | 'unstyle';
 
@@ -114,6 +134,126 @@ export const buttonStyling: IButtonStyling = {
     default: `border border-slate-200/65 text-slate-500/65 [&>svg]:stroke-slate-400/65`,
     hover: `hover:border-slate-100/65 hover:text-slate-500 hover:bg-slate-50 [&>svg]:hover:stroke-slate-400`,
     pressed: `focus:border-slate-200/90 foucs:text-slate-600/90 [&>svg]:hover:stroke-slate-400`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  blue: {
+    default: `bg-blue-600 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-blue-600/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-blue-700/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-blue': {
+    default: `border border-blue-600 text-blue-600 [&>svg]:stroke-blue-600`,
+    hover: `hover:border-blue-600/65 hover:bg-blue-50 [&>svg]:hover:stroke-blue-600/65`,
+    pressed: `focus:border-blue-700/90 focus:text-blue-700/90 [&>svg]:hover:stroke-blue-700/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  indigo: {
+    default: `bg-indigo-600 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-indigo-600/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-indigo-700/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-indigo': {
+    default: `border border-indigo-600 text-indigo-600 [&>svg]:stroke-indigo-600`,
+    hover: `hover:border-indigo-600/65 hover:bg-indigo-50 [&>svg]:hover:stroke-indigo-600/65`,
+    pressed: `focus:border-indigo-700/90 focus:text-indigo-700/90 [&>svg]:hover:stroke-indigo-700/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  purple: {
+    default: `bg-purple-600 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-purple-600/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-purple-700/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-purple': {
+    default: `border border-purple-600 text-purple-600 [&>svg]:stroke-purple-600`,
+    hover: `hover:border-purple-600/65 hover:bg-purple-50 [&>svg]:hover:stroke-purple-600/65`,
+    pressed: `focus:border-purple-700/90 focus:text-purple-700/90 [&>svg]:hover:stroke-purple-700/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  pink: {
+    default: `bg-pink-600 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-pink-600/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-pink-700/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-pink': {
+    default: `border border-pink-600 text-pink-600 [&>svg]:stroke-pink-600`,
+    hover: `hover:border-pink-600/65 hover:bg-pink-50 [&>svg]:hover:stroke-pink-600/65`,
+    pressed: `focus:border-pink-700/90 focus:text-pink-700/90 [&>svg]:hover:stroke-pink-700/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  rose: {
+    default: `bg-rose-600 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-rose-600/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-rose-700/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-rose': {
+    default: `border border-rose-600 text-rose-600 [&>svg]:stroke-rose-600`,
+    hover: `hover:border-rose-600/65 hover:bg-rose-50 [&>svg]:hover:stroke-rose-600/65`,
+    pressed: `focus:border-rose-700/90 focus:text-rose-700/90 [&>svg]:hover:stroke-rose-700/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  orange: {
+    default: `bg-orange-600 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-orange-600/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-orange-700/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-orange': {
+    default: `border border-orange-600 text-orange-600 [&>svg]:stroke-orange-600`,
+    hover: `hover:border-orange-600/65 hover:bg-orange-50 [&>svg]:hover:stroke-orange-600/65`,
+    pressed: `focus:border-orange-700/90 focus:text-orange-700/90 [&>svg]:hover:stroke-orange-700/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  yellow: {
+    default: `bg-yellow-500 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-yellow-500/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-yellow-600/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-yellow': {
+    default: `border border-yellow-500 text-yellow-600 [&>svg]:stroke-yellow-600`,
+    hover: `hover:border-yellow-500/65 hover:bg-yellow-50 [&>svg]:hover:stroke-yellow-600/65`,
+    pressed: `focus:border-yellow-600/90 focus:text-yellow-700/90 [&>svg]:hover:stroke-yellow-700/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  green: {
+    default: `bg-green-600 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-green-600/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-green-700/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-green': {
+    default: `border border-green-600 text-green-600 [&>svg]:stroke-green-600`,
+    hover: `hover:border-green-600/65 hover:bg-green-50 [&>svg]:hover:stroke-green-600/65`,
+    pressed: `focus:border-green-700/90 focus:text-green-700/90 [&>svg]:hover:stroke-green-700/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  teal: {
+    default: `bg-teal-600 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-teal-600/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-teal-700/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-teal': {
+    default: `border border-teal-600 text-teal-600 [&>svg]:stroke-teal-600`,
+    hover: `hover:border-teal-600/65 hover:bg-teal-50 [&>svg]:hover:stroke-teal-600/65`,
+    pressed: `focus:border-teal-700/90 focus:text-teal-700/90 [&>svg]:hover:stroke-teal-700/90`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  cyan: {
+    default: `bg-cyan-600 text-white [&>svg]:stroke-white`,
+    hover: `hover:bg-cyan-600/85 [&>svg]:hover:stroke-white/85`,
+    pressed: `focus:bg-cyan-700/90 [&>svg]:hover:stroke-white/85`,
+    disabled: `cursor-not-allowed !opacity-75`
+  },
+  'outline-cyan': {
+    default: `border border-cyan-600 text-cyan-600 [&>svg]:stroke-cyan-600`,
+    hover: `hover:border-cyan-600/65 hover:bg-cyan-50 [&>svg]:hover:stroke-cyan-600/65`,
+    pressed: `focus:border-cyan-700/90 focus:text-cyan-700/90 [&>svg]:hover:stroke-cyan-700/90`,
     disabled: `cursor-not-allowed !opacity-75`
   },
   link: {
