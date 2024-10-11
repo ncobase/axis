@@ -1,23 +1,20 @@
 {
-  "name": "@ncotone/monorepo",
+  "name": "@ncobase/packages",
   "version": "0.0.1-alpha.0",
   "private": true,
-  "description": "Ncotone frontend project",
-  "repository": "git@github.com:ncotone/frontend.git",
+  "description": "Ncobase frontend packages",
+  "repository": "git@github.com:ncobase/packages.git",
   "workspaces": [
-    "apps/*",
-    "packages/*",
-    "plugins/*"
+    "packages/*"
   ],
   "scripts": {
     "prepare": "husky install",
     "clean": "npx rimraf --glob '**/{node_modules,.next,dist,.turbo,.eslintcache}'",
     "dev": "turbo run dev",
-    "dev:ncotone": "pnpm dev --filter=@ncotone/ncotone --filter=./packages/*",
     "lint": "turbo run lint",
     "lint:fix": "pnpm lint -- --fix && pnpm prettier --write",
     "prettier": "prettier \"**/*.{vue,js,jsx,ts,tsx,md,css,scss,yaml,yml}\"",
-    "build": "turbo run build --filter=!./apps/*"
+    "build": "turbo run build"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",

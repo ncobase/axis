@@ -1,3 +1,3 @@
-# Frontend projects for the Ncotone
+# Frontend packages
 
-> This projects is a frontend for the Ncotone.
+> This projects is a frontend packages
