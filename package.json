@@ -5,7 +5,11 @@
   "description": "Ncobase frontend packages",
   "repository": "git@github.com:ncobase/packages.git",
   "workspaces": [
-    "packages/*"
+    "react",
+    "tailwind",
+    "tsconfig",
+    "types",
+    "utils"
   ],
   "scripts": {
     "prepare": "husky install",
