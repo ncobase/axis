@@ -5,6 +5,8 @@ import { ReactFlow } from '@xyflow/react';
 import { FlowViewContext, useFlowView } from './context';
 import { FlowViewProps } from './types';
 
+import '@xyflow/react/dist/style.css';
+
 export const FlowView: React.FC<FlowViewProps> = ({ children, nodes, edges, ...rest }) => {
   const context = React.useContext(FlowViewContext);
 
