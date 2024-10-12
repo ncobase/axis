@@ -1,0 +1,28 @@
+{
+  "name": "@ncobase/flow",
+  "version": "0.0.1-alpha.0",
+  "description": "flow library",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup --config tsup.config.ts --minify",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "eslint src/**/* --ext .js,.jsx.ts,.tsx"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.3.2"
+  },
+  "devDependencies": {
+    "@ncobase/tailwind": "workspace:*",
+    "@ncobase/tsconfig": "workspace:*",
+    "@ncobase/utils": "workspace:*",
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.11",
+    "react": "^18.3.1",
+    "tsup": "^8.3.0"
+  }
+}
