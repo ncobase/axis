@@ -5,7 +5,8 @@
   "description": "Ncobase frontend packages",
   "repository": "git@github.com:ncobase/packages.git",
   "workspaces": [
-    "flow",
+    "charts",
+    "flows",
     "react",
     "tailwind",
     "tsconfig",

@@ -1,6 +1,7 @@
 prefer-workspace-packages: true
 packages:
-  - 'flow'
+  - 'charts'
+  - 'flows'
   - 'react'
   - 'tailwind'
   - 'tsconfig'

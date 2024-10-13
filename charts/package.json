@@ -1,7 +1,7 @@
 {
-  "name": "@ncobase/flow",
+  "name": "@ncobase/charts",
   "version": "0.0.1-alpha.0",
-  "description": "flow library",
+  "description": "charts library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -14,10 +14,9 @@
     "lint": "eslint src/**/* --ext .js,.jsx.ts,.tsx"
   },
   "dependencies": {
-    "@xyflow/react": "^12.3.2"
+    "react-apexcharts": "^1.4.1"
   },
   "devDependencies": {
-    "@emotion/css": "^11.13.4",
     "@ncobase/tailwind": "workspace:*",
     "@ncobase/tsconfig": "workspace:*",
     "@ncobase/utils": "workspace:*",
