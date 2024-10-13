@@ -17,7 +17,7 @@
     "@xyflow/react": "^12.3.2"
   },
   "devDependencies": {
-    "@emotion/css": "^11.13.4",
+    "@emotion/react": "^11.13.3",
     "@ncobase/tailwind": "workspace:*",
     "@ncobase/tsconfig": "workspace:*",
     "@ncobase/utils": "workspace:*",

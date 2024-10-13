@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@ncobase/utils';
+import { cx } from '@ncobase/utils';
 import { ReactFlow, MiniMap, Controls, Background } from '@xyflow/react';
 
 import { FlowViewProvider } from './context';
@@ -22,7 +22,7 @@ const FlowViewContent: React.FC<FlowViewProps> = ({
 }) => {
   return (
     <ReactFlow
-      className={cn(classes.container, className)}
+      className={cx(classes.container, className)}
       nodes={nodes}
       edges={edges}
       panOnScroll
