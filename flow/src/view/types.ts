@@ -1,6 +1,6 @@
 import { ReactNode, MutableRefObject } from 'react';
 
-import { Node, Edge, ReactFlowInstance, ReactFlowProps } from '@xyflow/react';
+import { Node, Edge, ReactFlowInstance, ReactFlowProps, BackgroundProps } from '@xyflow/react';
 
 export enum SelectType {
   Selected = 'selected',
@@ -30,12 +30,6 @@ export interface LayoutOptions {
 
 export type NodeMapping = Record<string, FlowViewNode>;
 
-export interface FlowViewProps extends Omit<ReactFlowProps, 'nodes' | 'edges'> {
-  children?: ReactNode;
-  nodes: FlowViewNode[];
-  edges: FlowViewEdge[];
-}
-
 export interface FlowDataAdapterParams {
   nodes: FlowViewNode[];
   edges: FlowViewEdge[];
@@ -44,12 +38,17 @@ export interface FlowDataAdapterParams {
   layoutOptions: LayoutOptions;
 }
 
-export interface FlowViewContextProps {
-  flowDataAdapter?: (params: FlowDataAdapterParams) => void;
+export interface FlowViewProps {
+  className?: string;
+  children?: ReactNode;
   nodes: FlowViewNode[];
   edges: FlowViewEdge[];
+  background?: boolean;
+  minZoom?: number;
+  maxZoom?: number;
+  flowDataAdapter?: (params: FlowDataAdapterParams) => void;
   mapping?: NodeMapping;
-  isUseProvider?: boolean;
+  useProvider?: boolean;
   reactFlowInstance?: ReactFlowInstance;
   miniMapPosition?: MiniMapPosition;
   flowViewRef?: MutableRefObject<ReactNode>;
@@ -58,4 +57,6 @@ export interface FlowViewContextProps {
   updateSelectEdge?: (edgeId: string, selectType: SelectType) => void;
   updateSelectNodes?: (nodeIds: string[], selectType: SelectType) => void;
   updateSelectEdges?: (edgeIds: string[], selectType: SelectType) => void;
+  flowProps?: ReactFlowProps;
+  flowBackgroundProps?: BackgroundProps;
 }

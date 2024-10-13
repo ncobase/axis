@@ -1,15 +1,15 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 
-import { FlowViewContextProps } from './types';
+import { FlowViewProps } from './types';
 
-export const FlowViewContext = createContext<FlowViewContextProps | null>(null);
+export const FlowViewContext = createContext<Partial<FlowViewProps> | null>(null);
 
-interface FlowViewProviderProps {
+interface FlowViewProviderProps extends Partial<FlowViewProps> {
   children: ReactNode;
-  value: FlowViewContextProps;
+  value?: Partial<FlowViewProps>;
 }
 
-export const FlowViewProvider: React.FC<FlowViewProviderProps> = ({ children, value }) => {
+export const FlowViewProvider: React.FC<FlowViewProviderProps> = ({ children, ...value }) => {
   return <FlowViewContext.Provider value={value}>{children}</FlowViewContext.Provider>;
 };
 
