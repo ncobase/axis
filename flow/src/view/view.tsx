@@ -15,8 +15,8 @@ const FlowViewContent: React.FC<FlowViewProps> = ({
   nodes,
   edges,
   background = true,
-  minZoom = 0.1,
-  maxZoom = 2,
+  minZoom = 0.2,
+  maxZoom = 1.2,
   flowProps,
   flowBackgroundProps
 }) => {
