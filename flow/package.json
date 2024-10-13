@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/flow",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1-alpha.0",
   "description": "flow library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -17,7 +17,7 @@
     "@xyflow/react": "^12.3.2"
   },
   "devDependencies": {
-    "@emotion/react": "^11.13.3",
+    "@emotion/css": "^11.13.4",
     "@ncobase/tailwind": "workspace:*",
     "@ncobase/tsconfig": "workspace:*",
     "@ncobase/utils": "workspace:*",
