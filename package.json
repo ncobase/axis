@@ -14,7 +14,7 @@
     "utils"
   ],
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "clean": "npx rimraf --glob '**/{node_modules,.next,dist,.turbo,.eslintcache}'",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
