@@ -3,6 +3,7 @@ packages:
   - 'charts'
   - 'flows'
   - 'react'
+  - 'scaffold'
   - 'tailwind'
   - 'tsconfig'
   - 'types'
