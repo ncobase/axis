@@ -18,11 +18,11 @@
     "date-fns": "^4.1.0",
     "jsencrypt": "^3.3.2",
     "nanoid": "^3.3.7",
-    "tailwind-merge": "^2.5.3"
+    "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
     "@ncobase/tsconfig": "workspace:*",
-    "@types/node": "^22.7.4",
+    "@types/node": "^22.7.6",
     "tsup": "^8.3.0"
   }
 }
