@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@ncobase/tsconfig": "workspace:*",
-    "@types/node": "^22.7.6",
-    "tsup": "^8.3.0"
+    "@types/node": "^22.13.4",
+    "tsup": "^8.3.6"
   }
 }
