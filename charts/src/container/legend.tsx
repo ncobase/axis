@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cn } from '@ncobase/utils';
-import { Legend as RechartsLegend, LegendProps as RechartsLegendProps } from 'recharts';
+import { Legend as RechartsLegend, type LegendProps as RechartsLegendProps } from 'recharts';
 
 import { useChart } from './context';
 import { getConfigFromPayload } from './utils';

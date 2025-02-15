@@ -6,7 +6,7 @@ import { Button } from '../button';
 import { Checkbox } from '../forms';
 import { Icons } from '../icon';
 
-import { ITableBodyProps } from './table.body';
+import type { ITableBodyProps } from './table.body';
 import { TableHeaderCell } from './table.cell';
 import { useTable } from './table.context';
 import { TableRow } from './table.row';

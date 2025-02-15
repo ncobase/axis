@@ -3,7 +3,7 @@ import React from 'react';
 import {
   BackgroundVariant,
   Background as FlowBackground,
-  BackgroundProps as FlowBackgroundProps
+  type BackgroundProps as FlowBackgroundProps
 } from '@xyflow/react';
 
 export type BackgroundVariantType = BackgroundVariant;

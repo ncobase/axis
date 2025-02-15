@@ -1,8 +1,22 @@
 {
   "name": "@ncobase/tsconfig",
   "version": "0.0.1-alpha.2",
+  "description": "Shared TypeScript configurations",
   "files": [
+    "README.md",
     "base.json",
-    "react.json"
+    "react.json",
+    "next.json",
+    "node.json",
+    "test.json",
+    "vue.json",
+    "vue2.json",
+    "nuxt.json"
+  ],
+  "keywords": [
+    "typescript",
+    "tsconfig",
+    "configuration",
+    "ncobase"
   ]
 }

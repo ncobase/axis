@@ -12,7 +12,9 @@
   "scripts": {
     "build": "tsup --config tsup.config.ts --minify",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
-    "lint": "eslint src/**/* --ext .js,.jsx.ts,.tsx"
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {},
   "devDependencies": {

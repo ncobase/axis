@@ -1,6 +1,6 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, type ReactNode } from 'react';
 
-import { FlowViewProps } from './types';
+import type { FlowViewProps } from './types';
 
 export const FlowViewContext = createContext<Partial<FlowViewProps> | null>(null);
 

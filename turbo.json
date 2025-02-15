@@ -23,6 +23,12 @@
     "publish": {
       "cache": false,
       "dependsOn": ["^build"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "typecheck": {
+      "cache": false
     }
   }
 }

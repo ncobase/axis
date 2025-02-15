@@ -1,28 +1,35 @@
 {
   "name": "@ncobase/utils",
   "version": "0.0.1-alpha.3",
-  "description": "utils library",
+  "description": "Utility functions library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist/**"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react --minify",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
-    "lint": "eslint src/**/* --ext .js,.jsx.ts,.tsx"
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "jsencrypt": "^3.3.2",
-    "nanoid": "^3.3.7",
-    "tailwind-merge": "^2.5.4"
+    "nanoid": "^5.1.0",
+    "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
     "@ncobase/tsconfig": "workspace:*",
     "@types/node": "^22.13.4",
+    "rimraf": "^6.0.1",
     "tsup": "^8.3.6"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

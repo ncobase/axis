@@ -1,6 +1,6 @@
-import { ComponentType, ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
-import { EChartsOption } from 'echarts';
+import type { EChartsOption } from 'echarts';
 
 export type ChartConfig = {
   [k in string]: {

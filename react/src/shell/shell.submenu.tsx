@@ -1,4 +1,4 @@
-import React, { HtmlHTMLAttributes, memo } from 'react';
+import React, { type HtmlHTMLAttributes, memo } from 'react';
 
 import { cn } from '@ncobase/utils';
 

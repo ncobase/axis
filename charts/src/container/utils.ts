@@ -1,4 +1,4 @@
-import { ChartConfig } from './types';
+import type { ChartConfig } from './types';
 
 export function getConfigFromPayload(config: ChartConfig, payload: unknown, key: string) {
   if (typeof payload !== 'object' || payload === null) {

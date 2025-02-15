@@ -1,16 +1,9 @@
-import React, {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { cn } from '@ncobase/utils';
-import { Accept, DropzoneOptions, DropzoneState, FileRejection, useDropzone } from 'react-dropzone';
+import type { Accept, DropzoneOptions, DropzoneState, FileRejection } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 import { toast } from 'sonner';
 
 import { Button } from '../../button';

@@ -1,5 +1,5 @@
 {
-  "extends": "@ncobase/tsconfig/react.json",
+  "extends": "@ncobase/tsconfig/base.json",
   "include": [
     "."
   ],

@@ -1,5 +1,17 @@
 {
   "name": "@ncobase/types",
   "version": "0.0.1-alpha.2",
-  "main": "./src/index.d.ts"
+  "description": "Common TypeScript types",
+  "types": "./index.d.ts",
+  "files": [
+    "*.d.ts",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "@types/react": "^18.3.1"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
 }

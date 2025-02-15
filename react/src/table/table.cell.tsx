@@ -49,7 +49,7 @@ const TableCell: React.FC<ITableCellProps<any>> = ({
   record,
   title,
   visible,
-  code,
+  code = '',
   parser,
   actions
 }) => {
@@ -123,7 +123,7 @@ const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   visible,
   filter = 'sort', // TODO: implement filter, toggle, date, date-range
   title,
-  code,
+  code = '',
   icon,
   className,
   children
@@ -133,7 +133,7 @@ const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | null>(null);
 
   useEffect(() => {
-    if (filterState.config[code]?.value !== filterValue) {
+    if (filterState?.config[code]?.value !== filterValue) {
       // @ts-expect-error
       setFilter(prevFilter => ({
         ...prevFilter,
@@ -149,7 +149,7 @@ const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   }, [filterValue, code]);
 
   useEffect(() => {
-    if (filterState.config[code]?.sortOrder !== sortOrder) {
+    if (filterState?.config[code]?.sortOrder !== sortOrder) {
       // @ts-expect-error
       setFilter(prevFilter => ({
         ...prevFilter,

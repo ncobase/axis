@@ -6,7 +6,7 @@ import { ResponsiveContainer } from 'recharts';
 
 import { ChartProvider } from './context';
 import { ChartStyle } from './style';
-import { ChartConfig, ChartLibrary, EChartsProps } from './types';
+import type { ChartConfig, ChartLibrary, EChartsProps } from './types';
 
 type ChartContainerProps = React.ComponentProps<'div'> & {
   config: ChartConfig;
@@ -34,7 +34,7 @@ export const ChartContainer = forwardRef<HTMLDivElement, ChartContainerProps>(
     const chartId = `ncse-chart-${id || uniqueId.replace(/:/g, '')}`;
     const echartsRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+    useEffect((): any => {
       if (library === 'echarts' && echartsRef.current) {
         const chart = init(echartsRef.current, null, echartsProps?.settings);
         chart.setOption(echartsProps?.option || {});

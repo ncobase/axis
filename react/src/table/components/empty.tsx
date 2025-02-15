@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { cn } from '@ncobase/utils';
 
 import { Label } from '../../forms';

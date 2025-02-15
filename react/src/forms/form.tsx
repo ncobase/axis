@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { cn } from '@ncobase/utils';
-import { Control, Controller, FieldValues } from 'react-hook-form';
+import type { Control, FieldValues } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
-import { FieldConfigProps, FieldRender } from './form.field';
+import type { FieldConfigProps } from './form.field';
+import { FieldRender } from './form.field';
 
 interface FormViewProps extends React.FormHTMLAttributes<HTMLFormElement> {
   control?: Control;

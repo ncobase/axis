@@ -2,10 +2,10 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { isArray, isUndefined } from '@ncobase/utils';
 
-import { PaginationParams, PaginationResult } from './table';
-import { ITableBodyProps } from './table.body';
-import { ITableHeaderCellProps } from './table.cell';
-import { IPaginationProps } from './table.pagination';
+import type { PaginationParams, PaginationResult } from './table';
+import type { ITableBodyProps } from './table.body';
+import type { ITableHeaderCellProps } from './table.cell';
+import type { IPaginationProps } from './table.pagination';
 
 export interface ITableContext<T = any> {
   fetchData?: (params: PaginationParams) => Promise<PaginationResult<T>>;
@@ -60,8 +60,8 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
   value,
   children
 }) => {
-  const [columns, setColumns] = useState<ITableHeaderCellProps[]>(defaultTableContext.header);
-  const [selectedRows, setSelectedRows] = useState<any[]>(defaultTableContext.selectedRows);
+  const [columns, setColumns] = useState<ITableHeaderCellProps[]>(defaultTableContext.header || []);
+  const [selectedRows, setSelectedRows] = useState<any[]>(defaultTableContext.selectedRows || []);
   const [filter, setFilter] = useState<ITableContext['filter']>(defaultTableContext.filter);
   const [isAllExpanded, setIsAllExpanded] = useState(value.isAllExpanded || false);
 

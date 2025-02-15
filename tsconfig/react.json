@@ -3,16 +3,18 @@
   "display": "React Library",
   "extends": "./base.json",
   "compilerOptions": {
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "target": "esnext",
-    "strict": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "esModuleInterop": true
+    "types": [
+      "react",
+      "react-dom"
+    ],
+    "strictNullChecks": true,
+    "verbatimModuleSyntax": true,
+    "noImplicitAny": true,
   }
 }

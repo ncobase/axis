@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cn } from '@ncobase/utils';
 
-import { getBadgeStyle, TBadgeSize, TBadgeVariant } from './styles';
+import { getBadgeStyle, type TBadgeSize, type TBadgeVariant } from './styles';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: TBadgeVariant;

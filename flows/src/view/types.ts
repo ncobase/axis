@@ -1,6 +1,6 @@
-import { ReactNode, MutableRefObject } from 'react';
+import type { ReactNode, MutableRefObject } from 'react';
 
-import { Node, Edge, ReactFlowInstance, ReactFlowProps, BackgroundProps } from '@xyflow/react';
+import type { Node, Edge, ReactFlowInstance, ReactFlowProps, BackgroundProps } from '@xyflow/react';
 
 export enum SelectType {
   Selected = 'selected',

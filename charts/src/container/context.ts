@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { ChartContextProps } from './types';
+import type { ChartContextProps } from './types';
 
 const ChartContext = createContext<ChartContextProps | null>(null);
 

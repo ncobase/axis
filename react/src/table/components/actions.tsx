@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { DropdownItem } from '../../dropdown';
 import { Icons } from '../../icon';
 

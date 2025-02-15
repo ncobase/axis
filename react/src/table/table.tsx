@@ -3,14 +3,14 @@ import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { cleanJsonValues, cn } from '@ncobase/utils';
 
 import { EmptyData } from './components/empty';
-import { ITableBodyProps, TableBody } from './table.body';
-import { ITableContext, TableProvider } from './table.context';
+import { type ITableBodyProps, TableBody } from './table.body';
+import { type ITableContext, TableProvider } from './table.context';
 import { TableHeader } from './table.header';
 import { Pagination } from './table.pagination';
 
 export interface PaginationParams {
   children?: boolean;
-  cursor?: string;
+  cursor?: string | null;
   limit?: number;
   direction?: 'forward' | 'backward';
   filter?: { [key: string]: any };
@@ -74,7 +74,7 @@ export const TableView: React.FC<TableViewProps> = ({
   );
 
   const loadData = useCallback(
-    async (params: PaginationParams) => {
+    async (params: PaginationParams): Promise<any> => {
       if (!isBackendPagination || !fetchData) return;
       setLoading(true);
       try {

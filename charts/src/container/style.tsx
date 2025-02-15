@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { ChartConfig } from './types';
+import type { ChartConfig } from './types';
 
 const THEMES = { light: '', dark: '.dark' } as const;
 

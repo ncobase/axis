@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { cn, formatDateTime } from '@ncobase/utils';
-import { DateRange } from 'react-day-picker';
+import type { DateRange } from 'react-day-picker';
 
 import { Button } from '../button';
 import { Calendar } from '../calendar';

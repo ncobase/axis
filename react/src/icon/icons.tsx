@@ -9,7 +9,7 @@ interface IProps extends TIcons.IconProps {
 
 export const TablerIconsNamespace = TIcons['icons'];
 
-export const Icons: React.FC<IProps> = ({ name, size = 16, stroke = 1.5, ...rest }) => {
+export const Icons: React.FC<IProps> = ({ name = '', size = 16, stroke = 1.5, ...rest }) => {
   const IconComponent = name
     ? (TIcons[name as keyof typeof TIcons] as React.FC<TIcons.IconProps>)
     : null;

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState, useMemo } from 'react';
+import React, { type ReactNode, useEffect, useState, useMemo } from 'react';
 
 import { Checkbox } from '../forms';
 
@@ -17,9 +17,15 @@ export const TableBody: React.FC<ITableBodyProps> = ({
   className,
   data,
   expandComponent,
-  maxTreeLevel
+  maxTreeLevel = -1
 }) => {
-  const { selected, selectedRows, columns = [], onSelectRow, isAllExpanded } = useTable();
+  const {
+    selected,
+    selectedRows = [],
+    columns = [],
+    onSelectRow = () => {},
+    isAllExpanded
+  } = useTable();
   const [treeRows, setTreedRows] = useState<Set<string>>(new Set());
 
   const isSelected = (record: any) => selectedRows.includes(record);

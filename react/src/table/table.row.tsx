@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { cn } from '@ncobase/utils';
 
@@ -40,9 +40,9 @@ export const TableRow: React.FC<ITableRowProps> = ({
   item,
   expandComponent,
   isExpanded,
-  onToggleExpand,
+  onToggleExpand = () => {},
   renderNestedRows,
-  maxTreeLevel
+  maxTreeLevel = -1
 }) => {
   if (!children) return null;
 

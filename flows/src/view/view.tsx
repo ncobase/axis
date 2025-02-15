@@ -5,7 +5,7 @@ import { ReactFlow, MiniMap, Controls, Background } from '@xyflow/react';
 
 import { FlowViewProvider } from './context';
 import { classes } from './styles';
-import { FlowViewProps } from './types';
+import type { FlowViewProps } from './types';
 
 import '@xyflow/react/dist/style.css';
 

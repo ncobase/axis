@@ -1,7 +1,7 @@
-import React, { forwardRef, HTMLInputTypeAttribute, memo } from 'react';
+import React, { forwardRef, type HTMLInputTypeAttribute, memo } from 'react';
 
 import { cn, getValueByPath } from '@ncobase/utils';
-import { FieldError, FieldValues, RegisterOptions } from 'react-hook-form';
+import type { FieldError, FieldValues, RegisterOptions } from 'react-hook-form';
 
 import { Button } from '../button';
 import { DatePicker } from '../datepicker';
@@ -14,7 +14,7 @@ import { Label } from './label';
 import { RadioGroup, RadioGroupItem } from './radio';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 import { Textarea } from './textarea';
-import { Uploader, UploaderProps } from './uploader';
+import { Uploader, type UploaderProps } from './uploader';
 
 interface FieldConfigProps extends React.ComponentProps<any> {
   /**
@@ -115,9 +115,9 @@ const Field = forwardRef<any, FieldProps>(
       : error
         ? error?.message
         : null;
-    const required = rules?.required || rest.required || false;
+    const required = rules?.required || rest['required'] || false;
 
-    if (rest.type === 'hidden') {
+    if (rest['type'] === 'hidden') {
       return rendered;
     }
 
@@ -192,8 +192,8 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
     },
     ref
   ) => {
-    if (rest.value === undefined && defaultValue !== undefined) {
-      rest.value = defaultValue;
+    if (rest['value'] === undefined && defaultValue !== undefined) {
+      rest['value'] = defaultValue;
     }
 
     return (
@@ -217,9 +217,9 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
             placeholder={placeholder}
             {...rest}
             ref={ref}
-            className={cn(rest.className, prependIcon && 'pl-9', appendIcon && 'pr-9')}
+            className={cn(rest['className'], prependIcon && 'pl-9', appendIcon && 'pr-9')}
           />
-          {rest.type === 'number' && (
+          {rest['type'] === 'number' && (
             <div
               className={cn('flex flex-col absolute right-1 top-1/2 transform -translate-y-1/2')}
             >
@@ -228,7 +228,7 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
                 variant='unstyle'
                 size='ratio'
                 onClick={() => {
-                  const newValue = parseInt(rest.value) + 1 || 0;
+                  const newValue = parseInt(rest['value']) + 1 || 0;
                   onChange(newValue);
                 }}
               >
@@ -239,7 +239,7 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
                 variant='unstyle'
                 size='ratio'
                 onClick={() => {
-                  const newValue = parseInt(rest.value) - 1 || 0;
+                  const newValue = parseInt(rest['value']) - 1 || 0;
                   onChange(newValue);
                 }}
               >
@@ -247,7 +247,7 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
               </Button>
             </div>
           )}
-          {rest.type !== 'number' && appendIcon && (
+          {rest['type'] !== 'number' && appendIcon && (
             <Button
               className={cn(
                 'absolute right-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
@@ -272,8 +272,8 @@ const TextareaField = forwardRef<HTMLTextAreaElement, FieldConfigProps>(
     { onChange, defaultValue, placeholder, appendIcon, appendIconClick, valueComponent, ...rest },
     ref
   ) => {
-    if (rest.value === undefined && defaultValue !== undefined) {
-      rest.value = defaultValue;
+    if (rest['value'] === undefined && defaultValue !== undefined) {
+      rest['value'] = defaultValue;
     }
     return (
       <Field {...rest} ref={ref}>
@@ -316,8 +316,8 @@ const SelectField = forwardRef<HTMLDivElement, FieldConfigProps>(
     { options, onChange, defaultValue, placeholder, prependIcon, prependIconClick, ...rest },
     ref
   ) => {
-    if (rest.value === undefined && defaultValue !== undefined) {
-      rest.value = defaultValue;
+    if (rest['value'] === undefined && defaultValue !== undefined) {
+      rest['value'] = defaultValue;
     }
     return (
       <Field {...rest} ref={ref}>
@@ -339,11 +339,13 @@ const SelectField = forwardRef<HTMLDivElement, FieldConfigProps>(
             <SelectValue placeholder={placeholder || '请选择'} />
           </SelectTrigger>
           <SelectContent>
-            {options?.map((option, index) => (
-              <SelectItem key={index} value={option.value as string}>
-                {option.label || option.value}
-              </SelectItem>
-            ))}
+            {options?.map(
+              (option: { value: string; label: any }, index: React.Key | null | undefined) => (
+                <SelectItem key={index} value={option.value as string}>
+                  {option.label || option.value}
+                </SelectItem>
+              )
+            )}
           </SelectContent>
         </Select>
       </Field>
@@ -354,7 +356,7 @@ const SelectField = forwardRef<HTMLDivElement, FieldConfigProps>(
 const RenderOption = memo(
   forwardRef<any, any>(({ option, type, onChange, defaultValue, ...rest }, _ref) => {
     const { label, value } = typeof option === 'object' ? option : { label: option, value: option };
-    const id = `${rest.name}-${value}`.replace(/\./g, '-');
+    const id = `${rest['name']}-${value}`.replace(/\./g, '-');
 
     return (
       <div className='inline-flex items-center space-x-2 [&>label]:hover:cursor-pointer'>
@@ -386,21 +388,21 @@ const CheckboxField = forwardRef<HTMLDivElement, FieldConfigProps>(
     const renderSingleOption = (label: string) => (
       <div className='inline-flex items-center space-x-2 [&>label]:hover:cursor-pointer'>
         <Checkbox
-          id={`${rest.name}`}
-          onCheckedChange={rest.onChange}
-          defaultChecked={rest.defaultValue}
+          id={`${rest['name']}`}
+          onCheckedChange={rest['onChange']}
+          defaultChecked={rest['defaultValue']}
           {...rest}
         />
-        <Label htmlFor={`${rest.name}`}>{label || rest.title}</Label>
+        <Label htmlFor={`${rest['name']}`}>{label || rest['title']}</Label>
       </div>
     );
     return (
       <Field {...rest} ref={ref} className={className}>
         <div className={cn('flex flex-wrap gap-4', elementClassName)}>
-          {options.length === 0 && renderSingleOption(rest.label)}
+          {options.length === 0 && renderSingleOption(rest['label'])}
           {options.length === 1 && renderSingleOption(options[0]['label'] || '')}
           {options.length > 1 &&
-            options.map((option, index) => (
+            options.map((option: unknown, index: React.Key | null | undefined) => (
               <RenderOption key={index} option={option} type='checkbox' {...rest} />
             ))}
         </div>
@@ -420,11 +422,11 @@ const RadioField = forwardRef<HTMLDivElement, FieldConfigProps>(
           onValueChange={onChange}
         >
           {options.length === 0 && (
-            <RenderOption type='radio' option={{ label: rest.title, value: '0' }} {...rest} />
+            <RenderOption type='radio' option={{ label: rest['title'], value: '0' }} {...rest} />
           )}
           {options.length === 1 && <RenderOption type='radio' option={options[0]} {...rest} />}
           {options.length > 1 &&
-            options?.map((option, index) => (
+            options?.map((option: unknown, index: React.Key | null | undefined) => (
               <RenderOption key={index} option={option} type='radio' {...rest} />
             ))}
         </RadioGroup>
@@ -452,7 +454,7 @@ const UploaderField = forwardRef<HTMLDivElement, FieldConfigProps & UploaderProp
   ({ onChange, defaultValue, ...rest }, ref) => {
     return (
       <Field {...rest} ref={ref}>
-        <Uploader value={rest.value || defaultValue} onValueChange={onChange} {...rest} />
+        <Uploader value={rest['value'] || defaultValue} onValueChange={onChange} {...rest} />
       </Field>
     );
   }

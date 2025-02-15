@@ -9,7 +9,7 @@ import {
   FileUploader,
   FileUploaderContent,
   FileUploaderItem,
-  FileUploaderProps
+  type FileUploaderProps
 } from './elements';
 
 interface DropPlaceholderProps {
