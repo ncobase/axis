@@ -22,7 +22,8 @@
     "lint:fix": "pnpm lint -- --fix && pnpm prettier --write",
     "prettier": "prettier \"**/*.{vue,js,jsx,ts,tsx,md,css,scss,yaml,yml}\"",
     "build": "turbo run build",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "update:deps": "npx taze -r -w"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",
@@ -32,7 +33,7 @@
     "@eslint/js": "^9.20.0",
     "@types/node": "^22.13.4",
     "@typescript-eslint/eslint-plugin": "^8.24.0",
-    "eslint": "^9",
+    "eslint": "^9.20.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -46,7 +47,7 @@
     "turbo": "^2.4.2",
     "typescript": "5.5.4"
   },
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@9.15.5",
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"

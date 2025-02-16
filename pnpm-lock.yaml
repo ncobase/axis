@@ -30,7 +30,7 @@ importers:
         specifier: ^8.24.0
         version: 8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.5.4))(eslint@9.20.1(jiti@2.4.2))(typescript@5.5.4)
       eslint:
-        specifier: ^9
+        specifier: ^9.20.1
         version: 9.20.1(jiti@2.4.2)
       eslint-config-prettier:
         specifier: ^9.1.0
@@ -94,17 +94,17 @@ importers:
         specifier: ^22.13.4
         version: 22.13.4
       '@types/react':
-        specifier: ^18.3.11
+        specifier: ^18.3.18
         version: 18.3.18
       '@types/react-dom':
-        specifier: ^18.3.1
+        specifier: ^18.3.5
         version: 18.3.5(@types/react@18.3.18)
       react:
         specifier: ^18.3.1
         version: 18.3.1
       tsup:
         specifier: ^8.3.6
-        version: 8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.5.4)(yaml@2.7.0)
+        version: 8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.7.3)(yaml@2.7.0)
 
   flows:
     dependencies:
@@ -128,17 +128,17 @@ importers:
         specifier: ^22.13.4
         version: 22.13.4
       '@types/react':
-        specifier: ^18.3.11
+        specifier: ^18.3.18
         version: 18.3.18
       '@types/react-dom':
-        specifier: ^18.3.1
+        specifier: ^18.3.5
         version: 18.3.5(@types/react@18.3.18)
       react:
         specifier: ^18.3.1
         version: 18.3.1
       tsup:
         specifier: ^8.3.6
-        version: 8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.5.4)(yaml@2.7.0)
+        version: 8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.7.3)(yaml@2.7.0)
 
   react:
     dependencies:
@@ -240,10 +240,10 @@ importers:
         specifier: ^22.13.4
         version: 22.13.4
       '@types/react':
-        specifier: ^18.3.11
+        specifier: ^18.3.18
         version: 18.3.18
       '@types/react-dom':
-        specifier: ^18.3.1
+        specifier: ^18.3.5
         version: 18.3.5(@types/react@18.3.18)
       '@types/react-syntax-highlighter':
         specifier: ^15.5.13
@@ -253,7 +253,7 @@ importers:
         version: 18.3.1
       tsup:
         specifier: ^8.3.6
-        version: 8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.5.4)(yaml@2.7.0)
+        version: 8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.7.3)(yaml@2.7.0)
 
   scaffold:
     devDependencies:
@@ -271,7 +271,7 @@ importers:
         version: 22.13.4
       tsup:
         specifier: ^8.3.6
-        version: 8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.5.4)(yaml@2.7.0)
+        version: 8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.7.3)(yaml@2.7.0)
 
   tailwind:
     dependencies:
@@ -304,8 +304,8 @@ importers:
         specifier: ^14.0.3
         version: 14.0.3
       typescript:
-        specifier: ^5.5.4
-        version: 5.5.4
+        specifier: ^5.7.3
+        version: 5.7.3
 
   tsconfig: {}
 
@@ -344,7 +344,7 @@ importers:
         version: 6.0.1
       tsup:
         specifier: ^8.3.6
-        version: 8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.5.4)(yaml@2.7.0)
+        version: 8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.7.3)(yaml@2.7.0)
 
 packages:
 
@@ -3792,6 +3792,11 @@ packages:
 
   typescript@5.5.4:
     resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -7559,7 +7564,7 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  tsup@8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.5.4)(yaml@2.7.0):
+  tsup@8.3.6(jiti@2.4.2)(postcss@8.5.2)(typescript@5.7.3)(yaml@2.7.0):
     dependencies:
       bundle-require: 5.1.0(esbuild@0.24.2)
       cac: 6.7.14
@@ -7579,7 +7584,7 @@ snapshots:
       tree-kill: 1.2.2
     optionalDependencies:
       postcss: 8.5.2
-      typescript: 5.5.4
+      typescript: 5.7.3
     transitivePeerDependencies:
       - jiti
       - supports-color
@@ -7651,6 +7656,8 @@ snapshots:
       reflect.getprototypeof: 1.0.10
 
   typescript@5.5.4: {}
+
+  typescript@5.7.3: {}
 
   unbox-primitive@1.1.0:
     dependencies:
