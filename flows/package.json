@@ -23,10 +23,9 @@
     "@ncobase/tailwind": "workspace:*",
     "@ncobase/tsconfig": "workspace:*",
     "@ncobase/utils": "workspace:*",
-    "@types/node": "^22.13.4",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
-    "react": "^18.3.1",
-    "tsup": "^8.3.6"
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "react": "catalog:",
+    "tsup": "catalog:"
   }
 }

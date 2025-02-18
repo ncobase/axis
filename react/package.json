@@ -39,7 +39,7 @@
     "date-fns": "^3.6.0",
     "react-apexcharts": "^1.7.0",
     "react-day-picker": "^8.10.1",
-    "react-dom": "^18.3.1",
+    "react-dom": "catalog:",
     "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.54.2",
     "react-syntax-highlighter": "^15.6.1",
@@ -49,11 +49,10 @@
   },
   "devDependencies": {
     "@ncobase/tsconfig": "workspace:*",
-    "@types/node": "^22.13.4",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@types/react-syntax-highlighter": "^15.5.13",
-    "react": "^18.3.1",
-    "tsup": "^8.3.6"
+    "react": "catalog:",
+    "tsup": "catalog:"
   }
 }
