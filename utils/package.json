@@ -17,11 +17,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
-    "date-fns": "^4.1.0",
-    "jsencrypt": "^3.3.2",
-    "nanoid": "^5.1.0",
-    "tailwind-merge": "^3.0.1"
+    "clsx": "catalog:",
+    "date-fns": "catalog:",
+    "jsencrypt": "catalog:",
+    "nanoid": "catalog:",
+    "tailwind-merge": "catalog:"
   },
   "devDependencies": {
     "@ncobase/tsconfig": "workspace:*",
