@@ -1,9 +1,9 @@
 {
-  "name": "@ncobase/packages",
+  "name": "@ncobase/axis",
   "version": "0.0.1",
   "private": true,
-  "description": "Ncobase frontend packages",
-  "repository": "git@github.com:ncobase/packages.git",
+  "description": "A comprehensive frontend toolkit built with modern web technologies",
+  "repository": "git@github.com:ncobase/axis.git",
   "workspaces": [
     "charts",
     "flows",
