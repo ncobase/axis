@@ -47,7 +47,7 @@
     "turbo": "catalog:",
     "typescript": "catalog:"
   },
-  "packageManager": "pnpm@9.15.5",
+  "packageManager": "pnpm@9.15.9",
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"

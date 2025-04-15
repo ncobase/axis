@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss';
 import type { Config as PostCSSConfig } from 'postcss';
+import type { Config } from 'tailwindcss';
 
 export const postcss: PostCSSConfig;
 export const tailwind: Config;
@@ -28,3 +28,13 @@ export const warning: ColorScale;
 export const spacing: Record<string | number, string>;
 export const fontSize: Record<string, string>;
 export const keyframes: Record<string, Record<string, Record<string, string>>>;
+
+// V4 specific types
+export interface TailwindV4Plugin {
+  name: string;
+  options?: Record<string, unknown>;
+  // eslint-disable-next-line no-unused-vars
+  handler?: (api: unknown) => void;
+}
+
+export function isTailwindV4(): boolean;

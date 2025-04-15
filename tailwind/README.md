@@ -1,6 +1,6 @@
 # @ncobase/tailwind
 
-Common Tailwind CSS configuration and design tokens for projects.
+Common Tailwind CSS configuration for projects with Tailwind v3 and v4 compatibility.
 
 ## Features
 
@@ -10,11 +10,12 @@ Common Tailwind CSS configuration and design tokens for projects.
 - Animation keyframes
 - Fully typed exports
 - Support both ESM and CommonJS
+- Compatible with both Tailwind CSS v3.4+ and v4.0+
 
 ## Requirements
 
 - Node.js: >=16.0.0
-- Tailwind CSS: ^3.4.x
+- Tailwind CSS: ^3.4.x or ^4.0.x
 - PostCSS: ^8.5.x
 
 ## Installation
@@ -23,8 +24,11 @@ Common Tailwind CSS configuration and design tokens for projects.
 # Install package
 npm install @ncobase/tailwind
 
-# Install peer dependencies
+# For Tailwind v3
 npm install --save-dev tailwindcss@^3.4 postcss@^8.5 postcss-import@^16.0 postcss-nesting@^12.0 autoprefixer@^10.4 cssnano@^7.0
+
+# For Tailwind v4
+npm install --save-dev tailwindcss@^4.0 @tailwindcss/postcss@^0.1.0 postcss@^8.5 postcss-import@^16.0 postcss-nesting@^12.0 cssnano@^7.0
 ```
 
 ## Usage
@@ -57,7 +61,31 @@ const { tailwind } = require('@ncobase/tailwind');
 module.exports = tailwind;
 ```
 
-### Design Tokens
+### Tailwind v4 Compatibility
+
+This package automatically detects whether you're using Tailwind CSS v3 or v4 and adjusts its configuration accordingly:
+
+- For Tailwind v3: Uses the traditional plugin setup with `tailwindcss` as a PostCSS plugin
+- For Tailwind v4: Uses the new `@tailwindcss/postcss` plugin and adapts the configuration format
+
+If you're using Tailwind v4 with the dedicated Vite plugin, you can still use our theme configuration:
+
+```javascript
+// vite.config.js
+import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
+import { tailwind } from '@ncobase/tailwind';
+
+export default defineConfig({
+  plugins: [
+    tailwindcss({
+      config: tailwind
+    })
+  ]
+});
+```
+
+### Design
 
 #### Colors
 

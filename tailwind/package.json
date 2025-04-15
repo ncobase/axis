@@ -1,7 +1,7 @@
 {
   "name": "@ncobase/tailwind",
-  "version": "0.1.0",
-  "description": "Common tailwindcss configuration",
+  "version": "0.2.0",
+  "description": "Common tailwindcss configuration with v3 and v4 compatibility",
   "type": "module",
   "main": "./mjs/index.mjs",
   "types": "./types/index.d.ts",
@@ -17,6 +17,10 @@
     "cjs",
     "types"
   ],
+  "peerDependencies": {
+    "tailwindcss": "^3.4.0 || ^4.0.0",
+    "postcss": "^8.5.0"
+  },
   "dependencies": {
     "@tailwindcss/typography": "catalog:",
     "autoprefixer": "catalog:",
