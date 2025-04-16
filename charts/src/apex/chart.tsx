@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import { cn } from '@ncobase/utils';
 import Charts, { type Props } from 'react-apexcharts';
 
-import { ChartContainer } from '..';
+import { ChartContainer } from '../container/container';
 import type { ChartConfig } from '../types';
 
 export type ApexChartType = Props['type'];
