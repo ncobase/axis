@@ -6,7 +6,7 @@ import Charts, { type Props } from 'react-apexcharts';
 import { ChartContainer } from '../container/container';
 import type { ChartConfig } from '../types';
 
-export type ApexChartType = Props['type'];
+export type ApexChartType = 'line' | 'area' | 'bar' | 'pie' | 'donut' | 'radar' | 'rangeArea';
 
 export type ApexChartProps = {
   config?: ChartConfig;
