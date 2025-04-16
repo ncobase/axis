@@ -40,14 +40,14 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
 
   const handleSelectAll = () => {
     if (!Array.isArray(internalData)) return;
-    if (selectedRows.length === internalData.length) {
-      onSelectAllRows([]);
+    if (selectedRows?.length === internalData.length) {
+      onSelectAllRows?.([]);
     } else {
-      onSelectAllRows(internalData);
+      onSelectAllRows?.(internalData);
     }
   };
 
-  const isAllSelected = selectedRows.length === internalData.length && internalData.length > 0;
+  const isAllSelected = selectedRows?.length === internalData?.length && internalData?.length > 0;
 
   const canTree = maxTreeLevel !== undefined || expandComponent !== undefined;
 

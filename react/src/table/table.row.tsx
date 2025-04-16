@@ -26,9 +26,11 @@ interface ITableRowProps {
   children?: React.ReactNode;
   level?: number;
   item?: any;
+  // eslint-disable-next-line no-unused-vars
   expandComponent?: React.ReactNode | ((item: any) => React.ReactNode);
   isExpanded?: boolean;
   onToggleExpand?: () => void;
+  // eslint-disable-next-line no-unused-vars
   renderNestedRows?: (children: any[], level: number) => ReactNode;
   maxTreeLevel?: number;
 }
@@ -54,9 +56,6 @@ export const TableRow: React.FC<ITableRowProps> = ({
 
   const classes = cn(
     'odd:bg-white even:bg-gray-50 [&>th]:font-medium [&>th]:text-slate-600 text-slate-500 font-normal',
-    '[&>th:first-child]:sticky [&>th:first-child]:left-0 [&>th:first-child]:z-10 [&>th:last-child]:sticky [&>th:last-child]:right-0 [&>th:last-child]:z-10',
-    '[&>td:first-child]:sticky [&>td:first-child]:left-0 [&>td:first-child]:z-10 [&>td:last-child]:sticky [&>td:last-child]:right-0 [&>td:last-child]:z-10',
-    'hover:bg-gray-100/75',
     hasExpandedContent && 'cursor-pointer',
     className
   );
@@ -73,10 +72,11 @@ export const TableRow: React.FC<ITableRowProps> = ({
         </tr>
       );
     }
-    return renderNestedRows(item.children, level + 1);
+    return renderNestedRows?.(item.children, level + 1);
   };
 
   const iconName = isExpanded ? 'IconChevronDown' : 'IconChevronRight';
+
   return (
     <>
       <tr className={classes} onClick={hasExpandedContent ? onToggleExpand : undefined}>
@@ -84,6 +84,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
           if (!React.isValidElement(child)) {
             return null;
           }
+
           const isExpandField =
             isTreeColumn(child.props?.title || child.props?.code) ||
             index === 0 ||
@@ -104,7 +105,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
                       }}
                       className={cn(
                         'p-1 rounded-full hover:bg-gray-200 transition-colors duration-200',
-                        `ml-${level * 2}`
+                        level > 0 ? `ml-${level * 2}` : ''
                       )}
                     >
                       <Icons name={iconName} size={16} />
@@ -118,7 +119,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
           }
 
           const isNameField = child.props?.code === 'name';
-          const additionalClassName = isNameField ? `pl-${level * 2}` : '';
+          const additionalClassName = isNameField && level > 0 ? `pl-${level * 2}` : '';
 
           return React.cloneElement(child, {
             className: cn(child.props.className, additionalClassName),

@@ -26,6 +26,7 @@ export interface ITableCellBaseProps<T = any> {
   /**
    * column value parser
    */
+  // eslint-disable-next-line no-unused-vars
   parser?: (value?: string, record?: object | T) => React.ReactNode | T;
   /**
    * column icon
@@ -59,10 +60,7 @@ const TableCell: React.FC<ITableCellProps<any>> = ({
 
   if (isBoolean(visible) && !visible) return null;
 
-  const classes = cn(
-    'h-11 min-w-8 after:absolute after:w-full border-b-[0.03125rem] border-gray-100 truncate',
-    className
-  );
+  const classes = cn('h-11 min-w-8 border-b-[0.03125rem] border-gray-100 truncate', className);
 
   const getValueFromRecord = (key: string | string[] | object) => {
     if (Array.isArray(key)) {
@@ -107,7 +105,7 @@ const TableCell: React.FC<ITableCellProps<any>> = ({
 
 const ActionCell: React.FC<ITableCellProps<any>> = ({ actions = [], record }) => {
   return (
-    <td className='h-11 min-w-8 after:absolute after:w-full border-b-[0.03125rem] border-gray-100 truncate'>
+    <td className='h-11 min-w-8 border-b-[0.03125rem] border-gray-100 truncate'>
       <div className='w-full h-full inline-flex px-2 hover:[&>button]:bg-white [&>button]:p-2 [&>button]:rounded-full items-center justify-center'>
         <Actions record={record} actions={actions} />
       </div>
@@ -121,7 +119,7 @@ export interface ITableHeaderCellProps extends ITableCellBaseProps {
 
 const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   visible,
-  filter = 'sort', // TODO: implement filter, toggle, date, date-range
+  filter = 'sort',
   title,
   code = '',
   icon,

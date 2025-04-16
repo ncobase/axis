@@ -15,7 +15,9 @@
     "clean": "rimraf dist .turbo",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
+  "peerDependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "echarts": "catalog:",
     "react-apexcharts": "catalog:",
     "recharts": "catalog:"

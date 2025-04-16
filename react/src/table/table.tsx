@@ -69,8 +69,8 @@ export const TableView: React.FC<TableViewProps> = ({
   const [hasPrevPage, setHasPrevPage] = useState(false);
 
   const isBackendPagination = useMemo(
-    () => !!fetchData && !initialData?.length,
-    [fetchData, initialData?.length]
+    () => !!fetchData && !(initialData && initialData.length > 0),
+    [fetchData, initialData]
   );
 
   const loadData = useCallback(
@@ -86,6 +86,7 @@ export const TableView: React.FC<TableViewProps> = ({
         setPrevCursor(result?.prev_cursor || null);
         setHasNextPage(result?.has_next_page || false);
         setHasPrevPage(result?.has_prev_page || false);
+        return result;
       } catch (error) {
         console.error('Error fetching data:', error);
         return { items: [], total: 0, has_next_page: false, has_prev_page: false };
@@ -97,22 +98,34 @@ export const TableView: React.FC<TableViewProps> = ({
   );
 
   useEffect(() => {
-    if (isBackendPagination && !internalData.length && !initialData?.length) {
+    if (isBackendPagination && internalData.length === 0) {
       loadData({ limit: currentPageSize });
-    } else if (!isBackendPagination && initialData?.length) {
-      setInternalData(initialData || []);
-      setOriginalData(initialData || []);
-      setTotal(initialData?.length);
+    } else if (!isBackendPagination && initialData) {
+      setInternalData(initialData);
+      setOriginalData(initialData);
+      setTotal(initialData.length);
     }
-  }, [isBackendPagination, currentPageSize, initialData, loadData]);
+  }, [isBackendPagination, currentPageSize, initialData, loadData, internalData.length]);
+
+  // Update when initialData changes
+  useEffect(() => {
+    if (initialData) {
+      setInternalData(initialData);
+      setOriginalData(initialData);
+      setTotal(initialData.length);
+    }
+  }, [initialData]);
 
   const handleFilter = useCallback(
     (newFilter: React.SetStateAction<Record<string, any>>) => {
-      setCurrentFilter(newFilter);
-      setCurrentPage(1);
-      if (isBackendPagination) {
-        loadData({ limit: currentPageSize, filter: newFilter });
-      }
+      setCurrentFilter(prev => {
+        const updatedFilter = typeof newFilter === 'function' ? newFilter(prev) : newFilter;
+        setCurrentPage(1);
+        if (isBackendPagination) {
+          loadData({ limit: currentPageSize, filter: updatedFilter });
+        }
+        return updatedFilter;
+      });
     },
     [isBackendPagination, currentPageSize, loadData]
   );
@@ -186,6 +199,7 @@ export const TableView: React.FC<TableViewProps> = ({
     if (!isBackendPagination && filter?.enabled && currentFilter) {
       return internalData.filter(item =>
         Object.entries(currentFilter).every(([key, value]) => {
+          if (!value) return true;
           const itemValue = item[key];
           return (
             itemValue && itemValue.toString().toLowerCase().includes(value.toString().toLowerCase())
@@ -193,7 +207,7 @@ export const TableView: React.FC<TableViewProps> = ({
         })
       );
     }
-    return internalData || [];
+    return internalData;
   }, [internalData, filter, currentFilter, isBackendPagination]);
 
   const paginatedData = useMemo(() => {
@@ -221,18 +235,20 @@ export const TableView: React.FC<TableViewProps> = ({
       emptyDataLabel,
       filter: {
         ...filter,
-        config: currentFilter,
-        onFilterChange: handleFilter
+        config: currentFilter
       },
+      setFilter: handleFilter,
       selectedRows,
       onSelectRow: handleRowSelection,
       ...rest
     }),
     [
       header,
-      paginatedData,
+      filteredData,
+      originalData,
       selected,
       paginated,
+      isAllExpanded,
       currentPageSize,
       pageSizes,
       paginationTexts,
@@ -241,9 +257,11 @@ export const TableView: React.FC<TableViewProps> = ({
       currentFilter,
       handleFilter,
       selectedRows,
-      isAllExpanded,
       handleRowSelection,
-      rest
+      rest,
+      setInternalData,
+      setOriginalData,
+      isBackendPagination
     ]
   );
 
@@ -252,9 +270,9 @@ export const TableView: React.FC<TableViewProps> = ({
     className
   );
 
-  if (loading && paginatedData.length === 0) {
+  if (loading && (!paginatedData || paginatedData.length === 0)) {
     return <EmptyData loading={loading} className={classes} />;
-  } else if (paginatedData.length === 0) {
+  } else if (!paginatedData || paginatedData.length === 0) {
     return <EmptyData className={classes} label={emptyDataLabel} />;
   }
 
