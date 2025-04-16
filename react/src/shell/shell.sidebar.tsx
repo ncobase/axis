@@ -11,9 +11,10 @@ const defaultStyling =
 
 export const ShellSidebar: React.FC<IProps> = memo(({ children, className, ...rest }) => {
   if (!children) return null;
-  const { header, sidebar, sidebarExpanded } = useShellContext();
+  const { header, sidebar, sidebarExpanded, direction } = useShellContext();
   const classes = cn(
     defaultStyling,
+    direction === 'rtl' ? 'right-0 left-auto' : 'left-0 right-auto',
     // show header
     { 'top-[3.5rem]': !!header },
     // sidebar expanded state

@@ -11,12 +11,20 @@ const defaultStyling =
 
 export const ShellTopbar: React.FC<IProps> = memo(({ children, className, ...rest }) => {
   if (!children) return null;
-  const { header, sidebar, sidebarExpanded } = useShellContext();
+  const { header, sidebar, sidebarExpanded, direction } = useShellContext();
   const classes = cn(
     defaultStyling,
-    // show sidebar
-    { 'left-[3.5rem]': !!sidebar && !sidebarExpanded },
-    { 'left-[9.5rem]': !!sidebar && sidebarExpanded },
+    direction === 'rtl'
+      ? [
+          'right-0 left-auto',
+          { 'right-[3.5rem]': !!sidebar && !sidebarExpanded },
+          { 'right-[9.5rem]': !!sidebar && sidebarExpanded }
+        ]
+      : [
+          'left-0 right-auto',
+          { 'left-[3.5rem]': !!sidebar && !sidebarExpanded },
+          { 'left-[9.5rem]': !!sidebar && sidebarExpanded }
+        ],
     // show header
     { 'top-[3.5rem]': !!header },
     className

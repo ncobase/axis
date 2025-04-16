@@ -17,12 +17,24 @@ interface IProps extends React.PropsWithChildren {
   className?: string;
   /** Sidebar expanded state */
   sidebarExpanded?: boolean;
+  /** Layout direction: 'ltr' | 'rtl' */
+  direction?: 'ltr' | 'rtl';
 }
 
 const defaultStyling = 'relative flex h-lvh overflow-hidden';
 
 export const Shell: React.FC<IProps> = memo(
-  ({ children, header, sidebar, topbar, submenu, className, sidebarExpanded = false, ...rest }) => {
+  ({
+    children,
+    header,
+    sidebar,
+    topbar,
+    submenu,
+    className,
+    sidebarExpanded = false,
+    direction = 'ltr',
+    ...rest
+  }) => {
     const mainClassName = cn(
       defaultStyling,
       {
@@ -42,7 +54,9 @@ export const Shell: React.FC<IProps> = memo(
     );
 
     return (
-      <ShellContext.Provider value={{ header, sidebar, topbar, submenu, sidebarExpanded }}>
+      <ShellContext.Provider
+        value={{ header, sidebar, topbar, submenu, sidebarExpanded, direction }}
+      >
         {header}
         <div className={mainClassName} {...rest}>
           {sidebar}

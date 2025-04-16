@@ -12,6 +12,8 @@ interface ShellContextValue {
   submenu?: ReactNode;
   /** Sidebar expanded state */
   sidebarExpanded?: boolean;
+  /** Layout direction: 'ltr' | 'rtl' */
+  direction?: 'ltr' | 'rtl';
 }
 
 const defaultValue: ShellContextValue = {};
