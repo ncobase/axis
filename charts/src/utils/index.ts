@@ -1,7 +1,9 @@
-import type { ChartConfig, ChartItemConfig } from './types';
+import type { ChartConfig, ChartItemConfig } from '../types';
 
 /**
  * Get configuration from payload
+ * Extracts relevant configuration for chart items based on payload data
+ *
  * @param config Chart configuration
  * @param payload Payload object from chart components
  * @param key Key to look for in the payload
@@ -44,6 +46,7 @@ export function getConfigFromPayload(
 
 /**
  * Get theme color based on the current theme
+ *
  * @param config Chart item configuration
  * @param currentTheme Current theme ('light' or 'dark')
  * @returns The color for the current theme
@@ -69,6 +72,7 @@ export function getThemeColor(
 
 /**
  * Generate CSS variables for chart colors
+ *
  * @param config Chart configuration
  * @param theme Current theme ('light' or 'dark')
  * @returns CSS string with variables

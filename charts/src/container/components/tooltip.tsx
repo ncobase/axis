@@ -3,22 +3,26 @@ import React from 'react';
 import { cn } from '@ncobase/utils';
 import { Tooltip as RechartsTooltip } from 'recharts';
 
-import { useChart } from './context';
-import { getConfigFromPayload } from './utils';
+import { getConfigFromPayload } from '../../utils';
+import { useChart } from '../context';
 
+// Export the original Recharts Tooltip component
 export const ChartTooltip = RechartsTooltip;
 
-export const ChartTooltipContent = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof RechartsTooltip> &
-    React.ComponentProps<'div'> & {
-      hideLabel?: boolean;
-      hideIndicator?: boolean;
-      indicator?: 'line' | 'dot' | 'dashed';
-      nameKey?: string;
-      labelKey?: string;
-    }
->(
+export type ChartTooltipContentProps = React.ComponentProps<typeof RechartsTooltip> &
+  React.ComponentProps<'div'> & {
+    hideLabel?: boolean;
+    hideIndicator?: boolean;
+    indicator?: 'line' | 'dot' | 'dashed';
+    nameKey?: string;
+    labelKey?: string;
+  };
+
+/**
+ * Custom tooltip content component
+ * Provides styled and configurable tooltips for chart data points
+ */
+export const ChartTooltipContent = React.forwardRef<HTMLDivElement, ChartTooltipContentProps>(
   (
     {
       active,
@@ -39,6 +43,7 @@ export const ChartTooltipContent = React.forwardRef<
   ) => {
     const { config } = useChart();
 
+    // Generate tooltip label based on configuration and data
     const tooltipLabel = React.useMemo(() => {
       if (hideLabel || !payload?.length) {
         return null;
@@ -150,4 +155,5 @@ export const ChartTooltipContent = React.forwardRef<
     );
   }
 );
+
 ChartTooltipContent.displayName = 'ChartTooltip';

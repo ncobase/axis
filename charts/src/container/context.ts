@@ -1,7 +1,8 @@
 import { createContext, useContext } from 'react';
 
-import type { ChartContextProps } from './types';
+import type { ChartContextProps } from '../types';
 
+// Chart context for sharing configuration and state
 const ChartContext = createContext<ChartContextProps | null>(null);
 
 export function useChart() {

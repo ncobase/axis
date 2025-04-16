@@ -4,9 +4,11 @@ type ApexChartsRendererProps = {
   children: React.ReactElement;
 };
 
+/**
+ * Simple wrapper for ApexCharts
+ * ApexCharts doesn't require special container handling unlike other libraries
+ */
 const ApexChartsRenderer: React.FC<ApexChartsRendererProps> = ({ children }) => {
-  // ApexCharts typically doesn't need a wrapper like Recharts does,
-  // so we simply return the children as they are
   return children;
 };
 

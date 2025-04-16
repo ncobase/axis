@@ -16,10 +16,14 @@ type EChartsRendererProps = {
   style?: React.CSSProperties;
 };
 
+/**
+ * ECharts renderer component
+ * Handles initialization, resizing, and cleanup of ECharts instances
+ */
 const EChartsRenderer: React.FC<EChartsRendererProps> = ({ options, settings, style }) => {
   const chartRef = useRef<HTMLDivElement>(null);
 
-  // @ts-ignore
+  // @ts-expect-error
   useEffect(() => {
     if (!chartRef.current) return;
 
@@ -33,14 +37,14 @@ const EChartsRenderer: React.FC<EChartsRendererProps> = ({ options, settings, st
         lazyUpdate: settings?.lazyUpdate
       });
 
-      // Handle resize
+      // Handle resize events
       const handleResize = () => {
         chart.resize();
       };
 
       window.addEventListener('resize', handleResize);
 
-      // Clean up
+      // Clean up on unmount
       return () => {
         window.removeEventListener('resize', handleResize);
         chart.dispose();

@@ -7,6 +7,10 @@ type RechartsRendererProps = {
   responsiveProps?: React.ComponentProps<typeof ResponsiveContainer>;
 };
 
+/**
+ * Recharts renderer component
+ * Wraps charts in a responsive container for proper sizing
+ */
 const RechartsRenderer: React.FC<RechartsRendererProps> = ({ children, responsiveProps }) => {
   const defaultProps = {
     width: '100%',
