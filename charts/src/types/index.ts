@@ -38,7 +38,7 @@ export type ChartContextProps = {
 /**
  * Supported chart libraries
  */
-export type ChartLibrary = 'recharts' | 'echarts' | 'apexcharts';
+export type ChartLibrary = 'recharts' | 'echarts';
 
 /**
  * ECharts specific settings
@@ -69,13 +69,6 @@ export type RechartsProps = {
 };
 
 /**
- * ApexCharts specific props
- */
-export type ApexChartsProps = {
-  // Add ApexCharts specific props here when needed
-};
-
-/**
  * Combined chart props
  * Union type that includes library-specific props based on the selected library
  */
@@ -83,8 +76,7 @@ export type ChartProps = {
   config: ChartConfig;
   library?: ChartLibrary;
 } & (
-  | { library: 'recharts'; recharts: RechartsProps; echarts?: never; apexcharts?: never }
-  | { library: 'echarts'; recharts?: never; echarts: EChartsProps; apexcharts?: never }
-  | { library: 'apexcharts'; recharts?: never; echarts?: never; apexcharts: ApexChartsProps }
-  | { library?: 'recharts'; recharts?: RechartsProps; echarts?: never; apexcharts?: never }
+  | { library: 'recharts'; recharts: RechartsProps; echarts?: never }
+  | { library: 'echarts'; recharts?: never; echarts: EChartsProps }
+  | { library?: 'recharts'; recharts?: RechartsProps; echarts?: never }
 );

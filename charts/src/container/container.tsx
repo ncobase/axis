@@ -11,7 +11,6 @@ import { ChartStyle } from './style';
 // This improves performance by only loading what's needed
 const EChartsRenderer = lazy(() => import('./renderers/echarts'));
 const RechartsRenderer = lazy(() => import('./renderers/recharts'));
-const ApexChartsRenderer = lazy(() => import('./renderers/apexcharts'));
 
 export type ChartContainerProps = React.ComponentProps<'div'> & {
   // Chart configuration
@@ -68,8 +67,6 @@ export const ChartContainer = forwardRef<HTMLDivElement, ChartContainerProps>(
               style={echartsProps?.style}
             />
           )}
-
-          {library === 'apexcharts' && <ApexChartsRenderer>{children}</ApexChartsRenderer>}
         </Suspense>
       );
     };

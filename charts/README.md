@@ -1,11 +1,11 @@
 # @ncobase/charts
 
-A flexible, theme-aware charting library for React applications that provides a unified interface for multiple charting libraries including ECharts, ApexCharts, and Recharts.
+A flexible, theme-aware charting library for React applications that provides a unified interface for multiple charting libraries including ECharts and Recharts.
 
 ## Features
 
-- **Multiple Charting Engines**: Choose between ECharts, ApexCharts, or Recharts based on your needs
-- **Unified API**: Consistent interface regardless of the underlying charting library
+- **Multiple Charting Engines**: Choose between ECharts or Recharts based on your needs
+- **Unified API**: Consistent interface across different charting libraries
 - **Theming Support**: Built-in light and dark theme support
 - **Responsive Design**: Charts automatically resize to fit their containers
 - **TypeScript Support**: Fully typed API for enhanced developer experience
@@ -50,183 +50,9 @@ const EChartsExample = () => (
     }}
   />
 );
-
-// Use with ApexCharts
-const ApexChartsExample = () => (
-  <ChartContainer config={config} library='apexcharts'>
-    {/* ApexCharts component goes here */}
-  </ChartContainer>
-);
 ```
 
 ## Chart Types
-
-### Line Chart (ApexCharts)
-
-```jsx
-import { ChartContainer, LineChart } from '@ncobase/charts';
-
-const LineChartExample = () => {
-  const config = {
-    data1: { label: 'Sales', color: '#1677ff' },
-    data2: { label: 'Revenue', color: '#52c41a' }
-  };
-
-  const series = [
-    {
-      name: 'Sales',
-      data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-    },
-    {
-      name: 'Revenue',
-      data: [20, 35, 40, 45, 55, 65, 75, 80, 100]
-    }
-  ];
-
-  const options = {
-    chart: {
-      toolbar: { show: false }
-    },
-    xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
-    },
-    stroke: {
-      curve: 'smooth',
-      width: 2
-    }
-  };
-
-  return (
-    <ChartContainer config={config} library='apexcharts'>
-      <LineChart series={series} options={options} />
-    </ChartContainer>
-  );
-};
-```
-
-### Bar Chart (ApexCharts)
-
-```jsx
-import { ChartContainer, BarChart } from '@ncobase/charts';
-
-const BarChartExample = () => {
-  const config = {
-    data1: { label: 'Product A', color: '#1677ff' },
-    data2: { label: 'Product B', color: '#52c41a' }
-  };
-
-  const series = [
-    {
-      name: 'Product A',
-      data: [44, 55, 41, 67, 22, 43]
-    },
-    {
-      name: 'Product B',
-      data: [13, 23, 20, 8, 13, 27]
-    }
-  ];
-
-  const options = {
-    chart: {
-      toolbar: { show: false }
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: '55%'
-      }
-    },
-    xaxis: {
-      categories: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6']
-    }
-  };
-
-  return (
-    <ChartContainer config={config} library='apexcharts'>
-      <BarChart series={series} options={options} />
-    </ChartContainer>
-  );
-};
-```
-
-### Pie Chart (ApexCharts)
-
-```jsx
-import { ChartContainer, PieChart } from '@ncobase/charts';
-
-const PieChartExample = () => {
-  const config = {
-    slice1: { label: 'Team A', color: '#1677ff' },
-    slice2: { label: 'Team B', color: '#52c41a' },
-    slice3: { label: 'Team C', color: '#faad14' },
-    slice4: { label: 'Team D', color: '#ff4d4f' }
-  };
-
-  const series = [44, 55, 13, 33];
-
-  const options = {
-    chart: {
-      toolbar: { show: false }
-    },
-    labels: ['Team A', 'Team B', 'Team C', 'Team D'],
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 300
-          },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }
-    ]
-  };
-
-  return (
-    <ChartContainer config={config} library='apexcharts'>
-      <PieChart series={series} options={options} />
-    </ChartContainer>
-  );
-};
-```
-
-### Donut Chart (ApexCharts)
-
-```jsx
-import { ChartContainer, PieChart } from '@ncobase/charts';
-
-const DonutChartExample = () => {
-  const config = {
-    slice1: { label: 'Desktop', color: '#1677ff' },
-    slice2: { label: 'Mobile', color: '#52c41a' },
-    slice3: { label: 'Tablet', color: '#faad14' }
-  };
-
-  const series = [65, 25, 10];
-
-  const options = {
-    chart: {
-      toolbar: { show: false }
-    },
-    labels: ['Desktop', 'Mobile', 'Tablet'],
-    plotOptions: {
-      pie: {
-        donut: {
-          size: '55%'
-        }
-      }
-    }
-  };
-
-  return (
-    <ChartContainer config={config} library='apexcharts'>
-      <PieChart type='donut' series={series} options={options} />
-    </ChartContainer>
-  );
-};
-```
 
 ### Recharts Example (LineChart)
 
@@ -360,17 +186,21 @@ You can create custom chart components based on the provided renderers:
 ```jsx
 import React from 'react';
 import { ChartContainer } from '@ncobase/charts';
-import ApexCharts from 'react-apexcharts';
+import { LineChart, Line } from 'recharts';
 
-const CustomAreaChart = React.forwardRef(({ series, options, ...props }, ref) => {
+const CustomLineChart = React.forwardRef(({ data, dataKeys, ...props }, ref) => {
   return (
-    <ChartContainer ref={ref} library='apexcharts' config={props.config || {}} {...props}>
-      <ApexCharts options={options} series={series} type='area' height={props.height || 380} />
+    <ChartContainer ref={ref} config={props.config || {}} {...props}>
+      <LineChart data={data}>
+        {dataKeys.map(key => (
+          <Line key={key} type='monotone' dataKey={key} stroke={`var(--color-${key})`} />
+        ))}
+      </LineChart>
     </ChartContainer>
   );
 });
 
-CustomAreaChart.displayName = 'CustomAreaChart';
+CustomLineChart.displayName = 'CustomLineChart';
 ```
 
 ### Custom Tooltip and Legend
@@ -398,15 +228,15 @@ const CustomLegend = props => (
 
 The main container component for all charts.
 
-| Prop              | Type                                      | Default      | Description                                            |
-| ----------------- | ----------------------------------------- | ------------ | ------------------------------------------------------ |
-| `config`          | `ChartConfig`                             | Required     | Chart configuration object                             |
-| `library`         | `'recharts' \| 'echarts' \| 'apexcharts'` | `'recharts'` | The charting library to use                            |
-| `height`          | `number \| string`                        | `'100%'`     | Chart height                                           |
-| `width`           | `number \| string`                        | `'100%'`     | Chart width                                            |
-| `responsiveProps` | `Object`                                  | -            | Props for Recharts responsive container                |
-| `echartsProps`    | `Object`                                  | -            | Props for ECharts renderer                             |
-| `children`        | `ReactElement`                            | -            | Chart component (required for Recharts and ApexCharts) |
+| Prop              | Type                      | Default      | Description                             |
+| ----------------- | ------------------------- | ------------ | --------------------------------------- |
+| `config`          | `ChartConfig`             | Required     | Chart configuration object              |
+| `library`         | `'recharts' \| 'echarts'` | `'recharts'` | The charting library to use             |
+| `height`          | `number \| string`        | `'100%'`     | Chart height                            |
+| `width`           | `number \| string`        | `'100%'`     | Chart width                             |
+| `responsiveProps` | `Object`                  | -            | Props for Recharts responsive container |
+| `echartsProps`    | `Object`                  | -            | Props for ECharts renderer              |
+| `children`        | `ReactElement`            | -            | Chart component (required for Recharts) |
 
 ### Configuration Types
 

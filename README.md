@@ -8,16 +8,16 @@ Axis is a collection of carefully crafted frontend packages designed to accelera
 
 ## Packages
 
-| Name                 | Description                                                                                                                                       |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [charts](charts)     | Charts library with support for [Recharts](https://recharts.org), [ECharts](https://echarts.apache.org), and [ApexCharts](https://apexcharts.com) |
-| [flows](flows)       | Flows library based on [React Flow](https://reactflow.dev)                                                                                        |
-| [react](react)       | UI components for React using [Tailwind CSS](https://tailwindcss.com) and [shadcn/ui](https://ui.shadcn.com)                                      |
-| [scaffold](scaffold) | Scaffolding toolset for rapid application setup                                                                                                   |
-| [tailwind](tailwind) | Common Tailwind CSS configuration                                                                                                                 |
-| [tsconfig](tsconfig) | Common TypeScript configurations for various frameworks                                                                                           |
-| [types](types)       | Type definitions and utilities                                                                                                                    |
-| [utils](utils)       | Utility functions and helpers                                                                                                                     |
+| Name                 | Description                                                                                                  |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| [charts](charts)     | Charts library with support for [Recharts](https://recharts.org) and [ECharts](https://echarts.apache.org)   |
+| [flows](flows)       | Flows library based on [React Flow](https://reactflow.dev)                                                   |
+| [react](react)       | UI components for React using [Tailwind CSS](https://tailwindcss.com) and [shadcn/ui](https://ui.shadcn.com) |
+| [scaffold](scaffold) | Scaffolding toolset for rapid application setup                                                              |
+| [tailwind](tailwind) | Common Tailwind CSS configuration                                                                            |
+| [tsconfig](tsconfig) | Common TypeScript configurations for various frameworks                                                      |
+| [types](types)       | Type definitions and utilities                                                                               |
+| [utils](utils)       | Utility functions and helpers                                                                                |
 
 ## Technologies
 
