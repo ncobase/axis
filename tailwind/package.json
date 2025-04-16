@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/tailwind",
-  "version": "0.2.0",
+  "version": "0.2.0-alpha.1",
   "description": "Common tailwindcss configuration with v3 and v4 compatibility",
   "type": "module",
   "main": "./mjs/index.mjs",
