@@ -4,6 +4,6 @@ export default defineConfig({
   entry: ['src/index.ts'],
   format: ['esm', 'cjs'],
   dts: true,
-  external: ['react', 'react-dom'],
+  external: ['react', 'react-dom', 'recharts', 'echarts', 'react-apexcharts'],
   minify: true
 });
