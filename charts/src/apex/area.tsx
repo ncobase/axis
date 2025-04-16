@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React from 'react';
 
 import { ApexChart, type ApexChartProps } from './chart';
 
@@ -10,7 +10,7 @@ export type AreaChartProps = Omit<ApexChartProps, 'type'> & {
  * Area chart component
  * Specialized wrapper for area charts
  */
-export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(
+export const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
   ({ type = 'area', ...props }, ref) => {
     return <ApexChart ref={ref} type={type} {...props} />;
   }

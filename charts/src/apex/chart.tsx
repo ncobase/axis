@@ -1,10 +1,11 @@
-import { forwardRef } from 'react';
+import React from 'react';
 
 import { cn } from '@ncobase/utils';
-import Charts, { type Props } from 'react-apexcharts';
+import Charts from 'react-apexcharts';
+import type { Props } from 'react-apexcharts';
 
-import { ChartContainer } from '../container/container';
-import type { ChartConfig } from '../types';
+import { ChartContainer } from '@/container';
+import type { ChartConfig } from '@/types';
 
 export type ApexChartType = 'line' | 'area' | 'bar' | 'pie' | 'donut' | 'radar' | 'rangeArea';
 
@@ -22,15 +23,14 @@ export type ApexChartProps = {
  * Base ApexCharts component
  * Provides a consistent wrapper for all ApexCharts chart types
  */
-export const ApexChart = forwardRef<HTMLDivElement, ApexChartProps>(
-  ({ config = {}, type, series, options, height = 380, width, className, ...props }, ref) => {
+export const ApexChart = React.forwardRef<HTMLDivElement, ApexChartProps>(
+  ({ config = {}, type, series, options, height = 380, width, className }, ref) => {
     return (
       <ChartContainer
         ref={ref}
         config={config}
         library='apexcharts'
         className={cn('!h-full !w-full', className)}
-        {...props}
       >
         <Charts options={options} series={series} type={type} height={height} width={width} />
       </ChartContainer>

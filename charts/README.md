@@ -358,11 +358,11 @@ const config = {
 You can create custom chart components based on the provided renderers:
 
 ```jsx
-import { forwardRef } from 'react';
+import React from 'react';
 import { ChartContainer } from '@ncobase/charts';
 import ApexCharts from 'react-apexcharts';
 
-const CustomAreaChart = forwardRef(({ series, options, ...props }, ref) => {
+const CustomAreaChart = React.forwardRef(({ series, options, ...props }, ref) => {
   return (
     <ChartContainer ref={ref} library='apexcharts' config={props.config || {}} {...props}>
       <ApexCharts options={options} series={series} type='area' height={props.height || 380} />

@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/charts",
-  "version": "0.1.3-alpha.1",
+  "version": "0.1.5-alpha.1",
   "description": "charts library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -15,7 +15,7 @@
     "clean": "rimraf dist .turbo",
     "typecheck": "tsc --noEmit"
   },
-  "peerDependencies": {
+  "dependencies": {
     "react": "catalog:",
     "react-dom": "catalog:",
     "echarts": "catalog:",
@@ -27,7 +27,6 @@
     "@ncobase/utils": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "react": "catalog:",
     "tsup": "catalog:"
   }
 }

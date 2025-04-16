@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React from 'react';
 
 import { ApexChart, type ApexChartProps } from './chart';
 
@@ -10,7 +10,7 @@ export type LineChartProps = Omit<ApexChartProps, 'type'> & {
  * Line chart component
  * Specialized wrapper for line charts
  */
-export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
+export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
   ({ type = 'line', ...props }, ref) => {
     return <ApexChart ref={ref} type={type} {...props} />;
   }
