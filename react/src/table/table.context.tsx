@@ -8,16 +8,21 @@ import type { ITableHeaderCellProps } from './table.cell';
 import type { IPaginationProps } from './table.pagination';
 
 export interface ITableContext<T = any> {
+  // eslint-disable-next-line no-unused-vars
   fetchData?: (params: PaginationParams) => Promise<PaginationResult<T>>;
   loadData?: any;
   internalData?: ITableBodyProps<T>['data'];
+  // eslint-disable-next-line no-unused-vars
   setInternalData?: (internalData: ITableBodyProps<T>['data']) => void;
   originalData?: ITableBodyProps<T>['data'];
+  // eslint-disable-next-line no-unused-vars
   setOriginalData?: (data: ITableBodyProps<T>['data']) => void;
   isBackendPagination?: boolean;
   header?: ITableHeaderCellProps[];
   columns?: ITableHeaderCellProps[];
+  // eslint-disable-next-line no-unused-vars
   setColumns?: (header: ITableHeaderCellProps[]) => void;
+  // eslint-disable-next-line no-unused-vars
   toggleColumn?: (key: string) => void;
   paginated?: boolean;
   pageSize?: IPaginationProps['pageSize'];
@@ -29,7 +34,9 @@ export interface ITableContext<T = any> {
   selectedRows?: ITableBodyProps<T>['data'];
   emptyDataLabel?: string;
   noMoreDataLabel?: string;
+  // eslint-disable-next-line no-unused-vars
   onSelectRow?: (row: T) => void;
+  // eslint-disable-next-line no-unused-vars
   onSelectAllRows?: (rows: string | ITableBodyProps<T>['data']) => void;
   actions?: {
     [key: string]: () => void;
@@ -41,6 +48,7 @@ export interface ITableContext<T = any> {
     enabled: boolean;
     config: Record<string, { value?: string | string[]; sortOrder?: 'asc' | 'desc' | null }>;
   };
+  // eslint-disable-next-line no-unused-vars
   setFilter?: (filter: ITableContext<T>['filter']) => void;
 }
 
@@ -115,7 +123,7 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
       if (rows.length === 0) {
         setSelectedRows([]);
       } else {
-        const allRows = flattenRows(rows);
+        const allRows = flattenRows(rows as any[]);
         setSelectedRows(allRows);
       }
     } else {

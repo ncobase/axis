@@ -16,9 +16,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "echarts": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "echarts": "catalog:",
     "recharts": "catalog:"
   },
   "devDependencies": {
