@@ -9,6 +9,7 @@ import { TableRow } from './table.row';
 export interface ITableBodyProps<T = any> {
   className?: string;
   data: T[];
+  // eslint-disable-next-line no-unused-vars
   expandComponent?: React.ReactNode | ((item: T) => React.ReactNode);
   maxTreeLevel?: number;
 }
@@ -17,7 +18,7 @@ export const TableBody: React.FC<ITableBodyProps> = ({
   className,
   data,
   expandComponent,
-  maxTreeLevel = -1
+  maxTreeLevel
 }) => {
   const {
     selected,
@@ -68,7 +69,9 @@ export const TableBody: React.FC<ITableBodyProps> = ({
 
   const renderRow = (item: any, level: number = 0): ReactNode => {
     const itemId = item.id || JSON.stringify(item);
-    const canTree = maxTreeLevel !== undefined || expandComponent !== undefined;
+    const canTree =
+      (maxTreeLevel !== undefined && maxTreeLevel !== 0) ||
+      (expandComponent !== undefined && expandComponent !== null);
 
     return (
       <TableRow

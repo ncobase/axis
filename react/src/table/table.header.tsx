@@ -49,7 +49,9 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
 
   const isAllSelected = selectedRows?.length === internalData?.length && internalData?.length > 0;
 
-  const canTree = maxTreeLevel !== undefined || expandComponent !== undefined;
+  const canTree =
+    (maxTreeLevel !== undefined && maxTreeLevel !== 0) ||
+    (expandComponent !== undefined && expandComponent !== null);
 
   return (
     <thead className={classes}>

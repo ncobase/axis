@@ -61,6 +61,7 @@ const SingleFileDropPlaceholder: React.FC<DropPlaceholderProps> = ({
 
 export interface UploaderProps extends FileUploaderProps {
   placeholderText?: DropPlaceholderProps['text'];
+  // eslint-disable-next-line no-unused-vars
   renderCustomFileItem?: (file: File, index: number) => React.ReactNode;
   className?: string;
 }

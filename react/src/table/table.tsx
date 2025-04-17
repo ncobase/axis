@@ -218,6 +218,12 @@ export const TableView: React.FC<TableViewProps> = ({
     return filteredData;
   }, [filteredData, currentPage, currentPageSize, paginated, isBackendPagination]);
 
+  const effectiveMaxTreeLevel =
+    maxTreeLevel !== undefined && maxTreeLevel !== 0 ? maxTreeLevel : undefined;
+  const effectiveExpandComponent = expandComponent || undefined;
+  const needsTreeColumn =
+    effectiveMaxTreeLevel !== undefined || effectiveExpandComponent !== undefined;
+
   const tableContextValue = useMemo(
     () => ({
       header,
@@ -226,9 +232,9 @@ export const TableView: React.FC<TableViewProps> = ({
       originalData,
       setOriginalData,
       isBackendPagination,
-      selected: !(maxTreeLevel !== undefined || expandComponent !== undefined) ? selected : false,
+      selected,
       paginated,
-      isAllExpanded,
+      isAllExpanded: needsTreeColumn ? isAllExpanded : undefined,
       pageSize: currentPageSize,
       pageSizes,
       paginationTexts,
@@ -240,6 +246,9 @@ export const TableView: React.FC<TableViewProps> = ({
       setFilter: handleFilter,
       selectedRows,
       onSelectRow: handleRowSelection,
+      // Pass the validated tree parameters
+      maxTreeLevel: effectiveMaxTreeLevel,
+      expandComponent: effectiveExpandComponent,
       ...rest
     }),
     [
@@ -261,7 +270,10 @@ export const TableView: React.FC<TableViewProps> = ({
       rest,
       setInternalData,
       setOriginalData,
-      isBackendPagination
+      isBackendPagination,
+      effectiveMaxTreeLevel,
+      effectiveExpandComponent,
+      needsTreeColumn
     ]
   );
 
@@ -281,11 +293,14 @@ export const TableView: React.FC<TableViewProps> = ({
       <div className={classes}>
         <div className='overflow-x-auto'>
           <table className='w-full table-auto'>
-            <TableHeader expandComponent={expandComponent} maxTreeLevel={maxTreeLevel} />
+            <TableHeader
+              expandComponent={effectiveExpandComponent}
+              maxTreeLevel={effectiveMaxTreeLevel}
+            />
             <TableBody
               data={paginatedData}
-              expandComponent={expandComponent}
-              maxTreeLevel={maxTreeLevel}
+              expandComponent={effectiveExpandComponent}
+              maxTreeLevel={effectiveMaxTreeLevel}
             />
           </table>
         </div>

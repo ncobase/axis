@@ -44,7 +44,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
   isExpanded,
   onToggleExpand = () => {},
   renderNestedRows,
-  maxTreeLevel = -1
+  maxTreeLevel
 }) => {
   if (!children) return null;
 
@@ -52,7 +52,9 @@ export const TableRow: React.FC<ITableRowProps> = ({
   const hasExpandedContent = Boolean(expandComponent);
 
   const canTree =
-    (hasChildren || hasExpandedContent) && (maxTreeLevel === -1 || level < maxTreeLevel);
+    (hasChildren || hasExpandedContent) &&
+    maxTreeLevel !== undefined &&
+    (maxTreeLevel === -1 || level < maxTreeLevel);
 
   const classes = cn(
     'odd:bg-white even:bg-gray-50 [&>th]:font-medium [&>th]:text-slate-600 text-slate-500 font-normal',

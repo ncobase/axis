@@ -17,6 +17,7 @@ type FileUploaderContextType = {
   dropzoneState: DropzoneState;
   isLOF: boolean;
   isFileTooBig: boolean;
+  // eslint-disable-next-line no-unused-vars
   removeFileFromSet: (index: number) => void;
   activeIndex: number;
   setActiveIndex: Dispatch<SetStateAction<number>>;
@@ -37,6 +38,7 @@ export const useFileUpload = () => {
 
 export type FileUploaderProps = {
   value: File | File[] | null;
+  // eslint-disable-next-line no-unused-vars
   onValueChange: (value: File | File[] | null) => void;
   dropzoneOptions?: DropzoneOptions;
   orientation?: 'horizontal' | 'vertical';
@@ -249,6 +251,7 @@ export const FileUploaderContent: React.FC<FileUploaderContentProps> = ({
 type FileUploaderItemProps = {
   index: number;
   file: File;
+  // eslint-disable-next-line no-unused-vars
   onRemove: (index: number) => void;
   isSingleFile: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
