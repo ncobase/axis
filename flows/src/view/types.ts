@@ -3,8 +3,11 @@ import type { ReactNode, MutableRefObject } from 'react';
 import type { Node, Edge, ReactFlowInstance, ReactFlowProps, BackgroundProps } from '@xyflow/react';
 
 export enum SelectType {
+  // eslint-disable-next-line no-unused-vars
   Selected = 'selected',
+  // eslint-disable-next-line no-unused-vars
   Unselected = 'unselected',
+  // eslint-disable-next-line no-unused-vars
   Highlighted = 'highlighted'
 }
 
@@ -46,6 +49,7 @@ export interface FlowViewProps {
   background?: boolean;
   minZoom?: number;
   maxZoom?: number;
+  // eslint-disable-next-line no-unused-vars
   flowDataAdapter?: (params: FlowDataAdapterParams) => void;
   mapping?: NodeMapping;
   useProvider?: boolean;
@@ -53,9 +57,13 @@ export interface FlowViewProps {
   miniMapPosition?: MiniMapPosition;
   flowViewRef?: MutableRefObject<ReactNode>;
   setMiniMapPosition?: React.Dispatch<React.SetStateAction<MiniMapPosition>>;
+  // eslint-disable-next-line no-unused-vars
   updateSelectNode?: (nodeId: string, selectType: SelectType) => void;
+  // eslint-disable-next-line no-unused-vars
   updateSelectEdge?: (edgeId: string, selectType: SelectType) => void;
+  // eslint-disable-next-line no-unused-vars
   updateSelectNodes?: (nodeIds: string[], selectType: SelectType) => void;
+  // eslint-disable-next-line no-unused-vars
   updateSelectEdges?: (edgeIds: string[], selectType: SelectType) => void;
   flowProps?: ReactFlowProps;
   flowBackgroundProps?: BackgroundProps;

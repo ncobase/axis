@@ -88,7 +88,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
           }
 
           const isExpandField =
-            isTreeColumn(child.props?.title || child.props?.code) ||
+            isTreeColumn(child.props?.title || child.props?.accessorKey) ||
             index === 0 ||
             (index === 1 && !React.isValidElement(children[0]));
 
@@ -120,7 +120,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
             });
           }
 
-          const isNameField = child.props?.code === 'name';
+          const isNameField = child.props?.accessorKey === 'name';
           const additionalClassName = isNameField && level > 0 ? `pl-${level * 2}` : '';
 
           return React.cloneElement(child, {

@@ -20,14 +20,14 @@ export interface ITableCellBaseProps<T = any> {
    */
   title?: string;
   /**
-   * column key
+   * column accessor key
    */
-  code?: string;
+  accessorKey?: string;
   /**
    * column value parser
    */
   // eslint-disable-next-line no-unused-vars
-  parser?: (value?: string, record?: object | T) => React.ReactNode | T;
+  parser?: (value?: string, record?: T) => React.ReactNode | T;
   /**
    * column icon
    */
@@ -50,11 +50,11 @@ const TableCell: React.FC<ITableCellProps<any>> = ({
   record,
   title,
   visible,
-  code = '',
+  accessorKey = '',
   parser,
   actions
 }) => {
-  if (isActionColumn(code) || isActionColumn(title)) {
+  if (isActionColumn(accessorKey) || isActionColumn(title)) {
     return <ActionCell record={record} actions={actions} />;
   }
 
@@ -81,7 +81,7 @@ const TableCell: React.FC<ITableCellProps<any>> = ({
     }
   };
 
-  const value = getValueFromRecord(code);
+  const value = getValueFromRecord(accessorKey);
 
   const formatValue = (val: any) => {
     if (typeof val === 'object' && val !== null) {
@@ -121,7 +121,7 @@ const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   visible,
   filter = 'sort',
   title,
-  code = '',
+  accessorKey = '',
   icon,
   className,
   children
@@ -131,42 +131,42 @@ const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | null>(null);
 
   useEffect(() => {
-    if (filterState?.config[code]?.value !== filterValue) {
+    if (filterState?.config[accessorKey]?.value !== filterValue) {
       // @ts-expect-error
       setFilter(prevFilter => ({
         ...prevFilter,
         config: {
           ...prevFilter.config,
-          [code]: {
-            ...prevFilter.config[code],
+          [accessorKey]: {
+            ...prevFilter.config[accessorKey],
             value: filterValue
           }
         }
       }));
     }
-  }, [filterValue, code]);
+  }, [filterValue, accessorKey]);
 
   useEffect(() => {
-    if (filterState?.config[code]?.sortOrder !== sortOrder) {
+    if (filterState?.config[accessorKey]?.sortOrder !== sortOrder) {
       // @ts-expect-error
       setFilter(prevFilter => ({
         ...prevFilter,
         config: {
           ...prevFilter.config,
-          [code]: {
-            ...prevFilter.config[code],
+          [accessorKey]: {
+            ...prevFilter.config[accessorKey],
             sortOrder
           }
         }
       }));
     }
-  }, [sortOrder, code]);
+  }, [sortOrder, accessorKey]);
 
   if (isBoolean(visible) && !visible) return null;
 
   const classes = 'bg-gray-50 text-start';
 
-  if (isActionColumn(code) || isActionColumn(title)) {
+  if (isActionColumn(accessorKey) || isActionColumn(title)) {
     return (
       <th scope='col' className={cn(classes, className, 'text-center w-8')}>
         <div className='h-9 w-full flex items-center justify-between gap-x-1.5 px-3 py-2'>
@@ -193,7 +193,7 @@ const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
         </div>
         {filter && filter === 'sort' && (
           <SortFilter
-            code={code}
+            accessorKey={accessorKey}
             filterValue={filterValue}
             handleFilterChange={handleFilterChange}
             handleSortChange={handleSortChange}

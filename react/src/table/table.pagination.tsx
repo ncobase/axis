@@ -15,7 +15,9 @@ export interface IPaginationProps {
   pageSize: number;
   pageSizes: number[];
   currentPage: number;
+  // eslint-disable-next-line no-unused-vars
   onPageChange: (page: number) => void;
+  // eslint-disable-next-line no-unused-vars
   onPageSizeChange: (size: number) => void;
   texts?: {
     firstPage?: string;

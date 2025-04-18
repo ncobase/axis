@@ -106,7 +106,11 @@ export const TableBody: React.FC<ITableBodyProps> = ({
           />
         )}
         {columns.map(column => (
-          <TableCell key={column.code || column.title || 'default'} {...column} record={item} />
+          <TableCell
+            key={column.accessorKey || column.title || 'default'}
+            {...column}
+            record={item}
+          />
         ))}
       </TableRow>
     );

@@ -13,12 +13,12 @@ export const ToggleColumn: React.FC = () => {
   return (
     <DropdownWrapper icon='IconColumns' alignOffset={-12}>
       {columns.map((column, index) =>
-        isActionColumn(column.code) || isActionColumn(column.title) ? null : (
+        isActionColumn(column.accessorKey) || isActionColumn(column.title) ? null : (
           <DropdownCheckboxItem
             key={index}
             className='py-2'
             checked={isUndefined(column.visible) || (isBoolean(column.visible) && column.visible)}
-            onCheckedChange={() => toggleColumn(column.code || '')}
+            onCheckedChange={() => toggleColumn(column.accessorKey || '')}
           >
             {column.title}
           </DropdownCheckboxItem>
