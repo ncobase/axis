@@ -1,7 +1,6 @@
-import React, { forwardRef, type HTMLInputTypeAttribute, memo } from 'react';
+import React, { forwardRef, memo } from 'react';
 
 import { cn, getValueByPath } from '@ncobase/utils';
-import type { FieldError, FieldValues, RegisterOptions } from 'react-hook-form';
 
 import { Button } from '../button';
 import { DatePicker } from '../datepicker';
@@ -9,107 +8,19 @@ import { Icons } from '../icon';
 import { Switch } from '../switch';
 
 import { Checkbox } from './checkbox';
+import { ColorPickerComponent } from './color_picker';
+import { IconPickerComponent } from './icon_picker';
 import { Input } from './input';
 import { Label } from './label';
 import { RadioGroup, RadioGroupItem } from './radio';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 import { Textarea } from './textarea';
+import type { FieldProps, FieldConfigProps } from './types';
 import { Uploader, type UploaderProps } from './uploader';
 
-interface FieldConfigProps extends React.ComponentProps<any> {
-  /**
-   * The title of the field
-   */
-  title?: string;
-  /**
-   * The description of the field
-   * @example
-   *   desc='description'
-   *   desc={<div>description</div>}
-   */
-  desc?: React.ReactNode;
-  /**
-   * The name of the field
-   * @example
-   *   name='name'
-   *   name='profile.name'
-   */
-  name?: any;
-  /**
-   * The placeholder of the field, if type is 'input', 'password', 'textarea', 'number'
-   */
-  placeholder?: string;
-  /**
-   * The default value of the field
-   */
-  defaultValue?: any;
-  /**
-   * The type of the field
-   * valid values: 'input | text', 'password', 'textarea', 'select', 'checkbox', 'radio', 'number', 'date', 'date-range', 'switch', 'hidden'
-   */
-  type?: 'date-range' | 'switch' | HTMLInputTypeAttribute | HTMLButtonElement['type'];
-  /**
-   * The prepend icon of the field
-   */
-  prependIcon?: string;
-  /**
-   * The click event of the prepend icon
-   * @returns void
-   */
-  prependIconClick?: () => void;
-  /**
-   * The append icon of the field
-   */
-  appendIcon?: string;
-  /**
-   * The click event of the append icon
-   * @returns void
-   */
-  appendIconClick?: () => void;
-  /**
-   * The rules of the field
-   * @see https://react-hook-form.com/api/useform/register
-   */
-  rules?: RegisterOptions;
-  /**
-   * The errors of the form
-   * @see https://react-hook-form.com/api/useform
-   */
-  errors?: FieldValues;
-  /**
-   * The options of the field, if type is 'select', 'checkbox', 'radio'
-   * @example
-   *   options={[{ label: 'Option 1', value: 1 }, { label: 'Option 2', value: 2 }, { label: 'Option 3', value: 3 }]}
-   */
-  options?: Record<string, any>[];
-  /**
-   * If the field is required, the error message will be displayed
-   */
-  required?: boolean;
-  /**
-   * The value component of the field
-   * @returns void
-   * @example
-   *   valueComponent={(onChange) => onChange('value')}
-   */
-  valueComponent?: any;
-  /**
-   * The className of the field
-   */
-  className?: string;
-  /**
-   * The className of the children wrapper, if type is 'checkbox', 'radio'
-   */
-  elementClassName?: string;
-}
-
-interface FieldProps extends FieldConfigProps {
-  error?: FieldError;
-}
-
-const Field = forwardRef<any, FieldProps>(
+export const Field = forwardRef<HTMLDivElement, FieldProps>(
   ({ title, className, error, errors, name, children, desc, rules, ...rest }, ref) => {
-    const rendered = children || <Input {...rest} ref={ref} />;
+    const rendered = children || <Input {...rest} ref={ref as any} />;
     const errorMessage = errors
       ? getValueByPath(errors, name)?.message
       : error
@@ -142,21 +53,27 @@ const Field = forwardRef<any, FieldProps>(
   }
 );
 
-const FieldViewer = forwardRef<HTMLDivElement, FieldConfigProps>(({ children, ...rest }, ref) => {
-  return (
-    <Field {...rest} ref={ref}>
-      <div className='border-b border-slate-100 py-2.5 max-h-16 overflow-auto w-full inline-block text-slate-600'>
-        {children || '-'}
-      </div>
-    </Field>
-  );
-});
+Field.displayName = 'Field';
 
-const FieldRender = memo(
-  forwardRef<any, FieldConfigProps>(({ type, ...props }, ref) => {
+export const FieldViewer = forwardRef<HTMLDivElement, FieldConfigProps>(
+  ({ children, ...rest }, ref) => {
+    return (
+      <Field {...rest} ref={ref}>
+        <div className='border-b border-slate-100 py-2.5 max-h-16 overflow-auto w-full inline-block text-slate-600'>
+          {children || '-'}
+        </div>
+      </Field>
+    );
+  }
+);
+
+FieldViewer.displayName = 'FieldViewer';
+
+export const FieldRender = memo(
+  forwardRef<HTMLDivElement, FieldProps>(({ type, ...props }, ref) => {
     switch (type) {
       case 'textarea':
-        return <TextareaField ref={ref} {...props} />;
+        return <TextareaField ref={ref as any} {...props} />;
       case 'date':
         return <DateField ref={ref} {...props} />;
       case 'date-range':
@@ -171,13 +88,19 @@ const FieldRender = memo(
         return <RadioField ref={ref} {...props} />;
       case 'uploader':
         return <UploaderField ref={ref} {...props} />;
+      case 'color':
+        return <ColorPickerField ref={ref} {...props} />;
+      case 'icon':
+        return <IconPickerField ref={ref} {...props} />;
       default:
-        return <InputField type={type} ref={ref} {...props} />;
+        return <InputField type={type} ref={ref as any} {...props} />;
     }
   })
 );
 
-const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
+FieldRender.displayName = 'FieldRender';
+
+const InputField = forwardRef<HTMLInputElement, FieldProps>(
   (
     {
       onChange,
@@ -229,7 +152,8 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
                 size='ratio'
                 onClick={() => {
                   const newValue = parseInt(rest['value']) + 1 || 0;
-                  onChange(newValue);
+                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                  onChange && onChange(newValue);
                 }}
               >
                 <Icons name='IconChevronUp' />
@@ -240,7 +164,8 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
                 size='ratio'
                 onClick={() => {
                   const newValue = parseInt(rest['value']) - 1 || 0;
-                  onChange(newValue);
+                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                  onChange && onChange(newValue);
                 }}
               >
                 <Icons name='IconChevronDown' />
@@ -267,7 +192,9 @@ const InputField = forwardRef<HTMLInputElement, FieldConfigProps>(
   }
 );
 
-const TextareaField = forwardRef<HTMLTextAreaElement, FieldConfigProps>(
+InputField.displayName = 'InputField';
+
+const TextareaField = forwardRef<HTMLTextAreaElement, FieldProps>(
   (
     { onChange, defaultValue, placeholder, appendIcon, appendIconClick, valueComponent, ...rest },
     ref
@@ -276,7 +203,7 @@ const TextareaField = forwardRef<HTMLTextAreaElement, FieldConfigProps>(
       rest['value'] = defaultValue;
     }
     return (
-      <Field {...rest} ref={ref}>
+      <Field {...rest} ref={ref as any}>
         <div className='relative'>
           <Textarea onChange={onChange} placeholder={placeholder} {...rest} ref={ref} />
           {appendIcon && (
@@ -299,19 +226,25 @@ const TextareaField = forwardRef<HTMLTextAreaElement, FieldConfigProps>(
   }
 );
 
-const DateField = forwardRef<HTMLDivElement, FieldConfigProps>((props, ref) => (
+TextareaField.displayName = 'TextareaField';
+
+const DateField = forwardRef<HTMLDivElement, FieldProps>((props, ref) => (
   <Field {...props} ref={ref}>
     <DatePicker mode='single' {...props} />
   </Field>
 ));
 
-const DateRangeField = forwardRef<HTMLDivElement, FieldConfigProps>((props, ref) => (
+DateField.displayName = 'DateField';
+
+const DateRangeField = forwardRef<HTMLDivElement, FieldProps>((props, ref) => (
   <Field {...props} ref={ref}>
     <DatePicker mode='range' {...props} />
   </Field>
 ));
 
-const SelectField = forwardRef<HTMLDivElement, FieldConfigProps>(
+DateRangeField.displayName = 'DateRangeField';
+
+const SelectField = forwardRef<HTMLDivElement, FieldProps>(
   (
     { options, onChange, defaultValue, placeholder, prependIcon, prependIconClick, ...rest },
     ref
@@ -339,13 +272,11 @@ const SelectField = forwardRef<HTMLDivElement, FieldConfigProps>(
             <SelectValue placeholder={placeholder || '请选择'} />
           </SelectTrigger>
           <SelectContent>
-            {options?.map(
-              (option: { value: string; label: any }, index: React.Key | null | undefined) => (
-                <SelectItem key={index} value={option.value as string}>
-                  {option.label || option.value}
-                </SelectItem>
-              )
-            )}
+            {options?.map((option, index) => (
+              <SelectItem key={index} value={String(option.value)}>
+                {option.label || option.value}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </Field>
@@ -353,8 +284,10 @@ const SelectField = forwardRef<HTMLDivElement, FieldConfigProps>(
   }
 );
 
+SelectField.displayName = 'SelectField';
+
 const RenderOption = memo(
-  forwardRef<any, any>(({ option, type, onChange, defaultValue, ...rest }, _ref) => {
+  forwardRef<HTMLDivElement, any>(({ option, type, onChange, defaultValue, ...rest }, _ref) => {
     const { label, value } = typeof option === 'object' ? option : { label: option, value: option };
     const id = `${rest['name']}-${value}`.replace(/\./g, '-');
 
@@ -367,13 +300,14 @@ const RenderOption = memo(
               const updatedValue = checked
                 ? [...(defaultValue || []), value]
                 : (defaultValue || []).filter((val: any) => val !== value);
-              onChange(updatedValue);
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+              onChange && onChange(updatedValue);
             }}
             defaultChecked={defaultValue?.includes(value)}
             {...rest}
           />
         ) : (
-          <RadioGroupItem id={id} value={value} />
+          <RadioGroupItem id={id} value={String(value)} />
         )}
         <Label htmlFor={id}>{label}</Label>
       </div>
@@ -381,7 +315,9 @@ const RenderOption = memo(
   })
 );
 
-const CheckboxField = forwardRef<HTMLDivElement, FieldConfigProps>(
+RenderOption.displayName = 'RenderOption';
+
+const CheckboxField = forwardRef<HTMLDivElement, FieldProps>(
   // Discard:
   //   - type
   ({ className, options = [], elementClassName, type: _, ...rest }, ref) => {
@@ -411,7 +347,9 @@ const CheckboxField = forwardRef<HTMLDivElement, FieldConfigProps>(
   }
 );
 
-const RadioField = forwardRef<HTMLDivElement, FieldConfigProps>(
+CheckboxField.displayName = 'CheckboxField';
+
+const RadioField = forwardRef<HTMLDivElement, FieldProps>(
   ({ className, onChange, defaultValue, options = [], elementClassName, ...rest }, ref) => {
     return (
       <Field {...rest} ref={ref} className={className}>
@@ -435,7 +373,9 @@ const RadioField = forwardRef<HTMLDivElement, FieldConfigProps>(
   }
 );
 
-const SwitchField = forwardRef<HTMLDivElement, FieldConfigProps>(
+RadioField.displayName = 'RadioField';
+
+const SwitchField = forwardRef<HTMLDivElement, FieldProps>(
   // Discard:
   //   - type
   ({ onChange, defaultValue, elementClassName, type: _, ...rest }, ref) => (
@@ -450,7 +390,9 @@ const SwitchField = forwardRef<HTMLDivElement, FieldConfigProps>(
   )
 );
 
-const UploaderField = forwardRef<HTMLDivElement, FieldConfigProps & UploaderProps>(
+SwitchField.displayName = 'SwitchField';
+
+const UploaderField = forwardRef<HTMLDivElement, FieldProps & UploaderProps>(
   ({ onChange, defaultValue, ...rest }, ref) => {
     return (
       <Field {...rest} ref={ref}>
@@ -460,10 +402,33 @@ const UploaderField = forwardRef<HTMLDivElement, FieldConfigProps & UploaderProp
   }
 );
 
+UploaderField.displayName = 'UploaderField';
+
+const ColorPickerField = forwardRef<HTMLDivElement, FieldProps>(
+  ({ onChange, defaultValue, ...rest }, ref) => {
+    return (
+      <Field {...rest} ref={ref}>
+        <ColorPickerComponent value={rest['value'] || defaultValue} onChange={onChange} {...rest} />
+      </Field>
+    );
+  }
+);
+
+ColorPickerField.displayName = 'ColorPickerField';
+
+const IconPickerField = forwardRef<HTMLDivElement, FieldProps>(
+  ({ onChange, defaultValue, ...rest }, ref) => {
+    return (
+      <Field {...rest} ref={ref}>
+        <IconPickerComponent value={rest['value'] || defaultValue} onChange={onChange} {...rest} />
+      </Field>
+    );
+  }
+);
+
+IconPickerField.displayName = 'IconPickerField';
+
 export {
-  Field,
-  FieldViewer,
-  FieldRender,
   InputField,
   TextareaField,
   DateField,
@@ -471,5 +436,7 @@ export {
   SelectField,
   CheckboxField,
   RadioField,
-  type FieldConfigProps
+  ColorPickerField,
+  IconPickerField,
+  UploaderField
 };

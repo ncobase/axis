@@ -1,49 +1,82 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { cn } from '@ncobase/utils';
-import type { Control, FieldValues } from 'react-hook-form';
-import { Controller } from 'react-hook-form';
+import { Controller, FieldValues } from 'react-hook-form';
 
-import type { FieldConfigProps } from './form.field';
+import { FormProvider } from './context';
 import { FieldRender } from './form.field';
+import type { FormProps, FormLayout } from './types';
 
-interface FormViewProps extends React.FormHTMLAttributes<HTMLFormElement> {
-  control?: Control;
-  errors?: FieldValues;
-  children?: React.ReactNode;
-  fields?: FieldConfigProps[];
-}
+const getLayoutClasses = (layout: FormLayout) => {
+  switch (layout) {
+    case 'default':
+      return 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4';
+    case 'single':
+      return 'grid grid-cols-1 gap-4';
+    case 'inline':
+      return 'flex flex-wrap gap-4 items-end';
+    case 'custom':
+      return '';
+    default:
+      return 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4';
+  }
+};
 
-export const Form = React.forwardRef<HTMLFormElement, FormViewProps>(
-  ({ id, children, className, onSubmit, fields, control, ...props }, ref) => {
+export const Form = forwardRef(
+  <TFieldValues extends FieldValues = FieldValues>(
+    {
+      id,
+      children,
+      className,
+      onSubmit,
+      fields,
+      control,
+      errors,
+      layout = 'default',
+      ...props
+    }: FormProps<TFieldValues>,
+    ref: React.Ref<HTMLFormElement>
+  ) => {
     if (!fields && !children) return null;
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!onSubmit) {
+        return;
+      }
+      e.stopPropagation();
+      // Get form values from control if available
+      const formValues = control?._formValues as TFieldValues;
+      // Call onSubmit with form values if control exists, otherwise just pass the event
+      onSubmit(e, formValues ?? undefined);
+    };
+
     return (
       <form
         id={id}
         ref={ref}
-        className={cn('grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4', className)}
+        className={cn(getLayoutClasses(layout), className)}
         {...props}
-        onSubmit={e => {
-          e.preventDefault();
-          onSubmit?.(e);
-        }}
+        onSubmit={handleSubmit}
       >
-        {children ? children : null}
-        {fields &&
-          fields.map(item => {
-            return (
-              <Controller
-                key={item.name}
-                name={item.name}
-                rules={item.rules}
-                control={control}
-                defaultValue={item.defaultValue}
-                render={({ field }) => {
-                  return <FieldRender type={item.type} {...props} {...item} {...field} />;
-                }}
-              />
-            );
-          })}
+        <FormProvider control={control} errors={errors}>
+          {children}
+          {fields &&
+            fields.map(item => {
+              return (
+                <Controller
+                  key={String(item.name)}
+                  name={item.name}
+                  rules={item.rules}
+                  control={control}
+                  defaultValue={item.defaultValue}
+                  render={({ field }) => {
+                    return <FieldRender type={item.type} {...props} {...item} {...field} />;
+                  }}
+                />
+              );
+            })}
+        </FormProvider>
       </form>
     );
   }
