@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from 'react';
+import React, { forwardRef, memo, useCallback, useState } from 'react';
 
 import { cn, getValueByPath } from '@ncobase/utils';
 
@@ -7,6 +7,7 @@ import { DatePicker } from '../datepicker';
 import { Icons } from '../icon';
 import { Switch } from '../switch';
 
+import { MultiSelectField, TreeSelectField } from './advanced_select';
 import { Checkbox } from './checkbox';
 import { ColorPickerComponent } from './color_picker';
 import { IconPickerComponent } from './icon_picker';
@@ -80,6 +81,10 @@ export const FieldRender = memo(
         return <DateRangeField ref={ref} {...props} />;
       case 'select':
         return <SelectField ref={ref} {...props} />;
+      case 'multi-select':
+        return <MultiSelectField ref={ref} {...props} />;
+      case 'tree-select':
+        return <TreeSelectField ref={ref} {...props} />;
       case 'checkbox':
         return <CheckboxField ref={ref} {...props} />;
       case 'switch':
@@ -246,16 +251,58 @@ DateRangeField.displayName = 'DateRangeField';
 
 const SelectField = forwardRef<HTMLDivElement, FieldProps>(
   (
-    { options, onChange, defaultValue, placeholder, prependIcon, prependIconClick, ...rest },
+    {
+      options,
+      onChange,
+      defaultValue,
+      placeholder,
+      prependIcon,
+      prependIconClick,
+      allowClear = false,
+      emptyValue = '',
+      ...rest
+    },
     ref
   ) => {
-    if (rest['value'] === undefined && defaultValue !== undefined) {
-      rest['value'] = defaultValue;
+    const [value, setValue] = useState(rest['value'] === undefined ? defaultValue : rest['value']);
+
+    if (rest['value'] !== undefined && rest['value'] !== value) {
+      setValue(rest['value']);
     }
+
+    const handleValueChange = useCallback(
+      (newValue: string) => {
+        setValue(newValue);
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        onChange && onChange(newValue);
+      },
+      [onChange]
+    );
+
+    const handleClear = useCallback(
+      (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setValue(emptyValue);
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        onChange && onChange(emptyValue);
+      },
+      [onChange, emptyValue]
+    );
+
     return (
       <Field {...rest} ref={ref}>
-        <Select {...rest} onValueChange={onChange} defaultValue={defaultValue}>
-          <SelectTrigger className={cn('relative', prependIcon && 'pl-9')}>
+        <Select
+          {...rest}
+          value={value}
+          onValueChange={handleValueChange}
+          defaultValue={defaultValue}
+        >
+          <SelectTrigger
+            className={cn('relative', prependIcon && 'pl-9')}
+            allowClear={allowClear}
+            onClear={handleClear}
+            value={value}
+          >
             {prependIcon && (
               <Button
                 className={cn(
@@ -334,7 +381,7 @@ const CheckboxField = forwardRef<HTMLDivElement, FieldProps>(
     );
     return (
       <Field {...rest} ref={ref} className={className}>
-        <div className={cn('flex flex-wrap gap-4', elementClassName)}>
+        <div className={cn('flex flex-wrap gap-4 py-3.5', elementClassName)}>
           {options.length === 0 && renderSingleOption(rest['label'])}
           {options.length === 1 && renderSingleOption(options[0]['label'] || '')}
           {options.length > 1 &&
@@ -355,7 +402,7 @@ const RadioField = forwardRef<HTMLDivElement, FieldProps>(
       <Field {...rest} ref={ref} className={className}>
         <RadioGroup
           {...rest}
-          className={cn('flex flex-wrap gap-4', elementClassName)}
+          className={cn('flex flex-wrap gap-4 py-3.5', elementClassName)}
           defaultValue={defaultValue}
           onValueChange={onChange}
         >
@@ -383,7 +430,7 @@ const SwitchField = forwardRef<HTMLDivElement, FieldProps>(
       <Switch
         onCheckedChange={onChange}
         defaultChecked={defaultValue}
-        className={elementClassName}
+        className={cn('my-3.5', elementClassName)}
         {...rest}
       />
     </Field>
@@ -438,5 +485,7 @@ export {
   RadioField,
   ColorPickerField,
   IconPickerField,
+  MultiSelectField,
+  TreeSelectField,
   UploaderField
 };

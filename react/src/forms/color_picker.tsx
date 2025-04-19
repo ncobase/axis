@@ -145,7 +145,7 @@ export const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div className='flex items-center cursor-pointer' onClick={() => setOpen(!open)}>
         <div
-          className='w-8 h-8 rounded-md border border-slate-300 mr-2'
+          className='w-[35px] h-[35px] rounded-md mr-2'
           style={{ backgroundColor: currentColor }}
         />
         {allowCustomColor && (
@@ -154,7 +154,6 @@ export const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({
             value={currentColor}
             onChange={handleInputChange}
             onClick={e => e.stopPropagation()}
-            className='w-24'
             {...props}
           />
         )}

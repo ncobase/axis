@@ -1,4 +1,6 @@
 export * from './uploader';
+export * from './advanced_select';
+export * from './builder';
 export * from './checkbox';
 export * from './context';
 export * from './form.field';

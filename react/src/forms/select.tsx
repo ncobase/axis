@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { cn } from '@ncobase/utils';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
+import { Button } from '../button';
 import { Icons } from '../icon';
 
 const Select = SelectPrimitive.Root;
@@ -11,10 +12,15 @@ const SelectGroup = SelectPrimitive.Group;
 
 const SelectValue = SelectPrimitive.Value;
 
-const SelectTrigger = React.forwardRef<
+const SelectTrigger = forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
+    allowClear?: boolean;
+    // eslint-disable-next-line no-unused-vars
+    onClear?: (e: React.MouseEvent) => void;
+    value?: string;
+  }
+>(({ className, children, allowClear, onClear, value, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
@@ -24,6 +30,22 @@ const SelectTrigger = React.forwardRef<
     {...props}
   >
     {children}
+
+    {allowClear && value && (
+      <Button
+        className='cursor-pointer outline-none mr-1'
+        onClick={e => {
+          e.stopPropagation();
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          onClear && onClear(e);
+        }}
+        variant='unstyle'
+        size='ratio'
+      >
+        <Icons name='IconX' className='w-3.5 h-3.5' />
+      </Button>
+    )}
+
     <SelectPrimitive.Icon asChild>
       <Icons name='IconChevronDown' />
     </SelectPrimitive.Icon>

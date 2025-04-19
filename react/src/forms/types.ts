@@ -60,7 +60,8 @@ export interface FieldConfigProps<TFieldValues extends FieldValues = FieldValues
   defaultValue?: any;
   /**
    * The type of the field
-   * valid values: 'input | text', 'password', 'textarea', 'select', 'checkbox', 'radio', 'number', 'date', 'date-range', 'switch', 'hidden', 'color', 'icon'
+   * valid values: 'input | text', 'password', 'textarea', 'select', 'multi-select', 'tree-select',
+   * 'checkbox', 'radio', 'number', 'date', 'date-range', 'switch', 'hidden', 'color', 'icon'
    */
   type?:
     | 'input'
@@ -68,6 +69,8 @@ export interface FieldConfigProps<TFieldValues extends FieldValues = FieldValues
     | 'password'
     | 'textarea'
     | 'select'
+    | 'multi-select'
+    | 'tree-select'
     | 'checkbox'
     | 'radio'
     | 'number'
@@ -108,11 +111,27 @@ export interface FieldConfigProps<TFieldValues extends FieldValues = FieldValues
    */
   errors?: FieldErrors<TFieldValues>;
   /**
-   * The options of the field, if type is 'select', 'checkbox', 'radio', 'icon'
+   * The options of the field, if type is 'select', 'multi-select', 'tree-select', 'checkbox', 'radio', 'icon'
    * @example
    *   options={[{ label: 'Option 1', value: 1 }, { label: 'Option 2', value: 2 }, { label: 'Option 3', value: 3 }]}
+   *   options={[{ label: 'Category 1', value: 1, children: [{ label: 'Subcategory 1', value: '1-1' }] }]}
    */
   options?: Array<{ label: string; value: any }>;
+  /**
+   * Whether to allow clearing the selected value, only valid when type is 'select'
+   */
+  allowClear?: boolean;
+  /**
+   * The value after clearing, only valid when type is 'select' and allowClear is true
+   * @default ''
+   */
+  emptyValue?: any;
+
+  /**
+   * Whether to support multiple selection, only valid when type is 'tree-select'
+   * @default false
+   */
+  multiple?: boolean;
   /**
    * If the field is required, the error message will be displayed
    */
@@ -170,4 +189,41 @@ export interface IconPickerComponentProps extends Omit<FieldProps, 'type'> {
   searchable?: boolean;
   categorized?: boolean;
   recentIcons?: string[];
+}
+
+// Define interfaces for our form structure
+export interface FormField extends FieldConfigProps {
+  placeholderText?: {
+    main?: string;
+    sub?: string;
+    hint?: string;
+  };
+}
+// Define interfaces for our form structure
+export interface FormSection {
+  id: string;
+  title: string;
+  subtitle: string;
+  icon: string;
+  collapsible: boolean;
+  fields: FormField[];
+}
+
+export interface TreeNode {
+  value: string;
+  label: string;
+  children?: TreeNode[];
+}
+
+export interface MultiSelectProps extends Omit<FieldProps, 'type'> {
+  options: Array<{ label: string; value: any }>;
+  placeholder?: string;
+  disabled?: boolean;
+}
+
+export interface TreeSelectProps extends Omit<FieldProps, 'type'> {
+  options: TreeNode[];
+  placeholder?: string;
+  multiple?: boolean;
+  disabled?: boolean;
 }
