@@ -13,7 +13,7 @@ export const DropdownWrapper: React.FC<{
   return (
     <Dropdown>
       <DropdownTrigger asChild>
-        <Button variant='unstyle' size='ratio' className='p-1 outline-none'>
+        <Button variant='unstyle' size='ratio' className='p-1 outline-hidden'>
           <Icons name={icon} />
         </Button>
       </DropdownTrigger>

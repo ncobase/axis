@@ -114,7 +114,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
       <div className='flex items-center'>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         <div
-          className='w-10 h-10 rounded border cursor-pointer mr-2 flex-shrink-0'
+          className='w-10 h-10 rounded-sm border cursor-pointer mr-2 shrink-0'
           style={{ backgroundColor: color }}
           onClick={handleColorPreviewClick}
         />
@@ -149,7 +149,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                 onClick={() => handleColorSelect(colorOption)}
               >
                 {color === colorOption && (
-                  <div className='w-2 h-2 rounded-full bg-white shadow-sm' />
+                  <div className='w-2 h-2 rounded-full bg-white shadow-xs' />
                 )}
               </Button>
             ))}
@@ -159,7 +159,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
             <Label className='block text-sm font-medium text-gray-700 mb-1'>Custom Color</Label>
             <div className='flex items-center'>
               <div
-                className='w-8 h-8 rounded border mr-2 flex-shrink-0'
+                className='w-8 h-8 rounded-sm border mr-2 shrink-0'
                 style={{ backgroundColor: customColor }}
               />
               <input

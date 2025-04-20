@@ -18,7 +18,7 @@ const DialogClose = React.forwardRef<
   <DialogPrimitive.Close
     ref={ref}
     className={cn(
-      'absolute right-3.5 top-3.5 rounded-full p-1 text-default-11 hover:bg-default-1/10 focus:outline-none hover:shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:[&>svg]:stroke-danger-400',
+      'absolute right-3.5 top-3.5 rounded-full p-1 text-default-11 hover:bg-default-1/10 focus:outline-hidden hover:shadow-[0_1px_3px_rgba(0,0,0,0.08)] [&>svg]:hover:stroke-danger-400',
       className
     )}
     {...props}
@@ -36,7 +36,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      'fixed inset-0 z-[999] bg-black/10 backdrop-blur-sm  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      'fixed inset-0 z-999 bg-black/10 backdrop-blur-xs  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       className
     )}
     {...props}
@@ -53,7 +53,7 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed left-1/2 top-1/2 z-[999] flex flex-col w-[78lvw] h-[76lvh] max-w-[90lvw] max-h-[86lvh] -translate-x-[50%] bg-white -translate-y-[55%] gap-4 p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[55%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[55%] sm:rounded-lg',
+        'fixed left-1/2 top-1/2 z-999 flex flex-col w-[78lvw] h-[76lvh] max-w-[90lvw] max-h-[86lvh] -translate-x-[50%] bg-white -translate-y-[55%] gap-4 p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[55%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[55%] sm:rounded-lg',
         className
       )}
       {...props}

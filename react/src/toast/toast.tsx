@@ -77,14 +77,14 @@ export const ToastItem: React.FC<ToastProps> = ({ toast, onDismiss }) => {
       role='alert'
       onClick={handleClick}
     >
-      <div className='flex-shrink-0 mr-3 mt-0.5'>{getIcon()}</div>
-      <div className='flex-grow'>
+      <div className='shrink-0 mr-3 mt-0.5'>{getIcon()}</div>
+      <div className='grow'>
         <h4 className='text-sm font-medium text-slate-800'>{toast.message}</h4>
         {toast.description && <p className='text-xs text-slate-600 mt-1'>{toast.description}</p>}
       </div>
       <button
         type='button'
-        className='ml-2 text-slate-400 hover:text-slate-600 focus:outline-none flex-shrink-0'
+        className='ml-2 text-slate-400 hover:text-slate-600 focus:outline-hidden shrink-0'
         onClick={e => {
           e.stopPropagation();
           handleDismiss();

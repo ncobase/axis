@@ -36,11 +36,11 @@ const Calendar = ({ className, classNames, showOutsideDays = true, ...props }: C
           'h-8 w-8 m-1 p-0 font-normal aria-selected:opacity-100'
         ),
         day_range_end: 'day-range-end',
-        day_selected: '!bg-primary-600 text-white hover:!bg-primary-600/55 focus:!bg-primary-600',
+        day_selected: 'bg-primary-600! text-white hover:bg-primary-600/55! focus:bg-primary-600!',
         day_today: '', // bg-red-500 text-white hover:bg-red-500/55 focus:bg-red-500',
         day_outside: 'day-outside opacity-50 aria-selected:opacity-30',
         day_disabled: 'opacity-50',
-        day_range_middle: 'aria-selected:!bg-slate-100 aria-selected:!text-slate-500',
+        day_range_middle: 'aria-selected:bg-slate-100! aria-selected:text-slate-500!',
         day_hidden: 'invisible',
         ...classNames
       }}

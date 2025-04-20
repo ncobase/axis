@@ -63,7 +63,7 @@ export const IconPicker = ({
           variant='outline-slate'
           size='ratio'
           title={key}
-          className='[&>svg]:!stroke-slate-500/65 hover:[&>svg]:!stroke-slate-500/80'
+          className='[&>svg]:stroke-slate-500/65! [&>svg]:hover:stroke-slate-500/80!'
           onClick={() => handleSelectIcon(key)}
         >
           <Icons name={key} />

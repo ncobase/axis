@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { useForm } from 'react-hook-form';
 
 import { ColorPickerComponent } from './color_picker';
@@ -851,8 +851,8 @@ const MyForm = () => {
         </Section>
       ))}
       <div className="mt-6 flex justify-end">
-        <button type="button" className="mr-4 px-4 py-2 border border-slate-300 rounded">Cancel</button>
-        <button type="submit" className="px-4 py-2 bg-primary-600 text-white rounded">Submit</button>
+        <button type="button" className="mr-4 px-4 py-2 border border-slate-300 rounded-sm">Cancel</button>
+        <button type="submit" className="px-4 py-2 bg-primary-600 text-white rounded-sm">Submit</button>
       </div>
     </form>
   );
@@ -942,7 +942,7 @@ export default MyForm;`;
     setFormSections(updatedSections);
   };
 
-  // Handle drag end from react-beautiful-dnd
+  // Handle drag end from @hello-pangea/dnd
   const handleDragEnd = result => {
     const { destination, source, type } = result;
 
@@ -990,7 +990,7 @@ export default MyForm;`;
             className='flex items-center justify-start p-2 h-auto'
             onClick={() => addField(template.type, category)}
           >
-            <Icons name={template.icon} className='mr-2 flex-shrink-0' />
+            <Icons name={template.icon} className='mr-2 shrink-0' />
             <span className='truncate text-left'>{template.title}</span>
           </Button>
         ))}

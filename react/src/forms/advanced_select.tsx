@@ -89,7 +89,7 @@ export const MultiSelectField = forwardRef<HTMLDivElement, any>(
             {prependIcon && (
               <Button
                 className={cn(
-                  'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                  'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-hidden',
                   prependIconClick && 'cursor-pointer'
                 )}
                 onClick={e => {
@@ -133,7 +133,7 @@ export const MultiSelectField = forwardRef<HTMLDivElement, any>(
 
             {selectedValues.length > 0 && (
               <Button
-                className='ml-auto cursor-pointer outline-none'
+                className='ml-auto cursor-pointer outline-hidden'
                 onClick={handleClearAll}
                 variant='unstyle'
                 size='ratio'
@@ -161,12 +161,12 @@ export const MultiSelectField = forwardRef<HTMLDivElement, any>(
                   )}
                   onClick={() => handleToggleValue(String(option.value))}
                 >
-                  <div className='mr-2 flex-shrink-0'>
+                  <div className='mr-2 shrink-0'>
                     <input
                       type='checkbox'
                       checked={selectedValues.includes(String(option.value))}
                       onChange={() => {}}
-                      className='rounded border-slate-300'
+                      className='rounded-sm border-slate-300'
                     />
                   </div>
                   <span>{option.label || option.value}</span>
@@ -264,7 +264,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, any>(
           {prependIcon && (
             <Button
               className={cn(
-                'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-hidden',
                 prependIconClick && 'cursor-pointer'
               )}
               onClick={e => {
@@ -308,7 +308,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, any>(
 
           {selectedValues.length > 0 && (
             <Button
-              className='ml-auto cursor-pointer outline-none'
+              className='ml-auto cursor-pointer outline-hidden'
               onClick={handleClearAll}
               variant='unstyle'
               size='ratio'
@@ -333,12 +333,12 @@ export const MultiSelect = forwardRef<HTMLDivElement, any>(
                 )}
                 onClick={() => handleToggleValue(String(option.value))}
               >
-                <div className='mr-2 flex-shrink-0'>
+                <div className='mr-2 shrink-0'>
                   <input
                     type='checkbox'
                     checked={selectedValues.includes(String(option.value))}
                     onChange={() => {}}
-                    className='rounded border-slate-300'
+                    className='rounded-sm border-slate-300'
                   />
                 </div>
                 <span>{option.label || option.value}</span>
@@ -472,12 +472,12 @@ export const TreeSelectField = forwardRef<HTMLDivElement, any>(
               onClick={() => handleSelect(node.value)}
             >
               {hasChildren && <Icons name='IconChevronRight' className='w-4 h-4 mr-1' />}
-              <div className='mr-2 flex-shrink-0'>
+              <div className='mr-2 shrink-0'>
                 <input
                   type='checkbox'
                   checked={isSelected}
                   onChange={() => {}}
-                  className='rounded border-slate-300'
+                  className='rounded-sm border-slate-300'
                 />
               </div>
               <span>{node.label}</span>
@@ -517,7 +517,7 @@ export const TreeSelectField = forwardRef<HTMLDivElement, any>(
             {prependIcon && (
               <Button
                 className={cn(
-                  'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                  'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-hidden',
                   prependIconClick && 'cursor-pointer'
                 )}
                 onClick={e => {
@@ -562,7 +562,7 @@ export const TreeSelectField = forwardRef<HTMLDivElement, any>(
 
             {selectedValues.length > 0 && (
               <Button
-                className='ml-auto mr-1 cursor-pointer outline-none'
+                className='ml-auto mr-1 cursor-pointer outline-hidden'
                 onClick={handleClear}
                 variant='unstyle'
                 size='ratio'
@@ -710,12 +710,12 @@ export const TreeSelect = forwardRef<HTMLDivElement, any>(
               onClick={() => handleSelect(node.value)}
             >
               {hasChildren && <Icons name='IconChevronRight' className='w-4 h-4 mr-1' />}
-              <div className='mr-2 flex-shrink-0'>
+              <div className='mr-2 shrink-0'>
                 <input
                   type='checkbox'
                   checked={isSelected}
                   onChange={() => {}}
-                  className='rounded border-slate-300'
+                  className='rounded-sm border-slate-300'
                 />
               </div>
               <span>{node.label}</span>
@@ -755,7 +755,7 @@ export const TreeSelect = forwardRef<HTMLDivElement, any>(
           {prependIcon && (
             <Button
               className={cn(
-                'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-hidden',
                 prependIconClick && 'cursor-pointer'
               )}
               onClick={e => {
@@ -800,7 +800,7 @@ export const TreeSelect = forwardRef<HTMLDivElement, any>(
 
           {selectedValues.length > 0 && (
             <Button
-              className='ml-auto mr-1 cursor-pointer outline-none'
+              className='ml-auto mr-1 cursor-pointer outline-hidden'
               onClick={handleClear}
               variant='unstyle'
               size='ratio'

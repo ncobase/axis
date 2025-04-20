@@ -118,10 +118,10 @@ export const Uploader: React.FC<UploaderProps> = ({
       maxFiles={maxFiles}
       maxSize={maxSize}
       accept={accept}
-      className={`focus:outline-none focus:ring-0 ${className}`}
+      className={`focus:outline-hidden focus:ring-0 ${className}`}
       {...props}
     >
-      <FileInput className='focus:outline-none focus:ring-0'>
+      <FileInput className='focus:outline-hidden focus:ring-0'>
         {(!value || Array.isArray(value)) &&
           (isSingleFile ? (
             <SingleFileDropPlaceholder text={placeholderText} />

@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import * as React from 'react';
 
 import { cn } from '@ncobase/utils';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
@@ -27,6 +29,6 @@ const Checkbox = React.forwardRef<
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
 ));
-Checkbox.displayName = 'Checkbox';
+Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
 export { Checkbox };

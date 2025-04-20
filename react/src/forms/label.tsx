@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import * as React from 'react';
 
 import { cn } from '@ncobase/utils';
 import * as LabelPrimitive from '@radix-ui/react-label';
@@ -14,6 +16,6 @@ const Label = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <LabelPrimitive.Root ref={ref} className={cn(labelVariants(), className)} {...props} />
 ));
-Label.displayName = 'Label';
+Label.displayName = LabelPrimitive.Root.displayName;
 
 export { Label };

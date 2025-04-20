@@ -21,7 +21,7 @@ export const Icons: React.FC<IProps> = ({ name = '', size = 16, stroke = 1.5, ..
   const isFilled = name.endsWith('Filled');
   const classes = cn(
     'inline-block stroke-slate-400/65',
-    isFilled && 'stroke-[0] stroke-none fill-slate-400/65'
+    isFilled && 'stroke-0 stroke-none fill-slate-400/65'
   );
 
   return (

@@ -1,4 +1,4 @@
-# @ncobase/tailwind
+# @ncobase/tailwind (Deprecated)
 
 Common Tailwind CSS configuration for projects with Tailwind v3 and v4 compatibility.
 

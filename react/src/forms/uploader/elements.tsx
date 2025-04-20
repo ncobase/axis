@@ -211,7 +211,7 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
       <div
         {...props}
         onKeyDownCapture={handleKeyDown}
-        className={cn('grid w-full focus:outline-none overflow-hidden ', className, {
+        className={cn('grid w-full focus:outline-hidden overflow-hidden ', className, {
           'gap-2': value && (Array.isArray(value) ? value.length > 0 : true)
         })}
         dir={props.dir}
@@ -333,7 +333,7 @@ export const FileUploaderItem: React.FC<FileUploaderItemProps> = ({
       </Button>
       {!isSingleFile && (
         <div
-          className='absolute bottom-1 left-1 right-1 text-xs truncate text-white bg-black bg-opacity-50 p-1 rounded'
+          className='absolute bottom-1 left-1 right-1 text-xs truncate text-white bg-black bg-opacity-50 p-1 rounded-sm'
           title={file.name}
         >
           {file.name}
@@ -351,13 +351,13 @@ export const FileInput: React.FC<FileInputProps> = ({ className, children, ...pr
   return (
     <div
       {...props}
-      className={`relative w-full focus:outline-none focus:ring-0 ${
+      className={`relative w-full focus:outline-hidden focus:ring-0 ${
         isLOF ? 'opacity-50 cursor-not-allowed ' : 'cursor-pointer '
       }${className ? ` ${className}` : ''}`}
     >
       <div
         className={cn(
-          `w-full rounded-lg duration-300 ease-in-out focus:outline-none focus:ring-0
+          `w-full rounded-lg duration-300 ease-in-out focus:outline-hidden focus:ring-0
          ${
            dropzoneState.isDragAccept
              ? 'border-green-500'
@@ -375,7 +375,7 @@ export const FileInput: React.FC<FileInputProps> = ({ className, children, ...pr
         ref={dropzoneState.inputRef}
         disabled={isLOF}
         {...dropzoneState.getInputProps()}
-        className={`${isLOF ? 'cursor-not-allowed' : ''} rounded-none outline-none w-full focus:outline-none focus:ring-0`}
+        className={`${isLOF ? 'cursor-not-allowed' : ''} rounded-none outline-hidden w-full focus:outline-hidden focus:ring-0`}
       />
     </div>
   );

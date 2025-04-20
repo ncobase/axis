@@ -106,7 +106,7 @@ const TableCell: React.FC<ITableCellProps<any>> = ({
 const ActionCell: React.FC<ITableCellProps<any>> = ({ actions = [], record }) => {
   return (
     <td className='h-11 min-w-8 border-b-[0.03125rem] border-gray-100 truncate'>
-      <div className='w-full h-full inline-flex px-2 hover:[&>button]:bg-white [&>button]:p-2 [&>button]:rounded-full items-center justify-center'>
+      <div className='w-full h-full inline-flex px-2 [&>button]:hover:bg-white [&>button]:p-2 [&>button]:rounded-full items-center justify-center'>
         <Actions record={record} actions={actions} />
       </div>
     </td>

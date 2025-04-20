@@ -10,7 +10,7 @@ interface IProps extends React.PropsWithChildren<HtmlHTMLAttributes<HTMLDivEleme
 }
 
 const defaultStyling =
-  'fixed top-0 bottom-0 z-[996] flex flex-shrink-0 flex-col min-w-36 max-w-36 bg-white shadow-[1px_0_2px_0_rgba(0,0,0,0.03)]';
+  'fixed top-0 bottom-0 z-996 flex shrink-0 flex-col min-w-36 max-w-36 bg-white shadow-[1px_0_2px_0_rgba(0,0,0,0.03)]';
 
 // Calculate positions based on other components
 const getPositioningClasses = (

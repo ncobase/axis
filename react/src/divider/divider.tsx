@@ -43,9 +43,9 @@ const Divider: React.FC<DividerProps> = ({
 
   return (
     <div className={cn('relative flex py-5 items-center text-slate-400/65', className)}>
-      <div className={cn('flex-grow', dirStyle, `border-${color}-300/65`, `border-${style}`)}></div>
-      {label && <div className={cn('flex-shrink mx-3', `!text-${color}-400/65`)}>{label}</div>}
-      <div className={cn('flex-grow', dirStyle, `border-${color}-300/65`, `border-${style}`)}></div>
+      <div className={cn('grow', dirStyle, `border-${color}-300/65`, `border-${style}`)}></div>
+      {label && <div className={cn('shrink mx-3', `!text-${color}-400/65`)}>{label}</div>}
+      <div className={cn('grow', dirStyle, `border-${color}-300/65`, `border-${style}`)}></div>
     </div>
   );
 };

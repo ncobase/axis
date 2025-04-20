@@ -130,7 +130,7 @@ const InputField = forwardRef<HTMLInputElement, FieldProps>(
           {prependIcon && (
             <Button
               className={cn(
-                'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-hidden',
                 prependIconClick && 'cursor-pointer'
               )}
               onClick={prependIconClick}
@@ -152,7 +152,7 @@ const InputField = forwardRef<HTMLInputElement, FieldProps>(
               className={cn('flex flex-col absolute right-1 top-1/2 transform -translate-y-1/2')}
             >
               <Button
-                className={cn('outline-none py-0 mt-0.5')}
+                className={cn('outline-hidden py-0 mt-0.5')}
                 variant='unstyle'
                 size='ratio'
                 onClick={() => {
@@ -164,7 +164,7 @@ const InputField = forwardRef<HTMLInputElement, FieldProps>(
                 <Icons name='IconChevronUp' />
               </Button>
               <Button
-                className={cn('outline-none py-0 -mt-0.5')}
+                className={cn('outline-hidden py-0 -mt-0.5')}
                 variant='unstyle'
                 size='ratio'
                 onClick={() => {
@@ -180,7 +180,7 @@ const InputField = forwardRef<HTMLInputElement, FieldProps>(
           {rest['type'] !== 'number' && appendIcon && (
             <Button
               className={cn(
-                'absolute right-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                'absolute right-1 top-1/2 transform -translate-y-1/2 cursor-default outline-hidden',
                 appendIconClick && 'cursor-pointer'
               )}
               variant='unstyle'
@@ -214,7 +214,7 @@ const TextareaField = forwardRef<HTMLTextAreaElement, FieldProps>(
           {appendIcon && (
             <Button
               className={cn(
-                'absolute right-1 top-1 cursor-default outline-none',
+                'absolute right-1 top-1 cursor-default outline-hidden',
                 appendIconClick && 'cursor-pointer'
               )}
               variant='unstyle'
@@ -306,7 +306,7 @@ const SelectField = forwardRef<HTMLDivElement, FieldProps>(
             {prependIcon && (
               <Button
                 className={cn(
-                  'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-none',
+                  'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-hidden',
                   prependIconClick && 'cursor-pointer'
                 )}
                 onClick={prependIconClick}
@@ -339,7 +339,7 @@ const RenderOption = memo(
     const id = `${rest['name']}-${value}`.replace(/\./g, '-');
 
     return (
-      <div className='inline-flex items-center space-x-2 [&>label]:hover:cursor-pointer'>
+      <div className='inline-flex items-center space-x-2 hover:[&>label]:cursor-pointer'>
         {type === 'checkbox' ? (
           <Checkbox
             id={id}
@@ -369,7 +369,7 @@ const CheckboxField = forwardRef<HTMLDivElement, FieldProps>(
   //   - type
   ({ className, options = [], elementClassName, type: _, ...rest }, ref) => {
     const renderSingleOption = (label: string) => (
-      <div className='inline-flex items-center space-x-2 [&>label]:hover:cursor-pointer'>
+      <div className='inline-flex items-center space-x-2 hover:[&>label]:cursor-pointer'>
         <Checkbox
           id={`${rest['name']}`}
           onCheckedChange={rest['onChange']}

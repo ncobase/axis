@@ -26,7 +26,7 @@ const DropdownSubTrigger = React.forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      'flex cursor-default select-none items-center rounded-sm px-2 py-1.5 data-[state=open]:bg-pink-500',
+      'flex cursor-default select-none items-center rounded-xs px-2 py-1.5 data-[state=open]:bg-pink-500',
       inset && 'pl-8',
       className
     )}
@@ -45,7 +45,7 @@ const DropdownSubContent = React.forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      'z-[999] min-w-[8rem] divide-y divide-slate-100 bg-white overflow-hidden rounded-md shadow-[0_0_6px_rgba(0,0,0,0.05)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+      'z-999 min-w-[8rem] divide-y divide-slate-100 bg-white overflow-hidden rounded-md shadow-[0_0_6px_rgba(0,0,0,0.05)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
       className
     )}
     {...props}
@@ -62,7 +62,7 @@ const DropdownContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        'z-[999] mx-4 overflow-hidden rounded-md shadow-[0_0_6px_rgba(0,0,0,0.05)] divide-y divide-slate-100 bg-white',
+        'z-999 mx-4 overflow-hidden rounded-md shadow-[0_0_6px_rgba(0,0,0,0.05)] divide-y divide-slate-100 bg-white',
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
         className
       )}
@@ -81,7 +81,7 @@ const DropdownItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2.5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-slate-50 text-slate-500',
+      'relative flex cursor-pointer select-none items-center rounded-xs px-3 py-2.5 data-disabled:pointer-events-none data-disabled:opacity-50 hover:bg-slate-50 text-slate-500',
       inset && 'pl-8',
       className
     )}
@@ -97,7 +97,7 @@ const DropdownCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2.5 pl-8 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-slate-50 text-slate-500',
+      'relative flex cursor-pointer select-none items-center rounded-xs px-3 py-2.5 pl-8 data-disabled:pointer-events-none data-disabled:opacity-50 hover:bg-slate-50 text-slate-500',
       className
     )}
     checked={checked}
@@ -118,7 +118,7 @@ const DropdownRadioItem = React.forwardRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2.5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-slate-50 text-slate-500',
+      'relative flex cursor-pointer select-none items-center rounded-xs px-3 py-2.5 data-disabled:pointer-events-none data-disabled:opacity-50 hover:bg-slate-50 text-slate-500',
       className
     )}
     {...props}

@@ -91,7 +91,7 @@ export const TableBody: React.FC<ITableBodyProps> = ({
         {selected && (
           <TableCell key='selection' title='selection' record={item}>
             <Checkbox
-              className='rounded-sm'
+              className='rounded-xs'
               checked={isSelected(item)}
               onCheckedChange={() => onSelectRow(item)}
             />
@@ -102,7 +102,7 @@ export const TableBody: React.FC<ITableBodyProps> = ({
             key='tree'
             title='tree'
             record={item}
-            className='!w-0 [&>div]:!px-0 [&>div]:!pl-2'
+            className='w-0! [&>div]:px-0! [&>div]:pl-2!'
           />
         )}
         {columns.map(column => (

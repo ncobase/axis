@@ -1,4 +1,3 @@
-
 # Portal
 
 ## Overview
@@ -17,7 +16,7 @@ import { Portal } from '@ncobase/react';
 
 ```tsx
 <Portal>
-  <div className="modal">Modal content</div>
+  <div className='modal'>Modal content</div>
 </Portal>
 ```
 
@@ -29,8 +28,8 @@ Renders to `document.body` by default.
 const ref = useRef<HTMLDivElement>(null);
 
 <Portal container={ref.current}>
-  <div className="tooltip">Tooltip</div>
-</Portal>
+  <div className='tooltip'>Tooltip</div>
+</Portal>;
 ```
 
 ### Mount/Unmount Callbacks
@@ -40,18 +39,20 @@ const ref = useRef<HTMLDivElement>(null);
   onMount={() => (document.body.style.overflow = 'hidden')}
   onUnmount={() => (document.body.style.overflow = '')}
 >
-  <div className="modal">Modal content</div>
+  <div className='modal'>Modal content</div>
 </Portal>
 ```
 
 ### Conditional
 
 ```tsx
-{show && (
-  <Portal>
-    <div className="modal">Hello Portal</div>
-  </Portal>
-)}
+{
+  show && (
+    <Portal>
+      <div className='modal'>Hello Portal</div>
+    </Portal>
+  );
+}
 ```
 
 ### Disable Portal
@@ -64,13 +65,13 @@ const ref = useRef<HTMLDivElement>(null);
 
 ## Props
 
-| Prop            | Type                      | Default        | Description                            |
-|-----------------|---------------------------|----------------|----------------------------------------|
-| `children`      | `React.ReactNode`         | Required       | Content to render                      |
-| `container`     | `HTMLElement \| null`     | `document.body`| Optional container element             |
-| `onMount`       | `() => void`              | —              | Called when portal mounts              |
-| `onUnmount`     | `() => void`              | —              | Called when portal unmounts            |
-| `disablePortal` | `boolean`                 | `false`        | If `true`, renders content inline      |
+| Prop            | Type                  | Default         | Description                       |
+| --------------- | --------------------- | --------------- | --------------------------------- |
+| `children`      | `React.ReactNode`     | Required        | Content to render                 |
+| `container`     | `HTMLElement \| null` | `document.body` | Optional container element        |
+| `onMount`       | `() => void`          | —               | Called when portal mounts         |
+| `onUnmount`     | `() => void`          | —               | Called when portal unmounts       |
+| `disablePortal` | `boolean`             | `false`         | If `true`, renders content inline |
 
 ## Notes
 

@@ -90,7 +90,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
 
       {/* Show count of hidden toasts */}
       {toasts.length > maxToasts && (
-        <div className='text-xs text-slate-600 text-center w-full mt-1 bg-white/80 px-2 py-1 rounded-md shadow-sm'>
+        <div className='text-xs text-slate-600 text-center w-full mt-1 bg-white/80 px-2 py-1 rounded-md shadow-xs'>
           +{toasts.length - maxToasts} more notification{toasts.length - maxToasts !== 1 ? 's' : ''}
         </div>
       )}

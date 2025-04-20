@@ -50,7 +50,7 @@ const SingleDatePicker: React.FC<IDatePickerProps> = ({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='w-auto p-0 bg-white !z-[999]' align='start'>
+      <PopoverContent className='w-auto p-0 bg-white z-999!' align='start'>
         <Calendar mode='single' selected={date} onSelect={handleSelect} initialFocus />
       </PopoverContent>
     </Popover>

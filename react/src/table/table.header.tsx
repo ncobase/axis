@@ -57,16 +57,16 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
     <thead className={classes}>
       <TableRow>
         {selected && (
-          <TableHeaderCell title='selection' filter={false} className='!w-4'>
+          <TableHeaderCell title='selection' filter={false} className='w-4!'>
             <Checkbox
-              className='rounded-sm'
+              className='rounded-xs'
               checked={isAllSelected}
               onCheckedChange={handleSelectAll}
             />
           </TableHeaderCell>
         )}
         {canTree && (
-          <TableHeaderCell title='tree' filter={false} className='!w-0 [&>div]:!px-1'>
+          <TableHeaderCell title='tree' filter={false} className='w-0! [&>div]:px-1!'>
             <Button
               onClick={isAllExpanded ? onCollapseAll : onExpandAll}
               variant='unstyle'
