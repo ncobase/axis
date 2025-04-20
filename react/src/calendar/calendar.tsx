@@ -4,8 +4,9 @@ import { cn } from '@ncobase/utils';
 import { zhCN } from 'date-fns/locale';
 import { DayPicker } from 'react-day-picker';
 
-import { getButtonStyling } from '../button/styles';
 import { Icons } from '../icon';
+
+import { buttonVariants } from '@/button';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -21,7 +22,7 @@ const Calendar = ({ className, classNames, showOutsideDays = true, ...props }: C
         caption_label: 'font-medium',
         nav: 'space-x-1 flex items-center',
         nav_button: cn(
-          getButtonStyling('slate', 'md'),
+          buttonVariants({ variant: 'unstyle', size: 'md' }),
           'h-8 w-8 bg-transparent p-0 opacity-50 hover:opacity-100'
         ),
         nav_button_previous: 'absolute left-1',
@@ -32,7 +33,7 @@ const Calendar = ({ className, classNames, showOutsideDays = true, ...props }: C
         row: 'flex w-full mt-0.5 first:mt-0 last:mb-0',
         cell: 'h-8 w-8 m-0.5 text-center p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
         day: cn(
-          getButtonStyling('unstyle', 'md'),
+          buttonVariants({ variant: 'unstyle', size: 'md' }),
           'h-8 w-8 m-1 p-0 font-normal aria-selected:opacity-100'
         ),
         day_range_end: 'day-range-end',

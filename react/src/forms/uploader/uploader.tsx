@@ -46,7 +46,7 @@ const SingleFileDropPlaceholder: React.FC<DropPlaceholderProps> = ({
   }
 }) => {
   return (
-    <div className='flex items-center justify-start w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65 shadow-[0.03125rem_0.03125rem_0.125rem_0_rgba(0,0,0,0.03)] rounded-md cursor-pointer px-3 py-2.5'>
+    <div className='flex items-center justify-start w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65 shadow-[0.03125rem_0.03125rem_0.125rem_0_rgba(0,0,0,0.03)] rounded-md cursor-pointer px-3 py-2'>
       <Icons name='IconCloudUpload' className='w-5 h-5 mr-2 text-slate-400' stroke={1} />
       <div>
         <p className='text-sm text-gray-500 dark:text-gray-400'>

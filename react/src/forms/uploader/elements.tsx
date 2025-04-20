@@ -6,8 +6,7 @@ import type { Accept, DropzoneOptions, DropzoneState, FileRejection } from 'reac
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'sonner';
 
-import { Button } from '../../button';
-import { getButtonStyling } from '../../button/styles';
+import { Button, buttonVariants } from '../../button';
 import { Icons } from '../../icon';
 import { Input } from '../input';
 
@@ -304,9 +303,9 @@ export const FileUploaderItem: React.FC<FileUploaderItemProps> = ({
     <div
       {...props}
       className={cn(
-        getButtonStyling('unstyle', 'md'),
+        buttonVariants({ variant: 'unstyle', size: 'md' }),
         'justify-between cursor-pointer relative group',
-        isSingleFile ? 'px-3 py-2.5 flex items-center' : 'w-24 h-24 p-1',
+        isSingleFile ? 'px-3 py-2 flex items-center' : 'w-24 h-24 p-1',
         className
       )}
       onMouseEnter={() => setIsHovered(true)}

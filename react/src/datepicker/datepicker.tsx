@@ -12,12 +12,13 @@ interface IDatePickerProps {
   mode?: 'single' | 'range';
   className?: string;
   defaultValue?: Date | DateRange | string;
+  // eslint-disable-next-line no-unused-vars
   onChange?: (date: Date | DateRange | undefined) => void;
   disabled?: boolean;
 }
 
 const datePickerStyles = `
-'flex px-3 py-2.5 w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65 shadow-[0.03125rem_0.03125rem_0.125rem_0_rgba(0,0,0,0.03)] focus:border-primary-600 text-slate-500 gap-3 justify-start text-left font-normal disabled:cursor-not-allowed disabled:opacity-55 disabled:pointer-events-none'`;
+'flex px-3 py-2 w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65 shadow-[0.03125rem_0.03125rem_0.125rem_0_rgba(0,0,0,0.03)] focus:border-primary-600 text-slate-500 gap-3 justify-start text-left font-normal disabled:cursor-not-allowed disabled:opacity-55 disabled:pointer-events-none'`;
 
 const SingleDatePicker: React.FC<IDatePickerProps> = ({
   className,
