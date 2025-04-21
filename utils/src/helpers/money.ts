@@ -1,11 +1,11 @@
 import { verifyNumber } from './validator';
 
 /**
- * 计算返点使用金额
- * @param tm 金额
- * @param om 原金额
- * @param um 返点使用总金额
- * @returns {number}
+ * Calculate the rebate amount
+ * @param tm Target amount
+ * @param om Original amount
+ * @param um Total rebate usage amount
+ * @returns {number} Calculated rebate amount
  */
 export function calRebateMoney(tm: number, om: number, um: number): number {
   tm = verifyNumber(tm);
@@ -15,10 +15,10 @@ export function calRebateMoney(tm: number, om: number, um: number): number {
 }
 
 /**
- * 根据比例计算金额
- * @param tm 类型金额
- * @param p 比例
- * @returns {number}
+ * Calculate amount based on percentage
+ * @param tm Target amount
+ * @param p Percentage
+ * @returns {number} Calculated amount
  */
 export function calRebateRRMoney(tm: number, p: number): number {
   tm = verifyNumber(tm);
@@ -27,10 +27,10 @@ export function calRebateRRMoney(tm: number, p: number): number {
 }
 
 /**
- * 根据使用金额计算比例
- * @param um 使用金额
- * @param om 原金额
- * @returns {number}
+ * Calculate percentage based on usage amount
+ * @param um Usage amount
+ * @param om Original amount
+ * @returns {number} Calculated percentage
  */
 export function calPercent(um: number, om: number): number {
   um = verifyNumber(um);

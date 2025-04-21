@@ -37,7 +37,6 @@ export const IconPickerComponent: React.FC<IconPickerComponentProps> = ({
           readOnly
           onClick={() => setIsOpen(true)}
         />
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         <div
           className='absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer [&_svg]:text-slate-500 [&_svg]:fill-slate-500'
           onClick={() => setIsOpen(true)}

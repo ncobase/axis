@@ -1,8 +1,8 @@
-// number
+// Numeric characters (0-9)
 export const NUMBER = '0123456789';
-// lowercase
+// Lowercase alphabetic characters (a-z)
 export const LOWERCASE = 'abcdefghijklmnopqrstuvwxyz';
-// uppercase
+// Uppercase alphabetic characters (A-Z)
 export const UPPERCASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-// symbol
+// Special characters and symbols
 export const SYMBOL = '!#$%&()*+,-./:;<=>?@[]^_`{|}~';

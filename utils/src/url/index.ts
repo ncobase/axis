@@ -1,7 +1,7 @@
 /**
- * 转换 URL 参数
- * @param {object} params
- * @returns {string}
+ * Convert parameters to URL query string
+ * @param {object} params Parameters to convert
+ * @returns {string} URL query string
  */
 
 import { cleanArray } from '../helpers/array';
@@ -29,9 +29,9 @@ export function buildQueryString(params: Record<string, any>): string {
 }
 
 /**
- * 将 JSON 对象转换为 URL 查询参数字符串
- * @param {object} json JSON 对象
- * @returns {string} URL 查询参数字符串
+ * Convert JSON object to URL query string
+ * @param {object} json JSON object to convert
+ * @returns {string} URL query string
  */
 export function param(json: Record<string, any> | null | undefined): string {
   if (!json) {
@@ -48,9 +48,9 @@ export function param(json: Record<string, any> | null | undefined): string {
 }
 
 /**
- * 将 URL 查询参数字符串转换为 JSON 对象
- * @param {string} url URL 查询参数字符串
- * @returns {object} JSON 对象
+ * Convert URL query string to JSON object
+ * @param {string} url URL containing query string
+ * @returns {object} Parsed JSON object
  */
 export function param2Obj(url: string): Record<string, any> {
   const search = url.split('?')[1];
@@ -65,11 +65,11 @@ export function param2Obj(url: string): Record<string, any> {
 }
 
 /**
- * 判断当前路径是否与目标路径匹配
- * @param {string} currentPath 当前路径
- * @param {string} to 目标路径
- * @param {number} depth 匹配深度，默认为 1
- * @returns {boolean}
+ * Check if current path matches target path up to specified depth
+ * @param {string} currentPath Current path to check
+ * @param {string} to Target path to match against
+ * @param {number} depth Match depth, defaults to 1
+ * @returns {boolean} Whether paths match
  */
 export const isPathMatching = (currentPath: string, to: string, depth: number = 1): boolean => {
   if (!!to && currentPath === to) {
@@ -86,61 +86,61 @@ export const isPathMatching = (currentPath: string, to: string, depth: number = 
 };
 
 /**
- * 将路径拆分为数组，去除空字符串
- * @param {string} path 路径
- * @returns {string[]}
+ * Split path into array and remove empty strings
+ * @param {string} path Path to split
+ * @returns {string[]} Array of path segments
  */
 export const splitPath = (path: string): string[] => path.split('/').filter(p => p);
 
 /**
- * 将数组拼接为路径
- * @param {string[]} pathParts 路径片段
- * @returns {string}
+ * Join path segments into a single path
+ * @param {string[]} pathParts Path segments to join
+ * @returns {string} Joined path
  */
 export const joinPath = (...pathParts: string[]): string => {
   return pathParts.filter(p => p).join('/');
 };
 
 /**
- * 判断当前路径是否为外链
- * @param {string} path 路径
- * @returns {boolean}
+ * Check if path is an external URL
+ * @param {string} path Path to check
+ * @returns {boolean} Whether path is external
  */
 export const isExternal = (path: string): boolean => {
   return /^(https?:|mailto:|tel:)/.test(path);
 };
 
 /**
- * 判断当前路径是否为内链
- * @param {string} path 路径
- * @returns {boolean}
+ * Check if path is an internal link
+ * @param {string} path Path to check
+ * @returns {boolean} Whether path is internal
  */
 export const isInLink = (path: string): boolean => {
   return !isExternal(path);
 };
 
 /**
- * 判断当前路径是否为绝对路径
- * @param {string} path 路径
- * @returns {boolean}
+ * Check if path is absolute
+ * @param {string} path Path to check
+ * @returns {boolean} Whether path is absolute
  */
 export const isAbsolute = (path: string): boolean => {
   return path.startsWith('/');
 };
 
 /**
- * 判断当前路径是否为相对路径
- * @param {string} path 路径
- * @returns {boolean}
+ * Check if path is relative
+ * @param {string} path Path to check
+ * @returns {boolean} Whether path is relative
  */
 export const isRelative = (path: string): boolean => {
   return !isAbsolute(path);
 };
 
 /**
- * 判断当前路径是否为根路径
- * @param {string} path 路径
- * @returns {boolean}
+ * Check if path is root path
+ * @param {string} path Path to check
+ * @returns {boolean} Whether path is root
  */
 export const isRoot = (path: string): boolean => {
   return path === '/';

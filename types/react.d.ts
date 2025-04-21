@@ -1,25 +1,31 @@
 /// <reference types="react" />
 
 /**
- * React 相关类型定义
+ * Type definitions for React related functionality
  */
 
 /**
- * 组件属性类型
+ * Type for component properties/props
+ * Extracts prop types P from a React component type T
  */
 export type ComponentProps<T> = T extends React.ComponentType<infer P> ? P : never;
 
 /**
- * 样式对象类型
+ * Type definition for CSS style properties object
+ * Represents valid CSS properties that can be used in React style objects
  */
 export type CSSProperties = React.CSSProperties;
 
 /**
- * 事件处理器类型
+ * Generic event handler type
+ * Handles synthetic React events and returns void
  */
+// eslint-disable-next-line no-unused-vars
 export type EventHandler<E extends React.SyntheticEvent> = (event: E) => void;
 
 /**
- * 鼠标事件处理器类型
+ * Mouse event handler type
+ * Specifically handles React mouse events and returns void
  */
+// eslint-disable-next-line no-unused-vars
 export type MouseEventHandler<E extends React.MouseEvent> = (event: E) => void;

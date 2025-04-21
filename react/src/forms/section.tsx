@@ -28,7 +28,6 @@ export const Section: React.FC<SectionProps> = ({
 
   return (
     <div className={cn('border border-slate-200 rounded-md overflow-hidden', className)}>
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
       <div
         className={cn(
           'bg-slate-50 px-4 py-3 flex items-center justify-between',

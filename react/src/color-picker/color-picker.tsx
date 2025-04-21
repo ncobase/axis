@@ -112,7 +112,6 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   return (
     <div className={`${className}`}>
       <div className='flex items-center'>
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         <div
           className='w-10 h-10 rounded-sm border cursor-pointer mr-2 shrink-0'
           style={{ backgroundColor: color }}

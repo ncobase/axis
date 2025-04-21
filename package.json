@@ -1,6 +1,5 @@
 {
   "name": "@ncobase/axis",
-  "version": "0.0.1",
   "private": true,
   "description": "A comprehensive frontend toolkit built with modern web technologies",
   "repository": "git@github.com:ncobase/axis.git",

@@ -1,9 +1,9 @@
 import { isArray, isNumber, isObject } from './raw_type';
 
 /**
- * 验证数字类型或初始化为 0
- * @param val 要验证或初始化的值。
- * @returns 如果值为数字，则返回该数字；否则返回 0。
+ * Validates if a value is a number or initializes it to 0
+ * @param val The value to validate or initialize
+ * @returns The number value if valid, or 0 if invalid/NaN
  */
 export const verifyNumber = (val: unknown): number => {
   val = !isNumber(val) ? Number(val) : val || 0;
@@ -12,26 +12,26 @@ export const verifyNumber = (val: unknown): number => {
 };
 
 /**
- * 比较两个值是否相等
- * @param a
- * @param b
- * @returns {boolean}
+ * Compares if two values are strictly equal
+ * @param a First value to compare
+ * @param b Second value to compare
+ * @returns {boolean} True if values are strictly equal, false otherwise
  */
 export function isSameValue<T>(a: T, b: T): boolean {
   return a === b;
 }
 
 /**
- * 验证数组类型或初始化为空数组
- * @param arr 要验证或初始化的数组。
- * @returns 如果值为数组，则返回该数组；否则返回空数组 []。
+ * Validates if a value is an array or initializes it to empty array
+ * @param arr The array to validate or initialize
+ * @returns The original array if valid, or an empty array [] if invalid
  */
 export const verifyArray = <T>(arr: unknown): T[] => (isArray<T>(arr) ? arr : []);
 
 /**
- * 验证对象类型或初始化为空对象
- * @param obj 要验证或初始化的对象。
- * @returns 如果值为对象，则返回该对象；否则返回空对象{}。
+ * Validates if a value is an object or initializes it to empty object
+ * @param obj The object to validate or initialize
+ * @returns The original object if valid, or an empty object {} if invalid
  */
 export const verifyObject = <T extends object>(obj: unknown): T =>
   isObject(obj) ? (obj as T) : ({} as T);

@@ -1,11 +1,11 @@
 import { removeIllegalSQLChars } from './string';
 
 /**
- * 从原始数据中获取指定路径的字段值
- * @param obj 原始数据
- * @param path 字符串路径由点号分隔嵌套路径或者字符串数组
- * @param defaultValue 当字段值是 null 或 undefined 时，返回默认值。否则返回 null
- * @returns 指定路径的字段值
+ * Gets the field value from the original data by specified path
+ * @param obj The source object
+ * @param path A string path with dot notation for nested paths or an array of strings
+ * @param defaultValue Returns this value when the field value is null or undefined. Otherwise returns null
+ * @returns The field value at the specified path
  */
 export function getValueByPath(obj: any, path: string | string[], defaultValue?: any): any {
   const paths = Array.isArray(path) ? path : path.split('.');
@@ -21,10 +21,11 @@ export function getValueByPath(obj: any, path: string | string[], defaultValue?:
 
   return _isNull(value) ? (_isNull(defaultValue) ? null : defaultValue) : value;
 }
+
 /**
- * 去除值为 null 或 undefined 的字段
- * @param {object} obj 原始数据
- * @returns {object} 去除值为 null 或 undefined 后的数据
+ * Removes fields with null or undefined values from an object
+ * @param {object} obj The source object
+ * @returns {object} The cleaned object with null and undefined values removed
  */
 export function cleanJsonValues(obj: Record<string, any>): Record<string, any> {
   const cleanedObject: Record<string, any> = {};

@@ -75,7 +75,6 @@ export const MultiSelectField = forwardRef<HTMLDivElement, any>(
     return (
       <Field {...rest} ref={ref}>
         <div className='relative' ref={dropdownRef}>
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
           <div
             className={cn(
               'flex flex-wrap items-center justify-between min-h-[38px] px-3 py-2 w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65',
@@ -152,7 +151,6 @@ export const MultiSelectField = forwardRef<HTMLDivElement, any>(
           {isOpen && (
             <div className='absolute z-50 w-full mt-1 bg-white border border-slate-200 rounded-md shadow-lg max-h-60 overflow-auto'>
               {options.map((option, index) => (
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                 <div
                   key={index}
                   className={cn(
@@ -249,7 +247,6 @@ export const MultiSelect = forwardRef<HTMLDivElement, any>(
 
     return (
       <div className={cn('relative', className)} ref={dropdownRef}>
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         <div
           className={cn(
             'flex flex-wrap items-center justify-between min-h-[38px] px-3 py-2 w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65',
@@ -324,7 +321,6 @@ export const MultiSelect = forwardRef<HTMLDivElement, any>(
         {isOpen && (
           <div className='absolute z-50 w-full mt-1 bg-white border border-slate-200 rounded-md shadow-lg max-h-60 overflow-auto'>
             {options.map((option, index) => (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
               <div
                 key={index}
                 className={cn(
@@ -462,7 +458,6 @@ export const TreeSelectField = forwardRef<HTMLDivElement, any>(
 
         return (
           <React.Fragment key={node.value}>
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
             <div
               className={cn(
                 'flex items-center px-3 py-2 cursor-pointer hover:bg-slate-50',
@@ -503,7 +498,6 @@ export const TreeSelectField = forwardRef<HTMLDivElement, any>(
     return (
       <Field {...rest} ref={ref}>
         <div className='relative' ref={dropdownRef}>
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
           <div
             className={cn(
               'flex flex-wrap items-center justify-between min-h-[38px] px-3 py-2 w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65',
@@ -700,7 +694,6 @@ export const TreeSelect = forwardRef<HTMLDivElement, any>(
 
         return (
           <React.Fragment key={node.value}>
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
             <div
               className={cn(
                 'flex items-center px-3 py-2 cursor-pointer hover:bg-slate-50',
@@ -740,7 +733,6 @@ export const TreeSelect = forwardRef<HTMLDivElement, any>(
 
     return (
       <div className={cn('relative', className)} ref={dropdownRef}>
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         <div
           className={cn(
             'flex flex-wrap items-center justify-between min-h-[38px] px-3 py-2 w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65',

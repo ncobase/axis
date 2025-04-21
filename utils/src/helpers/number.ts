@@ -1,14 +1,15 @@
 /**
- * 转换为数字
- * @param { string } val
+ * Convert value to number
+ * @param { string } val - Input value to convert
+ * @returns {number} Converted number
  */
 export const toNumber = (val: string): number => +val;
 
 /**
- * 保留小数位
- * @param value 原始值
- * @param length 保留长度，默认 2 位
- * @returns 返回处理结果
+ * Round a number to specified decimal places
+ * @param value - Original value
+ * @param length - Number of decimal places to keep, defaults to 2
+ * @returns {number} Rounded number with specified decimal places
  */
 export const decimals = (value: number | string = 0, length = 2): number => {
   if (value === 0 || value === '0.00' || Number.isNaN(value)) return 0.0;
@@ -17,10 +18,10 @@ export const decimals = (value: number | string = 0, length = 2): number => {
 };
 
 /**
- * 把小数转换为百分数
- * @param val 字段值
- * @param pre 百分数保留的小数位，默认为 2
- * @returns 带百分号后缀
+ * Convert decimal to percentage
+ * @param val - Input value to convert
+ * @param pre - Number of decimal places to keep in percentage, defaults to 2
+ * @returns {string | null} Percentage string with % suffix, or null if invalid input
  */
 export function decimalToPercent(val: number | string, pre = 2): string | null {
   if (typeof val === 'string' && val) {
@@ -36,9 +37,9 @@ export function decimalToPercent(val: number | string, pre = 2): string | null {
 }
 
 /**
- * 将数值四舍五入 (保留 2 位小数) 后格式化成金额形式
- * @param num 数值
- * @return 金额格式的字符串，如'1,234,567.45'
+ * Format number to currency string with thousands separators and 2 decimal places
+ * @param num - Number to format
+ * @returns {string} Formatted currency string, e.g. '1,234,567.45'
  */
 export function formatCurrency(num: any): string {
   num = num.toString().replace(/[$,]/g, '');

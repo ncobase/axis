@@ -142,7 +142,6 @@ export const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({
 
   return (
     <div ref={pickerRef} className={cn('relative', className)}>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div className='flex items-center cursor-pointer' onClick={() => setOpen(!open)}>
         <div
           className='w-[35px] h-[35px] rounded-md mr-2'

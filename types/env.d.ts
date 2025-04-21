@@ -1,19 +1,19 @@
 /**
- * 主机环境变量配置
+ * Host environment variable configuration
  */
 export interface HostVariables {
-  /** 主机地址 */
+  /** Host address */
   readonly HOST: string;
-  /** 端口号 */
+  /** Port number */
   readonly PORT: string;
-  /** 路径 */
+  /** Path */
   readonly PATH: string;
 }
 
-/** 环境类型 */
+/** Environment type */
 export type Environment = 'production' | 'development' | 'test';
 
-/** 环境配置映射 */
+/** Environment configuration mapping */
 export interface EnvironmentConfig {
   [key: string]: HostVariables;
 }

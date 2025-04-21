@@ -1,65 +1,67 @@
 /**
- * 工具类型定义
+ * Utility type definitions
  */
 
 /**
- * 标记待办项，用于临时替代 any
- * @deprecated 请尽快替换为具体类型
+ * Marks a TODO item, temporarily used instead of 'any'
+ * @deprecated Please replace with specific types as soon as possible
  */
 export type TODO = unknown;
 
 /**
- * 显式声明为任意类型
- * 仅在确实需要 any 时使用
+ * Explicitly declares any type
+ * Only use when 'any' is absolutely necessary
  */
 export type ExplicitAny = any;
 
 /**
- * 同步或异步值
+ * Represents a value that can be either synchronous or asynchronous
  */
 export type AsyncOrSync<T> = T | Promise<T>;
 
 /**
- * 提取同步或异步函数的返回值类型
+ * Extracts the return type of a synchronous or asynchronous function
  */
+// eslint-disable-next-line no-unused-vars
 export type AsyncOrSyncReturn<T extends (...args: any[]) => unknown> = T extends (
+  // eslint-disable-next-line no-unused-vars
   ...args: any[]
 ) => AsyncOrSync<infer R>
   ? R
   : never;
 
 /**
- * 合并两个类型，用第二个类型的属性覆盖第一个类型的同名属性
+ * Merges two types, overwriting properties of the first type with properties from the second type
  */
 export type Overwrite<T, U> = Omit<T, keyof U> & U;
 
 /**
- * 对象字面量类型
+ * Represents a plain object type with string keys and unknown values
  */
 export type PlainObject = Record<string, unknown>;
 
 /**
- * 任意对象类型
+ * Represents any object type with string, number, or symbol keys
  */
 export type AnyObject = Record<string | number | symbol, unknown>;
 
 /**
- * 对象数组类型
+ * Represents an array of plain objects
  */
 export type ObjectArray = PlainObject[];
 
 /**
- * 确保类型为非空
+ * Ensures a type is non-nullable
  */
 export type NonNullable<T> = T extends null | undefined ? never : T;
 
 /**
- * 提取 Promise 类型的值类型
+ * Extracts the value type from a Promise type
  */
 export type Awaited<T> = T extends Promise<infer R> ? R : T;
 
 /**
- * 深度 Partial
+ * Makes all properties in an object structure optional recursively
  */
 export type DeepPartial<T> = T extends object
   ? {
@@ -68,7 +70,7 @@ export type DeepPartial<T> = T extends object
   : T;
 
 /**
- * 深度 Required
+ * Makes all properties in an object structure required recursively
  */
 export type DeepRequired<T> = T extends object
   ? {
@@ -77,6 +79,7 @@ export type DeepRequired<T> = T extends object
   : T;
 
 /**
- * 提取 react-query 查询键类型
+ * Extracts the query key type from a react-query key factory function
  */
+// eslint-disable-next-line no-unused-vars
 export type QueryKey<T extends (...args: any[]) => readonly unknown[]> = ReturnType<T>;

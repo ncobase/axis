@@ -1,6 +1,7 @@
 /**
- * 获取字符串缩写
- * @param name
+ * Get initials from a string
+ * @param name The input string to extract initials from
+ * @returns The first letter of first two words in uppercase
  */
 export const getInitials = (name = '') =>
   name
@@ -10,20 +11,25 @@ export const getInitials = (name = '') =>
     .map(v => v && v[0].toUpperCase())
     .join('') as string;
 
+/**
+ * Capitalize first letter of a string
+ * @param str Input string
+ * @returns String with first letter capitalized
+ */
 export const upperFirst = (str: string) => str.charAt(0).toLocaleUpperCase() + str.slice(1);
 
 /**
- * 随机生成 ID
- * @returns {string} 随机生成的 ID.
+ * Generate a random ID
+ * @returns {string} A random string ID
  */
 export function randomId(): string {
   return Math.random().toString(36).slice(2, 8);
 }
 
 /**
- * 计算一个字符串的字节长度
- * @param val 输入的字符串
- * @returns 字节长度
+ * Calculate byte length of a string
+ * @param val Input string
+ * @returns Number of bytes
  */
 export function getByteLen(val: string): number {
   let len = 0;
@@ -39,32 +45,32 @@ export function getByteLen(val: string): number {
 }
 
 /**
- * 去除字符串两边的空格
- * @param str 输入的字符串
- * @returns {string}
+ * Remove whitespace from both ends of a string
+ * @param str Input string
+ * @returns {string} Trimmed string
  */
-
 export function trim(str: string): string {
   return str.replace(/(^\s*)|(\s*$)/g, '');
 }
 
 /**
- * 拼接完整姓名
- * 格式：姓、中间字、名
- * @param firstName 姓
- * @param middleName 中间字
- * @param lastName 名
- * @returns {string}
+ * Join name parts into a full name
+ * Format: firstName middleName lastName
+ * @param firstName First name
+ * @param middleName Middle name
+ * @param lastName Last name
+ * @returns {string} Formatted full name
  */
 export function joinName(firstName?: string, middleName?: string, lastName?: string): string {
   const fullName =
     `${firstName?.trim() ?? ''} ${middleName?.trim() ?? ''} ${lastName?.trim() ?? ''}`.trim();
   return fullName;
 }
+
 /**
- * 移除 SQL 注入
- * @param {string} str 要验证的字符串
- * @returns {boolean} 清理后的字符串
+ * Remove SQL injection characters
+ * @param {string} str String to be sanitized
+ * @returns {string} Sanitized string
  */
 export const removeIllegalSQLChars = (str: string): string => {
   return str;

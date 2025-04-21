@@ -66,7 +66,6 @@ export const ToastItem: React.FC<ToastProps> = ({ toast, onDismiss }) => {
   };
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <div
       className={cn(
         'flex items-start p-4 rounded-lg shadow-md border mb-3 max-w-md w-full transform transition-all duration-300 ease-in-out',

@@ -20,10 +20,10 @@ const getFormatPattern = (type: DateFormatType) => {
 };
 
 /**
- * 格式化日期、时间
- * @param dateTime 日期时间
- * @param type 格式化类型，默认 dateTime，可选值为 'year' | 'month' | 'day' | 'date' | 'time' | 'dateTime'
- * @returns 格式化后的日期/时间字符串
+ * Format date and time
+ * @param dateTime Date time value as string or Date object
+ * @param type Format type, defaults to 'dateTime'. Available options: 'year' | 'month' | 'day' | 'date' | 'time' | 'dateTime'
+ * @returns Formatted date/time string or null if input is invalid
  */
 export const formatDateTime = (
   dateTime?: string | Date,

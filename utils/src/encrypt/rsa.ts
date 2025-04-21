@@ -7,6 +7,7 @@ interface RsaOptions {
   keySize?: '1024' | '2048' | '4096';
 }
 
+// eslint-disable-next-line no-unused-vars
 type DigestMethod = (str: string) => Promise<string>;
 
 export class Rsa {
