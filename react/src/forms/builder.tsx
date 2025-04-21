@@ -15,12 +15,11 @@ import { FormLayout } from './types';
 
 import { Button } from '@/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/card';
-import { Container } from '@/container';
 import { Icons } from '@/icon';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/tabs';
 import { ScrollView } from '@/views';
 
-export const FormBuilder = () => {
+export const FormBuilder = ({ className }: { className?: string }) => {
   // Active tab state
   const [activeTab, setActiveTab] = useState('preview');
 
@@ -1561,228 +1560,222 @@ export default MyForm;`;
   };
 
   return (
-    <div className={`transition-colors duration-200 ${getThemeClasses()}`}>
-      <Container className='py-6'>
-        <div className='flex items-center justify-between mb-6'>
-          <h1 className='text-2xl font-semibold'>Form Builder</h1>
-          <div className='flex items-center gap-4'>
-            <Select value={formLayout} onValueChange={setFormLayout}>
-              <SelectTrigger className='w-40'>
-                <SelectValue placeholder='Select Layout' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='default'>Default Grid</SelectItem>
-                <SelectItem value='single'>Single Column</SelectItem>
-                <SelectItem value='inline'>Inline Layout</SelectItem>
-                <SelectItem value='custom'>Custom Layout</SelectItem>
-              </SelectContent>
-            </Select>
+    <div className={`transition-colors duration-200 ${getThemeClasses()} ${className}`}>
+      <div className='flex items-center justify-between mb-6'>
+        <h1 className='text-2xl font-semibold'>Form Builder</h1>
+        <div className='flex items-center gap-4'>
+          <Select value={formLayout} onValueChange={setFormLayout}>
+            <SelectTrigger className='w-40'>
+              <SelectValue placeholder='Select Layout' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='default'>Default Grid</SelectItem>
+              <SelectItem value='single'>Single Column</SelectItem>
+              <SelectItem value='inline'>Inline Layout</SelectItem>
+              <SelectItem value='custom'>Custom Layout</SelectItem>
+            </SelectContent>
+          </Select>
 
-            <Select value={formTheme} onValueChange={setFormTheme}>
-              <SelectTrigger className='w-40'>
-                <SelectValue placeholder='Select Theme' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='light'>Light Theme</SelectItem>
-                <SelectItem value='dark'>Dark Theme</SelectItem>
-              </SelectContent>
-            </Select>
+          <Select value={formTheme} onValueChange={setFormTheme}>
+            <SelectTrigger className='w-40'>
+              <SelectValue placeholder='Select Theme' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='light'>Light Theme</SelectItem>
+              <SelectItem value='dark'>Dark Theme</SelectItem>
+            </SelectContent>
+          </Select>
 
-            <Button
-              variant='outline-slate'
-              className='py-2.5'
-              onClick={() => setActiveTab('preview')}
-            >
-              <Icons name='IconEye' className='mr-2' />
-              Preview
-            </Button>
-            <Button variant='outline-slate' className='py-2.5' onClick={() => setActiveTab('edit')}>
-              <Icons name='IconSettings' className='mr-2' />
-              Configure
-            </Button>
-            <Button className='py-2.5' onClick={handleSubmit(onSubmit)}>
-              <Icons name='IconDeviceFloppy' className='mr-2' />
-              Save Form
-            </Button>
-          </div>
+          <Button
+            variant='outline-slate'
+            className='py-2.5'
+            onClick={() => setActiveTab('preview')}
+          >
+            <Icons name='IconEye' className='mr-2' />
+            Preview
+          </Button>
+          <Button variant='outline-slate' className='py-2.5' onClick={() => setActiveTab('edit')}>
+            <Icons name='IconSettings' className='mr-2' />
+            Configure
+          </Button>
+          <Button className='py-2.5' onClick={handleSubmit(onSubmit)}>
+            <Icons name='IconDeviceFloppy' className='mr-2' />
+            Save Form
+          </Button>
         </div>
+      </div>
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className='mb-4 flex w-full justify-start'>
+          <TabsTrigger
+            value='preview'
+            className='data-[state=active]:border-primary-500 data-[state=active]:text-primary-500'
+          >
+            Form Preview
+          </TabsTrigger>
+          <TabsTrigger
+            value='edit'
+            className='data-[state=active]:border-blue-500 data-[state=active]:text-blue-500'
+          >
+            Form Builder
+          </TabsTrigger>
+          <TabsTrigger
+            value='code'
+            className='data-[state=active]:border-purple-500 data-[state=active]:text-purple-500'
+          >
+            Generated Code
+          </TabsTrigger>
+        </TabsList>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className='mb-4 flex w-full justify-start'>
-            <TabsTrigger
-              value='preview'
-              className='data-[state=active]:border-primary-500 data-[state=active]:text-primary-500'
+        <TabsContent value='preview'>
+          <Card className={formTheme === 'dark' ? 'bg-slate-800 border-slate-700' : ''}>
+            <CardHeader
+              className={`p-4 border-b ${formTheme === 'dark' ? 'border-slate-700' : 'border-slate-100'}`}
             >
-              Form Preview
-            </TabsTrigger>
-            <TabsTrigger
-              value='edit'
-              className='data-[state=active]:border-blue-500 data-[state=active]:text-blue-500'
-            >
-              Form Builder
-            </TabsTrigger>
-            <TabsTrigger
-              value='code'
-              className='data-[state=active]:border-purple-500 data-[state=active]:text-purple-500'
-            >
-              Generated Code
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value='preview'>
-            <Card className={formTheme === 'dark' ? 'bg-slate-800 border-slate-700' : ''}>
-              <CardHeader
-                className={`p-4 border-b ${formTheme === 'dark' ? 'border-slate-700' : 'border-slate-100'}`}
-              >
-                <CardTitle className='text-lg font-normal'>Form Preview</CardTitle>
-              </CardHeader>
-              <CardContent className='p-6'>
-                {formSections.map(section => (
-                  <Section
-                    key={section.id}
-                    title={section.title}
-                    subtitle={section.subtitle}
-                    icon={section.icon}
-                    collapsible={section.collapsible}
-                    className={`mb-6 ${formTheme === 'dark' ? 'border-slate-700 bg-slate-800' : ''}`}
-                    titleClassName={formTheme === 'dark' ? 'text-slate-200' : ''}
-                    subtitleClassName={formTheme === 'dark' ? 'text-slate-400' : ''}
-                    contentClassName={formTheme === 'dark' ? 'bg-slate-900' : ''}
-                  >
-                    <Form
-                      onSubmit={handleSubmit(onSubmit)}
-                      control={control}
-                      errors={errors}
-                      fields={section.fields}
-                      layout={formLayout as FormLayout}
-                    />
-                  </Section>
-                ))}
-                <div className='mt-6 flex justify-end'>
-                  <Button type='button' variant='outline-slate' className='mr-4'>
-                    Cancel
-                  </Button>
-                  <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value='edit'>
-            <DragDropContext onDragEnd={handleDragEnd}>
-              <div className='grid grid-cols-4 gap-4'>
-                <div className='col-span-1'>
-                  <Card className={formTheme === 'dark' ? 'bg-slate-800 border-slate-700' : ''}>
-                    <CardHeader
-                      className={`p-4 border-b ${formTheme === 'dark' ? 'border-slate-700' : 'border-slate-100'}`}
-                    >
-                      <CardTitle className='text-lg font-normal'>Field Templates</CardTitle>
-                    </CardHeader>
-                    <CardContent className='p-4'>
-                      <ScrollView className='max-h-[calc(100vh-300px)]'>
-                        <FieldPicker category='basic' title='Basic Fields' />
-                        <FieldPicker category='selection' title='Selection Fields' />
-                        <FieldPicker category='advanced' title='Advanced Fields' />
-
-                        <div className='mt-8'>
-                          <h3 className='font-medium text-lg mb-2'>Sections</h3>
-                          <div className='flex flex-col gap-2'>
-                            {formSections.map(section => (
-                              <Button
-                                key={section.id}
-                                variant={
-                                  section.id === activeSectionId ? 'primary' : 'outline-slate'
-                                }
-                                className='justify-start'
-                                onClick={() => setActiveSectionId(section.id)}
-                              >
-                                <Icons name={section.icon || 'IconFolders'} className='mr-2' />
-                                {section.title}
-                              </Button>
-                            ))}
-                            <Button variant='outline-slate' onClick={addSection}>
-                              <Icons name='IconPlus' className='mr-2' />
-                              Add Section
-                            </Button>
-                          </div>
-                        </div>
-                      </ScrollView>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                <div className='col-span-3'>
-                  <Card className={formTheme === 'dark' ? 'bg-slate-800 border-slate-700' : ''}>
-                    <CardHeader
-                      className={`p-4 border-b ${formTheme === 'dark' ? 'border-slate-700' : 'border-slate-100'}`}
-                    >
-                      <CardTitle className='text-lg font-normal'>Section Configuration</CardTitle>
-                    </CardHeader>
-                    <CardContent className='p-4'>
-                      <ScrollView className='max-h-[calc(100vh-300px)]'>
-                        <SectionEditor />
-
-                        <div className='mt-6'>
-                          <h3 className='font-medium text-lg mb-4'>Form Layout</h3>
-                          <Droppable droppableId='sections' type='section'>
-                            {provided => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                                className='space-y-4'
-                              >
-                                {formSections.map((section, index) => (
-                                  <DraggableSection
-                                    key={section.id}
-                                    section={section}
-                                    index={index}
-                                  />
-                                ))}
-                                {provided.placeholder}
-                              </div>
-                            )}
-                          </Droppable>
-                        </div>
-                      </ScrollView>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            </DragDropContext>
-          </TabsContent>
-
-          <TabsContent value='code'>
-            <Card className={formTheme === 'dark' ? 'bg-slate-800 border-slate-700' : ''}>
-              <CardHeader
-                className={`p-4 border-b ${formTheme === 'dark' ? 'border-slate-700' : 'border-slate-100'}`}
-              >
-                <CardTitle className='text-lg font-normal'>Generated Form Code</CardTitle>
-              </CardHeader>
-              <CardContent className='p-6'>
-                <pre
-                  className={`p-4 rounded-md overflow-auto max-h-[calc(100vh-300px)] ${formTheme === 'dark' ? 'bg-slate-900 text-slate-300' : 'bg-slate-900 text-slate-50'}`}
+              <CardTitle className='text-lg font-normal'>Form Preview</CardTitle>
+            </CardHeader>
+            <CardContent className='p-6'>
+              {formSections.map(section => (
+                <Section
+                  key={section.id}
+                  title={section.title}
+                  subtitle={section.subtitle}
+                  icon={section.icon}
+                  collapsible={section.collapsible}
+                  className={`mb-6 ${formTheme === 'dark' ? 'border-slate-700 bg-slate-800' : ''}`}
+                  titleClassName={formTheme === 'dark' ? 'text-slate-200' : ''}
+                  subtitleClassName={formTheme === 'dark' ? 'text-slate-400' : ''}
+                  contentClassName={formTheme === 'dark' ? 'bg-slate-900' : ''}
                 >
-                  {generateFormCode()}
-                </pre>
+                  <Form
+                    onSubmit={handleSubmit(onSubmit)}
+                    control={control}
+                    errors={errors}
+                    fields={section.fields}
+                    layout={formLayout as FormLayout}
+                  />
+                </Section>
+              ))}
+              <div className='mt-6 flex justify-end'>
+                <Button type='button' variant='outline-slate' className='mr-4'>
+                  Cancel
+                </Button>
+                <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
 
-                <div className='mt-4 flex justify-end'>
-                  <Button
-                    variant='outline-primary'
-                    onClick={() => {
-                      navigator.clipboard.writeText(generateFormCode());
-                      alert('Code copied to clipboard!');
-                    }}
+        <TabsContent value='edit'>
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <div className='grid grid-cols-4 gap-4'>
+              <div className='col-span-1'>
+                <Card className={formTheme === 'dark' ? 'bg-slate-800 border-slate-700' : ''}>
+                  <CardHeader
+                    className={`p-4 border-b ${formTheme === 'dark' ? 'border-slate-700' : 'border-slate-100'}`}
                   >
-                    <Icons name='IconCopy' className='mr-2' />
-                    Copy Code
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </Container>
+                    <CardTitle className='text-lg font-normal'>Field Templates</CardTitle>
+                  </CardHeader>
+                  <CardContent className='p-4'>
+                    <ScrollView className='max-h-[calc(100vh-300px)]'>
+                      <FieldPicker category='basic' title='Basic Fields' />
+                      <FieldPicker category='selection' title='Selection Fields' />
+                      <FieldPicker category='advanced' title='Advanced Fields' />
 
+                      <div className='mt-8'>
+                        <h3 className='font-medium text-lg mb-2'>Sections</h3>
+                        <div className='flex flex-col gap-2'>
+                          {formSections.map(section => (
+                            <Button
+                              key={section.id}
+                              variant={section.id === activeSectionId ? 'primary' : 'outline-slate'}
+                              className='justify-start'
+                              onClick={() => setActiveSectionId(section.id)}
+                            >
+                              <Icons name={section.icon || 'IconFolders'} className='mr-2' />
+                              {section.title}
+                            </Button>
+                          ))}
+                          <Button variant='outline-slate' onClick={addSection}>
+                            <Icons name='IconPlus' className='mr-2' />
+                            Add Section
+                          </Button>
+                        </div>
+                      </div>
+                    </ScrollView>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className='col-span-3'>
+                <Card className={formTheme === 'dark' ? 'bg-slate-800 border-slate-700' : ''}>
+                  <CardHeader
+                    className={`p-4 border-b ${formTheme === 'dark' ? 'border-slate-700' : 'border-slate-100'}`}
+                  >
+                    <CardTitle className='text-lg font-normal'>Section Configuration</CardTitle>
+                  </CardHeader>
+                  <CardContent className='p-4'>
+                    <ScrollView className='max-h-[calc(100vh-300px)]'>
+                      <SectionEditor />
+
+                      <div className='mt-6'>
+                        <h3 className='font-medium text-lg mb-4'>Form Layout</h3>
+                        <Droppable droppableId='sections' type='section'>
+                          {provided => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.droppableProps}
+                              className='space-y-4'
+                            >
+                              {formSections.map((section, index) => (
+                                <DraggableSection
+                                  key={section.id}
+                                  section={section}
+                                  index={index}
+                                />
+                              ))}
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
+                      </div>
+                    </ScrollView>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </DragDropContext>
+        </TabsContent>
+
+        <TabsContent value='code'>
+          <Card className={formTheme === 'dark' ? 'bg-slate-800 border-slate-700' : ''}>
+            <CardHeader
+              className={`p-4 border-b ${formTheme === 'dark' ? 'border-slate-700' : 'border-slate-100'}`}
+            >
+              <CardTitle className='text-lg font-normal'>Generated Form Code</CardTitle>
+            </CardHeader>
+            <CardContent className='p-6'>
+              <pre
+                className={`p-4 rounded-md overflow-auto max-h-[calc(100vh-300px)] ${formTheme === 'dark' ? 'bg-slate-900 text-slate-300' : 'bg-slate-900 text-slate-50'}`}
+              >
+                {generateFormCode()}
+              </pre>
+
+              <div className='mt-4 flex justify-end'>
+                <Button
+                  variant='outline-primary'
+                  onClick={() => {
+                    navigator.clipboard.writeText(generateFormCode());
+                    alert('Code copied to clipboard!');
+                  }}
+                >
+                  <Icons name='IconCopy' className='mr-2' />
+                  Copy Code
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
       {/* Render the field editor modal */}
       {editingField && <FieldEditorModal />}
     </div>
