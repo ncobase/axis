@@ -291,7 +291,7 @@ export const ActionCell = <T extends Record<string, any> = any>({
 };
 
 export interface ITableHeaderCellProps extends ITableCellBaseProps {
-  filter?: 'sort' | 'date' | 'date-range' | 'select' | 'number' | 'text' | 'toggle' | boolean;
+  filter?: 'sort' | 'date' | 'select' | 'number' | 'text' | 'toggle' | boolean;
   filterConfig?: {
     min?: number;
     max?: number;

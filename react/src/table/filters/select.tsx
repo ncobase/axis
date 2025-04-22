@@ -57,7 +57,7 @@ export const SelectFilter: React.FC<SelectFilterProps> = ({
   };
 
   const hasActiveFilter = selectedValues.length > 0;
-  const selectedCount = selectedValues.length;
+  // const selectedCount = selectedValues.length;
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -71,9 +71,9 @@ export const SelectFilter: React.FC<SelectFilterProps> = ({
           )}
         >
           <Icons name='IconList' className={cn('h-4 w-4', hasActiveFilter && 'stroke-blue-500')} />
-          <span className='text-sm hidden sm:inline'>
-            {hasActiveFilter ? `${selectedCount} selected` : 'Select...'}
-          </span>
+          {/* <span className='text-sm hidden sm:inline'>
+            {hasActiveFilter ? `${selectedCount} selected` : ''}
+          </span> */}
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-60 p-2' align='start'>

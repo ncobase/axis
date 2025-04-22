@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { cn } from '@ncobase/utils';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 
 import { useTable } from '../table.context';
@@ -34,22 +34,23 @@ export const DateFilter: React.FC<DateFilterProps> = ({ accessorKey, handleFilte
   }, [filterState?.config, accessorKey]);
 
   const handleSelect = (selectedDate: DateRange | undefined) => {
+    if (!selectedDate) return;
     setDate(selectedDate);
     handleFilterChange(selectedDate);
-    if (selectedDate.from && (selectedDate.to || !selectedDate.to)) {
+    if (selectedDate.from && (selectedDate.to || !!selectedDate.to)) {
       setIsCalendarOpen(false);
     }
   };
 
-  const formatDisplayDate = () => {
-    if (date.from) {
-      if (date.to) {
-        return `${format(date.from, 'MMM d, yyyy')} - ${format(date.to, 'MMM d, yyyy')}`;
-      }
-      return format(date.from, 'MMM d, yyyy');
-    }
-    return 'Select date...';
-  };
+  // const formatDisplayDate = () => {
+  //   if (date.from) {
+  //     if (date.to) {
+  //       return `${format(date.from, 'MMM d, yyyy')} - ${format(date.to, 'MMM d, yyyy')}`;
+  //     }
+  //     return format(date.from, 'MMM d, yyyy');
+  //   }
+  //   return 'Select date...';
+  // };
 
   const clearFilter = () => {
     setDate({ from: null, to: null });
@@ -74,7 +75,7 @@ export const DateFilter: React.FC<DateFilterProps> = ({ accessorKey, handleFilte
             name='IconCalendar'
             className={cn('h-4 w-4', hasActiveFilter && 'stroke-blue-500')}
           />
-          <span className='text-sm hidden sm:inline'>{formatDisplayDate()}</span>
+          {/* <span className='text-sm hidden sm:inline'>{formatDisplayDate()}</span> */}
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0' align='start'>
@@ -84,7 +85,7 @@ export const DateFilter: React.FC<DateFilterProps> = ({ accessorKey, handleFilte
           onSelect={handleSelect}
           initialFocus
           footer={
-            <div className='flex justify-between mt-2'>
+            <div className='flex justify-between mt-4'>
               <Button variant='outline' size='sm' onClick={clearFilter} disabled={!hasActiveFilter}>
                 Clear
               </Button>
