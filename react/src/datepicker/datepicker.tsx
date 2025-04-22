@@ -12,8 +12,7 @@ interface IDatePickerProps {
   mode?: 'single' | 'range';
   className?: string;
   defaultValue?: Date | DateRange | string;
-  // eslint-disable-next-line no-unused-vars
-  onChange?: (date: Date | DateRange | undefined) => void;
+  onChange?: (_date: Date | DateRange | undefined) => void;
   disabled?: boolean;
 }
 
