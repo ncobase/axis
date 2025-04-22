@@ -3,8 +3,12 @@ import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { cleanJsonValues, cn } from '@ncobase/utils';
 
 import { EmptyData } from './components/empty';
+import { BatchOperation, BatchOperations } from './features/batch_operations';
+import { GlobalSearch } from './features/global_search';
+import { ImportExportFeature } from './features/import_export';
+import { KeyboardNavigation } from './features/keyboard_navigation';
 import { type ITableBodyProps, TableBody } from './table.body';
-import { type ITableContext, TableProvider } from './table.context';
+import { type ITableContext, TableProvider, FilterConfig } from './table.context';
 import { TableHeader } from './table.header';
 import { Pagination } from './table.pagination';
 
@@ -13,11 +17,11 @@ export interface PaginationParams {
   cursor?: string | null;
   limit?: number;
   direction?: 'forward' | 'backward';
-  filter?: { [key: string]: any };
+  filter?: Record<string, any>;
 }
 
 export interface PaginationResult<T> {
-  items: ITableBodyProps<T>['data'];
+  items: T[];
   total: number;
   next_cursor?: string;
   prev_cursor?: string;
@@ -25,44 +29,64 @@ export interface PaginationResult<T> {
   has_prev_page?: boolean;
 }
 
-export interface TableViewProps extends ITableContext {
-  data?: ITableBodyProps['data'];
+export interface TableViewProps<T = any> extends Partial<ITableContext<T>> {
+  data?: T[];
   className?: string;
   loading?: boolean;
   filter?: {
     enabled: boolean;
-    config: Record<string, any>;
+    config: Record<string, FilterConfig>;
   };
-  expandComponent?: ITableBodyProps['expandComponent'];
-  maxTreeLevel?: ITableBodyProps['maxTreeLevel'];
+  expandComponent?: ITableBodyProps<T>['expandComponent'];
+  maxTreeLevel?: ITableBodyProps<T>['maxTreeLevel'];
+  enableEditing?: boolean;
+  enableColumnResize?: boolean;
+  enableRowHighlight?: boolean;
+  enableColumnHighlight?: boolean;
+  enableAdvancedFilters?: boolean;
+  enableKeyboardNavigation?: boolean;
+  showImportExport?: boolean;
+  showGlobalSearch?: boolean;
+  batchOperations?: BatchOperation[];
+  onCellValueChange?: (_key: string, _value: any, _recordId: string) => void;
 }
 
-export const TableView: React.FC<TableViewProps> = ({
-  header,
-  data: initialData,
+export const TableView = <T extends Record<string, any> = any>({
+  header = [],
+  data: initialData = [],
   fetchData,
   loading: initialLoading = false,
-  selected,
-  paginated,
-  pageSize: initialPageSize,
+  selected = false,
+  paginated = false,
+  pageSize: initialPageSize = 20,
   pageSizes = [5, 10, 20, 50, 100],
   paginationTexts,
   emptyDataLabel = 'No Data',
   className,
   expandComponent,
   maxTreeLevel,
-  isAllExpanded,
+  isAllExpanded = false,
   filter = { enabled: false, config: {} },
+  enableEditing = false,
+  enableColumnResize = false,
+  enableRowHighlight = true,
+  enableColumnHighlight = true,
+  enableAdvancedFilters = false,
+  enableKeyboardNavigation = false,
+  showImportExport = false,
+  showGlobalSearch = false,
+  batchOperations = [],
+  onCellValueChange,
   ...rest
-}) => {
+}: TableViewProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageSize, setCurrentPageSize] = useState(initialPageSize || 20);
-  const [internalData, setInternalData] = useState(initialData || []);
-  const [originalData, setOriginalData] = useState(initialData || []);
+  const [currentPageSize, setCurrentPageSize] = useState(initialPageSize);
+  const [internalData, setInternalData] = useState<T[]>(initialData);
+  const [originalData, setOriginalData] = useState<T[]>(initialData);
   const [total, setTotal] = useState(initialData?.length || 0);
-  const [loading, setLoading] = useState(initialLoading || false);
-  const [currentFilter, setCurrentFilter] = useState(filter.config);
-  const [selectedRows, setSelectedRows] = useState<any[]>([]);
+  const [loading, setLoading] = useState(initialLoading);
+  const [currentFilter, setCurrentFilter] = useState<Record<string, FilterConfig>>(filter.config);
+  const [selectedRows, setSelectedRows] = useState<T[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [prevCursor, setPrevCursor] = useState<string | null>(null);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -74,22 +98,30 @@ export const TableView: React.FC<TableViewProps> = ({
   );
 
   const loadData = useCallback(
-    async (params: PaginationParams): Promise<any> => {
-      if (!isBackendPagination || !fetchData) return;
+    async (params: PaginationParams): Promise<PaginationResult<T> | undefined> => {
+      if (!isBackendPagination || !fetchData) return undefined;
+
       setLoading(true);
       try {
         const result = await fetchData(cleanJsonValues(params) as PaginationParams);
-        setInternalData(result?.items || []);
-        setOriginalData(result?.items || []);
-        setTotal(result?.total || 0);
-        setNextCursor(result?.next_cursor || null);
-        setPrevCursor(result?.prev_cursor || null);
-        setHasNextPage(result?.has_next_page || false);
-        setHasPrevPage(result?.has_prev_page || false);
+        if (!result) return undefined;
+
+        setInternalData(result.items || []);
+        setOriginalData(result.items || []);
+        setTotal(result.total || 0);
+        setNextCursor(result.next_cursor || null);
+        setPrevCursor(result.prev_cursor || null);
+        setHasNextPage(result.has_next_page || false);
+        setHasPrevPage(result.has_prev_page || false);
         return result;
       } catch (error) {
         console.error('Error fetching data:', error);
-        return { items: [], total: 0, has_next_page: false, has_prev_page: false };
+        return {
+          items: [],
+          total: 0,
+          has_next_page: false,
+          has_prev_page: false
+        };
       } finally {
         setLoading(false);
       }
@@ -116,8 +148,45 @@ export const TableView: React.FC<TableViewProps> = ({
     }
   }, [initialData]);
 
+  // Handle cell value change
+  const handleCellValueChange = useCallback(
+    (key: string, value: any, recordId: string) => {
+      if (!key || !recordId) return;
+
+      // Call the callback if provided
+      if (onCellValueChange) {
+        onCellValueChange(key, value, recordId);
+      }
+
+      // Update internal data if editing is enabled
+      if (enableEditing) {
+        setInternalData(prevData =>
+          prevData.map(item => {
+            if (item['id'] === recordId) {
+              return {
+                ...item,
+                [key]: value
+              };
+            }
+            return item;
+          })
+        );
+      }
+    },
+    [enableEditing, onCellValueChange]
+  );
+
+  const columnsWithEditing = useMemo(() => {
+    if (!enableEditing) return header;
+
+    return header.map(column => ({
+      ...column,
+      editable: column.accessorKey !== 'action'
+    }));
+  }, [header, enableEditing]);
+
   const handleFilter = useCallback(
-    (newFilter: React.SetStateAction<Record<string, any>>) => {
+    (newFilter: React.SetStateAction<Record<string, FilterConfig>>) => {
       setCurrentFilter(prev => {
         const updatedFilter = typeof newFilter === 'function' ? newFilter(prev) : newFilter;
         setCurrentPage(1);
@@ -166,30 +235,36 @@ export const TableView: React.FC<TableViewProps> = ({
     [isBackendPagination, loadData]
   );
 
-  const handleRowSelection = useCallback((row: any) => {
-    const recursivelySelectChildren = (children: any[], selected: any[], select: boolean) => {
-      children.forEach(child => {
-        const isChildSelected = selected.some(r => r.id === child.id);
+  const handleRowSelection = useCallback((row: T) => {
+    if (!row) return;
+
+    const recursivelySelectChildren = (children: T[], selected: T[], select: boolean): T[] => {
+      if (!children || !Array.isArray(children)) return selected;
+
+      return children.reduce((acc, child: any) => {
+        if (!child || !child.id) return acc;
+
+        const isChildSelected = acc.some((r: any) => r.id === child.id);
         if (select && !isChildSelected) {
-          selected.push(child);
+          acc.push(child);
         } else if (!select && isChildSelected) {
-          selected = selected.filter(r => r.id !== child.id);
+          acc = acc.filter((r: any) => r.id !== child.id);
         }
         if (child.children && child.children.length > 0) {
-          selected = recursivelySelectChildren(child.children, selected, select);
+          acc = recursivelySelectChildren(child.children, acc, select);
         }
-      });
-      return selected;
+        return acc;
+      }, selected);
     };
 
     setSelectedRows(prev => {
-      const isSelected = prev.some(selectedRow => selectedRow.id === row.id);
+      const isSelected = prev.some((selectedRow: any) => selectedRow.id === (row as any).id);
       const updatedSelectedRows = isSelected
-        ? prev.filter(selectedRow => selectedRow.id !== row.id)
+        ? prev.filter((selectedRow: any) => selectedRow.id !== (row as any).id)
         : [...prev, row];
 
-      if (row.children && row.children.length > 0) {
-        return recursivelySelectChildren(row.children, updatedSelectedRows, !isSelected);
+      if ((row as any).children && (row as any).children.length > 0) {
+        return recursivelySelectChildren((row as any).children, updatedSelectedRows, !isSelected);
       }
       return updatedSelectedRows;
     });
@@ -197,15 +272,67 @@ export const TableView: React.FC<TableViewProps> = ({
 
   const filteredData = useMemo(() => {
     if (!isBackendPagination && filter?.enabled && currentFilter) {
-      return internalData.filter(item =>
-        Object.entries(currentFilter).every(([key, value]) => {
-          if (!value) return true;
-          const itemValue = item[key];
-          return (
-            itemValue && itemValue.toString().toLowerCase().includes(value.toString().toLowerCase())
-          );
-        })
-      );
+      return internalData.filter(item => {
+        return Object.entries(currentFilter).every(([key, config]) => {
+          // Check for advanced filters
+          if (config.advancedFilters && config.advancedFilters.length > 0) {
+            // Apply each advanced filter condition
+            return config.advancedFilters.every(condition => {
+              const itemValue = item[key];
+              // Skip if no value to filter on
+              if (itemValue === undefined || itemValue === null) return true;
+              // Different operators
+              switch (condition.operator) {
+                case 'contains':
+                  return String(itemValue)
+                    .toLowerCase()
+                    .includes(String(condition.value).toLowerCase());
+                case 'equals':
+                  return String(itemValue) === String(condition.value);
+                case 'startsWith':
+                  return String(itemValue)
+                    .toLowerCase()
+                    .startsWith(String(condition.value).toLowerCase());
+                case 'endsWith':
+                  return String(itemValue)
+                    .toLowerCase()
+                    .endsWith(String(condition.value).toLowerCase());
+                case 'greaterThan':
+                  return Number(itemValue) > Number(condition.value);
+                case 'lessThan':
+                  return Number(itemValue) < Number(condition.value);
+                case 'between':
+                  return (
+                    Number(itemValue) >= Number(condition.value) &&
+                    Number(itemValue) <= Number(condition.valueEnd || condition.value)
+                  );
+                case 'in': {
+                  const valueList = String(condition.value)
+                    .split(',')
+                    .map(v => v.trim());
+                  return valueList.includes(String(itemValue));
+                }
+                default:
+                  return true;
+              }
+            });
+          }
+
+          // Simple text filters
+          if (config.value) {
+            const itemValue = item[key];
+            if (itemValue === undefined || itemValue === null) return false;
+            const filterValue = config.value;
+            if (Array.isArray(filterValue)) {
+              return filterValue.some(val =>
+                String(itemValue).toLowerCase().includes(String(val).toLowerCase())
+              );
+            }
+            return String(itemValue).toLowerCase().includes(String(filterValue).toLowerCase());
+          }
+          return true;
+        });
+      });
     }
     return internalData;
   }, [internalData, filter, currentFilter, isBackendPagination]);
@@ -218,15 +345,14 @@ export const TableView: React.FC<TableViewProps> = ({
     return filteredData;
   }, [filteredData, currentPage, currentPageSize, paginated, isBackendPagination]);
 
-  const effectiveMaxTreeLevel =
-    maxTreeLevel !== undefined && maxTreeLevel !== 0 ? maxTreeLevel : undefined;
+  const effectiveMaxTreeLevel = maxTreeLevel !== undefined ? maxTreeLevel : undefined;
   const effectiveExpandComponent = expandComponent || undefined;
   const needsTreeColumn =
     effectiveMaxTreeLevel !== undefined || effectiveExpandComponent !== undefined;
 
   const tableContextValue = useMemo(
     () => ({
-      header,
+      header: columnsWithEditing,
       internalData: filteredData,
       setInternalData,
       originalData,
@@ -240,19 +366,26 @@ export const TableView: React.FC<TableViewProps> = ({
       paginationTexts,
       emptyDataLabel,
       filter: {
-        ...filter,
+        enabled: filter.enabled,
         config: currentFilter
       },
       setFilter: handleFilter,
       selectedRows,
       onSelectRow: handleRowSelection,
+      onSelectAllRows: (rows: T[]) => setSelectedRows(rows),
+      // Pass feature flags
+      enableColumnResize,
+      enableRowHighlight,
+      enableColumnHighlight,
+      enableAdvancedFilters,
       // Pass the validated tree parameters
       maxTreeLevel: effectiveMaxTreeLevel,
       expandComponent: effectiveExpandComponent,
+      onCellValueChange: handleCellValueChange,
       ...rest
     }),
     [
-      header,
+      columnsWithEditing,
       filteredData,
       originalData,
       selected,
@@ -262,7 +395,7 @@ export const TableView: React.FC<TableViewProps> = ({
       pageSizes,
       paginationTexts,
       emptyDataLabel,
-      filter,
+      filter.enabled,
       currentFilter,
       handleFilter,
       selectedRows,
@@ -273,7 +406,12 @@ export const TableView: React.FC<TableViewProps> = ({
       isBackendPagination,
       effectiveMaxTreeLevel,
       effectiveExpandComponent,
-      needsTreeColumn
+      needsTreeColumn,
+      enableColumnResize,
+      enableRowHighlight,
+      enableColumnHighlight,
+      enableAdvancedFilters,
+      handleCellValueChange
     ]
   );
 
@@ -289,20 +427,57 @@ export const TableView: React.FC<TableViewProps> = ({
   }
 
   return (
-    <TableProvider value={tableContextValue}>
+    <TableProvider
+      value={{
+        ...tableContextValue,
+        setFilter: (
+          filter: React.SetStateAction<{ enabled: boolean; config: Record<string, FilterConfig> }>
+        ) => {
+          if (typeof filter === 'function') {
+            // @ts-expect-error
+            handleFilter(prev => filter(prev).config);
+          } else {
+            handleFilter(filter.config);
+          }
+        }
+      }}
+    >
       <div className={classes}>
-        <div className='overflow-x-auto'>
-          <table className='w-full table-auto'>
-            <TableHeader
-              expandComponent={effectiveExpandComponent}
-              maxTreeLevel={effectiveMaxTreeLevel}
-            />
-            <TableBody
-              data={paginatedData}
-              expandComponent={effectiveExpandComponent}
-              maxTreeLevel={effectiveMaxTreeLevel}
-            />
-          </table>
+        <div className='flex-1 flex flex-col justify-start'>
+          {/* Toolbar - Import/Export, Global Search, etc. */}
+          {(showImportExport || showGlobalSearch || batchOperations.length > 0) && (
+            <div className='flex items-center justify-between py-3'>
+              <div className='flex items-center gap-2'>
+                {/* Table name */}
+                <h3 className='text-lg font-medium'>{rest.title || ''}</h3>
+              </div>
+
+              <div className='flex items-center gap-3'>
+                {/* Global search */}
+                {showGlobalSearch && <GlobalSearch />}
+
+                {/* Import/Export features */}
+                {showImportExport && <ImportExportFeature />}
+              </div>
+            </div>
+          )}
+
+          {/* Batch operations bar */}
+          {batchOperations.length > 0 && <BatchOperations operations={batchOperations} />}
+          <div className='overflow-auto relative'>
+            <table className='w-full table-auto'>
+              <TableHeader
+                style={{ position: 'sticky', top: 0, zIndex: 10 }}
+                expandComponent={effectiveExpandComponent}
+                maxTreeLevel={effectiveMaxTreeLevel}
+              />
+              <TableBody
+                data={paginatedData}
+                expandComponent={effectiveExpandComponent}
+                maxTreeLevel={effectiveMaxTreeLevel}
+              />
+            </table>
+          </div>
         </div>
         {paginated && (
           <Pagination
@@ -317,6 +492,7 @@ export const TableView: React.FC<TableViewProps> = ({
             hasPrevPage={hasPrevPage}
           />
         )}
+        {enableKeyboardNavigation && <KeyboardNavigation />}
       </div>
     </TableProvider>
   );

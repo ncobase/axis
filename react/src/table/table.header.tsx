@@ -2,22 +2,24 @@ import React from 'react';
 
 import { cn } from '@ncobase/utils';
 
-import { Button } from '../button';
-import { Checkbox } from '../forms';
-import { Icons } from '../icon';
-
 import type { ITableBodyProps } from './table.body';
-import { TableHeaderCell } from './table.cell';
+import { ResizableHeaderCell, TableHeaderCell } from './table.cell';
 import { useTable } from './table.context';
 import { TableRow } from './table.row';
 
+import { Button } from '@/button';
+import { Checkbox } from '@/forms';
+import { Icons } from '@/icon';
+
 interface ITableHeaderProps {
+  style?: React.CSSProperties;
   className?: string;
   expandComponent?: ITableBodyProps['expandComponent'];
   maxTreeLevel?: ITableBodyProps['maxTreeLevel'];
 }
 
 export const TableHeader: React.FC<ITableHeaderProps> = ({
+  style,
   className,
   expandComponent,
   maxTreeLevel
@@ -54,7 +56,7 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
     (expandComponent !== undefined && expandComponent !== null);
 
   return (
-    <thead className={classes}>
+    <thead className={classes} style={style}>
       <TableRow>
         {selected && (
           <TableHeaderCell title='selection' filter={false} className='w-4!'>
@@ -77,7 +79,7 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
           </TableHeaderCell>
         )}
         {columns.map((props, index) => (
-          <TableHeaderCell key={index} {...props} />
+          <ResizableHeaderCell key={index} {...props} />
         ))}
       </TableRow>
     </thead>

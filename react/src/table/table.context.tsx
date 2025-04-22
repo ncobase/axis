@@ -1,55 +1,83 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { isArray, isUndefined } from '@ncobase/utils';
+import { DateRange } from 'react-day-picker';
 
+import type { BatchOperation } from './features/batch_operations';
 import type { PaginationParams, PaginationResult } from './table';
-import type { ITableBodyProps } from './table.body';
 import type { ITableHeaderCellProps } from './table.cell';
 import type { IPaginationProps } from './table.pagination';
 
+// Define proper filter config type
+export interface FilterConfig {
+  value?: string | string[];
+  sortOrder?: 'asc' | 'desc' | null;
+  selectedValues?: (string | number)[];
+  dateRange?: DateRange;
+  numberRange?: [number | null, number | null];
+  advancedFilters?: Array<{
+    column: string;
+    operator: string;
+    value: any;
+    valueEnd?: any;
+  }>;
+}
+
 export interface ITableContext<T = any> {
-  // eslint-disable-next-line no-unused-vars
-  fetchData?: (params: PaginationParams) => Promise<PaginationResult<T>>;
-  loadData?: any;
-  internalData?: ITableBodyProps<T>['data'];
-  // eslint-disable-next-line no-unused-vars
-  setInternalData?: (internalData: ITableBodyProps<T>['data']) => void;
-  originalData?: ITableBodyProps<T>['data'];
-  // eslint-disable-next-line no-unused-vars
-  setOriginalData?: (data: ITableBodyProps<T>['data']) => void;
+  fetchData?: (_params: PaginationParams) => Promise<PaginationResult<T>>;
+  loadData?: (_params: PaginationParams) => Promise<PaginationResult<T>>;
+  internalData?: T[];
+  setInternalData?: (_internalData: T[]) => void;
+  originalData?: T[];
+  setOriginalData?: (_data: T[]) => void;
   isBackendPagination?: boolean;
   header?: ITableHeaderCellProps[];
   columns?: ITableHeaderCellProps[];
-  // eslint-disable-next-line no-unused-vars
-  setColumns?: (header: ITableHeaderCellProps[]) => void;
-  // eslint-disable-next-line no-unused-vars
-  toggleColumn?: (key: string) => void;
+  setColumns?: (_header: ITableHeaderCellProps[]) => void;
+  toggleColumn?: (_key: string) => void;
   paginated?: boolean;
-  pageSize?: IPaginationProps['pageSize'];
+  pageSize?: number;
   paginationTexts?: IPaginationProps['texts'];
-  pageSizes?: IPaginationProps['pageSizes'];
+  pageSizes?: number[];
   selected?: boolean;
   visibleControl?: boolean;
   className?: string;
-  selectedRows?: ITableBodyProps<T>['data'];
+  selectedRows?: T[];
   emptyDataLabel?: string;
   noMoreDataLabel?: string;
-  // eslint-disable-next-line no-unused-vars
-  onSelectRow?: (row: T) => void;
-  // eslint-disable-next-line no-unused-vars
-  onSelectAllRows?: (rows: string | ITableBodyProps<T>['data']) => void;
-  actions?: {
-    [key: string]: () => void;
-  };
+  onSelectRow?: (_row: T) => void;
+  onSelectAllRows?: (_rows: T[]) => void;
+  actions?: Record<string, () => void>;
   onExpandAll?: () => void;
   onCollapseAll?: () => void;
   isAllExpanded?: boolean;
   filter?: {
     enabled: boolean;
-    config: Record<string, { value?: string | string[]; sortOrder?: 'asc' | 'desc' | null }>;
+    config: Record<string, FilterConfig>;
   };
-  // eslint-disable-next-line no-unused-vars
-  setFilter?: (filter: ITableContext<T>['filter']) => void;
+  setFilter?: (_filter: React.SetStateAction<ITableContext<T>['filter']>) => void;
+  highlightedRow?: string | null;
+  setHighlightedRow?: (_rowId: string | null) => void;
+  highlightedColumn?: string | null;
+  setHighlightedColumn?: (_columnKey: string | null) => void;
+  columnWidths?: Record<string, number>;
+  setColumnWidth?: (_columnKey: string, _width: number) => void;
+  activeCell?: { rowId: string; colKey: string } | null;
+  setActiveCell?: (_cell: { rowId: string; colKey: string } | null) => void;
+  selectedCells?: Array<{ rowId: string; colKey: string }>;
+  setSelectedCells?: (_cells: Array<{ rowId: string; colKey: string }>) => void;
+  onCellValueChange?: (_key: string, _value: any, _recordId: string) => void;
+  title?: string;
+  // Feature flags
+  enableEditing?: boolean;
+  enableColumnResize?: boolean;
+  enableRowHighlight?: boolean;
+  enableColumnHighlight?: boolean;
+  enableAdvancedFilters?: boolean;
+  enableKeyboardNavigation?: boolean;
+  showImportExport?: boolean;
+  showGlobalSearch?: boolean;
+  batchOperations?: BatchOperation[];
 }
 
 const defaultTableContext: ITableContext = {
@@ -59,7 +87,16 @@ const defaultTableContext: ITableContext = {
   filter: {
     enabled: false,
     config: {}
-  }
+  },
+  // Default feature flags
+  enableEditing: false,
+  enableColumnResize: true,
+  enableRowHighlight: true,
+  enableColumnHighlight: true,
+  enableAdvancedFilters: true,
+  enableKeyboardNavigation: true,
+  showImportExport: false,
+  showGlobalSearch: false
 };
 
 const TableContext = createContext<ITableContext>(defaultTableContext);
@@ -68,10 +105,28 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
   value,
   children
 }) => {
-  const [columns, setColumns] = useState<ITableHeaderCellProps[]>(defaultTableContext.header || []);
-  const [selectedRows, setSelectedRows] = useState<any[]>(defaultTableContext.selectedRows || []);
-  const [filter, setFilter] = useState<ITableContext['filter']>(defaultTableContext.filter);
+  const [columns, setColumns] = useState<ITableHeaderCellProps[]>(value.header || []);
+  const [selectedRows, setSelectedRows] = useState<any[]>(value.selectedRows || []);
+  const [filter, setFilter] = useState<ITableContext['filter']>(
+    value.filter || defaultTableContext.filter
+  );
   const [isAllExpanded, setIsAllExpanded] = useState(value.isAllExpanded || false);
+  const [highlightedRow, setHighlightedRow] = useState<string | null>(null);
+  const [highlightedColumn, setHighlightedColumn] = useState<string | null>(null);
+  const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
+  const [activeCell, setActiveCell] = useState<{ rowId: string; colKey: string } | null>(null);
+  const [selectedCells, setSelectedCells] = useState<Array<{ rowId: string; colKey: string }>>([]);
+
+  // Feature flags with defaults if not provided
+  const enableEditing = value.enableEditing ?? defaultTableContext.enableEditing;
+  const enableColumnResize = value.enableColumnResize ?? defaultTableContext.enableColumnResize;
+  const enableRowHighlight = value.enableRowHighlight ?? defaultTableContext.enableRowHighlight;
+  const enableColumnHighlight =
+    value.enableColumnHighlight ?? defaultTableContext.enableColumnHighlight;
+  const enableAdvancedFilters =
+    value.enableAdvancedFilters ?? defaultTableContext.enableAdvancedFilters;
+  const enableKeyboardNavigation =
+    value.enableKeyboardNavigation ?? defaultTableContext.enableKeyboardNavigation;
 
   useEffect(() => {
     if (value.header && value.header.length > 0) {
@@ -79,26 +134,41 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
     }
   }, [value.header]);
 
+  const handleSetColumnWidth = (columnKey: string, width: number) => {
+    if (!enableColumnResize) return;
+
+    setColumnWidths(prev => ({
+      ...prev,
+      [columnKey]: width
+    }));
+  };
+
   const handleSelectRow = (row: any) => {
+    if (!row) return;
+
     const isSelected = selectedRows?.some(r => r.id === row.id);
     const updatedSelectedRows = isSelected
       ? selectedRows.filter(r => r.id !== row.id)
       : [...selectedRows, row];
 
     // Recursive selection for child rows
-    const recursivelySelectChildren = (children: any[], selected: any[]) => {
-      children.forEach(child => {
-        const isChildSelected = selected.some(r => r.id === child.id);
+    const recursivelySelectChildren = (children: any[], selected: any[]): any[] => {
+      if (!children || !Array.isArray(children)) return selected;
+
+      return children.reduce((acc, child) => {
+        if (!child) return acc;
+
+        const isChildSelected = acc.some(r => r.id === child.id);
         if (isSelected && isChildSelected) {
-          selected = selected.filter(r => r.id !== child.id);
+          acc = acc.filter(r => r.id !== child.id);
         } else if (!isSelected && !isChildSelected) {
-          selected.push(child);
+          acc.push(child);
         }
         if (child.children && child.children.length > 0) {
-          selected = recursivelySelectChildren(child.children, selected);
+          acc = recursivelySelectChildren(child.children, acc);
         }
-      });
-      return selected;
+        return acc;
+      }, selected);
     };
 
     if (row.children && row.children.length > 0) {
@@ -108,9 +178,13 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
     }
   };
 
-  const handleSelectAllRows = (rows: string | any[]) => {
+  const handleSelectAllRows = (rows: any[] | string) => {
     const flattenRows = (data: any[]): any[] => {
+      if (!data || !Array.isArray(data)) return [];
+
       return data.reduce((acc, item) => {
+        if (!item) return acc;
+
         acc.push(item);
         if (item.children && item.children.length > 0) {
           acc = acc.concat(flattenRows(item.children));
@@ -126,9 +200,37 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
         const allRows = flattenRows(rows as any[]);
         setSelectedRows(allRows);
       }
-    } else {
-      setSelectedRows(value.internalData || []);
+    } else if (value.internalData) {
+      setSelectedRows(value.internalData);
     }
+  };
+
+  const toggleColumn = (key: string) => {
+    if (!key) return;
+
+    const newHeader = columns.map(column =>
+      // column visible is a undefined value, set it to false
+      // reason: if not set, visible will be undefined, and the default value will be true
+      column.accessorKey === key
+        ? { ...column, visible: isUndefined(column.visible) ? false : !column.visible }
+        : column
+    );
+    setColumns(newHeader);
+  };
+
+  const handleSetHighlightedRow = (rowId: string | null) => {
+    if (!enableRowHighlight) return;
+    setHighlightedRow(rowId);
+  };
+
+  const handleSetHighlightedColumn = (columnKey: string | null) => {
+    if (!enableColumnHighlight) return;
+    setHighlightedColumn(columnKey);
+  };
+
+  const handleSetActiveCell = (cell: { rowId: string; colKey: string } | null) => {
+    if (!enableKeyboardNavigation) return;
+    setActiveCell(cell);
   };
 
   const tableContextValue: ITableContext = {
@@ -137,23 +239,31 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
     columns,
     setColumns,
     selectedRows,
-    toggleColumn: (key: string) => {
-      const newHeader = columns.map(column =>
-        // column visible is a undefined value, set it to false
-        // reason: if not set, visible will be undefined, and the default value will be true
-        column.accessorKey === key
-          ? { ...column, visible: isUndefined(column.visible) ? false : !column.visible }
-          : column
-      );
-      setColumns(newHeader || []);
-    },
+    toggleColumn,
     filter,
     setFilter,
     onSelectRow: handleSelectRow,
     onSelectAllRows: handleSelectAllRows,
     onExpandAll: () => setIsAllExpanded(true),
     onCollapseAll: () => setIsAllExpanded(false),
-    isAllExpanded
+    isAllExpanded,
+    highlightedRow,
+    setHighlightedRow: handleSetHighlightedRow,
+    highlightedColumn,
+    setHighlightedColumn: handleSetHighlightedColumn,
+    columnWidths,
+    setColumnWidth: handleSetColumnWidth,
+    activeCell,
+    setActiveCell: handleSetActiveCell,
+    selectedCells,
+    setSelectedCells: enableKeyboardNavigation ? setSelectedCells : undefined,
+    // Feature flags
+    enableEditing,
+    enableColumnResize,
+    enableRowHighlight,
+    enableColumnHighlight,
+    enableAdvancedFilters,
+    enableKeyboardNavigation
   };
 
   return <TableContext.Provider value={tableContextValue}>{children}</TableContext.Provider>;

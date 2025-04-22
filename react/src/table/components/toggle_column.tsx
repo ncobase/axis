@@ -2,11 +2,12 @@ import React from 'react';
 
 import { isBoolean, isUndefined } from '@ncobase/utils';
 
-import { DropdownCheckboxItem } from '../../dropdown';
 import { useTable } from '../table.context';
 import { isActionColumn } from '../table.row';
 
 import { DropdownWrapper } from './dropdown';
+
+import { DropdownCheckboxItem } from '@/dropdown';
 
 export const ToggleColumn: React.FC = () => {
   const { columns, toggleColumn } = useTable();

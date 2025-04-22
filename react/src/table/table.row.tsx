@@ -2,8 +2,10 @@ import React, { type ReactNode } from 'react';
 
 import { cn } from '@ncobase/utils';
 
-import { Button } from '../button';
-import { Icons } from '../icon';
+import { useTable } from './table.context';
+
+import { Button } from '@/button';
+import { Icons } from '@/icon';
 
 export const isActionColumn = (key: string = ''): boolean => {
   const actionKeys = [
@@ -26,12 +28,10 @@ interface ITableRowProps {
   children?: React.ReactNode;
   level?: number;
   item?: any;
-  // eslint-disable-next-line no-unused-vars
-  expandComponent?: React.ReactNode | ((item: any) => React.ReactNode);
+  expandComponent?: React.ReactNode | ((_item: any) => React.ReactNode);
   isExpanded?: boolean;
   onToggleExpand?: () => void;
-  // eslint-disable-next-line no-unused-vars
-  renderNestedRows?: (children: any[], level: number) => ReactNode;
+  renderNestedRows?: (_children: any[], _level: number) => ReactNode;
   maxTreeLevel?: number;
 }
 
@@ -48,6 +48,8 @@ export const TableRow: React.FC<ITableRowProps> = ({
 }) => {
   if (!children) return null;
 
+  const { highlightedRow, setHighlightedRow, enableRowHighlight } = useTable();
+  const isHighlighted = enableRowHighlight && highlightedRow === item?.id;
   const hasChildren = item?.children && item?.children?.length > 0;
   const hasExpandedContent = Boolean(expandComponent);
 
@@ -59,8 +61,21 @@ export const TableRow: React.FC<ITableRowProps> = ({
   const classes = cn(
     'odd:bg-white even:bg-gray-50 [&>th]:font-medium [&>th]:text-slate-600 text-slate-500 font-normal',
     hasExpandedContent && 'cursor-pointer',
+    isHighlighted && 'bg-blue-50/75 hover:bg-blue-50/75',
     className
   );
+
+  const handleRowMouseEnter = () => {
+    if (enableRowHighlight && setHighlightedRow) {
+      setHighlightedRow(item?.id || null);
+    }
+  };
+
+  const handleRowMouseLeave = () => {
+    if (enableRowHighlight && setHighlightedRow) {
+      setHighlightedRow(null);
+    }
+  };
 
   const renderExpandedContent = (): ReactNode => {
     if (hasExpandedContent) {
@@ -81,7 +96,12 @@ export const TableRow: React.FC<ITableRowProps> = ({
 
   return (
     <>
-      <tr className={classes} onClick={hasExpandedContent ? onToggleExpand : undefined}>
+      <tr
+        className={classes}
+        onClick={hasExpandedContent ? onToggleExpand : undefined}
+        onMouseEnter={handleRowMouseEnter}
+        onMouseLeave={handleRowMouseLeave}
+      >
         {React.Children.map(children, (child, index) => {
           if (!React.isValidElement(child)) {
             return null;

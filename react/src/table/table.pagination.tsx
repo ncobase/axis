@@ -2,12 +2,12 @@ import React, { useCallback, useMemo } from 'react';
 
 import { cn } from '@ncobase/utils';
 
-import { Button } from '../button';
-import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../forms';
-import { Icons } from '../icon';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
-
 import { useTable } from './table.context';
+
+import { Button } from '@/button';
+import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/forms';
+import { Icons } from '@/icon';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/tooltip';
 
 export interface IPaginationProps {
   className?: string;

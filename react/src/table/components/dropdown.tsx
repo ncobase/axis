@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Button } from '../../button';
-import { Dropdown, DropdownContent, DropdownTrigger } from '../../dropdown';
-import { Icons } from '../../icon';
+import { Button } from '@/button';
+import { Dropdown, DropdownContent, DropdownTrigger } from '@/dropdown';
+import { Icons } from '@/icon';
 
 export const DropdownWrapper: React.FC<{
   icon: string;

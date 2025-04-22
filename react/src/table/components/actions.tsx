@@ -1,7 +1,7 @@
-import { DropdownItem } from '../../dropdown';
-import { Icons } from '../../icon';
-
 import { DropdownWrapper } from './dropdown';
+
+import { DropdownItem } from '@/dropdown';
+import { Icons } from '@/icon';
 
 export const Actions = (props: any) => {
   const { actions = [], record } = props;

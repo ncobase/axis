@@ -8,7 +8,7 @@ packages:
   - 'types'
   - 'utils'
 catalog:
-  '@xyflow/react': ^12.5.6
+  '@xyflow/react': ^12.6.0
   '@emotion/css': ^11.13.5
   '@types/node': ^22.14.1
   '@types/postcss-import': ^14.0.3
@@ -20,8 +20,8 @@ catalog:
   '@commitlint/config-conventional': ^19.8.0
   '@eslint/compat': ^1.2.8
   '@eslint/eslintrc': ^3.3.1
-  '@eslint/js': ^9.24.0
-  '@typescript-eslint/eslint-plugin': ^8.30.1
+  '@eslint/js': ^9.25.1
+  '@typescript-eslint/eslint-plugin': ^8.31.0
   '@tabler/icons-react': ^3.31.0
   '@tanstack/react-table': ^8.21.3
   autoprefixer: ^10.4.21
@@ -29,7 +29,7 @@ catalog:
   postcss: ^8.5.3
   postcss-import: ^16.1.0
   postcss-nesting: ^13.0.1
-  eslint: ^9.24.0
+  eslint: ^9.25.1
   eslint-config-prettier: ^9.1.0
   eslint-plugin-import: ^2.31.0
   eslint-plugin-jsx-a11y: ^6.10.2
@@ -49,13 +49,11 @@ catalog:
   typescript: ^5.8.3
   tsup: ^8.4.0
   echarts: ^5.6.0
-  apexcharts: ^4.5.0
-  recharts: ^2.15.2
+  recharts: ^2.15.3
   react: ^18.3.1
   react-dom: ^18.3.1
   react-dropzone: ^14.3.8
-  react-hook-form: ^7.55.0
-  react-apexcharts: ^1.7.0
+  react-hook-form: ^7.56.0
   react-day-picker: ^8.10.1
   react-syntax-highlighter: ^15.6.1
   tailwindcss: ^3.4.17

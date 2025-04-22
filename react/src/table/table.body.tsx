@@ -1,10 +1,10 @@
 import React, { type ReactNode, useEffect, useState, useMemo } from 'react';
 
-import { Checkbox } from '../forms';
-
 import { TableCell } from './table.cell';
 import { useTable } from './table.context';
 import { TableRow } from './table.row';
+
+import { Checkbox } from '@/forms';
 
 export interface ITableBodyProps<T = any> {
   className?: string;
