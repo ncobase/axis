@@ -20,6 +20,7 @@ export * from './modal';
 export * from './popover';
 export * from './portal';
 export * from './shell';
+export * from './skeleton';
 export * from './switch';
 export * from './table';
 export * from './tabs';
