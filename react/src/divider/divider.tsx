@@ -32,7 +32,7 @@ interface DividerProps {
   style?: 'solid' | 'dashed' | 'dotted' | 'double' | 'none';
 }
 
-const Divider: React.FC<DividerProps> = ({
+export const Divider: React.FC<DividerProps> = ({
   className,
   dir = 'horizontal',
   color = 'slate',
@@ -49,5 +49,3 @@ const Divider: React.FC<DividerProps> = ({
     </div>
   );
 };
-
-export { Divider };

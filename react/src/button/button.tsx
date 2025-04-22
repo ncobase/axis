@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cn } from '@ncobase/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
   'inline-flex items-center justify-center gap-1.5 whitespace-nowrap transition-all outline-hidden',
   {
     variants: {
@@ -97,7 +97,7 @@ export interface ButtonProps
   appendIcon?: React.ReactElement;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       className,
@@ -144,5 +144,3 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 Button.displayName = 'Button';
-
-export { Button, buttonVariants };

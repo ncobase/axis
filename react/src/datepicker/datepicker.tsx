@@ -118,11 +118,9 @@ const RangeDatePicker: React.FC<IDatePickerProps> = ({
   );
 };
 
-const DatePicker: React.FC<IDatePickerProps> = ({ mode = 'single', ...rest }) => {
+export const DatePicker: React.FC<IDatePickerProps> = ({ mode = 'single', ...rest }) => {
   if (mode === 'range') {
     return <RangeDatePicker {...rest} />;
   }
   return <SingleDatePicker {...rest} />;
 };
-
-export { DatePicker };

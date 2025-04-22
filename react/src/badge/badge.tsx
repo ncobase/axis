@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cn } from '@ncobase/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const badgeVariants = cva(
+export const badgeVariants = cva(
   'inline-flex items-center justify-center rounded-full transition-colors',
   {
     variants: {
@@ -89,7 +89,7 @@ export interface BadgeProps
   children?: React.ReactNode;
 }
 
-function Badge({ className, variant, size, children, ...props }: BadgeProps) {
+export const Badge = ({ className, variant, size, children, ...props }: BadgeProps) => {
   return (
     <div
       className={cn(
@@ -102,6 +102,4 @@ function Badge({ className, variant, size, children, ...props }: BadgeProps) {
       {children}
     </div>
   );
-}
-
-export { Badge, badgeVariants };
+};

@@ -5,7 +5,7 @@ import * as React from 'react';
 import { cn } from '@ncobase/utils';
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 
-const Progress = React.forwardRef<
+export const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
 >(({ className, value, ...props }, ref) => (
@@ -21,5 +21,3 @@ const Progress = React.forwardRef<
   </ProgressPrimitive.Root>
 ));
 Progress.displayName = ProgressPrimitive.Root.displayName;
-
-export { Progress };
