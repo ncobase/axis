@@ -30,10 +30,9 @@ const SelectTrigger = forwardRef<
     {...props}
   >
     {children}
-
     {allowClear && value && (
       <Button
-        className='cursor-pointer outline-hidden mr-1'
+        className='ml-auto cursor-pointer outline-hidden mr-1'
         onClick={e => {
           e.stopPropagation();
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions

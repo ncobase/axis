@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/react",
-  "version": "0.1.7-alpha.5",
+  "version": "0.1.7-alpha.7",
   "description": "UI components library for React",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -19,6 +19,7 @@
     "@hello-pangea/dnd": "^18.0.1",
     "@ncobase/utils": "workspace:*",
     "@radix-ui/react-accordion": "^1.2.7",
+    "@radix-ui/react-alert-dialog": "^1.1.10",
     "@radix-ui/react-avatar": "^1.1.6",
     "@radix-ui/react-checkbox": "^1.2.2",
     "@radix-ui/react-dialog": "^1.1.10",

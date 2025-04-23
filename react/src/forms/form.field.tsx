@@ -316,7 +316,7 @@ const SelectField = forwardRef<HTMLDivElement, FieldProps>(
                 <Icons name={prependIcon} />
               </Button>
             )}
-            <SelectValue placeholder={placeholder || '请选择'} />
+            <SelectValue placeholder={placeholder || 'Please select'} />
           </SelectTrigger>
           <SelectContent>
             {options?.map((option, index) => (

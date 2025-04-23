@@ -38,9 +38,9 @@ export const Section: React.FC<SectionProps> = ({
         <div className='flex items-center space-x-2'>
           {icon && <Icons name={icon} className='w-5 h-5 text-slate-500' />}
           <div>
-            <h3 className={cn('text-lg font-medium text-slate-800', titleClassName)}>{title}</h3>
+            <div className={cn('text-sm font-medium text-slate-800', titleClassName)}>{title}</div>
             {subtitle && (
-              <p className={cn('text-sm text-slate-500', subtitleClassName)}>{subtitle}</p>
+              <p className={cn('text-xs text-slate-500', subtitleClassName)}>{subtitle}</p>
             )}
           </div>
         </div>
