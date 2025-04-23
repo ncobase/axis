@@ -6,9 +6,10 @@ import type { Accept, DropzoneOptions, DropzoneState, FileRejection } from 'reac
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'sonner';
 
-import { Button, buttonVariants } from '../../button';
-import { Icons } from '../../icon';
-import { Input } from '../input';
+import { Input } from '../components';
+
+import { Button, buttonVariants } from '@/button';
+import { Icons } from '@/icon';
 
 type DirectionOptions = 'rtl' | 'ltr' | undefined;
 

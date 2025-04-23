@@ -1,10 +1,10 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import { cn } from '@ncobase/utils';
-import { Controller, FieldValues } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
 import { FormProvider } from './context';
-import { FieldRender } from './form.field';
+import { FieldRender } from './render';
 import type { FormProps, FormLayout } from './types';
 
 const getLayoutClasses = (layout: FormLayout) => {
@@ -22,20 +22,10 @@ const getLayoutClasses = (layout: FormLayout) => {
   }
 };
 
-export const Form = forwardRef(
-  <TFieldValues extends FieldValues = FieldValues>(
-    {
-      id,
-      children,
-      className,
-      onSubmit,
-      fields,
-      control,
-      errors,
-      layout = 'default',
-      ...props
-    }: FormProps<TFieldValues>,
-    ref: React.Ref<HTMLFormElement>
+export const Form = React.forwardRef<HTMLFormElement, FormProps<any>>(
+  (
+    { id, children, className, onSubmit, fields, control, errors, layout = 'default', ...rest },
+    ref
   ) => {
     if (!fields && !children) return null;
 
@@ -46,9 +36,9 @@ export const Form = forwardRef(
       }
       e.stopPropagation();
       // Get form values from control if available
-      const formValues = control?._formValues as TFieldValues;
+      const formValues = control?._formValues;
       // Call onSubmit with form values if control exists, otherwise just pass the event
-      onSubmit(e, formValues ?? undefined);
+      onSubmit(e, formValues);
     };
 
     return (
@@ -56,7 +46,7 @@ export const Form = forwardRef(
         id={id}
         ref={ref}
         className={cn(getLayoutClasses(layout), className)}
-        {...props}
+        {...rest}
         onSubmit={handleSubmit}
       >
         <FormProvider control={control} errors={errors}>
@@ -71,7 +61,7 @@ export const Form = forwardRef(
                   control={control}
                   defaultValue={item.defaultValue}
                   render={({ field }) => {
-                    return <FieldRender type={item.type} {...props} {...item} {...field} />;
+                    return <FieldRender type={item.type} {...rest} {...item} {...field} />;
                   }}
                 />
               );

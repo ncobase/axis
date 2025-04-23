@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 
 import { cn } from '@ncobase/utils';
 
-import { Input } from './input';
-import type { IconPickerComponentProps } from './types';
+import type { IconPickerComponentProps } from '../types';
+
+import { Input } from './base';
 
 import { Icons } from '@/icon';
 import { IconPicker } from '@/icon-picker';

@@ -3,14 +3,20 @@ import { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { useForm } from 'react-hook-form';
 
-import { ColorPickerComponent } from './color_picker';
+import {
+  ColorPickerComponent,
+  IconPickerComponent,
+  Input,
+  Label,
+  Section,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from './components';
 import { Form } from './form';
-import { FieldRender } from './form.field';
-import { IconPickerComponent } from './icon_picker';
-import { Input } from './input';
-import { Label } from './label';
-import { Section } from './section';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from './select';
+import { FieldRender } from './render';
 import { FormLayout } from './types';
 
 import { Button } from '@/button';

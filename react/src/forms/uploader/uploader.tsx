@@ -2,8 +2,6 @@ import React from 'react';
 
 import { cn } from '@ncobase/utils';
 
-import { Icons } from '../../icon';
-
 import {
   FileInput,
   FileUploader,
@@ -11,6 +9,8 @@ import {
   FileUploaderItem,
   type FileUploaderProps
 } from './elements';
+
+import { Icons } from '@/icon';
 
 interface DropPlaceholderProps {
   text?: {

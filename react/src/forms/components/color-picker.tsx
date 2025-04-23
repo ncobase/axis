@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import { cn } from '@ncobase/utils';
 
-import { Input } from './input';
-import type { ColorPickerComponentProps } from './types';
+import type { ColorPickerComponentProps } from '../types';
+
+import { Input } from './base';
 
 // Default color presets
 const DEFAULT_PRESETS = [

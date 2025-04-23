@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import { cn } from '@ncobase/utils';
 
-import { Icons } from '../icon';
+import { Icons } from '@/icon';
 
-import type { SectionProps } from './types';
+export interface SectionProps {
+  title: string;
+  subtitle?: string;
+  children: ReactNode;
+  collapsible?: boolean;
+  defaultCollapsed?: boolean;
+  className?: string;
+  titleClassName?: string;
+  subtitleClassName?: string;
+  contentClassName?: string;
+  icon?: string;
+}
 
 export const Section: React.FC<SectionProps> = ({
   title,

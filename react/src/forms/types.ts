@@ -13,22 +13,20 @@ import type {
 export type FormLayout = 'default' | 'single' | 'inline' | 'custom';
 
 export interface FormContextValue<TFieldValues extends FieldValues = FieldValues> {
-  control?: Control<TFieldValues>;
+  control?: Control<FieldValues, any, FieldValues> | any;
   errors?: FieldErrors<TFieldValues>;
-  // eslint-disable-next-line no-unused-vars
-  register?: (name: Path<TFieldValues>, options?: RegisterOptions<TFieldValues>) => void;
+  register?: (_name: Path<TFieldValues>, _options?: RegisterOptions<TFieldValues>) => void;
 }
 
 export interface FormProps<TFieldValues extends FieldValues = FieldValues>
   extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> {
-  control?: Control<TFieldValues>;
+  control?: Control<FieldValues, any, FieldValues> | any;
   errors?: FieldErrors<TFieldValues>;
   children?: ReactNode;
   fields?: FieldConfigProps<TFieldValues>[];
   defaultValues?: DefaultValues<TFieldValues>;
   layout?: FormLayout;
-  // eslint-disable-next-line no-unused-vars
-  onSubmit?: (e?: React.FormEvent<HTMLFormElement>, data?: TFieldValues) => void;
+  onSubmit?: (_e?: React.FormEvent<HTMLFormElement>, _data?: TFieldValues) => void;
 }
 
 export interface FieldConfigProps<TFieldValues extends FieldValues = FieldValues> {
@@ -166,19 +164,6 @@ export interface FieldProps<TFieldValues extends FieldValues = FieldValues>
   onBlur?: () => void;
 }
 
-export interface SectionProps {
-  title: string;
-  subtitle?: string;
-  children: ReactNode;
-  collapsible?: boolean;
-  defaultCollapsed?: boolean;
-  className?: string;
-  titleClassName?: string;
-  subtitleClassName?: string;
-  contentClassName?: string;
-  icon?: string;
-}
-
 export interface ColorPickerComponentProps extends Omit<FieldProps, 'type'> {
   presetColors?: string[];
   allowCustomColor?: boolean;
@@ -207,23 +192,4 @@ export interface FormSection {
   icon: string;
   collapsible: boolean;
   fields: FormField[];
-}
-
-export interface TreeNode {
-  value: string;
-  label: string;
-  children?: TreeNode[];
-}
-
-export interface MultiSelectProps extends Omit<FieldProps, 'type'> {
-  options: Array<{ label: string; value: any }>;
-  placeholder?: string;
-  disabled?: boolean;
-}
-
-export interface TreeSelectProps extends Omit<FieldProps, 'type'> {
-  options: TreeNode[];
-  placeholder?: string;
-  multiple?: boolean;
-  disabled?: boolean;
 }
