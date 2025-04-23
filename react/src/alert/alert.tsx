@@ -1,50 +1,50 @@
-import * as React from 'react';
+import React from 'react';
 
 import { cn } from '@ncobase/utils';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { VariantProps } from 'class-variance-authority';
 
-const alertVariants = cva(
-  'relative w-full rounded-lg px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background text-foreground',
-        destructive:
-          'border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive'
-      }
-    },
-    defaultVariants: {
-      variant: 'default'
-    }
-  }
-);
+import { alertVariants, AlertRoot, AlertDescription, AlertTitle } from './alert.elements';
 
-const Alert = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
->(({ className, variant, ...props }, ref) => (
-  <div ref={ref} role='alert' className={cn(alertVariants({ variant }), className)} {...props} />
-));
-Alert.displayName = 'Alert';
+interface AlertViewProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof alertVariants> {
+  /**
+   * Alert title
+   */
+  title?: string;
+  /**
+   * Alert description
+   */
+  description?: string;
+  /**
+   * Alert children elements
+   */
+  children?: React.ReactNode;
+  /**
+   * Icon to display in the alert
+   */
+  icon?: React.ReactNode;
+  /**
+   * Alert className
+   */
+  className?: string;
+}
 
-const AlertTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => (
-    // eslint-disable-next-line jsx-a11y/heading-has-content
-    <h5
-      ref={ref}
-      className={cn('mb-1 font-medium leading-none tracking-tight', className)}
-      {...props}
-    />
-  )
-);
-AlertTitle.displayName = 'AlertTitle';
-
-const AlertDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn('text-sm [&_p]:leading-relaxed', className)} {...props} />
-));
-AlertDescription.displayName = 'AlertDescription';
-
-export { Alert, AlertTitle, AlertDescription };
+export const Alert: React.FC<AlertViewProps> = ({
+  title,
+  description,
+  children,
+  icon,
+  className,
+  variant,
+  ...props
+}) => {
+  return (
+    <AlertRoot className={cn(className)} variant={variant} {...props}>
+      {icon}
+      {title && <AlertTitle>{title}</AlertTitle>}
+      {description && <AlertDescription>{description}</AlertDescription>}
+      {children}
+    </AlertRoot>
+  );
+};
