@@ -462,7 +462,7 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
       onMouseLeave={handleMouseLeave}
       style={style}
     >
-      <div className='h-11 w-full flex cursor-pointer items-center justify-between gap-x-1.5 px-3 py-2'>
+      <div className='h-11 w-full flex items-center justify-between gap-x-1.5 px-3 py-2'>
         <div className='flex items-center gap-x-1.5 break-keep'>
           {icon && <Icons name={icon} className='stroke-slate-400/65' size={14} />}
           {children ? children : title}

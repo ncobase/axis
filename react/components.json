@@ -6,9 +6,12 @@
   "tailwind": {
     "config": "",
     "css": "src/index.css",
-    "baseColor": "primary",
-    "cssVariables": true,
-    "prefix": ""
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@ncobase/utils"
   },
   "iconLibrary": "lucide"
 }

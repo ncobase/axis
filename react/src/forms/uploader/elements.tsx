@@ -333,7 +333,7 @@ export const FileUploaderItem: React.FC<FileUploaderItemProps> = ({
       </Button>
       {!isSingleFile && (
         <div
-          className='absolute bottom-1 left-1 right-1 text-xs truncate text-white bg-black bg-opacity-50 p-1 rounded-sm'
+          className='absolute bottom-1 left-1 right-1 text-xs truncate text-white bg-black/50 p-1 rounded-sm'
           title={file.name}
         >
           {file.name}
