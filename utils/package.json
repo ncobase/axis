@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/utils",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "Utility functions library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -17,15 +17,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "clsx": "catalog:",
-    "date-fns": "catalog:",
-    "jsencrypt": "catalog:",
-    "nanoid": "catalog:",
-    "tailwind-merge": "catalog:"
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "jsencrypt": "^3.3.2",
+    "nanoid": "^5.1.5",
+    "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
     "@ncobase/tsconfig": "workspace:*",
-    "tsup": "catalog:"
+    "tsup": "^8.4.0"
   },
   "publishConfig": {
     "access": "public"

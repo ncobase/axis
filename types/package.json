@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/types",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Common TypeScript types",
   "types": "./index.d.ts",
   "files": [
@@ -8,7 +8,7 @@
     "README.md"
   ],
   "peerDependencies": {
-    "@types/react": "catalog:"
+    "@types/react": "^18.3.20"
   },
   "sideEffects": false,
   "publishConfig": {

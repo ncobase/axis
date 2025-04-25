@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/flows",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.2",
   "description": "flows library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -16,16 +16,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@xyflow/react": "catalog:"
+    "@xyflow/react": "^12.6.0"
   },
   "devDependencies": {
-    "@emotion/css": "catalog:",
+    "@emotion/css": "^11.13.5",
     "@ncobase/tailwind": "workspace:*",
     "@ncobase/tsconfig": "workspace:*",
     "@ncobase/utils": "workspace:*",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "react": "catalog:",
-    "tsup": "catalog:"
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.6",
+    "react": "^18.3.1",
+    "tsup": "^8.4.0"
   }
 }

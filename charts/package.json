@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/charts",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "charts library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -16,16 +16,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "echarts": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
-    "recharts": "catalog:"
+    "echarts": "^5.6.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.3"
   },
   "devDependencies": {
     "@ncobase/tsconfig": "workspace:*",
     "@ncobase/utils": "workspace:*",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "tsup": "catalog:"
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.6",
+    "tsup": "^8.4.0"
   }
 }
