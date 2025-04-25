@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import { useControlledState } from './useControlledState';
 import { useHierarchicalData, HierarchicalNode } from './useHierarchicalData';
@@ -15,7 +15,7 @@ export function useHierarchicalSelect<T = any>(
   onChange?: (_value: any) => void,
   options: HierarchicalSelectOptions = {}
 ) {
-  const { multiple = false, allowParentSelection = true } = options;
+  const { multiple = false, allowParentSelection = false } = options;
 
   // Initialize controlled state
   const [selectedValues, setSelectedValues] = useControlledState<any[]>(
@@ -24,17 +24,29 @@ export function useHierarchicalSelect<T = any>(
       : multiple
         ? Array.isArray(value)
           ? value
-          : [value]
+          : value !== null
+            ? [value]
+            : []
         : Array.isArray(value)
-          ? [value[0]]
-          : [value],
+          ? value.length > 0
+            ? [value[0]]
+            : []
+          : value !== null
+            ? [value]
+            : [],
     multiple
       ? Array.isArray(defaultValue)
         ? defaultValue
-        : []
+        : defaultValue !== null
+          ? [defaultValue]
+          : []
       : Array.isArray(defaultValue)
-        ? [defaultValue[0]]
-        : [defaultValue]
+        ? defaultValue.length > 0
+          ? [defaultValue[0]]
+          : []
+        : defaultValue !== null
+          ? [defaultValue]
+          : []
   );
 
   // Process hierarchical data
@@ -42,6 +54,15 @@ export function useHierarchicalSelect<T = any>(
 
   // Track expanded nodes state
   const [expandedNodes, setExpandedNodes] = useState(new Set<string | number>());
+
+  // Nodes structure changes
+  useEffect(() => {
+    // Auto-expand if we have few nodes
+    if (nodes.length > 0 && nodes.length <= 10) {
+      const rootNodes = nodes.filter(node => !node.parent).map(node => node.value);
+      setExpandedNodes(new Set(rootNodes));
+    }
+  }, [nodes]);
 
   // Get all descendant values for a node
   const getAllDescendantValues = useCallback(
@@ -174,7 +195,7 @@ export function useHierarchicalSelect<T = any>(
             newValues = newValues.filter(v => !descendants.includes(v));
           }
 
-          // Update parent nodes
+          // Update parent nodes - remove parents if needed
           const parents = getAllParentValues(nodeValue);
           parents.forEach(parent => {
             if (newValues.includes(parent)) {
@@ -182,39 +203,53 @@ export function useHierarchicalSelect<T = any>(
             }
           });
         } else {
-          // Select this node
-          newValues.push(nodeValue);
-
-          // If this is a parent and we're selecting all descendants
+          // If it's a parent node and parent selection is not allowed
           if (hasChildren && !allowParentSelection) {
+            // Select all child nodes, but not the parent node itself
             const descendants = getAllDescendantValues(nodeValue);
             descendants.forEach(desc => {
               if (!newValues.includes(desc)) {
                 newValues.push(desc);
               }
             });
-          }
+          } else {
+            // Parent selection is allowed, or this is a leaf node
+            newValues.push(nodeValue);
 
-          // Check parent nodes - if all siblings are now selected, also select the parent
-          const parents = getAllParentValues(nodeValue);
-          parents.forEach(parent => {
-            const children = parentChildMap[parent] || [];
-            const allChildrenSelected = children.every(child => newValues.includes(child));
+            // If parent selection is allowed, check if all sibling nodes are selected
+            if (allowParentSelection) {
+              const parents = getAllParentValues(nodeValue);
+              parents.forEach(parent => {
+                const children = parentChildMap[parent] || [];
+                const allChildrenSelected = children.every(
+                  child =>
+                    newValues.includes(child) ||
+                    // Check if all child nodes of the child are selected
+                    (parentChildMap[child]?.length > 0 &&
+                      areAllChildrenSelected(child) &&
+                      newValues.includes(child))
+                );
 
-            if (allChildrenSelected && !newValues.includes(parent)) {
-              newValues.push(parent);
+                if (allChildrenSelected && !newValues.includes(parent)) {
+                  newValues.push(parent);
+                }
+              });
             }
-          });
+          }
         }
       } else {
-        // Single selection mode
+        // Single select mode
+        // If it's a parent node and parent selection is not allowed, do nothing
+        if (hasChildren && !allowParentSelection) {
+          return;
+        }
         newValues = [nodeValue];
       }
 
       // Update state and call onChange callback
       setSelectedValues(newValues);
       if (onChange) {
-        onChange(multiple ? newValues : newValues[0]);
+        onChange(multiple ? newValues : newValues.length > 0 ? newValues[0] : null);
       }
     },
     [
@@ -224,31 +259,24 @@ export function useHierarchicalSelect<T = any>(
       getAllDescendantValues,
       getAllParentValues,
       allowParentSelection,
-      onChange
+      onChange,
+      areAllChildrenSelected
     ]
   );
 
   // Get filtered selected values for display (avoid showing redundant parent-child selections)
   const getFilteredSelectedValues = useCallback(() => {
     if (!multiple) return selectedValues;
+    if (!allowParentSelection) return selectedValues;
 
     return selectedValues.filter(value => {
-      const hasChildren = (parentChildMap[value] || []).length > 0;
+      // Get all parents of this value
+      const parents = getAllParentValues(value);
 
-      if (hasChildren) {
-        const allChildrenSelected = areAllChildrenSelected(value);
-
-        if (allChildrenSelected) {
-          // Don't show parent when all descendants are explicitly selected
-          const descendants = getAllDescendantValues(value);
-          const allDescendantsSelected = descendants.every(desc => selectedValues.includes(desc));
-          return !allDescendantsSelected;
-        }
-      }
-
-      return true;
+      // If any parent is selected, don't show this child
+      return !parents.some(parent => selectedValues.includes(parent));
     });
-  }, [multiple, selectedValues, parentChildMap, areAllChildrenSelected, getAllDescendantValues]);
+  }, [multiple, selectedValues, allowParentSelection, getAllParentValues]);
 
   // Get all nodes that should be visible based on expanded state and search term
   const getVisibleNodes = useCallback(
@@ -261,34 +289,43 @@ export function useHierarchicalSelect<T = any>(
 
           // Check if all ancestor nodes are expanded
           let currentParent = node.parent;
+          let isVisible = true;
+
           while (currentParent) {
             if (!expandedNodes.has(currentParent)) {
-              return false;
+              isVisible = false;
+              break;
             }
             currentParent = nodesMap[currentParent]?.parent;
           }
-          return true;
+
+          return isVisible;
         });
       }
 
-      // Get all nodes that match the search term
-      const matchingNodes = flattenedNodes.filter(node =>
-        String(node.label).toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      // When searching, show all nodes that match or are in the path to matching nodes
+      const nodesToShow = new Set<HierarchicalNode>();
+      const matchingNodeValues = new Set<string | number>();
 
-      // Include all parents of matching nodes to maintain hierarchy
-      const nodesToShow = new Set(matchingNodes);
-      matchingNodes.forEach(node => {
-        let currentParent = node.parent;
+      // First collect all matching nodes
+      flattenedNodes.forEach(node => {
+        if (String(node.label).toLowerCase().includes(searchTerm.toLowerCase())) {
+          matchingNodeValues.add(node.value);
+          nodesToShow.add(node);
+        }
+      });
+
+      // Then add all ancestors of matching nodes to keep the tree structure
+      matchingNodeValues.forEach(nodeValue => {
+        let currentParent = nodesMap[nodeValue]?.parent;
         while (currentParent) {
-          // Add parent to visible nodes
           const parentNode = nodesMap[currentParent];
           if (parentNode) {
             nodesToShow.add(parentNode);
-            // Auto-expand parent
+            // Auto-expand ancestors when searching
             setExpandedNodes(prev => {
               const newExpanded = new Set(prev);
-              newExpanded.add(currentParent);
+              newExpanded.add(currentParent as string | number);
               return newExpanded;
             });
           }
@@ -296,9 +333,25 @@ export function useHierarchicalSelect<T = any>(
         }
       });
 
+      // Then add all descendants of matching nodes
+      const addDescendants = (nodeValue: string | number) => {
+        const children = parentChildMap[nodeValue] || [];
+        children.forEach(childValue => {
+          const childNode = nodesMap[childValue];
+          if (childNode) {
+            nodesToShow.add(childNode);
+            addDescendants(childValue);
+          }
+        });
+      };
+
+      matchingNodeValues.forEach(nodeValue => {
+        addDescendants(nodeValue);
+      });
+
       return Array.from(nodesToShow);
     },
-    [flattenedNodes, expandedNodes, nodesMap]
+    [flattenedNodes, expandedNodes, nodesMap, parentChildMap]
   );
 
   return {
@@ -320,32 +373,6 @@ export function useHierarchicalSelect<T = any>(
     areAllChildrenSelected,
     areAnyChildrenSelected,
     getIndeterminateState,
-    getVisibleNodes,
-
-    // Helper methods
-    expandAllNodes: () => {
-      const allNodeValues = flattenedNodes.map(node => node.value);
-      setExpandedNodes(new Set(allNodeValues));
-    },
-    collapseAllNodes: () => {
-      setExpandedNodes(new Set());
-    },
-    expandNodeAndParents: (nodeValue: string | number) => {
-      setExpandedNodes(prev => {
-        const newExpanded = new Set(prev);
-
-        // Add this node
-        newExpanded.add(nodeValue);
-
-        // Add all parents
-        let currentParent = nodesMap[nodeValue]?.parent;
-        while (currentParent) {
-          newExpanded.add(currentParent);
-          currentParent = nodesMap[currentParent]?.parent;
-        }
-
-        return newExpanded;
-      });
-    }
+    getVisibleNodes
   };
 }

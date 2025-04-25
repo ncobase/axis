@@ -16,8 +16,7 @@ export const RenderOption = React.forwardRef<HTMLDivElement, any>(
               const updatedValue = checked
                 ? [...(defaultValue || []), value]
                 : (defaultValue || []).filter((val: any) => val !== value);
-              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-              onChange && onChange(updatedValue);
+              onChange?.(updatedValue);
             }}
             defaultChecked={defaultValue?.includes(value)}
             {...rest}

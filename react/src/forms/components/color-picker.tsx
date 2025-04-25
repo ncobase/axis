@@ -137,8 +137,7 @@ export const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newColor = e.target.value;
     setCurrentColor(newColor);
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    onChange && onChange(newColor);
+    onChange?.(newColor);
   };
 
   return (
@@ -168,7 +167,7 @@ export const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({
                 type='button'
                 className={cn(
                   'w-6 h-6 rounded-md border',
-                  color === currentColor ? 'ring-2 ring-primary-600' : 'border-slate-200'
+                  color === currentColor ? 'ring-1 ring-primary-600' : 'border-slate-200'
                 )}
                 style={{ backgroundColor: color }}
                 onClick={() => handleColorChange(color)}

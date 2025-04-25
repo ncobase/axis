@@ -62,8 +62,7 @@ export const InputField = React.forwardRef<HTMLInputElement, FieldProps>(
                 size='ratio'
                 onClick={() => {
                   const newValue = parseInt(rest['value']) + 1 || 0;
-                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                  onChange && onChange(newValue);
+                  onChange?.(newValue);
                 }}
               >
                 <Icons name='IconChevronUp' />
@@ -74,8 +73,7 @@ export const InputField = React.forwardRef<HTMLInputElement, FieldProps>(
                 size='ratio'
                 onClick={() => {
                   const newValue = parseInt(rest['value']) - 1 || 0;
-                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                  onChange && onChange(newValue);
+                  onChange?.(newValue);
                 }}
               >
                 <Icons name='IconChevronDown' />

@@ -509,6 +509,7 @@ export const FormBuilder = ({ className }: { className?: string }) => {
           type: 'multi-select',
           defaultValue: [],
           placeholder: 'Select multiple options',
+          searchable: true,
           options: [
             { label: 'Option A', value: 'optionA' },
             { label: 'Option B', value: 'optionB' },
@@ -528,7 +529,9 @@ export const FormBuilder = ({ className }: { className?: string }) => {
           type: 'tree-select',
           defaultValue: [],
           placeholder: 'Select hierarchical options',
+          searchable: true,
           multiple: true,
+          allowParentSelection: false,
           options: [
             {
               label: 'Category 1',
@@ -1270,7 +1273,7 @@ export default MyForm;`;
                 </div>
               )}
 
-              {['select', 'multi-select', 'radio', 'checkbox'].includes(fieldData.type) && (
+              {['select', 'radio', 'checkbox'].includes(fieldData.type) && (
                 <div className='col-span-2 flex flex-col gap-y-1'>
                   <Label>Options</Label>
                   <div
@@ -1337,21 +1340,182 @@ export default MyForm;`;
                 </div>
               )}
 
+              {fieldData.type === 'multi-select' && (
+                <>
+                  <div className='col-span-2 flex flex-col gap-y-1'>
+                    <Label>Searchable</Label>
+                    <Select
+                      value={
+                        fieldData.searchable === undefined
+                          ? 'yes'
+                          : fieldData.searchable
+                            ? 'yes'
+                            : 'no'
+                      }
+                      onValueChange={value => handleChange('searchable', value === 'yes')}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='yes'>Yes</SelectItem>
+                        <SelectItem value='no'>No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className='col-span-2 flex flex-col gap-y-1'>
+                    <Label>Options</Label>
+                    <div
+                      className={`border rounded-md p-3 ${formTheme === 'dark' ? 'border-slate-700 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}
+                    >
+                      {fieldData.options?.map((option, optIndex) => (
+                        <div key={optIndex} className='flex items-center gap-2 mb-2'>
+                          <Input
+                            type='text'
+                            value={option.label}
+                            onChange={e => {
+                              const updatedOptions = [...fieldData.options];
+                              updatedOptions[optIndex] = {
+                                ...updatedOptions[optIndex],
+                                label: e.target.value
+                              };
+                              handleChange('options', updatedOptions);
+                            }}
+                            placeholder='Label'
+                            className='flex-1'
+                          />
+                          <Input
+                            type='text'
+                            value={option.value}
+                            onChange={e => {
+                              const updatedOptions = [...fieldData.options];
+                              updatedOptions[optIndex] = {
+                                ...updatedOptions[optIndex],
+                                value: e.target.value
+                              };
+                              handleChange('options', updatedOptions);
+                            }}
+                            placeholder='Value'
+                            className='flex-1'
+                          />
+                          <Button
+                            variant='outline-danger'
+                            size='sm'
+                            onClick={() => {
+                              const updatedOptions = [...fieldData.options];
+                              updatedOptions.splice(optIndex, 1);
+                              handleChange('options', updatedOptions);
+                            }}
+                          >
+                            <Icons name='IconTrash' />
+                          </Button>
+                        </div>
+                      ))}
+                      <Button
+                        variant='outline-slate'
+                        size='sm'
+                        onClick={() => {
+                          const options = fieldData.options || [];
+                          handleChange('options', [
+                            ...options,
+                            { label: 'New Option', value: `option${options.length + 1}` }
+                          ]);
+                        }}
+                      >
+                        <Icons name='IconPlus' className='mr-2' />
+                        Add Option
+                      </Button>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {fieldData.type === 'tree-select' && (
+                <>
+                  <div className='col-span-2 flex flex-col gap-y-1'>
+                    <Label>Multiple Selection</Label>
+                    <Select
+                      value={fieldData.multiple ? 'yes' : 'no'}
+                      onValueChange={value => handleChange('multiple', value === 'yes')}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='yes'>Yes</SelectItem>
+                        <SelectItem value='no'>No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className='col-span-2 flex flex-col gap-y-1'>
+                    <Label>Allow Parent Selection</Label>
+                    <Select
+                      value={
+                        fieldData.allowParentSelection === undefined
+                          ? 'yes'
+                          : fieldData.allowParentSelection
+                            ? 'yes'
+                            : 'no'
+                      }
+                      onValueChange={value => handleChange('allowParentSelection', value === 'yes')}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='yes'>Yes</SelectItem>
+                        <SelectItem value='no'>No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className='col-span-2 flex flex-col gap-y-1'>
+                    <Label>Searchable</Label>
+                    <Select
+                      value={
+                        fieldData.searchable === undefined
+                          ? 'yes'
+                          : fieldData.searchable
+                            ? 'yes'
+                            : 'no'
+                      }
+                      onValueChange={value => handleChange('searchable', value === 'yes')}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='yes'>Yes</SelectItem>
+                        <SelectItem value='no'>No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className='col-span-2 flex flex-col gap-y-1'>
+                    <Label>Tree Options</Label>
+                    <div
+                      className={`border rounded-md p-3 ${formTheme === 'dark' ? 'border-slate-700 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}
+                    >
+                      <TreeOptionsEditor
+                        options={fieldData.options || []}
+                        onChange={newOptions => handleChange('options', newOptions)}
+                        formTheme={formTheme}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+
               {fieldData.type === 'tree-select' && (
                 <div className='col-span-2 flex flex-col gap-y-1'>
-                  <Label>Multiple Selection</Label>
-                  <Select
-                    value={fieldData.multiple ? 'yes' : 'no'}
-                    onValueChange={value => handleChange('multiple', value === 'yes')}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder='Select' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='yes'>Yes</SelectItem>
-                      <SelectItem value='no'>No</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label>Placeholder</Label>
+                  <Input
+                    type='text'
+                    value={fieldData.placeholder || ''}
+                    onChange={e => handleChange('placeholder', e.target.value)}
+                  />
                 </div>
               )}
 
@@ -1374,6 +1538,50 @@ export default MyForm;`;
                       onChange={e => handleChange('maxSize', parseInt(e.target.value))}
                       min='1024'
                     />
+                  </div>
+                  <div className='col-span-2 flex flex-col gap-y-1'>
+                    <Label>Placeholder Text</Label>
+                    <div className='grid grid-cols-3 gap-2'>
+                      <div>
+                        <Label className='text-xs mb-1'>Main Text</Label>
+                        <Input
+                          type='text'
+                          value={fieldData.placeholderText?.main || 'Upload your files'}
+                          onChange={e =>
+                            handleChange('placeholderText', {
+                              ...fieldData.placeholderText,
+                              main: e.target.value
+                            })
+                          }
+                        />
+                      </div>
+                      <div>
+                        <Label className='text-xs mb-1'>Sub Text</Label>
+                        <Input
+                          type='text'
+                          value={fieldData.placeholderText?.sub || 'or drag and drop'}
+                          onChange={e =>
+                            handleChange('placeholderText', {
+                              ...fieldData.placeholderText,
+                              sub: e.target.value
+                            })
+                          }
+                        />
+                      </div>
+                      <div>
+                        <Label className='text-xs mb-1'>Hint Text</Label>
+                        <Input
+                          type='text'
+                          value={fieldData.placeholderText?.hint || ''}
+                          onChange={e =>
+                            handleChange('placeholderText', {
+                              ...fieldData.placeholderText,
+                              hint: e.target.value
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
                   </div>
                 </>
               )}
@@ -1411,6 +1619,59 @@ export default MyForm;`;
                 </div>
               )}
 
+              {fieldData.type === 'color' && (
+                <div className='col-span-2 flex flex-col gap-y-1'>
+                  <Label>Preset Colors</Label>
+                  <div
+                    className={`border rounded-md p-3 ${formTheme === 'dark' ? 'border-slate-700 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}
+                  >
+                    <div className='grid grid-cols-7 gap-2 mb-2'>
+                      {(fieldData.presetColors || []).map((color, index) => (
+                        <div key={index} className='flex items-center'>
+                          <div
+                            className='w-8 h-8 rounded-md mr-2 cursor-pointer'
+                            style={{ backgroundColor: color }}
+                            onClick={() => {
+                              const colorPicker = document.createElement('input');
+                              colorPicker.type = 'color';
+                              colorPicker.value = color;
+                              colorPicker.addEventListener('input', e => {
+                                const updatedColors = [...(fieldData.presetColors || [])];
+                                updatedColors[index] = (e.target as HTMLInputElement).value;
+                                handleChange('presetColors', updatedColors);
+                              });
+                              colorPicker.click();
+                            }}
+                          />
+                          <Button
+                            variant='outline-danger'
+                            size='sm'
+                            onClick={() => {
+                              const updatedColors = [...(fieldData.presetColors || [])];
+                              updatedColors.splice(index, 1);
+                              handleChange('presetColors', updatedColors);
+                            }}
+                          >
+                            <Icons name='IconX' className='w-3 h-3' />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                    <Button
+                      variant='outline-slate'
+                      size='sm'
+                      onClick={() => {
+                        const presetColors = fieldData.presetColors || [];
+                        handleChange('presetColors', [...presetColors, '#3b82f6']);
+                      }}
+                    >
+                      <Icons name='IconPlus' className='mr-2' />
+                      Add Color
+                    </Button>
+                  </div>
+                </div>
+              )}
+
               {fieldData.type === 'icon' && (
                 <div className='col-span-2'>
                   <Label>Default Icon</Label>
@@ -1420,6 +1681,104 @@ export default MyForm;`;
                       onChange={icon => handleChange('defaultValue', icon)}
                     />
                   </div>
+                </div>
+              )}
+
+              {fieldData.type === 'icon' && (
+                <>
+                  <div className='flex flex-col gap-y-1'>
+                    <Label>Searchable</Label>
+                    <Select
+                      value={fieldData.searchable ? 'yes' : 'no'}
+                      onValueChange={value => handleChange('searchable', value === 'yes')}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='yes'>Yes</SelectItem>
+                        <SelectItem value='no'>No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className='flex flex-col gap-y-1'>
+                    <Label>Categorized</Label>
+                    <Select
+                      value={fieldData.categorized ? 'yes' : 'no'}
+                      onValueChange={value => handleChange('categorized', value === 'yes')}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='yes'>Yes</SelectItem>
+                        <SelectItem value='no'>No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
+
+              {fieldData.type === 'date' && (
+                <div className='col-span-2 flex flex-col gap-y-1'>
+                  <Label>Default Date</Label>
+                  <div className='flex items-center space-x-2'>
+                    <Button
+                      variant='outline-slate'
+                      onClick={() => handleChange('defaultValue', new Date())}
+                    >
+                      <Icons name='IconCalendar' className='mr-2' />
+                      Set to Today
+                    </Button>
+                    <Button
+                      variant='outline-slate'
+                      onClick={() => handleChange('defaultValue', null)}
+                    >
+                      <Icons name='IconX' className='mr-2' />
+                      Clear Default
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {fieldData.type === 'date-range' && (
+                <div className='col-span-2 flex flex-col gap-y-1'>
+                  <Label>Default Date Range</Label>
+                  <div className='flex items-center space-x-2'>
+                    <Button
+                      variant='outline-slate'
+                      onClick={() => {
+                        const today = new Date();
+                        const nextMonth = new Date();
+                        nextMonth.setMonth(today.getMonth() + 1);
+                        handleChange('defaultValue', {
+                          from: today,
+                          to: nextMonth
+                        });
+                      }}
+                    >
+                      <Icons name='IconCalendarDue' className='mr-2' />
+                      Set 1 Month Range
+                    </Button>
+                    <Button
+                      variant='outline-slate'
+                      onClick={() => handleChange('defaultValue', { from: null, to: null })}
+                    >
+                      <Icons name='IconX' className='mr-2' />
+                      Clear Default
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {['select', 'multi-select'].includes(fieldData.type) && (
+                <div className='col-span-2 flex flex-col gap-y-1'>
+                  <Label>Placeholder</Label>
+                  <Input
+                    type='text'
+                    value={fieldData.placeholder || ''}
+                    onChange={e => handleChange('placeholder', e.target.value)}
+                  />
                 </div>
               )}
 
@@ -1465,6 +1824,147 @@ export default MyForm;`;
             </Button>
           </div>
         </div>
+      </div>
+    );
+  };
+
+  // Tree Options Editor Component
+  const TreeOptionsEditor = ({ options = [], onChange, formTheme }) => {
+    const addRootCategory = () => {
+      onChange([
+        ...options,
+        {
+          label: 'New Category',
+          value: `category${options.length + 1}`,
+          children: []
+        }
+      ]);
+    };
+
+    return (
+      <div className='space-y-4'>
+        {options.map((option, index) => (
+          <TreeOption
+            key={index}
+            option={option}
+            index={index}
+            onChange={updatedOption => {
+              const newOptions = [...options];
+              newOptions[index] = updatedOption;
+              onChange(newOptions);
+            }}
+            onRemove={() => {
+              const newOptions = [...options];
+              newOptions.splice(index, 1);
+              onChange(newOptions);
+            }}
+            level={0}
+            formTheme={formTheme}
+          />
+        ))}
+
+        <Button variant='outline-slate' size='sm' onClick={addRootCategory}>
+          <Icons name='IconPlus' className='mr-2' />
+          Add Root Category
+        </Button>
+      </div>
+    );
+  };
+
+  // Individual tree option component for editing
+  const TreeOption = ({ option, index, onChange, onRemove, level = 0, formTheme }) => {
+    const { label, value, children = [] } = option;
+
+    const handleLabelChange = e => {
+      onChange({
+        ...option,
+        label: e.target.value
+      });
+    };
+
+    const handleValueChange = e => {
+      onChange({
+        ...option,
+        value: e.target.value
+      });
+    };
+
+    const handleChildrenChange = updatedChildren => {
+      onChange({
+        ...option,
+        children: updatedChildren
+      });
+    };
+
+    const handleAddChild = () => {
+      const newChildren = [...children];
+      newChildren.push({
+        label: 'New Item',
+        value: `${value}_item${children.length + 1}`,
+        children: []
+      });
+      handleChildrenChange(newChildren);
+    };
+
+    return (
+      <div className='mb-3' key={`tree-option-${index}`}>
+        <div className='flex items-center gap-2 mb-2' style={{ paddingLeft: `${level * 20}px` }}>
+          {level > 0 && (
+            <div
+              className={`w-4 h-0 border-t ${formTheme === 'dark' ? 'border-slate-600' : 'border-slate-300'}`}
+            ></div>
+          )}
+
+          <Input
+            type='text'
+            value={label}
+            onChange={handleLabelChange}
+            placeholder='Label'
+            className='flex-1'
+          />
+
+          <Input
+            type='text'
+            value={value}
+            onChange={handleValueChange}
+            placeholder='Value'
+            className='flex-1'
+          />
+
+          <Button variant='outline-slate' size='sm' onClick={handleAddChild} title='Add child item'>
+            <Icons name='IconPlus' />
+          </Button>
+
+          <Button variant='outline-danger' size='sm' onClick={onRemove} title='Remove item'>
+            <Icons name='IconTrash' />
+          </Button>
+        </div>
+
+        {children && children.length > 0 && (
+          <div
+            className={`pl-4 border-l ${formTheme === 'dark' ? 'border-slate-600' : 'border-slate-200'}`}
+          >
+            {children.map((child, childIndex) => (
+              <TreeOption
+                key={childIndex}
+                option={child}
+                index={childIndex}
+                onChange={updatedChild => {
+                  const newChildren = [...children];
+                  newChildren[childIndex] = updatedChild;
+                  handleChildrenChange(newChildren);
+                }}
+                onRemove={() => {
+                  const newChildren = [...children];
+                  newChildren.splice(childIndex, 1);
+                  handleChildrenChange(newChildren);
+                }}
+                level={level + 1}
+                formTheme={formTheme}
+              />
+            ))}
+          </div>
+        )}
       </div>
     );
   };

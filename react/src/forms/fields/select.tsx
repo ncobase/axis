@@ -34,8 +34,7 @@ export const SelectField = React.forwardRef<HTMLDivElement, FieldProps>(
     const handleValueChange = useCallback(
       (newValue: string) => {
         setValue(newValue);
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        onChange && onChange(newValue);
+        onChange?.(newValue);
       },
       [onChange]
     );
@@ -44,8 +43,7 @@ export const SelectField = React.forwardRef<HTMLDivElement, FieldProps>(
       (e: React.MouseEvent) => {
         e.stopPropagation();
         setValue(emptyValue);
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        onChange && onChange(emptyValue);
+        onChange?.(emptyValue);
       },
       [onChange, emptyValue]
     );

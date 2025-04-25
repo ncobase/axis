@@ -18,8 +18,7 @@ export const IconPickerComponent: React.FC<IconPickerComponentProps> = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const handleIconSelect = (iconName: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    onChange && onChange(iconName);
+    onChange?.(iconName);
   };
 
   return (
