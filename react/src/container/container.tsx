@@ -2,18 +2,22 @@ import React from 'react';
 
 import { cn } from '@ncobase/utils';
 
-export type TSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-
 export interface ContainerProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
-  size?: TSizes | string | number;
+  size?: string | number;
 }
 
 export const Container: React.FC<ContainerProps> = ({ className, size = 'full', ...rest }) => {
-  const classes = cn(
-    'flex flex-col overflow-y-auto container mx-auto p-4',
-    `max-w-${[size]}`,
-    className
-  );
+  const baseClasses = 'flex flex-col overflow-y-auto mx-auto p-4';
+
+  const getClasses = () => {
+    if (size === 'full') {
+      return `${baseClasses} w-full`;
+    }
+
+    return `${baseClasses} container max-w-${size}!`;
+  };
+
+  const classes = cn(getClasses(), className);
 
   return <div className={classes} {...rest} />;
 };

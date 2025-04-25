@@ -59,7 +59,7 @@ export const ShellSubmenu: React.FC<IProps> = memo(
       defaultStyling,
       positioningClasses,
       // Hide on mobile, show on larger screens
-      'hidden md:flex',
+      // 'hidden md:flex',
       className
     );
 

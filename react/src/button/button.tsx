@@ -1,10 +1,11 @@
 import * as React from 'react';
 
 import { cn } from '@ncobase/utils';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { Slot } from '@radix-ui/react-slot';
+import { type VariantProps, cva } from 'class-variance-authority';
 
-export const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-1.5 whitespace-nowrap transition-all outline-hidden',
+const buttonVariants = cva(
+  'inline-flex items-center justify-center gap-1.5 whitespace-nowrap transition-all rounded-md font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-75',
   {
     variants: {
       variant: {
@@ -70,8 +71,11 @@ export const buttonVariants = cva(
         'outline-cyan':
           'border border-cyan-600 text-cyan-600 [&>svg]:stroke-cyan-600 hover:border-cyan-600/65 hover:bg-cyan-50 hover:[&>svg]:stroke-cyan-600/65 focus:border-cyan-700/90',
         link: 'text-primary-500 hover:text-primary-600 [&>svg]:stroke-primary-500 [&>svg]:hover:text-primary-500/65 hover:text-primary-500/95 focus:text-primary-600/90',
+        editor: 'bg-transparent text-editor-toolbar-foreground hover:bg-secondary size-8 p-0',
         unstyle:
-          'bg-transparent text-slate-500 [&>svg]:stroke-slate-400/65 [&>svg]:hover:stroke-slate-400 [&>svg]:focus:stroke-slate-400 hover:opacity-80 focus:opacity-90'
+          'bg-transparent text-slate-500 [&>svg]:stroke-slate-400/65 [&>svg]:hover:stroke-slate-400 [&>svg]:focus:stroke-slate-400 hover:opacity-80 focus:opacity-90',
+        ghost:
+          'bg-transparent text-slate-500 hover:bg-secondary hover:text-editor-toolbar-foreground [&>svg]:stroke-slate-400/65 [&>svg]:hover:stroke-slate-400 [&>svg]:focus:stroke-slate-400 hover:opacity-80 focus:opacity-90'
       },
       size: {
         xs: 'px-1.5 py-0.5 rounded-xs text-xs',
@@ -79,12 +83,19 @@ export const buttonVariants = cva(
         md: 'px-3 py-1.5 rounded-md',
         lg: 'px-4 py-2 rounded-md',
         xl: 'px-5 py-2.5 rounded-lg',
-        ratio: 'px-2 py-1.5 rounded-md'
+        ratio: 'px-2 py-1.5 rounded-md',
+        editorIcon: 'size-8',
+        icon: 'size-9 p-0'
+      },
+      isActive: {
+        true: 'bg-editor-toolbar-active text-editor-toolbar-active-foreground',
+        false: ''
       }
     },
     defaultVariants: {
       variant: 'primary',
-      size: 'md'
+      size: 'md',
+      isActive: false
     }
   }
 );
@@ -95,40 +106,54 @@ export interface ButtonProps
   loading?: boolean;
   prependIcon?: React.ReactElement;
   appendIcon?: React.ReactElement;
+  asChild?: boolean;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       className,
       variant,
       size,
+      isActive,
       type = 'button',
       loading = false,
       disabled = false,
       prependIcon,
       appendIcon,
       children,
+      asChild = false,
       ...props
     },
     ref
   ) => {
     const isDisabled = disabled || loading;
+    const Comp = asChild ? Slot : 'button';
 
-    const iconStyle = {
-      xs: 'h-1.5 w-1.5 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
-      sm: 'h-2.5 w-2.5 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
-      md: 'h-3.5 w-3.5 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
-      lg: 'h-4.5 w-4.5 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
-      xl: 'h-5.5 w-5.5 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
-      ratio: 'inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center'
-    }[size || 'md'];
+    // Define icon styles based on size
+    const getIconStyle = (size?: string) => {
+      const sizes = {
+        xs: 'h-1.5 w-1.5 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
+        sm: 'h-2.5 w-2.5 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
+        md: 'h-3.5 w-3.5 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
+        lg: 'h-4.5 w-4.5 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
+        xl: 'h-5.5 w-5.5 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
+        ratio: 'inline-flex items-center gap-1.5 whitespace-nowrap transition-all justify-center',
+        editorIcon:
+          'h-6 w-6 inline-flex justify-center items-center overflow-hidden my-0.5 shrink-0',
+        icon: 'h-5 w-5 inline-flex justify-center items-center overflow-hidden shrink-0'
+      };
+
+      return sizes[size as keyof typeof sizes] || sizes.md;
+    };
+
+    const iconStyle = getIconStyle(size);
 
     return (
-      <button
+      <Comp
         type={type}
         className={cn(
-          buttonVariants({ variant, size }),
+          buttonVariants({ variant, size, isActive }),
           isDisabled && 'cursor-not-allowed opacity-75',
           className
         )}
@@ -139,8 +164,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {prependIcon && <div className={iconStyle}>{React.cloneElement(prependIcon)}</div>}
         {children}
         {appendIcon && <div className={iconStyle}>{React.cloneElement(appendIcon)}</div>}
-      </button>
+      </Comp>
     );
   }
 );
+
 Button.displayName = 'Button';
+
+export { Button, buttonVariants };

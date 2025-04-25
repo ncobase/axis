@@ -7,7 +7,7 @@ import { useTable } from './table.context';
 import { Button } from '@/button';
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/forms';
 import { Icons } from '@/icon';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/tooltip';
+import { Tooltip } from '@/tooltip';
 
 export interface IPaginationProps {
   className?: string;
@@ -140,34 +140,28 @@ export const Pagination: React.FC<IPaginationProps> = ({
     <div className={classes}>
       <div className='flex items-center justify-between gap-3'>
         {!isBackendPagination && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant='slate'
-                size='ratio'
-                onClick={() => handlePageChange(1)}
-                disabled={isFirstPage}
-              >
-                <Icons name='IconChevronLeftPipe' />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side='bottom'>{firstPage}</TooltipContent>
-          </Tooltip>
-        )}
-        <Tooltip>
-          <TooltipTrigger asChild>
+          <Tooltip content={firstPage} side='bottom'>
             <Button
               variant='slate'
               size='ratio'
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={
-                (isBackendPagination && !hasPrevPage) || (!isBackendPagination && isFirstPage)
-              }
+              onClick={() => handlePageChange(1)}
+              disabled={isFirstPage}
             >
-              <Icons name='IconChevronLeft' />
+              <Icons name='IconChevronLeftPipe' />
             </Button>
-          </TooltipTrigger>
-          <TooltipContent side='bottom'>{previousPage}</TooltipContent>
+          </Tooltip>
+        )}
+        <Tooltip content={previousPage} side='bottom'>
+          <Button
+            variant='slate'
+            size='ratio'
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={
+              (isBackendPagination && !hasPrevPage) || (!isBackendPagination && isFirstPage)
+            }
+          >
+            <Icons name='IconChevronLeft' />
+          </Button>
         </Tooltip>
       </div>
       <div className='flex items-center justify-center gap-x-1 text-slate-400'>
@@ -176,34 +170,26 @@ export const Pagination: React.FC<IPaginationProps> = ({
         <span className='font-bold'>{totalItems}</span> {itemsText}
       </div>
       <div className='flex items-center justify-between gap-3'>
-        <Tooltip>
-          <TooltipTrigger asChild>
+        <Tooltip content={nextPage} side='bottom'>
+          <Button
+            variant='slate'
+            size='ratio'
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={(isBackendPagination && !hasNextPage) || (!isBackendPagination && isLastPage)}
+          >
+            <Icons name='IconChevronRight' />
+          </Button>
+        </Tooltip>
+        {!isBackendPagination && (
+          <Tooltip content={lastPage} side='bottom'>
             <Button
               variant='slate'
               size='ratio'
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={
-                (isBackendPagination && !hasNextPage) || (!isBackendPagination && isLastPage)
-              }
+              onClick={() => handlePageChange(totalPages)}
+              disabled={isLastPage}
             >
-              <Icons name='IconChevronRight' />
+              <Icons name='IconChevronRightPipe' />
             </Button>
-          </TooltipTrigger>
-          <TooltipContent side='bottom'>{nextPage}</TooltipContent>
-        </Tooltip>
-        {!isBackendPagination && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant='slate'
-                size='ratio'
-                onClick={() => handlePageChange(totalPages)}
-                disabled={isLastPage}
-              >
-                <Icons name='IconChevronRightPipe' />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side='bottom'>{lastPage}</TooltipContent>
           </Tooltip>
         )}
         {pageSizes.length > 1 && (
