@@ -10,7 +10,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react --minify",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "clean": "rimraf dist .turbo",
@@ -24,7 +24,7 @@
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
-    "@ncobase/tsconfig": "workspace:*",
+    "@ncobase/tsconfig": "workspace:^",
     "tsup": "^8.4.0"
   },
   "publishConfig": {

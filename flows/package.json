@@ -9,7 +9,7 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup --config tsup.config.ts --minify",
+    "build": "tsup --config tsup.config.ts",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "clean": "rimraf dist .turbo",
@@ -20,9 +20,9 @@
   },
   "devDependencies": {
     "@emotion/css": "^11.13.5",
-    "@ncobase/tailwind": "workspace:*",
-    "@ncobase/tsconfig": "workspace:*",
-    "@ncobase/utils": "workspace:*",
+    "@ncobase/tailwind": "workspace:^",
+    "@ncobase/tsconfig": "workspace:^",
+    "@ncobase/utils": "workspace:^",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.6",
     "react": "^18.3.1",

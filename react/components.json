@@ -12,6 +12,5 @@
   "aliases": {
     "components": "@/components",
     "utils": "@ncobase/utils"
-  },
-  "iconLibrary": "lucide"
+  }
 }

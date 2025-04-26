@@ -184,7 +184,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
           </div>
 
           <DialogFooter className='flex justify-between mt-4'>
-            <Button variant='outline-slate' onClick={() => setIsOpen(false)}>
+            <Button variant='outline' onClick={() => setIsOpen(false)}>
               Cancel
             </Button>
             <Button

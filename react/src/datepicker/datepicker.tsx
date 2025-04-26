@@ -83,7 +83,7 @@ const RangeDatePicker: React.FC<IDatePickerProps> = ({
       <PopoverTrigger asChild disabled>
         <Button
           id='date'
-          variant='outline-slate'
+          variant='outline'
           className={cn(datePickerStyles, !dateRange && 'text-slate-400', className)}
           disabled={disabled}
         >

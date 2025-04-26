@@ -9,7 +9,7 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup --config tsup.config.ts --minify",
+    "build": "tsup --config tsup.config.ts",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "clean": "rimraf dist .turbo",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
-    "@ncobase/utils": "workspace:*",
+    "@ncobase/utils": "workspace:^",
     "@radix-ui/react-accordion": "^1.2.8",
     "@radix-ui/react-alert-dialog": "^1.1.11",
     "@radix-ui/react-avatar": "^1.1.7",
@@ -36,6 +36,7 @@
     "@radix-ui/react-tabs": "^1.1.9",
     "@radix-ui/react-tooltip": "^1.2.4",
     "@tabler/icons-react": "^3.31.0",
+    "@tailwindcss/typography": "^0.5.16",
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -56,11 +57,12 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@ncobase/tsconfig": "workspace:*",
+    "@ncobase/tsconfig": "workspace:^",
     "@tailwindcss/postcss": "^4.1.4",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.6",
     "@types/react-syntax-highlighter": "^15.5.13",
+    "postcss": "^8.5.3",
     "react": "^18.3.1",
     "tsup": "^8.4.0"
   }

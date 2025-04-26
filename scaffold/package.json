@@ -10,7 +10,7 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup --config tsup.config.ts --minify",
+    "build": "tsup --config tsup.config.ts",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "clean": "rimraf dist .turbo",
@@ -18,9 +18,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@ncobase/tailwind": "workspace:*",
-    "@ncobase/tsconfig": "workspace:*",
-    "@ncobase/utils": "workspace:*",
+    "@ncobase/tsconfig": "workspace:^",
+    "@ncobase/utils": "workspace:^",
     "tsup": "^8.4.0"
   }
 }

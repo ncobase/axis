@@ -11,12 +11,12 @@
     "**/*.test.tsx"
   ],
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "strictNullChecks": false,
     "verbatimModuleSyntax": false,
     "noImplicitAny": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   }
 }

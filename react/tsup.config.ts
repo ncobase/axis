@@ -13,6 +13,7 @@ export default defineConfig({
     options.banner = {
       js: '"use client";'
     };
+    options.legalComments = 'none';
   },
   loader: {
     '.css': 'copy'
