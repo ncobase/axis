@@ -14,7 +14,11 @@ export const Container: React.FC<ContainerProps> = ({ className, size = 'full', 
       return `${baseClasses} w-full`;
     }
 
-    return `${baseClasses} container max-w-${size}!`;
+    if (size && size !== '') {
+      return `${baseClasses} max-w-${size}`;
+    }
+
+    return `${baseClasses} container`;
   };
 
   const classes = cn(getClasses(), className);
