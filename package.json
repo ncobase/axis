@@ -30,8 +30,8 @@
     "@eslint/compat": "^1.2.8",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.25.1",
-    "@types/node": "^22.15.1",
-    "@typescript-eslint/eslint-plugin": "^8.31.0",
+    "@types/node": "^22.15.3",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
     "eslint": "^9.25.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
@@ -43,8 +43,8 @@
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
-    "turbo": "^2.5.1",
-    "typescript": "^5.7.3"
+    "turbo": "^2.5.2",
+    "typescript": "^5.8.3"
   },
   "packageManager": "pnpm@9.15.9",
   "commitlint": {
