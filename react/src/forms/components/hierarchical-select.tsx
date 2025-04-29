@@ -332,7 +332,7 @@ export const HierarchicalSelect = React.forwardRef<HTMLDivElement, HierarchicalS
             error ? 'border-danger-600' : 'focus-within:border-primary-600',
             'text-slate-500 rounded-md transition-colors gap-1.5 relative cursor-pointer',
             disabled && 'opacity-55 cursor-not-allowed pointer-events-none',
-            prependIcon && 'pl-9'
+            prependIcon && 'pl-9!'
           )}
           onClick={toggleDropdown}
           ref={dropdownRef}
@@ -409,7 +409,7 @@ export const HierarchicalSelect = React.forwardRef<HTMLDivElement, HierarchicalS
                     />
                     <input
                       type='text'
-                      className='w-full pl-8 pr-8 py-1.5 border border-slate-200 rounded-md focus:outline-none focus:border-primary-500'
+                      className='w-full px-9 py-1.5 border border-slate-200 rounded-md focus:outline-none focus:border-primary-500'
                       placeholder='Search...'
                       value={searchTerm}
                       onChange={e => setSearchTerm(e.target.value)}

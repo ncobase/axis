@@ -50,7 +50,7 @@ export const InputField = React.forwardRef<HTMLInputElement, FieldProps>(
             placeholder={placeholder}
             {...rest}
             ref={ref}
-            className={cn(rest['className'], prependIcon && 'pl-9', appendIcon && 'pr-9')}
+            className={cn(rest['className'], prependIcon && 'pl-9!', appendIcon && 'pr-9!')}
           />
           {rest['type'] === 'number' && (
             <div

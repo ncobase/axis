@@ -2,6 +2,7 @@ export * from './checkbox';
 export * from './color-picker';
 export * from './date-range';
 export * from './date';
+export * from './editor';
 export * from './field';
 export * from './icon-picker';
 export * from './input';

@@ -13,7 +13,8 @@ import {
   UploaderField,
   ColorPickerField,
   IconPickerField,
-  InputField
+  InputField,
+  EditorField
 } from './fields';
 import { FieldProps } from './types';
 
@@ -44,6 +45,8 @@ export const FieldRender = React.forwardRef<HTMLDivElement, FieldProps>(
         return <ColorPickerField ref={ref} {...rest} />;
       case 'icon':
         return <IconPickerField ref={ref} {...rest} />;
+      case 'editor':
+        return <EditorField ref={ref} {...rest} />;
       default:
         return (
           <InputField type={type} ref={ref as React.ForwardedRef<HTMLInputElement>} {...rest} />

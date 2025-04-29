@@ -57,7 +57,7 @@ export const SelectField = React.forwardRef<HTMLDivElement, FieldProps>(
           defaultValue={defaultValue}
         >
           <SelectTrigger
-            className={cn('relative', prependIcon && 'pl-9')}
+            className={cn('relative', prependIcon && 'pl-9!')}
             allowClear={allowClear}
             onClear={handleClear}
             value={value}

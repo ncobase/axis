@@ -6,6 +6,7 @@ import type { IconPickerComponentProps } from '../types';
 
 import { Input } from './base';
 
+import { Button } from '@/button';
 import { Icons } from '@/icon';
 import { IconPicker } from '@/icon-picker';
 
@@ -25,20 +26,26 @@ export const IconPickerComponent: React.FC<IconPickerComponentProps> = ({
     <div className={cn('relative', className)}>
       <div className='relative'>
         {value && (
-          <div className='absolute left-2 top-1/2 transform -translate-y-1/2'>
-            <Icons name={value} className='w-4 h-4' />
-          </div>
+          <Button
+            className={cn(
+              'absolute left-1 top-1/2 transform -translate-y-1/2 cursor-default outline-hidden'
+            )}
+            variant='unstyle'
+            size='ratio'
+          >
+            <Icons name={value} />
+          </Button>
         )}
         <Input
           type='text'
           value={value}
           placeholder={placeholder}
-          className={cn(value ? 'pl-8' : '')}
+          className={cn(value && 'pl-9!', className)}
           readOnly
           onClick={() => setIsOpen(true)}
         />
         <div
-          className='absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer [&_svg]:text-slate-500 [&_svg]:fill-slate-500'
+          className='absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer'
           onClick={() => setIsOpen(true)}
         >
           <Icons name='IconChevronDown' className='w-4 h-4' />

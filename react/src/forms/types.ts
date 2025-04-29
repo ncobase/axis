@@ -59,7 +59,7 @@ export interface FieldConfigProps<TFieldValues extends FieldValues = FieldValues
   /**
    * The type of the field
    * valid values: 'input | text', 'password', 'textarea', 'select', 'multi-select', 'tree-select',
-   * 'checkbox', 'radio', 'number', 'date', 'date-range', 'switch', 'hidden', 'color', 'icon'
+   * 'checkbox', 'radio', 'number', 'date', 'date-range', 'switch', 'hidden', 'color', 'icon', 'editor'
    */
   type?:
     | 'input'
@@ -78,6 +78,7 @@ export interface FieldConfigProps<TFieldValues extends FieldValues = FieldValues
     | 'hidden'
     | 'color'
     | 'icon'
+    | 'editor'
     | HTMLInputTypeAttribute
     | HTMLButtonElement['type'];
   /**
