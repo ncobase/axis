@@ -79,7 +79,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
 
   const containerContent = (
     <div
-      className={cn('fixed z-50 flex flex-col items-end', getPositionClasses(), className)}
+      className={cn('fixed z-9999 flex flex-col items-end', getPositionClasses(), className)}
       aria-live='polite'
       role='region'
       aria-label='Notifications'

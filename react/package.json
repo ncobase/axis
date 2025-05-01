@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/react",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "UI components library for React",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
