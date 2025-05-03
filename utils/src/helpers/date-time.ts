@@ -56,44 +56,54 @@ export const formatDateTime = (
   const userLocale = locale || navigator.language || 'en-US';
   return new Intl.DateTimeFormat(userLocale, options).format(parseDate);
 };
+
 /**
  * Format relative time from a date
  * @param date Date to calculate relative time from
- * @param name Optional display name to prepend to the relative time
  * @param labels Optional labels for minutes/hours/days display
- * @returns Formatted relative time string with optional name
+ * @param reverse If true, calculates future time instead of past time
+ * @returns Formatted relative time string
  */
 export const formatRelativeTime = (
   date: Date,
-  name?: string,
   labels?: {
     minutes?: string;
     hours?: string;
     days?: string;
-  }
+  },
+  reverse: boolean = false
 ) => {
   const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
+  const diffMs = reverse ? date.getTime() - now.getTime() : now.getTime() - date.getTime();
   const diffMinutes = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMinutes / 60);
-  const diffDays = Math.floor(diffHours / 24);
 
   const defaultLabels = {
-    minutes: 'minutes ago',
-    hours: 'hours ago',
-    days: 'days ago'
+    minutes: reverse ? 'minutes from now' : 'minutes ago',
+    hours: reverse ? 'hours from now' : 'hours ago',
+    days: reverse ? 'days from now' : 'days ago'
   };
 
   const finalLabels = { ...defaultLabels, ...labels };
 
-  let timeAgo;
-  if (diffMinutes < 60) {
-    timeAgo = `${diffMinutes} ${finalLabels.minutes}`;
-  } else if (diffHours < 24) {
-    timeAgo = `${diffHours} ${finalLabels.hours}`;
-  } else {
-    timeAgo = `${diffDays} ${finalLabels.days}`;
-  }
+  // Remove any {{}} patterns from labels and ensure string values
+  Object.keys(finalLabels).forEach(key => {
+    const labelKey = key as keyof typeof finalLabels;
+    const value = finalLabels[labelKey];
+    if (value) {
+      finalLabels[labelKey] = String(value).replace(/\{\{.*?\}\}/g, '');
+    }
+  });
 
-  return name ? `${name} ${timeAgo}` : timeAgo;
+  // Handle negative values for past times
+  const absMinutes = Math.abs(diffMinutes);
+  const absHours = Math.floor(absMinutes / 60);
+  const absDays = Math.floor(absHours / 24);
+
+  if (absMinutes < 60) {
+    return `${absMinutes} ${finalLabels.minutes}`;
+  } else if (absHours < 24) {
+    return `${absHours} ${finalLabels.hours}`;
+  } else {
+    return `${absDays} ${finalLabels.days}`;
+  }
 };
