@@ -2,7 +2,7 @@
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-primary-50: #f0f3fe;
@@ -108,8 +108,8 @@
 :root {
   --radius: 0.5rem;
 
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.32 0 0);
+  --background: var(--color-white);
+  --foreground: var(--color-slate-950);
 
   --card: var(--background);
   --card-foreground: var(--foreground);
@@ -171,7 +171,7 @@
   --cyan: oklch(0.7 0.15 200);
   --cyan-foreground: oklch(1 0 0);
 
-  --border: oklch(0.9 0.01 270);
+  --border: var(--color-gray-100);
   --input: var(--border);
   --ring: var(--color-primary-600);
 
@@ -201,8 +201,10 @@
 }
 
 .dark {
-  --background: oklch(0.2 0 0);
-  --foreground: oklch(0.92 0 0);
+  --radius: 0.5rem;
+
+  --background: var(--color-slate-950);
+  --foreground: var(--color-white);
 
   --card: var(--background);
   --card-foreground: var(--foreground);
@@ -349,6 +351,81 @@
   --color-editor-placeholder: var(--editor-placeholder);
   --color-editor-highlight: var(--editor-highlight);
   --color-editor-selection: var(--editor-selection);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-100, currentColor);
+  }
+
+  * {
+    @apply outline-hidden! border-border outline-ring/50;
+  }
+
+  *:focus {
+    @apply ring-0! ring-offset-0!;
+  }
+
+  *:focus-visible {
+    @apply outline-hidden! ring-0! ring-offset-0!;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
+  button:focus,
+  button:focus-visible {
+    @apply outline-hidden! ring-0! ring-offset-0!;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-hidden! ring-0! ring-offset-0!;
+  }
+
+  a:focus,
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus {
+    @apply outline-hidden!;
+  }
+
+  html,
+  body {
+    @apply h-full bg-gray-50 dark:bg-gray-900 text-foreground overflow-hidden;
+  }
+
+  body {
+    @apply overflow-auto text-[0.8125rem];
+  }
+
+  .overflow-y-auto::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    @apply bg-black/20 rounded-sm;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    @apply bg-black/40;
+  }
+
+  .overflow-y-auto {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  }
 }
 
 @utility container {

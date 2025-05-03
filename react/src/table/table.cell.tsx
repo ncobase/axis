@@ -200,7 +200,7 @@ export const TableCell = <T extends Record<string, any> = any>({
   options = [],
   colSpan = 1,
   rowSpan = 1
-}: ITableCellProps<T>): JSX.Element | null => {
+}: ITableCellProps<T>) => {
   if (isActionColumn(accessorKey) || isActionColumn(title)) {
     return <ActionCell record={record} actions={actions} />;
   }
@@ -280,7 +280,7 @@ export const TableCell = <T extends Record<string, any> = any>({
 export const ActionCell = <T extends Record<string, any> = any>({
   actions = [],
   record
-}: ITableCellProps<T>): JSX.Element => {
+}: ITableCellProps<T>) => {
   return (
     <td className='h-11 min-w-8 border-b-[0.03125rem] border-gray-100 truncate'>
       <div className='w-full h-full inline-flex px-2 [&>button]:hover:bg-white [&>button]:p-2 [&>button]:rounded-full items-center justify-center'>

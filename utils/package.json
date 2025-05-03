@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/utils",
-  "version": "0.1.6-alpha.1",
+  "version": "0.1.6",
   "description": "Utility functions library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -20,7 +20,7 @@
     "clsx": "^2.1.1",
     "jsencrypt": "^3.3.2",
     "nanoid": "^5.1.5",
-    "tailwind-merge": "^1.14.0"
+    "tailwind-merge": "^3.2.0"
   },
   "devDependencies": {
     "@ncobase/tsconfig": "workspace:^",

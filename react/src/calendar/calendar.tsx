@@ -50,8 +50,13 @@ export const Calendar = ({
         ...classNames
       }}
       components={{
-        IconLeft: () => <Icons name='IconArrowLeft' className='h-4 w-4' />,
-        IconRight: () => <Icons name='IconArrowRight' className='h-4 w-4' />
+        Chevron: props => (
+          <Icons
+            name={props.orientation === 'left' ? 'IconArrowLeft' : 'IconArrowRight'}
+            className='h-4 w-4'
+            {...props}
+          />
+        )
       }}
       {...props}
     />
