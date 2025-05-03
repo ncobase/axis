@@ -1,6 +1,6 @@
 {
   "name": "@ncobase/react",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "UI components library for React",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -61,7 +61,6 @@
     "@tiptap/starter-kit": "^2.11.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "date-fns": "^3.6.0",
     "highlight.js": "^11.11.1",
     "lowlight": "^3.3.0",
     "lucide-react": "^0.501.0",

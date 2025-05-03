@@ -425,9 +425,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      date-fns:
-        specifier: ^3.6.0
-        version: 3.6.0
       highlight.js:
         specifier: ^11.11.1
         version: 11.11.1
@@ -561,9 +558,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      date-fns:
-        specifier: ^3.6.0
-        version: 3.6.0
       jsencrypt:
         specifier: ^3.3.2
         version: 3.3.2

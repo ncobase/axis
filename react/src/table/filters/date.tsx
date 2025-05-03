@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import { cn } from '@ncobase/utils';
-// import { format } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 
 import { useTable } from '../table.context';

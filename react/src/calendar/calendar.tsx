@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { cn } from '@ncobase/utils';
-import { zhCN } from 'date-fns/locale';
 import { DayPicker } from 'react-day-picker';
 
 import { Icons } from '../icon';
@@ -54,7 +53,6 @@ export const Calendar = ({
         IconLeft: () => <Icons name='IconArrowLeft' className='h-4 w-4' />,
         IconRight: () => <Icons name='IconArrowRight' className='h-4 w-4' />
       }}
-      locale={zhCN}
       {...props}
     />
   );
