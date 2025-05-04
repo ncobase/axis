@@ -17,7 +17,6 @@ export const ToggleColumn: React.FC = () => {
         isActionColumn(column.accessorKey) || isActionColumn(column.title) ? null : (
           <DropdownCheckboxItem
             key={index}
-            className='py-2'
             checked={isUndefined(column.visible) || (isBoolean(column.visible) && column.visible)}
             onCheckedChange={() => toggleColumn(column.accessorKey || '')}
           >

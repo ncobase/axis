@@ -189,8 +189,8 @@ export interface FormField extends FieldConfigProps {
 export interface FormSection {
   id: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   icon: string;
-  collapsible: boolean;
+  collapsible?: boolean;
   fields: FormField[];
 }
