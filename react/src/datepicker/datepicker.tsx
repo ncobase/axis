@@ -51,7 +51,7 @@ const SingleDatePicker: React.FC<IDatePickerProps> = ({
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0 bg-white z-999!' align='start'>
-        <Calendar mode='single' selected={date} onSelect={handleSelect} initialFocus />
+        <Calendar mode='single' selected={date} onSelect={handleSelect} />
       </PopoverContent>
     </Popover>
   );
@@ -103,7 +103,6 @@ const RangeDatePicker: React.FC<IDatePickerProps> = ({
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0 bg-white' align='start'>
         <Calendar
-          initialFocus
           mode='range'
           defaultMonth={dateRange?.from}
           selected={dateRange}
