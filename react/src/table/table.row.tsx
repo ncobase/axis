@@ -1,4 +1,4 @@
-import React, { type ReactNode } from 'react';
+import React, { type ReactNode, useCallback } from 'react';
 
 import { cn } from '@ncobase/utils';
 
@@ -65,17 +65,25 @@ export const TableRow: React.FC<ITableRowProps> = ({
     className
   );
 
-  const handleRowMouseEnter = () => {
+  const handleRowMouseEnter = useCallback(() => {
     if (enableRowHighlight && setHighlightedRow) {
       setHighlightedRow(item?.id || null);
     }
-  };
+  }, [enableRowHighlight, item?.id, setHighlightedRow]);
 
-  const handleRowMouseLeave = () => {
+  const handleRowMouseLeave = useCallback(() => {
     if (enableRowHighlight && setHighlightedRow) {
       setHighlightedRow(null);
     }
-  };
+  }, [enableRowHighlight, setHighlightedRow]);
+
+  const handleToggleClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      onToggleExpand();
+    },
+    [onToggleExpand]
+  );
 
   const renderExpandedContent = (): ReactNode => {
     if (hasExpandedContent) {
@@ -92,8 +100,6 @@ export const TableRow: React.FC<ITableRowProps> = ({
     return renderNestedRows?.(item.children, level + 1);
   };
 
-  const iconName = isExpanded ? 'IconChevronDown' : 'IconChevronRight';
-
   return (
     <>
       <tr
@@ -107,45 +113,46 @@ export const TableRow: React.FC<ITableRowProps> = ({
             return null;
           }
 
+          const childProps = child.props as React.PropsWithChildren<any>;
+          const childTitle = childProps?.title;
+          const childAccessorKey = childProps?.accessorKey;
+
           const isExpandField =
-            isTreeColumn(child.props?.title || child.props?.accessorKey) ||
+            isTreeColumn(childTitle || childAccessorKey) ||
             index === 0 ||
-            (index === 1 && !React.isValidElement(children[0]));
+            (index === 1 && !React.isValidElement(Array.isArray(children) ? children[0] : null));
 
           if (canTree && isExpandField) {
             return React.cloneElement(child, {
-              className: cn(child.props.className),
+              className: cn(childProps.className),
               children: (
                 <>
                   {canTree && (
                     <Button
                       variant='unstyle'
                       size='ratio'
-                      onClick={e => {
-                        e.stopPropagation();
-                        onToggleExpand();
-                      }}
+                      onClick={handleToggleClick}
                       className={cn(
                         'p-1 rounded-full hover:bg-gray-200 transition-colors duration-200',
                         level > 0 ? `ml-${level * 2}` : ''
                       )}
                     >
-                      <Icons name={iconName} size={16} />
+                      <Icons name={isExpanded ? 'IconChevronDown' : 'IconChevronRight'} size={16} />
                     </Button>
                   )}
-                  {child.props.children}
+                  {childProps.children}
                 </>
               ),
-              ...child.props
+              ...childProps
             });
           }
 
-          const isNameField = child.props?.accessorKey === 'name';
+          const isNameField = childAccessorKey === 'name';
           const additionalClassName = isNameField && level > 0 ? `pl-${level * 2}` : '';
 
           return React.cloneElement(child, {
-            className: cn(child.props.className, additionalClassName),
-            ...child.props
+            className: cn(childProps.className, additionalClassName),
+            ...childProps
           });
         })}
       </tr>
@@ -153,3 +160,5 @@ export const TableRow: React.FC<ITableRowProps> = ({
     </>
   );
 };
+
+export default TableRow;

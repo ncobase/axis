@@ -27,7 +27,8 @@ export const TableBody: React.FC<ITableBodyProps> = ({
     onSelectRow = () => {},
     isAllExpanded
   } = useTable();
-  const [treeRows, setTreedRows] = useState<Set<string>>(new Set());
+
+  const [treeRows, setTreedRows] = useState<Set<string>>(() => new Set());
 
   const isSelected = (record: any) => selectedRows.includes(record);
 
@@ -46,11 +47,13 @@ export const TableBody: React.FC<ITableBodyProps> = ({
   const allExpandableIds = useMemo(() => {
     const ids = new Set<string>();
     const addIds = (items: any[], level: number = 0) => {
+      if (!items || !Array.isArray(items)) return;
+
       items.forEach(item => {
-        if (item.id) {
+        if (item && item.id) {
           ids.add(item.id);
         }
-        if (item.children && (maxTreeLevel === -1 || level < maxTreeLevel)) {
+        if (item && item.children && (maxTreeLevel === -1 || level < maxTreeLevel)) {
           addIds(item.children, level + 1);
         }
       });
@@ -60,14 +63,12 @@ export const TableBody: React.FC<ITableBodyProps> = ({
   }, [data, maxTreeLevel]);
 
   useEffect(() => {
-    if (isAllExpanded) {
-      setTreedRows(allExpandableIds);
-    } else {
-      setTreedRows(new Set());
-    }
-  }, [isAllExpanded, allExpandableIds]);
+    setTreedRows(isAllExpanded ? allExpandableIds : new Set());
+  }, [isAllExpanded]);
 
   const renderRow = (item: any, level: number = 0): ReactNode => {
+    if (!item) return null;
+
     const itemId = item.id || JSON.stringify(item);
     const canTree =
       (maxTreeLevel !== undefined && maxTreeLevel !== 0) ||
