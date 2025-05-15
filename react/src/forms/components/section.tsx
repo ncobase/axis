@@ -38,7 +38,7 @@ export const Section: React.FC<SectionProps> = ({
   };
 
   return (
-    <div className={cn('border border-slate-200 rounded-md', className)}>
+    <div className={cn('border border-slate-200', className)}>
       <div
         className={cn(
           'bg-slate-50 px-4 py-3 flex items-center justify-between',
