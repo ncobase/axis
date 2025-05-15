@@ -39,17 +39,17 @@ const getDateTimeFormatOptions = (type: DateFormatType): Intl.DateTimeFormatOpti
  * @param dateTime Date time value as string or Date object
  * @param type Format type, defaults to 'dateTime'. Available options: 'year' | 'month' | 'day' | 'date' | 'time' | 'dateTime'
  * @param locale Locale string (e.g. 'en-US', 'zh-CN'). If not provided, uses browser's default locale
- * @returns Formatted date/time string or null if input is invalid
+ * @returns Formatted date/time string or empty string if input is invalid
  */
 export const formatDateTime = (
   dateTime?: string | Date,
   type: DateFormatType = 'dateTime',
   locale?: string
-): string | null => {
-  if (!dateTime) return null;
+): string => {
+  if (!dateTime) return '';
 
   const parseDate = new Date(dateTime);
-  if (isNaN(parseDate.getTime())) return null;
+  if (isNaN(parseDate.getTime())) return '';
 
   const options = getDateTimeFormatOptions(type);
   // Use provided locale or fallback to system default
