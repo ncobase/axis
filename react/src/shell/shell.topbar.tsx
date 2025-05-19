@@ -14,9 +14,9 @@ const defaultStyling =
 
 // Helper function for direction-based positioning
 const getPositioningClasses = (
-  direction: 'ltr' | 'rtl',
-  sidebar: React.ReactNode | undefined,
-  sidebarExpanded: boolean
+  direction?: 'ltr' | 'rtl',
+  sidebar?: React.ReactNode | undefined,
+  sidebarExpanded?: boolean
 ) => {
   const classes = [];
 

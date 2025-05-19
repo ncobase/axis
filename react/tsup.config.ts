@@ -14,6 +14,8 @@ export default defineConfig({
       js: '"use client";'
     };
     options.legalComments = 'none';
+    options.jsx = 'automatic';
+    options.jsxImportSource = 'react';
   },
   loader: {
     '.css': 'copy'

@@ -46,7 +46,7 @@ export const Portal = ({
 
   useEffect(() => {
     // If portal is disabled, skip mounting logic
-    if (disablePortal) return null;
+    if (disablePortal) return () => {};
 
     setMounted(true);
 

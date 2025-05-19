@@ -75,7 +75,7 @@ export const IconPicker = ({
     <Modal
       title={translations.title}
       isOpen={opened}
-      onChange={() => onVisible(!opened)}
+      onChange={() => onVisible?.(!opened)}
       className='w-[390px] max-h-[420px]'
     >
       <Tabs defaultValue='outline'>

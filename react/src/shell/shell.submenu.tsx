@@ -14,11 +14,11 @@ const defaultStyling =
 
 // Calculate positions based on other components
 const getPositioningClasses = (
-  direction: 'ltr' | 'rtl',
-  sidebar: React.ReactNode | undefined,
-  sidebarExpanded: boolean,
-  header: React.ReactNode | undefined,
-  topbar: React.ReactNode | undefined
+  direction?: 'ltr' | 'rtl',
+  sidebar?: React.ReactNode | undefined,
+  sidebarExpanded?: boolean,
+  header?: React.ReactNode | undefined,
+  topbar?: React.ReactNode | undefined
 ) => {
   const classes = [];
 

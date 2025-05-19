@@ -3,7 +3,7 @@ import { cn } from '@ncobase/utils';
 import { Label } from '@/forms';
 import { Icons } from '@/icon';
 
-export const EmptyData = ({ label = 'No data', className, loading = false }) => {
+export const EmptyData = ({ label = 'No data', className = '', loading = false }) => {
   const classes = cn(className, 'items-center justify-center flex flex-col');
 
   return (
