@@ -173,11 +173,11 @@ export const ColumnFilter: React.FC<ColumnFilterProps> = ({ column, texts: custo
           {/* Active filters */}
           {conditions.length > 0 && (
             <div className='space-y-2'>
-              <h5 className='text-sm font-medium'>{texts.activeFilters}</h5>
+              <h5 className='font-medium'>{texts.activeFilters}</h5>
               {conditions.map((condition, index) => (
                 <div
                   key={index}
-                  className='flex items-center justify-between rounded bg-slate-50 p-2 text-sm'
+                  className='flex items-center justify-between rounded bg-slate-50 p-2'
                 >
                   <span>
                     {operatorOptions.find(op => op.value === condition.operator)?.label ||
@@ -200,7 +200,7 @@ export const ColumnFilter: React.FC<ColumnFilterProps> = ({ column, texts: custo
 
           {/* Add new condition */}
           <div className='space-y-2'>
-            <h5 className='text-sm font-medium'>{texts.addFilter}</h5>
+            <h5 className='font-medium'>{texts.addFilter}</h5>
             <div className='grid grid-cols-1 gap-2'>
               <Select
                 value={newCondition.operator}

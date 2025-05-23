@@ -46,7 +46,7 @@ export const GlobalSearch: React.FC = () => {
         placeholder='Search in table...'
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
-        className='pl-9 pr-3 py-1.5 text-sm'
+        className='pl-9 pr-3 py-1.5'
       />
       {searchTerm && (
         <Button

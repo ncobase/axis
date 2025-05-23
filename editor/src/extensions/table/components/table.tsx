@@ -249,7 +249,7 @@ export const TableComponent = memo(({ editor, node, getPos }: TableComponentProp
           {actionType === 'create-table' && (
             <div className='grid grid-cols-2 gap-4 py-4'>
               <div className='space-y-2'>
-                <label htmlFor='rows' className='text-sm font-medium'>
+                <label htmlFor='rows' className='font-medium'>
                   {t('editor.dialog.table.rows')}
                 </label>
                 <input
@@ -263,7 +263,7 @@ export const TableComponent = memo(({ editor, node, getPos }: TableComponentProp
                 />
               </div>
               <div className='space-y-2'>
-                <label htmlFor='cols' className='text-sm font-medium'>
+                <label htmlFor='cols' className='font-medium'>
                   {t('editor.dialog.table.columns')}
                 </label>
                 <input

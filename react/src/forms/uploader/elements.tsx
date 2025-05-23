@@ -313,7 +313,7 @@ export const FileUploaderItem: React.FC<FileUploaderItemProps> = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       {renderFilePreview()}
-      {isSingleFile && <span className='text-sm truncate flex-1 ml-2'>{file.name}</span>}
+      {isSingleFile && <span className='truncate flex-1 ml-2'>{file.name}</span>}
       <Button
         variant='unstyle'
         className={cn(

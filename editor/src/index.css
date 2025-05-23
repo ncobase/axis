@@ -504,7 +504,7 @@
 
 .nco-editor-floating-menu button {
   @apply flex items-center gap-2 px-3 py-1.5 w-full;
-  @apply text-left text-sm rounded-sm;
+  @apply text-left rounded-sm;
   @apply hover:bg-secondary focus-visible:ring-1 focus-visible:ring-ring;
 }
 
@@ -541,7 +541,7 @@
 }
 
 .nco-editor-content code {
-  @apply bg-secondary text-secondary-foreground px-1.5 py-0.5 rounded-md text-sm;
+  @apply bg-secondary text-secondary-foreground px-1.5 py-0.5 rounded-md;
 }
 
 .nco-editor-content a {

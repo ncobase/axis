@@ -116,9 +116,7 @@ export const ImageButton: React.FC<ImageButtonProps> = ({ editor, uploadFn }) =>
                   disabled={uploading}
                 />
                 {uploading && (
-                  <p className='text-sm text-muted-foreground'>
-                    {t('editor.dialog.image.uploading')}
-                  </p>
+                  <p className='text-muted-foreground'>{t('editor.dialog.image.uploading')}</p>
                 )}
               </div>
             )}

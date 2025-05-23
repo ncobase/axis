@@ -155,7 +155,7 @@ export const CellTypes = {
         </Avatar>
         <div>
           <div className='font-medium'>{name}</div>
-          {description && <div className='text-sm text-gray-500'>{description}</div>}
+          {description && <div className='text-gray-500'>{description}</div>}
         </div>
       </div>
     );

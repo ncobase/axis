@@ -24,7 +24,7 @@ export const BatchOperations: React.FC<{
 
   return (
     <div className='flex items-center gap-2 p-2 bg-slate-50 border-b border-slate-200'>
-      <span className='text-sm text-slate-500'>
+      <span className='text-slate-500'>
         {selectedRows.length} {selectedRows.length === 1 ? 'row' : 'rows'} selected
       </span>
 

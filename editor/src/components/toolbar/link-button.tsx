@@ -164,7 +164,7 @@ export const LinkButton = memo(({ editor, isOpen, onClose }: LinkButtonProps) =>
               checked={openInNewTab}
               onCheckedChange={checked => setOpenInNewTab(checked as boolean)}
             />
-            <Label htmlFor='newTab' className='text-sm cursor-pointer'>
+            <Label htmlFor='newTab' className='cursor-pointer'>
               {t('editor.dialog.link.openInNewTab')}
             </Label>
           </div>

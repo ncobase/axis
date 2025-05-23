@@ -154,7 +154,7 @@ export const HierarchicalSelect = React.forwardRef<HTMLDivElement, HierarchicalS
               return (
                 <div
                   key={value}
-                  className='flex items-center bg-slate-100 rounded-md px-2 py-0.5 text-sm max-w-[150px]'
+                  className='flex items-center bg-slate-100 rounded-md px-2 py-0.5 max-w-[150px]'
                 >
                   <span className='truncate'>{node.label}</span>
                   <Button
@@ -188,7 +188,7 @@ export const HierarchicalSelect = React.forwardRef<HTMLDivElement, HierarchicalS
             return (
               <div
                 key={value}
-                className='flex items-center bg-slate-100 rounded-md px-2 py-0.5 text-sm max-w-[200px]'
+                className='flex items-center bg-slate-100 rounded-md px-2 py-0.5 max-w-[200px]'
               >
                 <span className='truncate'>{node.label}</span>
                 <Button
@@ -304,7 +304,7 @@ export const HierarchicalSelect = React.forwardRef<HTMLDivElement, HierarchicalS
                   <div className='absolute w-1.5 h-1.5 bg-primary-600 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'></div>
                 )}
               </div>
-              <span className='text-sm truncate flex-1'>{displayLabel}</span>
+              <span className='truncate flex-1'>{displayLabel}</span>
             </div>
 
             {/* Render children if expanded */}

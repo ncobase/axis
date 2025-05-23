@@ -93,7 +93,7 @@ export const NumberFilter: React.FC<NumberFilterProps> = ({
             name='IconFilter'
             className={cn('h-4 w-4', hasActiveFilter && 'stroke-blue-500')}
           />
-          {/* <span className='text-sm hidden sm:inline'>
+          {/* <span className='hidden sm:inline'>
             {hasActiveFilter
               ? `${range[0] !== null ? range[0] : 'Min'} - ${range[1] !== null ? range[1] : 'Max'}`
               : ''}

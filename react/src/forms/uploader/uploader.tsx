@@ -30,7 +30,7 @@ const DropPlaceholder: React.FC<DropPlaceholderProps> = ({
   return (
     <div className='flex items-center justify-center flex-col pt-3 pb-4 w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65 shadow-[0.03125rem_0.03125rem_0.125rem_0_rgba(0,0,0,0.03)] rounded-md cursor-pointer'>
       <Icons name='IconCloudUpload' className='w-12 h-12 mb-2 text-slate-400' stroke={1} />
-      <p className='mb-1 text-sm text-gray-500 dark:text-gray-400'>
+      <p className='mb-1 text-gray-500 dark:text-gray-400'>
         <span className='font-medium'>{text.main}</span>
         &nbsp; {text.sub}
       </p>
@@ -49,7 +49,7 @@ const SingleFileDropPlaceholder: React.FC<DropPlaceholderProps> = ({
     <div className='flex items-center justify-start w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65 shadow-[0.03125rem_0.03125rem_0.125rem_0_rgba(0,0,0,0.03)] rounded-md cursor-pointer px-3 py-2'>
       <Icons name='IconCloudUpload' className='w-5 h-5 mr-2 text-slate-400' stroke={1} />
       <div>
-        <p className='text-sm text-gray-500 dark:text-gray-400'>
+        <p className='text-gray-500 dark:text-gray-400'>
           <span className='font-medium'>{text.main}</span>
           &nbsp; {text.sub}
           {text.hint && <p className='text-xs text-gray-500 dark:text-gray-400'>{text.hint}</p>}

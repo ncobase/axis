@@ -71,7 +71,7 @@ export const SelectFilter: React.FC<SelectFilterProps> = ({
           )}
         >
           <Icons name='IconList' className={cn('h-4 w-4', hasActiveFilter && 'stroke-blue-500')} />
-          {/* <span className='text-sm hidden sm:inline'>
+          {/* <span className='hidden sm:inline'>
             {hasActiveFilter ? `${selectedCount} selected` : ''}
           </span> */}
         </Button>
@@ -86,10 +86,7 @@ export const SelectFilter: React.FC<SelectFilterProps> = ({
                   checked={selectedValues.includes(option.value)}
                   onCheckedChange={() => handleSelect(option.value)}
                 />
-                <label
-                  htmlFor={`option-${option.value}`}
-                  className='ml-2 text-sm cursor-pointer w-full'
-                >
+                <label htmlFor={`option-${option.value}`} className='ml-2 cursor-pointer w-full'>
                   {option.label}
                 </label>
               </div>

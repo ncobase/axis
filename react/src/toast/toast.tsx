@@ -78,7 +78,7 @@ export const ToastItem: React.FC<ToastProps> = ({ toast, onDismiss }) => {
     >
       <div className='shrink-0 mr-3 mt-0.5'>{getIcon()}</div>
       <div className='grow'>
-        <h4 className='text-sm font-medium text-slate-800'>{toast.message}</h4>
+        <h4 className='font-medium text-slate-800'>{toast.message}</h4>
         {toast.description && <p className='text-xs text-slate-600 mt-1'>{toast.description}</p>}
       </div>
       <button

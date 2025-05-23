@@ -74,7 +74,7 @@ export const DateFilter: React.FC<DateFilterProps> = ({ accessorKey, handleFilte
             name='IconCalendar'
             className={cn('h-4 w-4', hasActiveFilter && 'stroke-blue-500')}
           />
-          {/* <span className='text-sm hidden sm:inline'>{formatDisplayDate()}</span> */}
+          {/* <span className='hidden sm:inline'>{formatDisplayDate()}</span> */}
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0' align='start'>

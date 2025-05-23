@@ -155,7 +155,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
           </div>
 
           <div className='mt-4'>
-            <Label className='block text-sm font-medium text-gray-700 mb-1'>Custom Color</Label>
+            <Label className='block font-medium text-gray-700 mb-1'>Custom Color</Label>
             <div className='flex items-center'>
               <div
                 className='w-8 h-8 rounded-sm border mr-2 shrink-0'

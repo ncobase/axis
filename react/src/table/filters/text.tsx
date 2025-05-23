@@ -60,7 +60,7 @@ export const TextFilter: React.FC<TextFilterProps> = ({
             name='IconSearch'
             className={cn('h-4 w-4', hasActiveFilter && 'stroke-blue-500')}
           />
-          {/* <span className='text-sm hidden sm:inline'>{hasActiveFilter ? `"${value}"` : ''}</span> */}
+          {/* <span className='hidden sm:inline'>{hasActiveFilter ? `"${value}"` : ''}</span> */}
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-60 p-2' align='start'>

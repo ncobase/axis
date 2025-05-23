@@ -141,7 +141,7 @@ export const ImageNode = memo(({ node, updateAttributes, editor }: ImageNodeProp
               placeholder={t('editor.dialog.image.altText')}
               value={alt || ''}
               onChange={e => updateAttributes({ alt: e.target.value })}
-              className='text-sm p-1 border border-border rounded'
+              className='p-1 border border-border rounded'
               aria-label={t('editor.dialog.image.altText')}
             />
 
@@ -153,7 +153,7 @@ export const ImageNode = memo(({ node, updateAttributes, editor }: ImageNodeProp
                 max='1000'
                 value={width ? parseInt(width) : ''}
                 onChange={e => handleResize(e, 'width')}
-                className='w-16 text-sm p-1 border border-border rounded'
+                className='w-16 p-1 border border-border rounded'
                 aria-label={t('editor.imageUpload.width')}
               />
             </div>
@@ -166,7 +166,7 @@ export const ImageNode = memo(({ node, updateAttributes, editor }: ImageNodeProp
                 max='1000'
                 value={height ? parseInt(height) : ''}
                 onChange={e => handleResize(e, 'height')}
-                className='w-16 text-sm p-1 border border-border rounded'
+                className='w-16 p-1 border border-border rounded'
                 aria-label={t('editor.imageUpload.height')}
               />
             </div>

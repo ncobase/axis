@@ -38,7 +38,7 @@ export function Calendar({
         ),
         [UI.MonthGrid]: 'w-full border-collapse space-y-2',
         [UI.Weekdays]: 'flex justify-between',
-        [UI.Weekday]: 'text-center w-10 font-medium text-sm text-muted-foreground',
+        [UI.Weekday]: 'text-center w-10 font-medium text-muted-foreground',
         [UI.Week]: 'flex w-full justify-between',
         [UI.Day]: 'flex h-8 w-8 overflow-hidden justify-center items-center p-0 m-1 relative',
         [UI.DayButton]: cn(

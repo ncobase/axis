@@ -62,7 +62,7 @@ export const badgeVariants = cva(
         sm: 'h-2 w-2 text-xs',
         md: 'h-3 w-3 text-xs',
         lg: 'h-4 w-4 text-xs',
-        xl: 'h-5 w-5 text-sm'
+        xl: 'h-5 w-5'
       }
     },
     defaultVariants: {
