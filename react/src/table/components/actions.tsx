@@ -11,6 +11,7 @@ export const Actions = (props: any) => {
         <DropdownItem
           key={index}
           onClick={() => action?.onClick?.(record)}
+          disabled={action?.disabled}
           className='flex items-center space-x-2'
         >
           {action?.icon && <Icons name={action?.icon} className='-ml-0.5' />}

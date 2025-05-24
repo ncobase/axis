@@ -47,6 +47,7 @@ export interface ITableCellBaseProps<T = any> {
     label?: string;
     icon?: string;
     onClick?: (_record: T) => void;
+    disabled?: (_record: T) => boolean;
   }>;
   /**
    * column editable
