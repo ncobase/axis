@@ -25,7 +25,7 @@ export interface ITableCellBaseProps<T = any> {
   /**
    * column title
    */
-  title?: string;
+  title?: string | ((_record: T) => string);
   /**
    * column accessor key
    */
@@ -33,19 +33,19 @@ export interface ITableCellBaseProps<T = any> {
   /**
    * column value parser
    */
-  parser?: (_value?: any, _record?: T) => React.ReactNode;
+  parser?: (_value?: any, _record?: T) => React.ReactNode | string | number;
   /**
    * column icon
    */
-  icon?: string;
+  icon?: string | ((_record: T) => string);
   /**
    * column actions, last column will be actions
    */
   actions?: Array<{
-    title?: string;
+    title?: string | ((_record: T) => string);
     name?: string;
     label?: string;
-    icon?: string;
+    icon?: string | ((_record: T) => string);
     onClick?: (_record: T) => void;
     disabled?: (_record: T) => boolean;
   }>;
@@ -308,12 +308,13 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   filter = 'sort',
   filterConfig = {},
   style,
-  title,
+  title: titleProp,
   accessorKey = '',
   icon,
   className,
   children
 }) => {
+  const title = typeof titleProp === 'function' ? titleProp({}) : titleProp;
   const {
     filter: filterState,
     setFilter,
@@ -465,7 +466,13 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
     >
       <div className='h-11 w-full flex items-center justify-between gap-x-1.5 px-3 py-2'>
         <div className='flex items-center gap-x-1.5 break-keep'>
-          {icon && <Icons name={icon} className='stroke-slate-400/65' size={14} />}
+          {icon && (
+            <Icons
+              name={typeof icon === 'function' ? icon({}) : icon}
+              className='stroke-slate-400/65'
+              size={14}
+            />
+          )}
           {children ? children : title}
           {enableAdvancedFilters && !isSpecialColumn(accessorKey) && (
             <ColumnFilter column={accessorKey} />

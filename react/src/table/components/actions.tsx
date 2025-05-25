@@ -15,7 +15,11 @@ export const Actions = (props: any) => {
           className='flex items-center space-x-2'
         >
           {action?.icon && <Icons name={action?.icon} className='-ml-0.5' />}
-          <span>{action?.title || action?.name || action?.label}</span>
+          <span>
+            {typeof action?.title === 'function'
+              ? action.title(record)
+              : action?.title || action?.name || action?.label}
+          </span>
         </DropdownItem>
       ))}
     </DropdownWrapper>

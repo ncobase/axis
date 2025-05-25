@@ -7,7 +7,7 @@ import { useTable } from './table.context';
 import { Button } from '@/button';
 import { Icons } from '@/icon';
 
-export const isActionColumn = (key: string = ''): boolean => {
+export const isActionColumn = (key: string | ((_record: any) => string)): boolean => {
   const actionKeys = [
     'action-column',
     'actionColumn',
@@ -15,6 +15,12 @@ export const isActionColumn = (key: string = ''): boolean => {
     'operation-column',
     'operationColumn'
   ];
+
+  if (typeof key === 'function') {
+    const keyString = key({});
+    return actionKeys.includes(keyString.toLowerCase());
+  }
+
   return actionKeys.includes(key.toLowerCase());
 };
 

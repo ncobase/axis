@@ -20,7 +20,7 @@ export const ToggleColumn: React.FC = () => {
             checked={isUndefined(column.visible) || (isBoolean(column.visible) && column.visible)}
             onCheckedChange={() => toggleColumn(column.accessorKey || '')}
           >
-            {column.title}
+            {typeof column.title === 'function' ? column.title({}) : column.title}
           </DropdownCheckboxItem>
         )
       )}
