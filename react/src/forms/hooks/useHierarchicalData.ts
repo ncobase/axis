@@ -30,7 +30,7 @@ export function useHierarchicalData<T = any>(
     const parentChildMap: Record<string | number, (string | number)[]> = {};
     const rootNodes: HierarchicalNode<T>[] = [];
 
-    // Helper function to process nodes recursively
+    // Process nodes recursively
     const processNode = (
       node: HierarchicalNode<T>,
       level = 0,

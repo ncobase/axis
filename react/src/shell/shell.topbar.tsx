@@ -12,7 +12,7 @@ interface IProps extends React.PropsWithChildren<HtmlHTMLAttributes<HTMLDivEleme
 const defaultStyling =
   'fixed top-0 z-997 flex shrink-0 min-h-12 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]';
 
-// Helper function for direction-based positioning
+// Direction-based positioning
 const getPositioningClasses = (
   direction?: 'ltr' | 'rtl',
   sidebar?: React.ReactNode | undefined,

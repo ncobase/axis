@@ -18,15 +18,15 @@ export const isActionColumn = (key: string | ((_record: any) => string)): boolea
 
   if (typeof key === 'function') {
     const keyString = key({});
-    return actionKeys.includes(keyString.toLowerCase());
+    return actionKeys.includes(keyString?.toLowerCase());
   }
 
-  return actionKeys.includes(key.toLowerCase());
+  return actionKeys.includes(key?.toLowerCase());
 };
 
 export const isTreeColumn = (key: string = ''): boolean => {
   const treeKeys = ['tree', '树', 'treeRow', 'treeRows', 'trees'];
-  return treeKeys.includes(key.toLowerCase());
+  return treeKeys.includes(key?.toLowerCase());
 };
 
 interface ITableRowProps {
