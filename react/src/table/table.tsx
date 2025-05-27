@@ -416,14 +416,14 @@ export const TableView = <T extends Record<string, any> = any>({
   );
 
   const classes = cn(
-    'flex flex-col justify-between h-full bg-white rounded-md overflow-auto shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]',
+    'flex flex-col bg-white rounded-md shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]',
     className
   );
-
+  const containerClasses = cn(classes, 'h-full max-h-full flex flex-col');
   if (loading && (!paginatedData || paginatedData.length === 0)) {
-    return <EmptyData loading={loading} className={classes} />;
+    return <EmptyData loading={loading} className={containerClasses} />;
   } else if (!paginatedData || paginatedData.length === 0) {
-    return <EmptyData className={classes} label={emptyDataLabel} />;
+    return <EmptyData className={containerClasses} label={emptyDataLabel} />;
   }
 
   return (
@@ -442,35 +442,40 @@ export const TableView = <T extends Record<string, any> = any>({
         }
       }}
     >
-      <div className={classes}>
-        <div className='flex-1 flex flex-col justify-start'>
-          {/* Toolbar - Import/Export, Global Search, etc. */}
-          {(showImportExport || showGlobalSearch || batchOperations.length > 0) && (
-            <div className='flex items-center justify-between py-3'>
+      <div className={containerClasses}>
+        {/* Toolbar - Import/Export, Global Search, etc. */}
+        {(showImportExport || showGlobalSearch || batchOperations.length > 0) && (
+          <div className='flex-none border-b border-gray-100'>
+            <div className='flex items-center justify-between p-3'>
               <div className='flex items-center gap-2'>
                 {/* Table name */}
                 <h3 className='text-lg font-medium'>{rest.title || ''}</h3>
               </div>
-
               <div className='flex items-center gap-3'>
                 {/* Global search */}
                 {showGlobalSearch && <GlobalSearch />}
-
                 {/* Import/Export features */}
                 {showImportExport && <ImportExportFeature />}
               </div>
             </div>
-          )}
-
-          {/* Batch operations bar */}
-          {batchOperations.length > 0 && <BatchOperations operations={batchOperations} />}
-          <div className='overflow-auto relative'>
+            {/* Batch operations bar */}
+            {batchOperations.length > 0 && <BatchOperations operations={batchOperations} />}
+          </div>
+        )}
+        {/* Table content */}
+        <div className='flex-1 flex flex-col min-h-0'>
+          {/* Fixed header */}
+          <div className='flex-none bg-white'>
             <table className='w-full table-auto'>
               <TableHeader
-                style={{ position: 'sticky', top: 0, zIndex: 10 }}
                 expandComponent={effectiveExpandComponent}
                 maxTreeLevel={effectiveMaxTreeLevel}
               />
+            </table>
+          </div>
+          {/* Scrollable body */}
+          <div className='flex-1 overflow-auto'>
+            <table className='w-full table-auto'>
               <TableBody
                 data={paginatedData}
                 expandComponent={effectiveExpandComponent}
@@ -479,6 +484,7 @@ export const TableView = <T extends Record<string, any> = any>({
             </table>
           </div>
         </div>
+        {/* Fixed pagination */}
         {paginated && (
           <Pagination
             totalItems={isBackendPagination ? total : filteredData.length}
