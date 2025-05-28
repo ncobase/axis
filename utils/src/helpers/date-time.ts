@@ -36,13 +36,13 @@ const getDateTimeFormatOptions = (type: DateFormatType): Intl.DateTimeFormatOpti
 
 /**
  * Format date and time
- * @param dateTime Date time value as string or Date object
+ * @param dateTime Date time value as string or Date object or timestamp
  * @param type Format type, defaults to 'dateTime'. Available options: 'year' | 'month' | 'day' | 'date' | 'time' | 'dateTime'
  * @param locale Locale string (e.g. 'en-US', 'zh-CN'). If not provided, uses browser's default locale
  * @returns Formatted date/time string or empty string if input is invalid
  */
 export const formatDateTime = (
-  dateTime?: string | Date,
+  dateTime?: string | Date | number,
   type: DateFormatType = 'dateTime',
   locale?: string
 ): string => {
@@ -65,7 +65,7 @@ export const formatDateTime = (
  * @returns Formatted relative time string
  */
 export const formatRelativeTime = (
-  date: Date,
+  date: Date | string | number,
   labels?: {
     minutes?: string;
     hours?: string;
@@ -73,8 +73,13 @@ export const formatRelativeTime = (
   },
   reverse: boolean = false
 ) => {
+  const parseDate = new Date(date);
+  if (isNaN(parseDate.getTime())) return '';
+
   const now = new Date();
-  const diffMs = reverse ? date.getTime() - now.getTime() : now.getTime() - date.getTime();
+  const diffMs = reverse
+    ? parseDate.getTime() - now.getTime()
+    : now.getTime() - parseDate.getTime();
   const diffMinutes = Math.floor(diffMs / 60000);
 
   const defaultLabels = {
