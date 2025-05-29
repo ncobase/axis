@@ -53,7 +53,7 @@ export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps
       onChange?.(newValues);
     };
 
-    // Render a single checkbox with its label
+    // Render a single checkbox
     const renderOption = (option: CheckboxOption) => {
       const id = `${name}-${option.value}`.replace(/\./g, '-');
       const isChecked = selectedValues.includes(option.value);

@@ -33,7 +33,7 @@ export const TreeSelect = React.forwardRef<HTMLDivElement, TreeSelectProps>(
     },
     ref
   ) => {
-    // Transform nested options array to flat format with parent references
+    // Transform nested options array to flat format
     const processedOptions = React.useMemo(() => {
       const result: Array<any> = [];
 

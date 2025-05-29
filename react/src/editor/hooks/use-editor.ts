@@ -23,7 +23,7 @@ export const useEditor = ({
   const htmlRef = useRef<string>(content);
   const editorRef = useRef<any>(null);
 
-  // Create debounced handlers to improve performance with large documents
+  // Create debounced handlers to improve performance
   const debouncedOnChange = useRef(
     debounce((html: string) => {
       if (onChange) {
@@ -48,7 +48,7 @@ export const useEditor = ({
     };
   }, [debouncedOnChange, debouncedOnUpdate]);
 
-  // Handle editor updates with improved performance
+  // Handle editor updates
   const handleUpdate = useCallback(
     ({ editor }: { editor: any }) => {
       const newHtml = editor.getHTML();

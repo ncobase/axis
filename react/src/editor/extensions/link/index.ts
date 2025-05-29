@@ -76,15 +76,15 @@ export const EnhancedLink = Link.extend<EnhancedLinkOptions>({
       return false;
     }
 
-    // If text is selected, create a link with the selected text
-    const { empty, from, to } = editor.state.selection;
+    // If text is selected, create a link
+    const { empty, from } = editor.state.selection;
 
     if (!empty) {
       chain().setLink({ href: text }).run();
       return true;
     }
 
-    // If no text is selected, insert the link with its URL as the text
+    // If no text is selected, insert the link
     let url = text;
 
     // Add protocol if missing
