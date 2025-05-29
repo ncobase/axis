@@ -3,7 +3,6 @@ import React from 'react';
 import { cn } from '@ncobase/utils';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
-import { Button } from '@/button';
 import { Icons } from '@/icon';
 
 export const Select = SelectPrimitive.Root;
@@ -34,17 +33,20 @@ export const SelectTrigger = React.forwardRef<
   >
     {children}
     {allowClear && value && (
-      <Button
+      <div
         className='ml-auto cursor-pointer outline-hidden mr-1'
+        onMouseDown={e => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
         onClick={e => {
+          e.preventDefault();
           e.stopPropagation();
           onClear?.(e);
         }}
-        variant='unstyle'
-        size='ratio'
       >
         <Icons name='IconX' className='w-3.5 h-3.5' />
-      </Button>
+      </div>
     )}
 
     <SelectPrimitive.Icon asChild>

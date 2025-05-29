@@ -34,7 +34,7 @@ const DropPlaceholder: React.FC<DropPlaceholderProps> = ({
         <span className='font-medium'>{text.main}</span>
         &nbsp; {text.sub}
       </p>
-      {text.hint && <p className='text-xs text-gray-500 dark:text-gray-400'>{text.hint}</p>}
+      {text.hint && <span className='text-xs text-gray-500 dark:text-gray-400'>{text.hint}</span>}
     </div>
   );
 };
@@ -52,7 +52,9 @@ const SingleFileDropPlaceholder: React.FC<DropPlaceholderProps> = ({
         <p className='text-gray-500 dark:text-gray-400'>
           <span className='font-medium'>{text.main}</span>
           &nbsp; {text.sub}
-          {text.hint && <p className='text-xs text-gray-500 dark:text-gray-400'>{text.hint}</p>}
+          {text.hint && (
+            <span className='text-xs text-gray-500 dark:text-gray-400'>{text.hint}</span>
+          )}
         </p>
       </div>
     </div>
