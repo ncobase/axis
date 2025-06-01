@@ -1,4 +1,4 @@
-import './index.css';
+import './styles/styles.css';
 
 export * from './accordion';
 export * from './alert';
