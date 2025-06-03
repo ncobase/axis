@@ -35,10 +35,7 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
     isAllExpanded
   } = useTable();
 
-  const classes = cn(
-    'sticky top-0 left-0 z-50 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]',
-    className
-  );
+  const classes = cn('sticky top-0 z-50 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]', className);
 
   const handleSelectAll = () => {
     if (!Array.isArray(internalData)) return;

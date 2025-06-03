@@ -139,7 +139,6 @@ export const TableView = <T extends Record<string, any> = any>({
     }
   }, [isBackendPagination, currentPageSize, initialData, loadData, internalData.length]);
 
-  // Update when initialData changes
   useEffect(() => {
     if (initialData) {
       setInternalData(initialData);
@@ -148,17 +147,14 @@ export const TableView = <T extends Record<string, any> = any>({
     }
   }, [initialData]);
 
-  // Handle cell value change
   const handleCellValueChange = useCallback(
     (key: string, value: any, recordId: string) => {
       if (!key || !recordId) return;
 
-      // Call the callback if provided
       if (onCellValueChange) {
         onCellValueChange(key, value, recordId);
       }
 
-      // Update internal data if editing is enabled
       if (enableEditing) {
         setInternalData(prevData =>
           prevData.map(item => {
@@ -274,14 +270,11 @@ export const TableView = <T extends Record<string, any> = any>({
     if (!isBackendPagination && filter?.enabled && currentFilter) {
       return internalData.filter(item => {
         return Object.entries(currentFilter).every(([key, config]) => {
-          // Check for advanced filters
           if (config.advancedFilters && config.advancedFilters.length > 0) {
-            // Apply each advanced filter condition
             return config.advancedFilters.every(condition => {
               const itemValue = item[key];
-              // Skip if no value to filter on
               if (itemValue === undefined || itemValue === null) return true;
-              // Different operators
+
               switch (condition.operator) {
                 case 'contains':
                   return String(itemValue)
@@ -318,7 +311,6 @@ export const TableView = <T extends Record<string, any> = any>({
             });
           }
 
-          // Simple text filters
           if (config.value) {
             const itemValue = item[key];
             if (itemValue === undefined || itemValue === null) return false;
@@ -373,12 +365,10 @@ export const TableView = <T extends Record<string, any> = any>({
       selectedRows,
       onSelectRow: handleRowSelection,
       onSelectAllRows: (rows: T[]) => setSelectedRows(rows),
-      // Pass feature flags
       enableColumnResize,
       enableRowHighlight,
       enableColumnHighlight,
       enableAdvancedFilters,
-      // Pass the validated tree parameters
       maxTreeLevel: effectiveMaxTreeLevel,
       expandComponent: effectiveExpandComponent,
       onCellValueChange: handleCellValueChange,
@@ -420,6 +410,7 @@ export const TableView = <T extends Record<string, any> = any>({
     className
   );
   const containerClasses = cn(classes, 'h-full max-h-full flex flex-col');
+
   if (loading && (!paginatedData || paginatedData.length === 0)) {
     return <EmptyData loading={loading} className={containerClasses} />;
   } else if (!paginatedData || paginatedData.length === 0) {
@@ -443,48 +434,38 @@ export const TableView = <T extends Record<string, any> = any>({
       }}
     >
       <div className={containerClasses}>
-        {/* Toolbar - Import/Export, Global Search, etc. */}
+        {/* Toolbar */}
         {(showImportExport || showGlobalSearch || batchOperations.length > 0) && (
           <div className='flex-none border-b border-gray-100'>
             <div className='flex items-center justify-between p-3'>
               <div className='flex items-center gap-2'>
-                {/* Table name */}
                 <h3 className='text-lg font-medium'>{rest.title || ''}</h3>
               </div>
               <div className='flex items-center gap-3'>
-                {/* Global search */}
                 {showGlobalSearch && <GlobalSearch />}
-                {/* Import/Export features */}
                 {showImportExport && <ImportExportFeature />}
               </div>
             </div>
-            {/* Batch operations bar */}
             {batchOperations.length > 0 && <BatchOperations operations={batchOperations} />}
           </div>
         )}
-        {/* Table content */}
-        <div className='flex-1 flex flex-col min-h-0'>
-          {/* Fixed header */}
-          <div className='flex-none bg-white'>
-            <table className='w-full table-auto'>
-              <TableHeader
-                expandComponent={effectiveExpandComponent}
-                maxTreeLevel={effectiveMaxTreeLevel}
-              />
-            </table>
-          </div>
-          {/* Scrollable body */}
-          <div className='flex-1 overflow-auto'>
-            <table className='w-full table-auto'>
-              <TableBody
-                data={paginatedData}
-                expandComponent={effectiveExpandComponent}
-                maxTreeLevel={effectiveMaxTreeLevel}
-              />
-            </table>
-          </div>
+
+        {/* Single table with sticky header */}
+        <div className='flex-1 overflow-auto'>
+          <table className='w-full table-auto'>
+            <TableHeader
+              expandComponent={effectiveExpandComponent}
+              maxTreeLevel={effectiveMaxTreeLevel}
+            />
+            <TableBody
+              data={paginatedData}
+              expandComponent={effectiveExpandComponent}
+              maxTreeLevel={effectiveMaxTreeLevel}
+            />
+          </table>
         </div>
-        {/* Fixed pagination */}
+
+        {/* Pagination */}
         {paginated && (
           <Pagination
             totalItems={isBackendPagination ? total : filteredData.length}
