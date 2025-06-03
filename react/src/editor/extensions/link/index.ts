@@ -1,6 +1,6 @@
-import Link from '@tiptap/extension-link';
+import { Link as TiptapExtensionLink } from '@tiptap/extension-link';
 
-export interface EnhancedLinkOptions {
+export interface LinkOptions {
   openOnClick: boolean;
   linkOnPaste: boolean;
   autolink: boolean;
@@ -10,8 +10,8 @@ export interface EnhancedLinkOptions {
   defaultProtocol: string;
 }
 
-export const EnhancedLink = Link.extend<EnhancedLinkOptions>({
-  name: 'enhancedLink',
+export const Link = TiptapExtensionLink.extend<LinkOptions>({
+  name: 'link',
 
   addOptions() {
     return {
@@ -52,6 +52,7 @@ export const EnhancedLink = Link.extend<EnhancedLinkOptions>({
               const urlWithProtocol = `${this['options'].defaultProtocol}://${url}`;
               new URL(urlWithProtocol);
               return true;
+              // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
             } catch (e) {
               return false;
             }
@@ -63,7 +64,7 @@ export const EnhancedLink = Link.extend<EnhancedLinkOptions>({
     };
   },
 
-  onPaste({ editor, chain, view, clipboardData }) {
+  onPaste({ editor, chain, clipboardData }) {
     // Early exit if link on paste is disabled
     if (!this['options'].linkOnPaste) {
       return false;
