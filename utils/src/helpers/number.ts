@@ -39,9 +39,10 @@ export function decimalToPercent(val: number | string, pre = 2): string | null {
 /**
  * Format number to currency string with thousands separators and 2 decimal places
  * @param num - Number to format
- * @returns {string} Formatted currency string, e.g. '1,234,567.45'
+ * @param currency - Currency symbol (optional, e.g., '$', '€', '¥')
+ * @returns {string} Formatted currency string, e.g. '$1,234,567.45' or '1,234,567.45'
  */
-export function formatCurrency(num: any): string {
+export function formatCurrency(num: any, currency: string = ''): string {
   num = num.toString().replace(/[$,]/g, '');
   if (Number.isNaN(Number(num))) {
     num = '0';
@@ -57,5 +58,5 @@ export function formatCurrency(num: any): string {
     num =
       num.substring(0, num.length - (4 * i + 3)) + ',' + num.substring(num.length - (4 * i + 3));
   }
-  return (sign ? '' : '-') + num + '.' + cents;
+  return (sign ? '' : '-') + (currency ? currency : '') + num + '.' + cents;
 }
