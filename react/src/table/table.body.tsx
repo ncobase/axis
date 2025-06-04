@@ -90,7 +90,7 @@ export const TableBody: React.FC<ITableBodyProps> = ({
         maxTreeLevel={maxTreeLevel}
       >
         {selected && (
-          <TableCell key='selection' title='selection' record={item}>
+          <TableCell key={`${itemId}-selection`} title='selection' record={item}>
             <Checkbox
               className='rounded-xs'
               checked={isSelected(item)}
@@ -100,21 +100,15 @@ export const TableBody: React.FC<ITableBodyProps> = ({
         )}
         {canTree && (
           <TableCell
-            key='tree'
+            key={`${itemId}-tree`}
             title='tree'
             record={item}
             className='w-0! [&>div]:px-0! [&>div]:pl-2!'
           />
         )}
-        {columns.map(column => (
+        {columns.map((column, index) => (
           <TableCell
-            key={
-              column.accessorKey || typeof column.title === 'function'
-                ? typeof column.title === 'function'
-                  ? column.title(item)
-                  : column.title
-                : column.title || 'default'
-            }
+            key={`${itemId}-${column.accessorKey || (typeof column.title === 'function' ? column.title(item) : column.title) || 'column'}-${index}`}
             {...column}
             record={item}
           />

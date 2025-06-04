@@ -8,25 +8,25 @@ import { Button } from '@/button';
 import { Icons } from '@/icon';
 
 export const isActionColumn = (key: string | ((_record: any) => string)): boolean => {
-  const actionKeys = [
+  const actionKeys = new Set([
     'action-column',
     'actionColumn',
     '操作列',
     'operation-column',
     'operationColumn'
-  ];
+  ]);
 
   if (typeof key === 'function') {
-    const keyString = key({});
-    return actionKeys.includes(keyString?.toLowerCase());
+    const keyString = key({})?.toLowerCase();
+    return actionKeys.has(keyString);
   }
 
-  return actionKeys.includes(key?.toLowerCase());
+  return actionKeys.has(key?.toLowerCase());
 };
 
 export const isTreeColumn = (key: string = ''): boolean => {
-  const treeKeys = ['tree', '树', 'treeRow', 'treeRows', 'trees'];
-  return treeKeys.includes(key?.toLowerCase());
+  const treeKeys = new Set(['tree', '树', 'treerow', 'treerows', 'trees']);
+  return treeKeys.has(key?.toLowerCase());
 };
 
 interface ITableRowProps {
