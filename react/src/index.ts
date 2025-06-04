@@ -1,6 +1,7 @@
 import './styles/styles.css';
 
 export * from './accordion';
+export * from './avatar';
 export * from './alert';
 export * from './alert-dialog';
 export * from './badge';
@@ -24,6 +25,7 @@ export * from './portal';
 export * from './progress';
 export * from './shell';
 export * from './skeleton';
+export * from './slider';
 export * from './switch';
 export * from './table';
 export * from './tabs';

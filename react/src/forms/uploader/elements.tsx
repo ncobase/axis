@@ -36,17 +36,19 @@ export const useFileUpload = () => {
   return context;
 };
 
+// File Uploader types
 export type FileUploaderProps = {
-  value: File | File[] | null;
-  // eslint-disable-next-line no-unused-vars
-  onValueChange: (value: File | File[] | null) => void;
+  value?: File | File[];
+  onValueChange?: (_value?: File | File[]) => void;
   dropzoneOptions?: DropzoneOptions;
   orientation?: 'horizontal' | 'vertical';
   maxFiles?: number;
   maxSize?: number;
   accept?: Accept;
+  disabled?: boolean;
 };
 
+// File Uploader Component
 export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTMLDivElement>> = ({
   className,
   dropzoneOptions,
@@ -57,6 +59,7 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
   maxSize = 4 * 1024 * 1024,
   accept,
   children,
+  disabled = false,
   ...props
 }) => {
   const [isFileTooBig, setIsFileTooBig] = useState(false);
@@ -184,21 +187,22 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
     accept,
     maxFiles,
     maxSize,
+    disabled,
     ...dropzoneOptions
   };
 
   const dropzoneState = useDropzone({
     ...opts,
-    onDrop,
-    onDropRejected: () => setIsFileTooBig(true),
-    onDropAccepted: () => setIsFileTooBig(false)
+    onDrop: disabled ? undefined : onDrop,
+    onDropRejected: disabled ? undefined : () => setIsFileTooBig(true),
+    onDropAccepted: disabled ? undefined : () => setIsFileTooBig(false)
   });
 
   return (
     <FileUploaderContext.Provider
       value={{
         dropzoneState,
-        isLOF,
+        isLOF: isLOF || disabled,
         isFileTooBig,
         removeFileFromSet,
         activeIndex,
@@ -210,10 +214,15 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
     >
       <div
         {...props}
-        onKeyDownCapture={handleKeyDown}
-        className={cn('grid w-full focus:outline-hidden overflow-hidden ', className, {
-          'gap-2': value && (Array.isArray(value) ? value.length > 0 : true)
-        })}
+        onKeyDownCapture={disabled ? undefined : handleKeyDown}
+        className={cn(
+          'grid w-full focus:outline-hidden overflow-hidden',
+          disabled && 'opacity-50 pointer-events-none cursor-not-allowed',
+          className,
+          {
+            'gap-2': value && (Array.isArray(value) ? value.length > 0 : true)
+          }
+        )}
         dir={props.dir}
       >
         {children}
@@ -221,7 +230,6 @@ export const FileUploader: React.FC<FileUploaderProps & React.HTMLAttributes<HTM
     </FileUploaderContext.Provider>
   );
 };
-
 type FileUploaderContentProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const FileUploaderContent: React.FC<FileUploaderContentProps> = ({
@@ -250,7 +258,7 @@ export const FileUploaderContent: React.FC<FileUploaderContentProps> = ({
 
 type FileUploaderItemProps = {
   index: number;
-  file: File;
+  file: File | string;
   // eslint-disable-next-line no-unused-vars
   onRemove: (index: number) => void;
   isSingleFile: boolean;
@@ -265,39 +273,135 @@ export const FileUploaderItem: React.FC<FileUploaderItemProps> = ({
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [objectUrl, setObjectUrl] = useState<string | null>(null);
   const { direction } = useFileUpload();
 
+  useEffect(() => {
+    if (file instanceof File) {
+      try {
+        const url = URL.createObjectURL(file);
+        setObjectUrl(url);
+
+        // Cleanup function
+        return () => {
+          URL.revokeObjectURL(url);
+        };
+      } catch (error) {
+        console.error('Failed to create object URL:', error);
+        setObjectUrl(null);
+      }
+    } else if (typeof file === 'string') {
+      // If file is already a URL string, use it directly
+      setObjectUrl(file);
+    } else {
+      setObjectUrl(null);
+    }
+  }, [file]);
+
+  const getFileName = (): string => {
+    if (file instanceof File) {
+      return file.name;
+    } else if (typeof file === 'string') {
+      // Extract filename from URL
+      try {
+        const url = new URL(file, window.location.origin);
+        const pathname = url.pathname;
+        return pathname.split('/').pop() || 'Unknown file';
+      } catch {
+        return 'Unknown file';
+      }
+    }
+    return 'Unknown file';
+  };
+
+  const getFileType = (): string => {
+    if (file instanceof File) {
+      return file.type;
+    } else if (typeof file === 'string') {
+      // Try to determine type from file extension
+      const fileName = getFileName();
+      const extension = fileName.split('.').pop()?.toLowerCase();
+
+      switch (extension) {
+        case 'jpg':
+        case 'jpeg':
+        case 'png':
+        case 'gif':
+        case 'webp':
+        case 'svg':
+          return 'image/*';
+        case 'mp4':
+        case 'webm':
+        case 'ogg':
+          return 'video/*';
+        default:
+          return 'application/octet-stream';
+      }
+    }
+    return 'application/octet-stream';
+  };
+
+  const isImageFile = (): boolean => {
+    const fileType = getFileType();
+    return fileType.startsWith('image/');
+  };
+
+  const isVideoFile = (): boolean => {
+    const fileType = getFileType();
+    return fileType.startsWith('video/');
+  };
+
   const renderFilePreview = () => {
-    if (file?.type.includes('image')) {
+    const fileName = getFileName();
+
+    if (isImageFile() && objectUrl) {
       return (
         <img
-          src={URL.createObjectURL(file)}
-          alt={file.name}
+          src={objectUrl}
+          alt={fileName}
           loading='lazy'
           className={cn('object-cover', isSingleFile ? 'size-10 mr-2' : 'w-full h-full')}
+          onError={e => {
+            // Fallback to file icon if image fails to load
+            e.currentTarget.style.display = 'none';
+            const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+            if (fallback) {
+              fallback.style.display = 'flex';
+            }
+          }}
         />
       );
-    } else if (file?.type.includes('video')) {
+    } else if (isVideoFile() && objectUrl && file instanceof File) {
+      // Only show video preview for File objects, not URL strings
       return (
         <video
-          src={URL.createObjectURL(file)}
+          src={objectUrl}
           className={cn('object-cover', isSingleFile ? 'size-10 mr-2' : 'w-full h-full')}
+          onError={e => {
+            // Fallback to file icon if video fails to load
+            e.currentTarget.style.display = 'none';
+            const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+            if (fallback) {
+              fallback.style.display = 'flex';
+            }
+          }}
         >
           <track kind='captions' />
         </video>
       );
-    } else {
-      return (
-        <div
-          className={cn(
-            'bg-gray-100 text-gray-400 flex items-center justify-center',
-            isSingleFile ? 'size-10 mr-2' : 'w-full h-full'
-          )}
-        >
-          <Icons name='IconFile' className='w-6 h-6' stroke={1} />
-        </div>
-      );
     }
+
+    // Default file icon fallback
+    return (
+      <div
+        className={cn(
+          'bg-gray-100 text-gray-400 flex items-center justify-center',
+          isSingleFile ? 'size-10 mr-2' : 'w-full h-full'
+        )}
+      >
+        <Icons name='IconFile' className='w-6 h-6' stroke={1} />
+      </div>
+    );
   };
 
   return (
@@ -313,7 +417,20 @@ export const FileUploaderItem: React.FC<FileUploaderItemProps> = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       {renderFilePreview()}
-      {isSingleFile && <span className='truncate flex-1 ml-2'>{file.name}</span>}
+
+      {/* Hidden fallback for failed images/videos */}
+      <div
+        className={cn(
+          'bg-gray-100 text-gray-400 items-center justify-center',
+          isSingleFile ? 'size-10 mr-2' : 'w-full h-full',
+          'hidden' // Initially hidden, shown when main preview fails
+        )}
+      >
+        <Icons name='IconFile' className='w-6 h-6' stroke={1} />
+      </div>
+
+      {isSingleFile && <span className='truncate flex-1 ml-2'>{getFileName()}</span>}
+
       <Button
         variant='unstyle'
         className={cn(
@@ -331,12 +448,13 @@ export const FileUploaderItem: React.FC<FileUploaderItemProps> = ({
           stroke={2}
         />
       </Button>
+
       {!isSingleFile && (
         <div
           className='absolute bottom-1 left-1 right-1 text-xs truncate text-white bg-black/50 p-1 rounded-sm'
-          title={file.name}
+          title={getFileName()}
         >
-          {file.name}
+          {getFileName()}
         </div>
       )}
     </div>
