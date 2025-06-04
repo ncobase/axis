@@ -10,13 +10,15 @@ interface IProps extends React.PropsWithChildren<HtmlHTMLAttributes<HTMLDivEleme
 }
 
 const defaultStyling =
-  'fixed top-0 z-997 flex shrink-0 min-h-12 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]';
+  'fixed top-0 z-996 flex shrink-0 min-h-12 bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]';
 
 // Direction-based positioning
 const getPositioningClasses = (
   direction?: 'ltr' | 'rtl',
   sidebar?: React.ReactNode | undefined,
-  sidebarExpanded?: boolean
+  sidebarExpanded?: boolean,
+  header?: React.ReactNode | undefined,
+  tabbar?: React.ReactNode | undefined
 ) => {
   const classes = [];
 
@@ -30,6 +32,12 @@ const getPositioningClasses = (
     if (!!sidebar && sidebarExpanded) classes.push('left-[9.5rem]'); // show sidebar && sidebar expanded
   }
 
+  // Vertical positioning
+  if (!!header && !!tabbar) classes.push('top-[5.75rem]'); // header(3.5rem) + tabbar(2.25rem)
+  if (!!header && !tabbar) classes.push('top-[3.5rem]'); // header only
+  if (!header && !!tabbar) classes.push('top-[2.25rem]'); // tabbar only
+  if (!header && !tabbar) classes.push('top-0'); // neither
+
   return classes;
 };
 
@@ -37,17 +45,17 @@ export const ShellTopbar: React.FC<IProps> = memo(
   ({ children, className, role = 'complementary', ...rest }) => {
     if (!children) return null;
 
-    const { header, sidebar, sidebarExpanded, direction } = useShellContext();
+    const { header, tabbar, sidebar, sidebarExpanded, direction } = useShellContext();
 
-    const positioningClasses = getPositioningClasses(direction, sidebar, sidebarExpanded);
-
-    const classes = cn(
-      defaultStyling,
-      positioningClasses,
-      // Show header
-      { 'top-[3.5rem]': !!header },
-      className
+    const positioningClasses = getPositioningClasses(
+      direction,
+      sidebar,
+      sidebarExpanded,
+      header,
+      tabbar
     );
+
+    const classes = cn(defaultStyling, positioningClasses, className);
 
     return (
       <div className={classes} role={role} {...rest}>

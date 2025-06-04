@@ -13,6 +13,8 @@ interface IProps extends React.PropsWithChildren {
   topbar?: ReactNode;
   /** <Submenu /> component */
   submenu?: ReactNode;
+  /** <TabBar /> component */
+  tabbar?: ReactNode;
   /** main area className */
   className?: string;
   /** Sidebar expanded state */
@@ -23,9 +25,10 @@ interface IProps extends React.PropsWithChildren {
 
 const defaultStyling = 'relative flex h-lvh overflow-hidden';
 
-// Calculate padding classes based on component presence
+// Calculate padding classes
 const getLayoutClasses = (
   header: ReactNode | undefined,
+  tabbar: ReactNode | undefined,
   topbar: ReactNode | undefined,
   sidebar: ReactNode | undefined,
   submenu: ReactNode | undefined,
@@ -34,10 +37,14 @@ const getLayoutClasses = (
 ) => {
   const classes: Record<string, boolean> = {};
 
-  // Header and topbar padding
-  if (!!header && !topbar) classes['pt-[3.5rem]'] = true; // show header && hide topbar
-  if (!header && !!topbar) classes['pt-[3rem]'] = true; // hide header && show topbar
-  if (!!header && !!topbar) classes['pt-[6.5rem]'] = true; // show header && show topbar
+  // Vertical padding - stack header, tabbar, topbar
+  if (!!header && !!tabbar && !!topbar) classes['pt-[8.75rem]'] = true; // 3.5 + 2.25 + 3 = 8.75rem
+  if (!!header && !!tabbar && !topbar) classes['pt-[5.75rem]'] = true; // 3.5 + 2.25 = 5.75rem
+  if (!!header && !tabbar && !!topbar) classes['pt-[6.5rem]'] = true; // 3.5 + 3 = 6.5rem
+  if (!header && !!tabbar && !!topbar) classes['pt-[5.25rem]'] = true; // 2.25 + 3 = 5.25rem
+  if (!!header && !tabbar && !topbar) classes['pt-[3.5rem]'] = true; // header only
+  if (!header && !!tabbar && !topbar) classes['pt-[2.25rem]'] = true; // tabbar only
+  if (!header && !tabbar && !!topbar) classes['pt-[3rem]'] = true; // topbar only
 
   // Sidebar and submenu padding
   if (direction === 'ltr') {
@@ -66,21 +73,22 @@ export const Shell: React.FC<IProps> = memo(
     sidebar,
     topbar,
     submenu,
+    tabbar,
     className,
     sidebarExpanded = false,
     direction = 'ltr',
     ...rest
   }) => {
     const layoutClasses = useMemo(
-      () => getLayoutClasses(header, topbar, sidebar, submenu, sidebarExpanded, direction),
-      [header, topbar, sidebar, submenu, sidebarExpanded, direction]
+      () => getLayoutClasses(header, tabbar, topbar, sidebar, submenu, sidebarExpanded, direction),
+      [header, tabbar, topbar, sidebar, submenu, sidebarExpanded, direction]
     );
 
     const mainClassName = cn(defaultStyling, layoutClasses, className);
 
     const contextValue = useMemo(
-      () => ({ header, sidebar, topbar, submenu, sidebarExpanded, direction }),
-      [header, sidebar, topbar, submenu, sidebarExpanded, direction]
+      () => ({ header, sidebar, topbar, submenu, tabbar, sidebarExpanded, direction }),
+      [header, sidebar, topbar, submenu, tabbar, sidebarExpanded, direction]
     );
 
     return (
@@ -88,6 +96,7 @@ export const Shell: React.FC<IProps> = memo(
         {header}
         <div className={mainClassName} {...rest} dir={direction} role='main'>
           {sidebar}
+          {tabbar}
           {topbar}
           {submenu}
           {children}

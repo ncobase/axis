@@ -10,6 +10,8 @@ interface ShellContextValue {
   topbar?: ReactNode;
   /** <Submenu /> component */
   submenu?: ReactNode;
+  /** <TabBar /> component */
+  tabbar?: ReactNode;
   /** Sidebar expanded state */
   sidebarExpanded?: boolean;
   /** Layout direction: 'ltr' | 'rtl' */
