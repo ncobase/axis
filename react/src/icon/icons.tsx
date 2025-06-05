@@ -9,7 +9,13 @@ interface IProps extends TIcons.IconProps {
 
 export const TablerIconsNamespace = TIcons['icons'];
 
-export const Icons: React.FC<IProps> = ({ name = '', size = 16, stroke = 1.5, ...rest }) => {
+export const Icons: React.FC<IProps> = ({
+  name = '',
+  size = 16,
+  stroke = 1.5,
+  className,
+  ...rest
+}) => {
   const IconComponent = name
     ? (TIcons[name as keyof typeof TIcons] as React.FC<TIcons.IconProps>)
     : null;
@@ -20,8 +26,16 @@ export const Icons: React.FC<IProps> = ({ name = '', size = 16, stroke = 1.5, ..
 
   const isFilled = name.endsWith('Filled');
   const classes = cn(
-    'inline-block stroke-slate-400/65',
-    isFilled && 'stroke-0 stroke-none fill-slate-400/65'
+    'inline-block',
+    {
+      // Inherit text color if text color classes are present
+      'current-color': className?.includes('text-'),
+      // Default color styles if no text color class provided
+      'stroke-current text-slate-500/80': !className?.includes('text-'),
+      // Filled icon styles
+      'stroke-0 stroke-none fill-current': isFilled
+    },
+    className
   );
 
   return (

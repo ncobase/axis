@@ -6,7 +6,7 @@ import { cn } from '@ncobase/utils';
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 
 export const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
+  React.ComponentRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
 >(({ className, value, ...props }, ref) => (
   <ProgressPrimitive.Root

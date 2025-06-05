@@ -6,7 +6,7 @@ import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import { Icons } from '@/icon';
 
 export const RadioGroupRoot = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Root>,
+  React.ComponentRef<typeof RadioGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
 >(({ className, ...props }, ref) => {
   return <RadioGroupPrimitive.Root className={cn('grid gap-2', className)} {...props} ref={ref} />;
@@ -14,7 +14,7 @@ export const RadioGroupRoot = React.forwardRef<
 RadioGroupRoot.displayName = 'RadioGroupRoot';
 
 export const RadioGroupItem = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Item>,
+  React.ComponentRef<typeof RadioGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>
 >(({ className, ...props }, ref) => {
   return (

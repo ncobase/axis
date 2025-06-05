@@ -4,70 +4,55 @@ import { cn } from '@ncobase/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const badgeVariants = cva(
-  'inline-flex items-center justify-center rounded-full transition-colors',
+  'inline-flex items-center justify-center rounded-full transition-colors font-medium',
   {
     variants: {
       variant: {
-        primary: 'bg-primary text-primary-foreground hover:bg-primary/85',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/85',
-        success: 'bg-success-500 text-success-foreground hover:bg-success-500/85',
-        warning: 'bg-warning-500 text-warning-foreground hover:bg-warning-500/85',
-        danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/85',
-        slate: 'bg-slate-500 text-slate-foreground hover:bg-slate-500/85',
-        blue: 'bg-blue-600 text-blue-foreground hover:bg-blue-500/85',
-        indigo: 'bg-indigo-600 text-indigo-foreground hover:bg-indigo-600/85',
-        purple: 'bg-purple-600 text-purple-foreground hover:bg-purple-600/85',
-        pink: 'bg-pink-600 text-pink-foreground hover:bg-pink-600/85',
-        rose: 'bg-rose-600 text-rose-foreground hover:bg-rose-600/85',
-        orange: 'bg-orange-500 text-orange-foreground hover:bg-orange-500/85',
-        yellow: 'bg-yellow-500 text-yellow-foreground hover:bg-yellow-500/85',
-        green: 'bg-green-600 text-green-foreground hover:bg-green-600/85',
-        teal: 'bg-teal-600 text-teal-foreground hover:bg-teal-600/85',
-        cyan: 'bg-cyan-600 text-cyan-foreground hover:bg-cyan-600/85',
-        'outline-primary':
-          'text-primary border border-primary hover:text-primary/95 hover:border-primary/85',
-        'outline-secondary':
-          'text-secondary border border-secondary hover:text-secondary/95 hover:border-secondary/85',
-        'outline-success':
-          'text-success-500 border border-success-500 hover:text-success-500/95 hover:border-success-500/85',
-        'outline-warning':
-          'text-warning-500 border border-warning-500 hover:text-warning-500/95 hover:border-warning-500/85',
-        'outline-danger':
-          'text-destructive border border-destructive hover:text-destructive/95 hover:border-destructive/85',
-        'outline-slate':
-          'text-slate-500 border border-slate-500 hover:text-slate-500/95 hover:border-slate-500/85',
-        'outline-blue':
-          'text-blue-600 border border-blue-600 hover:text-blue-600/95 hover:border-blue-600/85',
-        'outline-indigo':
-          'text-indigo-600 border border-indigo-600 hover:text-indigo-600/95 hover:border-indigo-600/85',
-        'outline-purple':
-          'text-purple-600 border border-purple-600 hover:text-purple-600/95 hover:border-purple-600/85',
-        'outline-pink':
-          'text-pink-600 border border-pink-600 hover:text-pink-600/95 hover:border-pink-600/85',
-        'outline-rose':
-          'text-rose-600 border border-rose-600 hover:text-rose-600/95 hover:border-rose-600/85',
-        'outline-orange':
-          'text-orange-500 border border-orange-500 hover:text-orange-500/95 hover:border-orange-500/85',
-        'outline-yellow':
-          'text-yellow-500 border border-yellow-500 hover:text-yellow-500/95 hover:border-yellow-500/85',
-        'outline-green':
-          'text-green-600 border border-green-600 hover:text-green-600/95 hover:border-green-600/85',
-        'outline-teal':
-          'text-teal-600 border border-teal-600 hover:text-teal-600/95 hover:border-teal-600/85',
-        'outline-cyan':
-          'text-cyan-600 border border-cyan-600 hover:text-cyan-600/95 hover:border-cyan-600/85'
+        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
+        success: 'bg-success-500 text-white hover:bg-success-600',
+        warning: 'bg-warning-500 text-white hover:bg-warning-600',
+        danger: 'bg-destructive text-white hover:bg-destructive-600',
+        slate: 'bg-slate-500 text-white hover:bg-slate-600',
+        blue: 'bg-blue-500 text-white hover:bg-blue-600',
+        indigo: 'bg-indigo-500 text-white hover:bg-indigo-600',
+        purple: 'bg-purple-500 text-white hover:bg-purple-600',
+        pink: 'bg-pink-500 text-white hover:bg-pink-600',
+        rose: 'bg-rose-500 text-white hover:bg-rose-600',
+        orange: 'bg-orange-500 text-white hover:bg-orange-600',
+        yellow: 'bg-yellow-500 text-white hover:bg-yellow-600',
+        green: 'bg-green-500 text-white hover:bg-green-600',
+        teal: 'bg-teal-500 text-white hover:bg-teal-600',
+        cyan: 'bg-cyan-500 text-white hover:bg-cyan-600',
+        'outline-primary': 'border border-primary text-primary hover:bg-primary/10',
+        'outline-secondary': 'border border-secondary text-secondary hover:bg-secondary/10',
+        'outline-success': 'border border-success-500 text-success-500 hover:bg-success-50',
+        'outline-warning': 'border border-warning-500 text-warning-500 hover:bg-warning-50',
+        'outline-danger': 'border border-destructive text-destructive hover:bg-destructive/10',
+        'outline-slate': 'border border-slate-500 text-slate-500 hover:bg-slate-50',
+        'outline-blue': 'border border-blue-500 text-blue-500 hover:bg-blue-50',
+        'outline-indigo': 'border border-indigo-500 text-indigo-500 hover:bg-indigo-50',
+        'outline-purple': 'border border-purple-500 text-purple-500 hover:bg-purple-50',
+        'outline-pink': 'border border-pink-500 text-pink-500 hover:bg-pink-50',
+        'outline-rose': 'border border-rose-500 text-rose-500 hover:bg-rose-50',
+        'outline-orange': 'border border-orange-500 text-orange-500 hover:bg-orange-50',
+        'outline-yellow': 'border border-yellow-500 text-yellow-500 hover:bg-yellow-50',
+        'outline-green': 'border border-green-500 text-green-500 hover:bg-green-50',
+        'outline-teal': 'border border-teal-500 text-teal-500 hover:bg-teal-50',
+        'outline-cyan': 'border border-cyan-500 text-cyan-500 hover:bg-cyan-50'
       },
       size: {
-        xs: 'h-1 w-1 text-xs',
-        sm: 'h-2 w-2 text-xs',
-        md: 'h-3 w-3 text-xs',
-        lg: 'h-4 w-4 text-xs',
-        xl: 'h-5 w-5'
+        dot: 'w-2.5 h-2.5',
+        xs: 'text-xs px-2 py-0.5',
+        sm: 'text-xs px-2.5 py-0.5',
+        md: 'text-sm px-2.5 py-0.5',
+        lg: 'text-sm px-3 py-1',
+        xl: 'text-base px-3.5 py-1.5'
       }
     },
     defaultVariants: {
       variant: 'primary',
-      size: 'md'
+      size: 'sm'
     }
   }
 );
@@ -81,11 +66,7 @@ export interface BadgeProps
 export const Badge = ({ className, variant, size, children, ...props }: BadgeProps) => {
   return (
     <div
-      className={cn(
-        badgeVariants({ variant, size }),
-        className,
-        children && 'w-auto h-auto px-1.5 py-0'
-      )}
+      className={cn(badgeVariants({ variant, size: children ? size : 'dot' }), className)}
       {...props}
     >
       {children}

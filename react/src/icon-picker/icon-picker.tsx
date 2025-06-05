@@ -63,10 +63,13 @@ export const IconPicker = ({
           variant='outline-slate'
           size='ratio'
           title={key}
-          className='[&>svg]:stroke-slate-500/65! [&>svg]:hover:stroke-slate-500/80!'
+          className='group p-2 hover:bg-slate-100 transition-colors'
           onClick={() => handleSelectIcon(key)}
         >
-          <Icons name={key} />
+          <Icons
+            name={key}
+            className='text-slate-500 group-hover:text-slate-700 transition-colors'
+          />
         </Button>
       ));
   };
@@ -76,35 +79,37 @@ export const IconPicker = ({
       title={translations.title}
       isOpen={opened}
       onChange={() => onVisible?.(!opened)}
-      className='w-[390px] max-h-[420px]'
+      className='w-[420px] max-h-[480px]'
     >
-      <Tabs defaultValue='outline'>
-        <TabsList className='flex items-center justify-end -mt-3'>
-          <TabsTrigger
-            value='outline'
-            className='data-[state=active]:border-primary-500 data-[state=active]:text-primary-500'
-          >
-            {translations.outline}
-          </TabsTrigger>
-          <TabsTrigger
-            value='filled'
-            className='data-[state=active]:border-red-500 data-[state=active]:text-red-500'
-          >
-            {translations.filled}
-          </TabsTrigger>
-        </TabsList>
-        <Input
-          type='text'
-          placeholder={translations.searchPlaceholder}
-          className='py-1.5 my-3.5'
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-        />
+      <Tabs defaultValue='outline' className='space-y-4'>
+        <div className='flex items-center space-x-4'>
+          <Input
+            type='text'
+            placeholder={translations.searchPlaceholder}
+            className='flex-1'
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+          <TabsList className='border rounded-md p-1 bg-slate-50'>
+            <TabsTrigger
+              value='outline'
+              className='px-3 py-1 rounded data-[state=active]:bg-white data-[state=active]:text-primary-500 data-[state=active]:shadow-sm'
+            >
+              {translations.outline}
+            </TabsTrigger>
+            <TabsTrigger
+              value='filled'
+              className='px-3 py-1 rounded data-[state=active]:bg-white data-[state=active]:text-primary-500 data-[state=active]:shadow-sm'
+            >
+              {translations.filled}
+            </TabsTrigger>
+          </TabsList>
+        </div>
         <TabsContent value='outline'>
-          <div className='flex flex-wrap gap-[12.2px]'>{renderIcons(false)}</div>
+          <div className='grid grid-cols-6 gap-2'>{renderIcons(false)}</div>
         </TabsContent>
         <TabsContent value='filled'>
-          <div className='flex flex-wrap gap-[12.2px]'>{renderIcons(true)}</div>
+          <div className='grid grid-cols-6 gap-2'>{renderIcons(true)}</div>
         </TabsContent>
       </Tabs>
     </Modal>
