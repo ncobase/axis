@@ -48,7 +48,7 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
 
   const isAllSelected = selectedRows?.length === internalData?.length && internalData?.length > 0;
 
-  const canTree =
+  const needsTreeColumn =
     (maxTreeLevel !== undefined && maxTreeLevel !== 0) ||
     (expandComponent !== undefined && expandComponent !== null);
 
@@ -64,7 +64,7 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
             />
           </TableHeaderCell>
         )}
-        {canTree && (
+        {needsTreeColumn && (
           <TableHeaderCell title='tree' filter={false} className='w-0! [&>div]:px-1!'>
             <Button
               onClick={isAllExpanded ? onCollapseAll : onExpandAll}
@@ -75,9 +75,7 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
             </Button>
           </TableHeaderCell>
         )}
-        {columns.map((props, index) => (
-          <ResizableHeaderCell key={index} {...props} />
-        ))}
+        {columns?.map((props, index) => <ResizableHeaderCell key={index} {...props} />)}
       </TableRow>
     </thead>
   );

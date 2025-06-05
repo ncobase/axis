@@ -9,8 +9,7 @@ import { Checkbox } from '@/forms';
 export interface ITableBodyProps<T = any> {
   className?: string;
   data: T[];
-  // eslint-disable-next-line no-unused-vars
-  expandComponent?: React.ReactNode | ((item: T) => React.ReactNode);
+  expandComponent?: React.ReactNode | ((_item: T) => React.ReactNode);
   maxTreeLevel?: number;
 }
 
@@ -28,12 +27,12 @@ export const TableBody: React.FC<ITableBodyProps> = ({
     isAllExpanded
   } = useTable();
 
-  const [treeRows, setTreedRows] = useState<Set<string>>(() => new Set());
+  const [expandedRows, setExpandedRows] = useState<Set<string>>(() => new Set());
 
   const isSelected = (record: any) => selectedRows.includes(record);
 
   const toggleExpand = (itemId: string) => {
-    setTreedRows(prev => {
+    setExpandedRows(prev => {
       const newSet = new Set(prev);
       if (newSet.has(itemId)) {
         newSet.delete(itemId);
@@ -63,16 +62,17 @@ export const TableBody: React.FC<ITableBodyProps> = ({
   }, [data, maxTreeLevel]);
 
   useEffect(() => {
-    setTreedRows(isAllExpanded ? allExpandableIds : new Set());
-  }, [isAllExpanded]);
+    setExpandedRows(isAllExpanded ? allExpandableIds : new Set());
+  }, [isAllExpanded, allExpandableIds]);
 
   const renderRow = (item: any, level: number = 0): ReactNode => {
     if (!item) return null;
 
     const itemId = item.id || JSON.stringify(item);
-    const canTree =
-      (maxTreeLevel !== undefined && maxTreeLevel !== 0) ||
-      (expandComponent !== undefined && expandComponent !== null);
+    const hasExpandComponent = Boolean(expandComponent);
+    const isExpanded = expandedRows.has(itemId);
+    const needsTreeColumn =
+      (maxTreeLevel !== undefined && maxTreeLevel !== 0) || hasExpandComponent;
 
     return (
       <TableRow
@@ -80,11 +80,11 @@ export const TableBody: React.FC<ITableBodyProps> = ({
         level={level}
         item={item}
         expandComponent={expandComponent}
-        isExpanded={treeRows.has(itemId)}
+        isExpanded={isExpanded}
         onToggleExpand={() => toggleExpand(itemId)}
         renderNestedRows={(children, nextLevel) =>
           maxTreeLevel === -1 || nextLevel <= maxTreeLevel
-            ? children.map(child => renderRow(child, nextLevel))
+            ? children?.map(child => renderRow(child, nextLevel))
             : null
         }
         maxTreeLevel={maxTreeLevel}
@@ -98,7 +98,7 @@ export const TableBody: React.FC<ITableBodyProps> = ({
             />
           </TableCell>
         )}
-        {canTree && (
+        {needsTreeColumn && (
           <TableCell
             key={`${itemId}-tree`}
             title='tree'
@@ -106,7 +106,7 @@ export const TableBody: React.FC<ITableBodyProps> = ({
             className='w-0! [&>div]:px-0! [&>div]:pl-2!'
           />
         )}
-        {columns.map((column, index) => (
+        {columns?.map((column, index) => (
           <TableCell
             key={`${itemId}-${column.accessorKey || (typeof column.title === 'function' ? column.title(item) : column.title) || 'column'}-${index}`}
             {...column}
@@ -118,7 +118,7 @@ export const TableBody: React.FC<ITableBodyProps> = ({
   };
 
   const renderRows = (items: any[], level: number = 0): ReactNode => {
-    return items.map(item => renderRow(item, level));
+    return items?.map(item => renderRow(item, level));
   };
 
   return <tbody className={className}>{renderRows(data)}</tbody>;

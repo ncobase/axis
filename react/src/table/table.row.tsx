@@ -60,9 +60,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
   const hasExpandedContent = Boolean(expandComponent);
 
   const canTree =
-    (hasChildren || hasExpandedContent) &&
-    maxTreeLevel !== undefined &&
-    (maxTreeLevel === -1 || level < maxTreeLevel);
+    hasChildren && maxTreeLevel !== undefined && (maxTreeLevel === -1 || level < maxTreeLevel);
 
   const classes = cn(
     'odd:bg-white even:bg-gray-50 [&>th]:font-medium [&>th]:text-slate-600 text-slate-500 font-normal',
@@ -96,15 +94,15 @@ export const TableRow: React.FC<ITableRowProps> = ({
       return (
         <tr>
           <td colSpan={React.Children.count(children)} className='p-0'>
-            <div className='p-4 bg-gray-50 border-t border-gray-200'>
-              {typeof expandComponent === 'function' ? expandComponent(item) : expandComponent}
-            </div>
+            {typeof expandComponent === 'function' ? expandComponent(item) : expandComponent}
           </td>
         </tr>
       );
     }
     return renderNestedRows?.(item.children, level + 1);
   };
+
+  const shouldShowExpandButton = canTree || hasExpandedContent;
 
   return (
     <>
@@ -114,7 +112,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
         onMouseEnter={handleRowMouseEnter}
         onMouseLeave={handleRowMouseLeave}
       >
-        {React.Children.map(children, (child, index) => {
+        {React.Children?.map(children, (child, index) => {
           if (!React.isValidElement(child)) {
             return null;
           }
@@ -128,24 +126,22 @@ export const TableRow: React.FC<ITableRowProps> = ({
             index === 0 ||
             (index === 1 && !React.isValidElement(Array.isArray(children) ? children[0] : null));
 
-          if (canTree && isExpandField) {
+          if (shouldShowExpandButton && isExpandField) {
             return React.cloneElement(child, {
               className: cn(childProps.className),
               children: (
                 <>
-                  {canTree && (
-                    <Button
-                      variant='unstyle'
-                      size='ratio'
-                      onClick={handleToggleClick}
-                      className={cn(
-                        'p-1 rounded-full hover:bg-gray-200 transition-colors duration-200',
-                        level > 0 ? `ml-${level * 2}` : ''
-                      )}
-                    >
-                      <Icons name={isExpanded ? 'IconChevronDown' : 'IconChevronRight'} size={16} />
-                    </Button>
-                  )}
+                  <Button
+                    variant='unstyle'
+                    size='ratio'
+                    onClick={handleToggleClick}
+                    className={cn(
+                      'p-1 rounded-full hover:bg-gray-200 transition-colors duration-200',
+                      level > 0 ? `ml-${level * 2}` : ''
+                    )}
+                  >
+                    <Icons name={isExpanded ? 'IconChevronDown' : 'IconChevronRight'} size={16} />
+                  </Button>
                   {childProps.children}
                 </>
               ),
@@ -162,7 +158,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
           });
         })}
       </tr>
-      {canTree && isExpanded && renderExpandedContent()}
+      {isExpanded && renderExpandedContent()}
     </>
   );
 };
