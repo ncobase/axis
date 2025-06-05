@@ -1,8 +1,8 @@
 import { memo, ReactNode, useCallback } from 'react';
 
-import { Dialog } from '@/dialog';
+import { Dialog, DialogViewProps } from '@/dialog';
 
-export interface ModalProps<T extends object> {
+export interface ModalProps<T> extends DialogViewProps {
   title?: string;
   description?: string;
   // eslint-disable-next-line no-unused-vars
@@ -17,6 +17,9 @@ export interface ModalProps<T extends object> {
   className?: string;
   isMaximized?: boolean;
   toolbar?: ReactNode;
+  confirmDisabled?: boolean;
+  confirmVariant?: string;
+  loading?: boolean;
 }
 
 export const Modal = memo(
@@ -31,6 +34,9 @@ export const Modal = memo(
     onCancel,
     record,
     isOpen = false,
+    confirmDisabled,
+    confirmVariant,
+    loading,
     ...rest
   }: ModalProps<T>) => {
     const renderChildren = useCallback(() => {
@@ -47,6 +53,9 @@ export const Modal = memo(
         onConfirm={confirmText ? () => onConfirm?.(record) : undefined}
         confirmText={confirmText}
         description={description}
+        confirmDisabled={confirmDisabled}
+        confirmVariant={confirmVariant}
+        loading={loading}
         {...rest}
       >
         {renderChildren()}

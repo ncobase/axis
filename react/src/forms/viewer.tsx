@@ -7,7 +7,7 @@ export const FieldViewer = React.forwardRef<HTMLDivElement, FieldConfigProps>(
   ({ children, ...rest }, ref) => {
     return (
       <Field {...rest} ref={ref}>
-        <div className='border-b border-slate-100 py-2.5 max-h-16 overflow-auto w-full inline-block text-slate-600'>
+        <div className='border-b border-slate-100 py-2.5 overflow-auto w-full inline-block text-slate-600'>
           {children || '-'}
         </div>
       </Field>

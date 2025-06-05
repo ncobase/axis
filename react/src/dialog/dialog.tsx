@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { cn } from '@ncobase/utils';
 
-import { Button } from '../button';
+import { Button, buttonVariants } from '../button';
 import { ScrollView } from '../views';
 
 import {
@@ -15,7 +15,7 @@ import {
   DialogTrigger
 } from './dialog.elements';
 
-interface DialogViewProps {
+export interface DialogViewProps {
   /**
    * Dialog title
    */
@@ -68,6 +68,18 @@ interface DialogViewProps {
    * Dialog header toolbar elements
    */
   toolbar?: React.ReactNode;
+  /**
+   * Whether the confirm button is disabled
+   */
+  confirmDisabled?: boolean;
+  /**
+   * Variant of the confirm button
+   */
+  confirmVariant?: string;
+  /**
+   * Loading state of the confirm button
+   */
+  loading?: boolean;
 }
 
 export const Dialog: React.FC<DialogViewProps> = ({
@@ -83,7 +95,10 @@ export const Dialog: React.FC<DialogViewProps> = ({
   confirmText,
   className,
   toolbar,
-  children
+  children,
+  confirmDisabled,
+  confirmVariant = 'primary',
+  loading
 }) => {
   const [open, setOpen] = useState(isOpen);
 
@@ -126,9 +141,13 @@ export const Dialog: React.FC<DialogViewProps> = ({
               </Button>
             )}
             {!footer && onConfirm && (
-              <Button onClick={onConfirm} variant='primary'>
-                {confirmText || 'Confirm'}
-              </Button>
+              <button
+                onClick={onConfirm}
+                disabled={confirmDisabled || loading}
+                className={buttonVariants({ variant: confirmVariant as any })}
+              >
+                {loading ? 'Loading...' : confirmText || 'Confirm'}
+              </button>
             )}
           </DialogFooter>
         )}
