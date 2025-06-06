@@ -23,10 +23,11 @@ export interface PaginationParams {
 export interface PaginationResult<T> {
   items: T[];
   total: number;
+  cursor?: string;
   next_cursor?: string;
   prev_cursor?: string;
-  has_next_page?: boolean;
-  has_prev_page?: boolean;
+  has_next?: boolean;
+  has_prev?: boolean;
 }
 
 export interface TableViewProps<T = any> extends Partial<ITableContext<T>> {
@@ -111,16 +112,16 @@ export const TableView = <T extends Record<string, any> = any>({
         setTotal(result.total || 0);
         setNextCursor(result.next_cursor || null);
         setPrevCursor(result.prev_cursor || null);
-        setHasNextPage(result.has_next_page || false);
-        setHasPrevPage(result.has_prev_page || false);
+        setHasNextPage(result.has_next || false);
+        setHasPrevPage(result.has_prev || false);
         return result;
       } catch (error) {
         console.error('Error fetching data:', error);
         return {
           items: [],
           total: 0,
-          has_next_page: false,
-          has_prev_page: false
+          has_next: false,
+          has_prev: false
         };
       } finally {
         setLoading(false);
