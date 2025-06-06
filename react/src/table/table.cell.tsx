@@ -27,9 +27,9 @@ export interface ITableCellBaseProps<T = any> {
    */
   title?: string | ((_record: T) => string);
   /**
-   * column accessor key
+   * column data index
    */
-  accessorKey?: string;
+  dataIndex?: string;
   /**
    * column value parser
    */
@@ -76,7 +76,7 @@ export interface ITableCellProps<T = any> extends ITableCellBaseProps<T> {
 interface EditableCellProps {
   value: any;
   record: any;
-  accessorKey: string;
+  dataIndex: string;
   onValueChange: (_key: string, _value: any) => void;
   cellType?: 'text' | 'number' | 'select' | 'date';
   options?: { label: string; value: any }[];
@@ -84,7 +84,7 @@ interface EditableCellProps {
 
 const EditableCell: React.FC<EditableCellProps> = ({
   value,
-  accessorKey,
+  dataIndex,
   onValueChange,
   cellType = 'text',
   options = []
@@ -111,7 +111,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   const handleBlur = () => {
     setIsEditing(false);
     if (editValue !== value) {
-      onValueChange(accessorKey, editValue);
+      onValueChange(dataIndex, editValue);
     }
   };
 
@@ -142,7 +142,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
         value={String(editValue ?? '')}
         onValueChange={val => {
           setEditValue(val);
-          onValueChange(accessorKey, val);
+          onValueChange(dataIndex, val);
           setIsEditing(false);
         }}
       >
@@ -193,7 +193,7 @@ export const TableCell = <T extends Record<string, any> = any>({
   record,
   title,
   visible,
-  accessorKey = '',
+  dataIndex = '',
   parser,
   actions,
   editable = false,
@@ -202,7 +202,7 @@ export const TableCell = <T extends Record<string, any> = any>({
   colSpan = 1,
   rowSpan = 1
 }: ITableCellProps<T>) => {
-  if (isActionColumn(accessorKey) || isActionColumn(title)) {
+  if (isActionColumn(dataIndex) || isActionColumn(title)) {
     return <ActionCell record={record} actions={actions} />;
   }
 
@@ -210,7 +210,7 @@ export const TableCell = <T extends Record<string, any> = any>({
 
   const { onCellValueChange, highlightedColumn, enableColumnHighlight } = useTable();
 
-  const isHighlighted = enableColumnHighlight && highlightedColumn === accessorKey;
+  const isHighlighted = enableColumnHighlight && highlightedColumn === dataIndex;
 
   const classes = cn(
     'h-11 min-w-8 border-b-[0.03125rem] border-gray-100 truncate',
@@ -231,7 +231,7 @@ export const TableCell = <T extends Record<string, any> = any>({
     return record[key];
   };
 
-  const value = getValueFromRecord(accessorKey);
+  const value = getValueFromRecord(dataIndex);
 
   const formatValue = (val: any): string | number | undefined => {
     if (val === null || val === undefined) return '';
@@ -263,7 +263,7 @@ export const TableCell = <T extends Record<string, any> = any>({
           <EditableCell
             value={formattedValue}
             record={record}
-            accessorKey={accessorKey}
+            dataIndex={dataIndex}
             onValueChange={handleCellValueChange}
             cellType={cellType}
             options={options}
@@ -309,7 +309,7 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   filterConfig = {},
   style,
   title: titleProp,
-  accessorKey = '',
+  dataIndex = '',
   icon,
   className,
   children
@@ -330,43 +330,43 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
 
   // Sync filter value and sort order with the table's filter state
   useEffect(() => {
-    if (filterState?.config?.[accessorKey]?.value !== filterValue && setFilter) {
+    if (filterState?.config?.[dataIndex]?.value !== filterValue && setFilter) {
       setFilter(prevFilter => ({
         ...prevFilter,
         config: {
           ...(prevFilter?.config || {}),
-          [accessorKey]: {
-            ...(prevFilter?.config?.[accessorKey] || {}),
+          [dataIndex]: {
+            ...(prevFilter?.config?.[dataIndex] || {}),
             value: filterValue
           }
         }
       }));
     }
-  }, [filterValue, accessorKey, filterState?.config, setFilter]);
+  }, [filterValue, dataIndex, filterState?.config, setFilter]);
 
   useEffect(() => {
-    if (filterState?.config?.[accessorKey]?.sortOrder !== sortOrder && setFilter) {
+    if (filterState?.config?.[dataIndex]?.sortOrder !== sortOrder && setFilter) {
       setFilter(prevFilter => ({
         ...prevFilter,
         config: {
           ...(prevFilter?.config || {}),
-          [accessorKey]: {
-            ...(prevFilter?.config?.[accessorKey] || {}),
+          [dataIndex]: {
+            ...(prevFilter?.config?.[dataIndex] || {}),
             sortOrder
           }
         }
       }));
     }
-  }, [sortOrder, accessorKey, filterState?.config, setFilter]);
+  }, [sortOrder, dataIndex, filterState?.config, setFilter]);
 
   if (isBoolean(visible) && !visible) return null;
 
-  const isHighlighted = enableColumnHighlight && highlightedColumn === accessorKey;
+  const isHighlighted = enableColumnHighlight && highlightedColumn === dataIndex;
   const classes = cn('bg-gray-50 text-start', isHighlighted && 'bg-blue-50/75', className);
 
   const handleMouseEnter = () => {
     if (enableColumnHighlight && setHighlightedColumn) {
-      setHighlightedColumn(accessorKey);
+      setHighlightedColumn(dataIndex);
     }
   };
 
@@ -376,7 +376,7 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
     }
   };
 
-  if (isActionColumn(accessorKey) || isActionColumn(title)) {
+  if (isActionColumn(dataIndex) || isActionColumn(title)) {
     return (
       <th scope='col' className={cn(classes, className, 'text-center w-8')}>
         <div className='h-11 w-full flex items-center justify-between gap-x-1.5 px-3 py-2'>
@@ -391,8 +391,8 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
       ...prevFilter,
       config: {
         ...(prevFilter?.config || {}),
-        [accessorKey]: {
-          ...(prevFilter?.config?.[accessorKey] || {}),
+        [dataIndex]: {
+          ...(prevFilter?.config?.[dataIndex] || {}),
           dateRange,
           enabled: dateRange.from !== null || dateRange.to !== null
         }
@@ -405,8 +405,8 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
       ...prevFilter,
       config: {
         ...(prevFilter?.config || {}),
-        [accessorKey]: {
-          ...(prevFilter?.config?.[accessorKey] || {}),
+        [dataIndex]: {
+          ...(prevFilter?.config?.[dataIndex] || {}),
           selectedValues,
           enabled: selectedValues.length > 0
         }
@@ -419,8 +419,8 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
       ...prevFilter,
       config: {
         ...(prevFilter?.config || {}),
-        [accessorKey]: {
-          ...(prevFilter?.config?.[accessorKey] || {}),
+        [dataIndex]: {
+          ...(prevFilter?.config?.[dataIndex] || {}),
           numberRange: range,
           enabled: range[0] !== null || range[1] !== null
         }
@@ -433,8 +433,8 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
       ...prevFilter,
       config: {
         ...(prevFilter?.config || {}),
-        [accessorKey]: {
-          ...(prevFilter?.config?.[accessorKey] || {}),
+        [dataIndex]: {
+          ...(prevFilter?.config?.[dataIndex] || {}),
           value,
           enabled: value !== ''
         }
@@ -474,8 +474,8 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
             />
           )}
           {children ? children : title}
-          {enableAdvancedFilters && !isSpecialColumn(accessorKey) && (
-            <ColumnFilter column={accessorKey} />
+          {enableAdvancedFilters && !isSpecialColumn(dataIndex) && (
+            <ColumnFilter column={dataIndex} />
           )}
         </div>
         <div className='flex items-center'>
@@ -483,7 +483,7 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
             <>
               {filter === 'sort' && (
                 <SortFilter
-                  accessorKey={accessorKey}
+                  dataIndex={dataIndex}
                   filterValue={filterValue}
                   handleFilterChange={handleFilterChange}
                   handleSortChange={handleSortChange}
@@ -491,21 +491,21 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
               )}
               {filter === 'date' && (
                 <DateFilter
-                  accessorKey={accessorKey}
+                  dataIndex={dataIndex}
                   filterValue={filterValue}
                   handleFilterChange={handleDateFilterChange}
                 />
               )}
               {filter === 'select' && (
                 <SelectFilter
-                  accessorKey={accessorKey}
+                  dataIndex={dataIndex}
                   options={filterConfig.options || []}
                   handleFilterChange={handleSelectFilterChange}
                 />
               )}
               {filter === 'number' && (
                 <NumberFilter
-                  accessorKey={accessorKey}
+                  dataIndex={dataIndex}
                   min={filterConfig.min}
                   max={filterConfig.max}
                   step={filterConfig.step}
@@ -514,7 +514,7 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
               )}
               {filter === 'text' && (
                 <TextFilter
-                  accessorKey={accessorKey}
+                  dataIndex={dataIndex}
                   placeholder={filterConfig.placeholder}
                   handleFilterChange={handleTextFilterChange}
                 />
@@ -531,9 +531,9 @@ export const ResizableHeaderCell: React.FC<ITableHeaderCellProps> = props => {
   const { columnWidths, setColumnWidth, enableColumnResize } = useTable();
   const resizeRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
-  const { accessorKey = '' } = props;
+  const { dataIndex = '' } = props;
 
-  const width = columnWidths?.[accessorKey] || 'auto';
+  const width = columnWidths?.[dataIndex] || 'auto';
 
   const handleResizeMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!enableColumnResize) return;
@@ -549,7 +549,7 @@ export const ResizableHeaderCell: React.FC<ITableHeaderCellProps> = props => {
 
       const newWidth = Math.max(startWidth + e.clientX - startX, 50);
       if (setColumnWidth) {
-        setColumnWidth(accessorKey, newWidth);
+        setColumnWidth(dataIndex, newWidth);
       }
     };
 

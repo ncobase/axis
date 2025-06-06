@@ -10,13 +10,13 @@ import { Icons } from '@/icon';
 import { Popover, PopoverContent, PopoverTrigger } from '@/popover';
 
 export interface TextFilterProps {
-  accessorKey: string;
+  dataIndex: string;
   placeholder?: string;
   handleFilterChange: (_value: string) => void;
 }
 
 export const TextFilter: React.FC<TextFilterProps> = ({
-  accessorKey,
+  dataIndex,
   placeholder = 'Search...',
   handleFilterChange
 }) => {
@@ -26,11 +26,11 @@ export const TextFilter: React.FC<TextFilterProps> = ({
 
   // Initialize from filter state if it exists
   useEffect(() => {
-    const textValue = filterState?.config?.[accessorKey]?.value;
+    const textValue = filterState?.config?.[dataIndex]?.value;
     if (textValue && typeof textValue === 'string') {
       setValue(textValue);
     }
-  }, [filterState?.config, accessorKey]);
+  }, [filterState?.config, dataIndex]);
 
   const applyFilter = () => {
     handleFilterChange(value);

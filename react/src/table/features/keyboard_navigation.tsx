@@ -11,7 +11,7 @@ export const KeyboardNavigation: React.FC = () => {
 
       const { rowId, colKey } = activeCell;
       const rowIndex = internalData.findIndex(row => row.id === rowId);
-      const colIndex = columns.findIndex(col => col.accessorKey === colKey);
+      const colIndex = columns.findIndex(col => col.dataIndex === colKey);
 
       if (rowIndex === -1 || colIndex === -1) return;
 
@@ -35,7 +35,7 @@ export const KeyboardNavigation: React.FC = () => {
         case 'ArrowLeft':
           e.preventDefault();
           if (colIndex > 0) {
-            const prevColKey = columns[colIndex - 1].accessorKey || '';
+            const prevColKey = columns[colIndex - 1].dataIndex || '';
             setActiveCell({ rowId, colKey: prevColKey });
           }
           break;
@@ -43,7 +43,7 @@ export const KeyboardNavigation: React.FC = () => {
         case 'ArrowRight':
           e.preventDefault();
           if (colIndex < columns.length - 1) {
-            const nextColKey = columns[colIndex + 1].accessorKey || '';
+            const nextColKey = columns[colIndex + 1].dataIndex || '';
             setActiveCell({ rowId, colKey: nextColKey });
           }
           break;
@@ -53,21 +53,21 @@ export const KeyboardNavigation: React.FC = () => {
           if (e.shiftKey) {
             // Move to previous cell or previous row's last cell
             if (colIndex > 0) {
-              const prevColKey = columns[colIndex - 1].accessorKey || '';
+              const prevColKey = columns[colIndex - 1].dataIndex || '';
               setActiveCell({ rowId, colKey: prevColKey });
             } else if (rowIndex > 0) {
               const prevRowId = internalData[rowIndex - 1].id;
-              const lastColKey = columns[columns.length - 1].accessorKey || '';
+              const lastColKey = columns[columns.length - 1].dataIndex || '';
               setActiveCell({ rowId: prevRowId, colKey: lastColKey });
             }
           } else {
             // Move to next cell or next row's first cell
             if (colIndex < columns.length - 1) {
-              const nextColKey = columns[colIndex + 1].accessorKey || '';
+              const nextColKey = columns[colIndex + 1].dataIndex || '';
               setActiveCell({ rowId, colKey: nextColKey });
             } else if (rowIndex < internalData.length - 1) {
               const nextRowId = internalData[rowIndex + 1].id;
-              const firstColKey = columns[0].accessorKey || '';
+              const firstColKey = columns[0].dataIndex || '';
               setActiveCell({ rowId: nextRowId, colKey: firstColKey });
             }
           }

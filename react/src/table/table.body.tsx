@@ -108,7 +108,7 @@ export const TableBody: React.FC<ITableBodyProps> = ({
         )}
         {columns?.map((column, index) => (
           <TableCell
-            key={`${itemId}-${column.accessorKey || (typeof column.title === 'function' ? column.title(item) : column.title) || 'column'}-${index}`}
+            key={`${itemId}-${column.dataIndex || (typeof column.title === 'function' ? column.title(item) : column.title) || 'column'}-${index}`}
             {...column}
             record={item}
           />

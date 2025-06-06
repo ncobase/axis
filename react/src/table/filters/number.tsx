@@ -11,7 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/popover';
 import { Slider } from '@/slider';
 
 export interface NumberFilterProps {
-  accessorKey: string;
+  dataIndex: string;
   min?: number;
   max?: number;
   step?: number;
@@ -19,7 +19,7 @@ export interface NumberFilterProps {
 }
 
 export const NumberFilter: React.FC<NumberFilterProps> = ({
-  accessorKey,
+  dataIndex,
   min = 0,
   max = 100,
   step = 1,
@@ -32,9 +32,7 @@ export const NumberFilter: React.FC<NumberFilterProps> = ({
   // Calculate min/max from data if not provided
   useEffect(() => {
     if (min === undefined || max === undefined) {
-      const values = internalData
-        ?.map(item => Number(item[accessorKey]))
-        .filter(val => !isNaN(val));
+      const values = internalData?.map(item => Number(item[dataIndex])).filter(val => !isNaN(val));
 
       if (values && values.length > 0) {
         const dataMin = Math.min(...values);
@@ -44,15 +42,15 @@ export const NumberFilter: React.FC<NumberFilterProps> = ({
         if (max === undefined) max = dataMax;
       }
     }
-  }, [internalData, accessorKey, min, max]);
+  }, [internalData, dataIndex, min, max]);
 
   // Initialize from filter state if it exists
   useEffect(() => {
-    const numberRange = filterState?.config?.[accessorKey]?.numberRange;
+    const numberRange = filterState?.config?.[dataIndex]?.numberRange;
     if (numberRange && Array.isArray(numberRange)) {
       setRange(numberRange as [number | null, number | null]);
     }
-  }, [filterState?.config, accessorKey]);
+  }, [filterState?.config, dataIndex]);
 
   const handleInputChange = (index: 0 | 1, value: string) => {
     const newValue = value === '' ? null : Number(value);

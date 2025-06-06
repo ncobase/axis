@@ -211,7 +211,7 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
     const newHeader = columns.map(column =>
       // column visible is a undefined value, set it to false
       // reason: if not set, visible will be undefined, and the default value will be true
-      column.accessorKey === key
+      column.dataIndex === key
         ? { ...column, visible: isUndefined(column.visible) ? false : !column.visible }
         : column
     );

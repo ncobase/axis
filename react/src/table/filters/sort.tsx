@@ -10,14 +10,14 @@ import { Input } from '@/forms';
 import { Icons } from '@/icon';
 
 export interface SortFilterProps {
-  accessorKey: string;
+  dataIndex: string;
   filterValue: string;
   handleFilterChange: (_e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSortChange: (_order: 'asc' | 'desc' | null) => void;
 }
 
 export const SortFilter: React.FC<SortFilterProps> = ({
-  accessorKey,
+  dataIndex,
   filterValue,
   handleFilterChange,
   handleSortChange
@@ -36,7 +36,7 @@ export const SortFilter: React.FC<SortFilterProps> = ({
       const dataToSort = [...internalData];
 
       // Sort the data
-      const sortedData = sortTree(dataToSort, accessorKey as keyof (typeof dataToSort)[0], order);
+      const sortedData = sortTree(dataToSort, dataIndex as keyof (typeof dataToSort)[0], order);
 
       setInternalData(sortedData);
     } else if (originalData) {
@@ -46,7 +46,7 @@ export const SortFilter: React.FC<SortFilterProps> = ({
   };
 
   // Get current sort state from filter context
-  const currentSortOrder = filterState?.config?.[accessorKey]?.sortOrder;
+  const currentSortOrder = filterState?.config?.[dataIndex]?.sortOrder;
 
   return (
     <DropdownWrapper icon='IconChevronDown'>

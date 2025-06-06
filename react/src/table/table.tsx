@@ -177,7 +177,7 @@ export const TableView = <T extends Record<string, any> = any>({
 
     return header.map(column => ({
       ...column,
-      editable: column.accessorKey !== 'action'
+      editable: column.dataIndex !== 'action'
     }));
   }, [header, enableEditing]);
 

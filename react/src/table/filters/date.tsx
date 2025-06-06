@@ -11,12 +11,12 @@ import { Icons } from '@/icon';
 import { Popover, PopoverContent, PopoverTrigger } from '@/popover';
 
 export interface DateFilterProps {
-  accessorKey: string;
+  dataIndex: string;
   filterValue: string;
   handleFilterChange: (_dateRange: DateRange) => void;
 }
 
-export const DateFilter: React.FC<DateFilterProps> = ({ accessorKey, handleFilterChange }) => {
+export const DateFilter: React.FC<DateFilterProps> = ({ dataIndex, handleFilterChange }) => {
   const { filter: filterState } = useTable();
   const [date, setDate] = useState<DateRange>({
     from: null,
@@ -26,11 +26,11 @@ export const DateFilter: React.FC<DateFilterProps> = ({ accessorKey, handleFilte
 
   // Initialize from filter state if it exists
   useEffect(() => {
-    const dateFilter = filterState?.config?.[accessorKey]?.dateRange;
+    const dateFilter = filterState?.config?.[dataIndex]?.dateRange;
     if (dateFilter) {
       setDate(dateFilter);
     }
-  }, [filterState?.config, accessorKey]);
+  }, [filterState?.config, dataIndex]);
 
   const handleSelect = (selectedDate: DateRange | undefined) => {
     if (!selectedDate) return;

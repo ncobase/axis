@@ -119,7 +119,7 @@ export const TableRow: React.FC<ITableRowProps> = ({
 
           const childProps = child.props as React.PropsWithChildren<any>;
           const childTitle = childProps?.title;
-          const childAccessorKey = childProps?.accessorKey;
+          const childAccessorKey = childProps?.dataIndex;
 
           const isExpandField =
             isTreeColumn(childTitle || childAccessorKey) ||

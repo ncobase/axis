@@ -15,13 +15,13 @@ export interface SelectFilterOption {
 }
 
 export interface SelectFilterProps {
-  accessorKey: string;
+  dataIndex: string;
   options: SelectFilterOption[];
   handleFilterChange: (_values: (string | number)[]) => void;
 }
 
 export const SelectFilter: React.FC<SelectFilterProps> = ({
-  accessorKey,
+  dataIndex,
   options,
   handleFilterChange
 }) => {
@@ -31,11 +31,11 @@ export const SelectFilter: React.FC<SelectFilterProps> = ({
 
   // Initialize from filter state if it exists
   useEffect(() => {
-    const values = filterState?.config?.[accessorKey]?.selectedValues;
+    const values = filterState?.config?.[dataIndex]?.selectedValues;
     if (values && Array.isArray(values)) {
       setSelectedValues(values);
     }
-  }, [filterState?.config, accessorKey]);
+  }, [filterState?.config, dataIndex]);
 
   const handleSelect = (value: string | number) => {
     const newSelectedValues = selectedValues.includes(value)

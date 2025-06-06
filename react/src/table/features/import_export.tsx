@@ -58,8 +58,8 @@ export const ImportExportFeature: React.FC = () => {
     if (!internalData || internalData.length === 0) return;
 
     const visibleColumns = columns.filter(col => col.visible !== false);
-    const headers = visibleColumns.map(col => col.title || col.accessorKey || '');
-    const keys = visibleColumns.map(col => col.accessorKey || '');
+    const headers = visibleColumns.map(col => col.title || col.dataIndex || '');
+    const keys = visibleColumns.map(col => col.dataIndex || '');
 
     const csvContent = Papa.unparse({
       fields: headers.map(header => (typeof header === 'function' ? header({}) : header)),
@@ -90,8 +90,8 @@ export const ImportExportFeature: React.FC = () => {
     if (!internalData || internalData.length === 0) return;
 
     const visibleColumns = columns.filter(col => col.visible !== false);
-    const headers = visibleColumns.map(col => col.title || col.accessorKey || '');
-    const keys = visibleColumns.map(col => col.accessorKey || '');
+    const headers = visibleColumns.map(col => col.title || col.dataIndex || '');
+    const keys = visibleColumns.map(col => col.dataIndex || '');
 
     const excelData = internalData.map(row => {
       const exportRow: Record<string, any> = {};
