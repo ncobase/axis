@@ -21,6 +21,7 @@ export interface FilterConfig {
     value: any;
     valueEnd?: any;
   }>;
+  enabled?: boolean;
 }
 
 export interface ITableContext<T = any> {
@@ -171,10 +172,13 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
       }, selected);
     };
 
+    let finalSelectedRows = updatedSelectedRows;
     if (row.children && row.children.length > 0) {
-      setSelectedRows(recursivelySelectChildren(row.children, updatedSelectedRows));
-    } else {
-      setSelectedRows(updatedSelectedRows);
+      finalSelectedRows = recursivelySelectChildren(row.children, updatedSelectedRows);
+    }
+    setSelectedRows(finalSelectedRows);
+    if (value.onSelectRow) {
+      value.onSelectRow(row);
     }
   };
 
@@ -193,15 +197,21 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
       }, []);
     };
 
+    let finalSelectedRows: any[] = [];
     if (isArray(rows)) {
       if (rows.length === 0) {
-        setSelectedRows([]);
+        finalSelectedRows = [];
       } else {
-        const allRows = flattenRows(rows as any[]);
-        setSelectedRows(allRows);
+        finalSelectedRows = flattenRows(rows as any[]);
       }
     } else if (value.internalData) {
-      setSelectedRows(value.internalData);
+      finalSelectedRows = value.internalData;
+    }
+
+    setSelectedRows(finalSelectedRows);
+
+    if (value.onSelectAllRows && isArray(rows)) {
+      value.onSelectAllRows(rows as any[]);
     }
   };
 
@@ -209,8 +219,7 @@ export const TableProvider: React.FC<{ value: ITableContext; children: React.Rea
     if (!key) return;
 
     const newHeader = columns.map(column =>
-      // column visible is a undefined value, set it to false
-      // reason: if not set, visible will be undefined, and the default value will be true
+      // Set visible to false if undefined, otherwise toggle the current value
       column.dataIndex === key
         ? { ...column, visible: isUndefined(column.visible) ? false : !column.visible }
         : column

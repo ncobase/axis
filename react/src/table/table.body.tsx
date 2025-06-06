@@ -23,7 +23,7 @@ export const TableBody: React.FC<ITableBodyProps> = ({
     selected,
     selectedRows = [],
     columns = [],
-    onSelectRow = () => {},
+    onSelectRow = (_row: any) => {},
     isAllExpanded
   } = useTable();
 

@@ -50,6 +50,8 @@ export interface TableViewProps<T = any> extends Partial<ITableContext<T>> {
   showGlobalSearch?: boolean;
   batchOperations?: BatchOperation[];
   onCellValueChange?: (_key: string, _value: any, _recordId: string) => void;
+  onSelectRow?: (_row: T) => void;
+  onSelectAllRows?: (_rows: T[]) => void;
 }
 
 export const TableView = <T extends Record<string, any> = any>({
@@ -78,6 +80,8 @@ export const TableView = <T extends Record<string, any> = any>({
   showGlobalSearch = false,
   batchOperations = [],
   onCellValueChange,
+  onSelectRow,
+  onSelectAllRows,
   ...rest
 }: TableViewProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -232,45 +236,71 @@ export const TableView = <T extends Record<string, any> = any>({
     [isBackendPagination, loadData]
   );
 
-  const handleRowSelection = useCallback((row: T) => {
-    if (!row) return;
+  // Handle row selection with external callback support
+  const handleRowSelection = useCallback(
+    (row: T) => {
+      if (!row) return;
 
-    const recursivelySelectChildren = (children: T[], selected: T[], select: boolean): T[] => {
-      if (!children || !Array.isArray(children)) return selected;
+      // Default internal selection logic - always update internal state
+      const recursivelySelectChildren = (children: T[], selected: T[], select: boolean): T[] => {
+        if (!children || !Array.isArray(children)) return selected;
 
-      return children.reduce((acc, child: any) => {
-        if (!child || !child.id) return acc;
+        return children.reduce((acc, child: any) => {
+          if (!child || !child.id) return acc;
 
-        const isChildSelected = acc.some((r: any) => r.id === child.id);
-        if (select && !isChildSelected) {
-          acc.push(child);
-        } else if (!select && isChildSelected) {
-          acc = acc.filter((r: any) => r.id !== child.id);
+          const isChildSelected = acc.some((r: any) => r.id === child.id);
+          if (select && !isChildSelected) {
+            acc.push(child);
+          } else if (!select && isChildSelected) {
+            acc = acc.filter((r: any) => r.id !== child.id);
+          }
+          if (child.children && child.children.length > 0) {
+            acc = recursivelySelectChildren(child.children, acc, select);
+          }
+          return acc;
+        }, selected);
+      };
+
+      setSelectedRows(prev => {
+        const isSelected = prev.some((selectedRow: any) => selectedRow.id === (row as any).id);
+        const updatedSelectedRows = isSelected
+          ? prev.filter((selectedRow: any) => selectedRow.id !== (row as any).id)
+          : [...prev, row];
+
+        if ((row as any).children && (row as any).children.length > 0) {
+          return recursivelySelectChildren((row as any).children, updatedSelectedRows, !isSelected);
         }
-        if (child.children && child.children.length > 0) {
-          acc = recursivelySelectChildren(child.children, acc, select);
-        }
-        return acc;
-      }, selected);
-    };
+        return updatedSelectedRows;
+      });
 
-    setSelectedRows(prev => {
-      const isSelected = prev.some((selectedRow: any) => selectedRow.id === (row as any).id);
-      const updatedSelectedRows = isSelected
-        ? prev.filter((selectedRow: any) => selectedRow.id !== (row as any).id)
-        : [...prev, row];
-
-      if ((row as any).children && (row as any).children.length > 0) {
-        return recursivelySelectChildren((row as any).children, updatedSelectedRows, !isSelected);
+      // Call external handler after internal state update
+      if (onSelectRow) {
+        onSelectRow(row);
       }
-      return updatedSelectedRows;
-    });
-  }, []);
+    },
+    [onSelectRow]
+  );
+
+  // Handle select all with external callback support
+  const handleSelectAllRows = useCallback(
+    (rows: T[]) => {
+      // Always update internal state first
+      setSelectedRows(rows);
+
+      // Call external handler after internal state update
+      if (onSelectAllRows) {
+        onSelectAllRows(rows);
+      }
+    },
+    [onSelectAllRows]
+  );
 
   const filteredData = useMemo(() => {
     if (!isBackendPagination && filter?.enabled && currentFilter) {
       return internalData.filter(item => {
         return Object.entries(currentFilter).every(([key, config]) => {
+          if (!config.enabled) return true;
+
           if (config.advancedFilters && config.advancedFilters.length > 0) {
             return config.advancedFilters.every(condition => {
               const itemValue = item[key];
@@ -365,11 +395,12 @@ export const TableView = <T extends Record<string, any> = any>({
       setFilter: handleFilter,
       selectedRows,
       onSelectRow: handleRowSelection,
-      onSelectAllRows: (rows: T[]) => setSelectedRows(rows),
+      onSelectAllRows: handleSelectAllRows,
       enableColumnResize,
       enableRowHighlight,
       enableColumnHighlight,
       enableAdvancedFilters,
+      enableKeyboardNavigation,
       maxTreeLevel: effectiveMaxTreeLevel,
       expandComponent: effectiveExpandComponent,
       onCellValueChange: handleCellValueChange,
@@ -391,6 +422,7 @@ export const TableView = <T extends Record<string, any> = any>({
       handleFilter,
       selectedRows,
       handleRowSelection,
+      handleSelectAllRows,
       rest,
       setInternalData,
       setOriginalData,
@@ -402,6 +434,7 @@ export const TableView = <T extends Record<string, any> = any>({
       enableRowHighlight,
       enableColumnHighlight,
       enableAdvancedFilters,
+      enableKeyboardNavigation,
       handleCellValueChange
     ]
   );
@@ -419,21 +452,7 @@ export const TableView = <T extends Record<string, any> = any>({
   }
 
   return (
-    <TableProvider
-      value={{
-        ...tableContextValue,
-        setFilter: (
-          filter: React.SetStateAction<{ enabled: boolean; config: Record<string, FilterConfig> }>
-        ) => {
-          if (typeof filter === 'function') {
-            // @ts-expect-error
-            handleFilter(prev => filter(prev).config);
-          } else {
-            handleFilter(filter.config);
-          }
-        }
-      }}
-    >
+    <TableProvider value={tableContextValue as ITableContext}>
       <div className={containerClasses}>
         {/* Toolbar */}
         {(showImportExport || showGlobalSearch || batchOperations.length > 0) && (
