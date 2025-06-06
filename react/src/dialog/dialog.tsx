@@ -15,7 +15,7 @@ import {
   DialogTrigger
 } from './dialog.elements';
 
-export interface DialogViewProps {
+export interface DialogViewProps<T = any> {
   /**
    * Dialog title
    */
@@ -47,7 +47,7 @@ export interface DialogViewProps {
   /**
    * Callback when dialog is open or close
    */
-  onChange?: () => void;
+  onChange?: (_record?: T) => void;
   /**
    * Cancel button, if footer is not defined it will be displayed
    */
@@ -59,7 +59,7 @@ export interface DialogViewProps {
   /**
    * Confirm button, if footer is not defined it will be displayed
    */
-  onConfirm?: () => void;
+  onConfirm?: (_record?: T) => void;
   /**
    * Confirm button text, default is 'Confirm'
    */
@@ -80,9 +80,13 @@ export interface DialogViewProps {
    * Loading state of the confirm button
    */
   loading?: boolean;
+  /**
+   * Dialog size, default is 'default'
+   */
+  size?: 'sm' | 'default' | 'lg' | 'xl' | 'full';
 }
 
-export const Dialog: React.FC<DialogViewProps> = ({
+export const Dialog = <T,>({
   title,
   description,
   isOpen,
@@ -98,8 +102,9 @@ export const Dialog: React.FC<DialogViewProps> = ({
   children,
   confirmDisabled,
   confirmVariant = 'primary',
-  loading
-}) => {
+  loading,
+  size = 'default'
+}: DialogViewProps<T>) => {
   const [open, setOpen] = useState(isOpen);
 
   useEffect(() => {
@@ -111,10 +116,18 @@ export const Dialog: React.FC<DialogViewProps> = ({
     onChange?.();
   };
 
+  const sizeClasses = {
+    sm: 'max-w-sm',
+    default: 'max-w-lg',
+    lg: 'max-w-2xl',
+    xl: 'max-w-4xl',
+    full: 'max-w-[calc(100vw-2rem)]'
+  };
+
   return (
     <DialogRoot open={open} onOpenChange={handleChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      <DialogContent className={cn(className)}>
+      <DialogContent className={cn(sizeClasses[size], className)}>
         {title || description ? (
           <DialogHeader className='-mx-6 px-6'>
             {title && <DialogTitle className='text-base font-medium'>{title}</DialogTitle>}
@@ -142,7 +155,7 @@ export const Dialog: React.FC<DialogViewProps> = ({
             )}
             {!footer && onConfirm && (
               <button
-                onClick={onConfirm}
+                onClick={() => onConfirm({} as T)}
                 disabled={confirmDisabled || loading}
                 className={buttonVariants({ variant: confirmVariant as any })}
               >
