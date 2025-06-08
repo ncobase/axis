@@ -83,7 +83,7 @@ export interface DialogViewProps<T = any> {
   /**
    * Dialog size, default is 'default'
    */
-  size?: 'sm' | 'default' | 'lg' | 'xl' | 'full';
+  size?: 'xs' | 'sm' | 'default' | 'lg' | 'xl' | 'full';
 }
 
 export const Dialog = <T,>({
@@ -117,17 +117,18 @@ export const Dialog = <T,>({
   };
 
   const sizeClasses = {
-    sm: 'max-w-sm',
-    default: 'max-w-lg',
-    lg: 'max-w-2xl',
-    xl: 'max-w-4xl',
-    full: 'max-w-[calc(100vw-2rem)]'
+    xs: 'max-w-[30vw] min-w-[240px]',
+    sm: 'max-w-[40vw] min-w-[320px]',
+    default: 'max-w-[60vw] min-w-[480px]',
+    lg: 'max-w-[75vw] min-w-[640px]',
+    xl: 'max-w-[90vw] min-w-[800px]',
+    full: 'max-w-[calc(100vw-4rem)] min-w-[320px]'
   };
 
   return (
     <DialogRoot open={open} onOpenChange={handleChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      <DialogContent className={cn(sizeClasses[size], className)}>
+      <DialogContent className={cn('min-h-[200px]', 'max-h-[90vh]', sizeClasses[size], className)}>
         {title || description ? (
           <DialogHeader className='-mx-6 px-6'>
             {title && <DialogTitle className='text-base font-medium'>{title}</DialogTitle>}
@@ -142,7 +143,7 @@ export const Dialog = <T,>({
             )}
           </DialogHeader>
         ) : null}
-        <ScrollView className={cn('flex-1', !(title || description) ? 'pt-6' : '')}>
+        <ScrollView className={cn('flex-1 overflow-auto', !(title || description) ? 'pt-6' : '')}>
           {children}
         </ScrollView>
         {(footer || onCancel || onConfirm) && (
