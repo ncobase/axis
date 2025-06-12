@@ -10,11 +10,7 @@ import { Field } from './field';
 import { Button } from '@/button';
 import { Icons } from '@/icon';
 
-export interface SelectFieldProps extends FieldProps {
-  showAll?: boolean;
-  allValue?: string;
-  allLabel?: string;
-}
+export interface SelectFieldProps extends FieldProps {}
 
 export const SelectField = React.forwardRef<HTMLDivElement, SelectFieldProps>(
   (
@@ -27,9 +23,6 @@ export const SelectField = React.forwardRef<HTMLDivElement, SelectFieldProps>(
       prependIconClick,
       allowClear = false,
       emptyValue = '',
-      showAll = true,
-      allValue = 'all',
-      allLabel = 'All',
       ...rest
     },
     ref
@@ -43,9 +36,9 @@ export const SelectField = React.forwardRef<HTMLDivElement, SelectFieldProps>(
     const handleValueChange = useCallback(
       (newValue: string) => {
         setValue(newValue);
-        onChange?.(newValue === allValue ? '' : newValue);
+        onChange?.(newValue);
       },
-      [onChange, allValue]
+      [onChange]
     );
 
     const handleClear = useCallback(
@@ -57,10 +50,6 @@ export const SelectField = React.forwardRef<HTMLDivElement, SelectFieldProps>(
       },
       [onChange, emptyValue]
     );
-
-    const allOptions = showAll
-      ? [{ value: allValue, label: allLabel }, ...(options || [])]
-      : options || [];
 
     return (
       <Field {...rest} ref={ref}>
@@ -92,7 +81,7 @@ export const SelectField = React.forwardRef<HTMLDivElement, SelectFieldProps>(
             <SelectValue placeholder={placeholder || 'Please select'} />
           </SelectTrigger>
           <SelectContent>
-            {allOptions.map((option, index) => (
+            {(options || []).map((option, index) => (
               <SelectItem key={index} value={String(option.value)}>
                 {option.label || option.value}
               </SelectItem>

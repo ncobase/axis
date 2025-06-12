@@ -8,9 +8,20 @@ export const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'in
       <input
         type={type}
         className={cn(
-          'flex px-3 py-2 w-full bg-slate-50/55 hover:bg-slate-50/25 border border-slate-200/65 shadow-[0.03125rem_0.03125rem_0.125rem_0_rgba(0,0,0,0.03)] focus:border-primary-600 text-slate-500 rounded-md transition-colors',
-          'file:border-0 file:bg-transparent file:font-medium',
-          'disabled:cursor-not-allowed disabled:opacity-55 disabled:pointer-events-none',
+          'flex w-full px-3 py-2 rounded-lg transition-all duration-200',
+          // Light mode styles
+          'bg-white dark:bg-slate-900',
+          'border border-slate-200 dark:border-slate-700',
+          'text-slate-900 dark:text-slate-100',
+          'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+          // Hover state
+          'hover:bg-slate-50 dark:hover:bg-slate-800',
+          // Focus state
+          'focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400',
+          // File input specific styles
+          'file:border-0 file:bg-transparent file:text-sm file:font-medium',
+          // Disabled state
+          'disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent dark:disabled:hover:bg-transparent disabled:shadow-none',
           className
         )}
         ref={ref}

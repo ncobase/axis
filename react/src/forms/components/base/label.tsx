@@ -7,7 +7,19 @@ import * as LabelPrimitive from '@radix-ui/react-label';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const labelVariants = cva(
-  'leading-[15px] peer peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-slate-600 hover:text-slate-600/85'
+  cn(
+    'text-sm font-medium leading-[15px] transition-colors duration-200',
+    // Base styles
+    'text-slate-700 dark:text-slate-300',
+    // Hover state
+    'hover:text-slate-900 dark:hover:text-slate-100',
+    // Disabled state
+    'peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+    // Focus state of associated input
+    'peer-focus:text-primary-600 dark:peer-focus:text-primary-400',
+    // Required state
+    '[&[data-required]]:after:content-["*"] [&[data-required]]:after:ml-1 [&[data-required]]:after:text-red-500'
+  )
 );
 
 export const Label = React.forwardRef<

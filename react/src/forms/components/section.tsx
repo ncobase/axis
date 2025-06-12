@@ -38,34 +38,73 @@ export const Section: React.FC<SectionProps> = ({
   };
 
   return (
-    <div className={cn('border border-slate-200', className)}>
+    <div
+      className={cn(
+        'border rounded-lg transition-colors duration-200',
+        'border-slate-100 dark:border-slate-700',
+        'hover:border-slate-200 dark:hover:border-slate-600',
+        'hover:shadow',
+        className
+      )}
+    >
       <div
         className={cn(
-          'bg-slate-50 px-4 py-3 flex items-center justify-between',
-          collapsible && 'cursor-pointer'
+          'px-4 py-3 flex items-center justify-between rounded-t-lg',
+          'bg-gradient-to-r from-slate-50 to-white dark:from-slate-900 dark:to-slate-800',
+          'transition-colors duration-200',
+          collapsible && 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700'
         )}
         onClick={handleToggle}
       >
-        <div className='flex items-center space-x-2'>
-          {icon && <Icons name={icon} className='w-5 h-5 text-slate-500' />}
+        <div className='flex items-center space-x-3'>
+          {icon && (
+            <Icons
+              name={icon}
+              className='w-5 h-5 text-slate-500 dark:text-slate-400 transition-colors'
+            />
+          )}
           <div>
-            <div className={cn('font-medium text-slate-800', titleClassName)}>{title}</div>
+            <div
+              className={cn(
+                'font-semibold text-slate-800 dark:text-slate-100',
+                'transition-colors duration-200',
+                titleClassName
+              )}
+            >
+              {title}
+            </div>
             {subtitle && (
-              <p className={cn('text-xs text-slate-500', subtitleClassName)}>{subtitle}</p>
+              <p
+                className={cn(
+                  'text-xs text-slate-500 dark:text-slate-400',
+                  'transition-colors duration-200 mt-0.5',
+                  subtitleClassName
+                )}
+              >
+                {subtitle}
+              </p>
             )}
           </div>
         </div>
         {collapsible && (
           <Icons
             name={collapsed ? 'IconChevronDown' : 'IconChevronUp'}
-            className='w-5 h-5 text-slate-500'
+            className={cn(
+              'w-5 h-5 text-slate-400 dark:text-slate-500',
+              'transition-all duration-200',
+              'hover:text-slate-600 dark:hover:text-slate-300',
+              collapsed && 'transform rotate-0',
+              !collapsed && 'transform rotate-180'
+            )}
           />
         )}
       </div>
       <div
         className={cn(
-          'px-4 py-3 transition-all duration-300 ease-in-out',
-          collapsed ? 'hidden' : 'block',
+          'transition-all duration-300 ease-in-out',
+          'bg-white dark:bg-slate-900',
+          collapsed ? 'max-h-0 opacity-0' : 'max-h-[1000px] opacity-100',
+          'px-4 py-3 rounded-b-lg',
           contentClassName
         )}
       >
