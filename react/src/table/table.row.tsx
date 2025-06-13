@@ -63,9 +63,10 @@ export const TableRow: React.FC<ITableRowProps> = ({
     hasChildren && maxTreeLevel !== undefined && (maxTreeLevel === -1 || level < maxTreeLevel);
 
   const classes = cn(
-    'odd:bg-white even:bg-gray-50 [&>th]:font-medium [&>th]:text-slate-600 text-slate-500 font-normal',
+    'odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900 dark:even:bg-gray-800 [&>th]:font-medium [&>th]:text-slate-600 dark:[&>th]:text-slate-300 text-slate-500 dark:text-slate-400 font-normal border-b border-gray-100 dark:border-gray-700',
     hasExpandedContent && 'cursor-pointer',
-    isHighlighted && 'bg-blue-50/75 hover:bg-blue-50/75',
+    isHighlighted &&
+      'bg-blue-50/75 hover:bg-blue-50/75 dark:bg-blue-900/50 dark:hover:bg-blue-900/50',
     className
   );
 

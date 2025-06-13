@@ -132,7 +132,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
   const isLastPage = currentPage === totalPages;
 
   const classes = cn(
-    'flex items-center justify-between px-2 py-2 shadow-[0_-1px_2px_0_rgba(0,0,0,0.03)]',
+    'flex items-center justify-between px-2 py-2 shadow-[0_-1px_2px_0_rgba(0,0,0,0.03)] bg-white dark:bg-slate-900 dark:border-t dark:border-slate-700',
     className
   );
 
@@ -146,6 +146,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               size='ratio'
               onClick={() => handlePageChange(1)}
               disabled={isFirstPage}
+              className='dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200'
             >
               <Icons name='IconChevronLeftPipe' />
             </Button>
@@ -159,12 +160,13 @@ export const Pagination: React.FC<IPaginationProps> = ({
             disabled={
               (isBackendPagination && !hasPrevPage) || (!isBackendPagination && isFirstPage)
             }
+            className='dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200'
           >
             <Icons name='IconChevronLeft' />
           </Button>
         </Tooltip>
       </div>
-      <div className='flex items-center justify-center gap-x-1 text-slate-400'>
+      <div className='flex items-center justify-center gap-x-1 text-slate-400 dark:text-slate-400'>
         {displayingText} <span className='font-bold'>{startIndex}</span> {toText}{' '}
         <span className='font-bold'>{endIndex}</span> {ofText}{' '}
         <span className='font-bold'>{totalItems}</span> {itemsText}
@@ -176,6 +178,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
             size='ratio'
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={(isBackendPagination && !hasNextPage) || (!isBackendPagination && isLastPage)}
+            className='dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200'
           >
             <Icons name='IconChevronRight' />
           </Button>
@@ -187,6 +190,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               size='ratio'
               onClick={() => handlePageChange(totalPages)}
               disabled={isLastPage}
+              className='dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200'
             >
               <Icons name='IconChevronRightPipe' />
             </Button>
@@ -194,14 +198,20 @@ export const Pagination: React.FC<IPaginationProps> = ({
         )}
         {pageSizes.length > 1 && (
           <div className='flex items-center'>
-            <span className='text-slate-400 text-nowrap mr-2'>{perPageText}</span>
+            <span className='text-slate-400 dark:text-slate-400 text-nowrap mr-2'>
+              {perPageText}
+            </span>
             <Select value={pageSize.toString()} onValueChange={handlePageSizeChange}>
-              <SelectTrigger className='py-1.5 bg-slate-50'>
+              <SelectTrigger className='py-1.5 bg-slate-50 dark:bg-slate-800 dark:text-slate-200'>
                 <SelectValue placeholder='Select' />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className='dark:bg-slate-800 dark:border-slate-700'>
                 {pageSizes.map(size => (
-                  <SelectItem key={size} value={size.toString()}>
+                  <SelectItem
+                    key={size}
+                    value={size.toString()}
+                    className='dark:text-slate-200 dark:hover:bg-slate-700'
+                  >
                     {size}
                   </SelectItem>
                 ))}
@@ -211,7 +221,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
         )}
         {!isBackendPagination && totalPages > 1 && (
           <form onSubmit={handleJumpToPage} className='flex items-center gap-x-3'>
-            <span className='text-slate-400 text-nowrap'>
+            <span className='text-slate-400 dark:text-slate-400 text-nowrap'>
               {totalText} {totalPages} {pageText}，{goToText}
             </span>
             <Input
@@ -220,9 +230,9 @@ export const Pagination: React.FC<IPaginationProps> = ({
               min='1'
               max={totalPages}
               defaultValue={currentPage.toString()}
-              className='px-2 py-0.5 max-w-12'
+              className='px-2 py-0.5 max-w-12 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700'
             />
-            <span className='text-slate-400'>{pageText}</span>
+            <span className='text-slate-400 dark:text-slate-400'>{pageText}</span>
           </form>
         )}
       </div>

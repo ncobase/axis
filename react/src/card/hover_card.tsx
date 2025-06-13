@@ -1,36 +1,59 @@
-import React from 'react';
+'use client';
 
-import { cn } from '@ncobase/utils';
+import * as React from 'react';
+
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 
-const HoverCard = HoverCardPrimitive.Root;
+import { cn } from '@/lib/utils';
 
-const HoverCardTrigger = HoverCardPrimitive.Trigger;
+function HoverCard({ ...props }: React.ComponentProps<typeof HoverCardPrimitive.Root>) {
+  return <HoverCardPrimitive.Root data-slot='hover-card' {...props} />;
+}
 
-const HoverCardContent = React.forwardRef<
-  React.ComponentRef<typeof HoverCardPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
->(({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
-  <HoverCardPrimitive.Content
-    ref={ref}
-    align={align}
-    sideOffset={sideOffset}
-    className={cn(
-      'z-50 w-64 rounded-lg bg-white p-4 shadow-md dark:bg-gray-800',
-      'outline-none',
-      'data-[state=open]:animate-in data-[state=closed]:animate-out',
-      'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
-      'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
-      'data-[side=bottom]:slide-in-from-top-1',
-      'data-[side=left]:slide-in-from-right-1',
-      'data-[side=right]:slide-in-from-left-1',
-      'data-[side=top]:slide-in-from-bottom-1',
-      'dark:text-gray-100 dark:shadow-gray-900/20',
-      className
-    )}
-    {...props}
-  />
-));
-HoverCardContent.displayName = 'HoverCardContent';
+function HoverCardTrigger({
+  className,
+  ...props
+}: React.ComponentProps<typeof HoverCardPrimitive.Trigger>) {
+  return (
+    <HoverCardPrimitive.Trigger
+      data-slot='hover-card-trigger'
+      className={cn('transition-colors duration-200', className)}
+      {...props}
+    />
+  );
+}
+
+function HoverCardContent({
+  className,
+  align = 'center',
+  sideOffset = 4,
+  ...props
+}: React.ComponentProps<typeof HoverCardPrimitive.Content>) {
+  return (
+    <HoverCardPrimitive.Portal data-slot='hover-card-portal'>
+      <HoverCardPrimitive.Content
+        data-slot='hover-card-content'
+        align={align}
+        sideOffset={sideOffset}
+        className={cn(
+          'z-50 w-64 rounded-lg border p-4',
+          'border-slate-100 dark:border-slate-700',
+          'bg-white dark:bg-slate-900',
+          'shadow-lg',
+          'transition-all duration-200',
+          'data-[state=open]:animate-in data-[state=closed]:animate-out',
+          'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+          'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+          'data-[side=bottom]:slide-in-from-top-2',
+          'data-[side=left]:slide-in-from-right-2',
+          'data-[side=right]:slide-in-from-left-2',
+          'data-[side=top]:slide-in-from-bottom-2',
+          className
+        )}
+        {...props}
+      />
+    </HoverCardPrimitive.Portal>
+  );
+}
 
 export { HoverCard, HoverCardTrigger, HoverCardContent };

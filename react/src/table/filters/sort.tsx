@@ -6,7 +6,6 @@ import { DropdownWrapper } from '../components/dropdown';
 import { useTable } from '../table.context';
 
 import { DropdownItem } from '@/dropdown';
-import { Input } from '@/forms';
 import { Icons } from '@/icon';
 
 export interface SortFilterProps {
@@ -16,12 +15,7 @@ export interface SortFilterProps {
   handleSortChange: (_order: 'asc' | 'desc' | null) => void;
 }
 
-export const SortFilter: React.FC<SortFilterProps> = ({
-  dataIndex,
-  filterValue,
-  handleFilterChange,
-  handleSortChange
-}) => {
+export const SortFilter: React.FC<SortFilterProps> = ({ dataIndex, handleSortChange }) => {
   const { filter: filterState, internalData, setInternalData, originalData } = useTable();
 
   const handleSort = (order: 'asc' | 'desc' | null) => {
@@ -50,43 +44,31 @@ export const SortFilter: React.FC<SortFilterProps> = ({
 
   return (
     <DropdownWrapper icon='IconChevronDown'>
-      {/* Search field (hidden by default) */}
-      <DropdownItem onSelect={event => event.preventDefault()} className='hover:bg-white hidden'>
-        <Input
-          type='text'
-          value={filterValue}
-          onChange={handleFilterChange}
-          placeholder='Search...'
-          className='max-w-28 py-1.5'
-        />
-      </DropdownItem>
-
-      {/* Ascending sort option */}
       <DropdownItem
         onClick={() => handleSort('asc')}
         className={cn(
           'flex items-center gap-x-1 px-3.5',
-          currentSortOrder === 'asc' && 'bg-slate-50 text-slate-800 [&>svg]:stroke-slate-800'
+          currentSortOrder === 'asc' &&
+            'bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-slate-200 [&>svg]:stroke-slate-800 dark:[&>svg]:stroke-slate-200'
         )}
       >
-        <Icons name='IconSortAZ' className='stroke-slate-400' />
+        <Icons name='IconSortAZ' className='stroke-slate-400 dark:stroke-slate-500' />
       </DropdownItem>
 
-      {/* Descending sort option */}
       <DropdownItem
         onClick={() => handleSort('desc')}
         className={cn(
           'flex items-center gap-x-1 px-3.5',
-          currentSortOrder === 'desc' && 'bg-slate-50 text-slate-800 [&>svg]:stroke-slate-800'
+          currentSortOrder === 'desc' &&
+            'bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-slate-200 [&>svg]:stroke-slate-800 dark:[&>svg]:stroke-slate-200'
         )}
       >
-        <Icons name='IconSortZA' className='stroke-slate-400' />
+        <Icons name='IconSortZA' className='stroke-slate-400 dark:stroke-slate-500' />
       </DropdownItem>
 
-      {/* Reset option - only shown when a sort is active */}
       {currentSortOrder && (
         <DropdownItem onClick={() => handleSort(null)} className='flex items-center gap-x-1 px-3.5'>
-          <Icons name='IconRestore' className='stroke-slate-400' />
+          <Icons name='IconRestore' className='stroke-slate-400 dark:stroke-slate-500' />
         </DropdownItem>
       )}
     </DropdownWrapper>

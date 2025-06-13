@@ -23,6 +23,7 @@ export * from './modal';
 export * from './popover';
 export * from './portal';
 export * from './progress';
+export * from './separator';
 export * from './shell';
 export * from './skeleton';
 export * from './slider';

@@ -440,7 +440,7 @@ export const TableView = <T extends Record<string, any> = any>({
   );
 
   const classes = cn(
-    'flex flex-col bg-white rounded-md shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]',
+    'flex flex-col bg-white dark:bg-gray-800 rounded-md shadow-[0_1px_2px_0_rgba(0,0,0,0.03)] dark:shadow-[0_1px_2px_0_rgba(0,0,0,0.2)]',
     className
   );
   const containerClasses = cn(classes, 'h-full max-h-full flex flex-col');
@@ -456,10 +456,12 @@ export const TableView = <T extends Record<string, any> = any>({
       <div className={containerClasses}>
         {/* Toolbar */}
         {(showImportExport || showGlobalSearch || batchOperations.length > 0) && (
-          <div className='flex-none border-b border-gray-100'>
+          <div className='flex-none border-b border-gray-100 dark:border-gray-800'>
             <div className='flex items-center justify-between p-3'>
               <div className='flex items-center gap-2'>
-                <h3 className='text-lg font-medium'>{rest.title || ''}</h3>
+                <h3 className='text-lg font-medium text-gray-900 dark:text-gray-100'>
+                  {rest.title || ''}
+                </h3>
               </div>
               <div className='flex items-center gap-3'>
                 {showGlobalSearch && <GlobalSearch />}
@@ -472,7 +474,7 @@ export const TableView = <T extends Record<string, any> = any>({
 
         {/* Single table with sticky header */}
         <div className='flex-1 overflow-auto'>
-          <table className='w-full table-auto'>
+          <table className='w-full table-auto dark:bg-gray-900'>
             <TableHeader
               expandComponent={effectiveExpandComponent}
               maxTreeLevel={effectiveMaxTreeLevel}

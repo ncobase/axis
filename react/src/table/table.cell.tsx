@@ -213,8 +213,8 @@ export const TableCell = <T extends Record<string, any> = any>({
   const isHighlighted = enableColumnHighlight && highlightedColumn === dataIndex;
 
   const classes = cn(
-    'h-11 min-w-8 border-b-[0.03125rem] border-gray-100 truncate',
-    isHighlighted && 'bg-blue-50/75',
+    'h-11 min-w-8 truncate',
+    isHighlighted && 'bg-blue-50/75 dark:bg-blue-950/25',
     className
   );
 
@@ -283,8 +283,8 @@ export const ActionCell = <T extends Record<string, any> = any>({
   record
 }: ITableCellProps<T>) => {
   return (
-    <td className='h-11 min-w-8 border-b-[0.03125rem] border-gray-100 truncate'>
-      <div className='w-full h-full inline-flex px-2 [&>button]:hover:bg-white [&>button]:p-2 [&>button]:rounded-full items-center justify-center'>
+    <td className='h-11 min-w-8 border-b-[0.03125rem] border-gray-100 dark:border-gray-800 truncate'>
+      <div className='w-full h-full inline-flex px-2 [&>button]:hover:bg-white dark:[&>button]:hover:bg-gray-800 [&>button]:p-2 [&>button]:rounded-full items-center justify-center'>
         <Actions record={record} actions={actions} />
       </div>
     </td>
@@ -362,7 +362,11 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
   if (isBoolean(visible) && !visible) return null;
 
   const isHighlighted = enableColumnHighlight && highlightedColumn === dataIndex;
-  const classes = cn('bg-gray-50 text-start', isHighlighted && 'bg-blue-50/75', className);
+  const classes = cn(
+    'bg-gray-50! dark:bg-gray-900! text-start',
+    isHighlighted && 'bg-blue-50/75! dark:bg-blue-950/25!',
+    className
+  );
 
   const handleMouseEnter = () => {
     if (enableColumnHighlight && setHighlightedColumn) {
@@ -378,7 +382,7 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
 
   if (isActionColumn(dataIndex) || isActionColumn(title)) {
     return (
-      <th scope='col' className={cn(classes, className, 'text-center w-8')}>
+      <th scope='col' className={cn(classes, className, 'text-center w-8 dark:bg-gray-900')}>
         <div className='h-11 w-full flex items-center justify-between gap-x-1.5 px-3 py-2'>
           {visibleControl && <ToggleColumn />}
         </div>
@@ -469,7 +473,7 @@ export const TableHeaderCell: React.FC<ITableHeaderCellProps> = ({
           {icon && (
             <Icons
               name={typeof icon === 'function' ? icon({}) : icon}
-              className='stroke-slate-400/65'
+              className='stroke-slate-400/65 dark:stroke-slate-500/65'
               size={14}
             />
           )}
@@ -568,7 +572,7 @@ export const ResizableHeaderCell: React.FC<ITableHeaderCellProps> = props => {
       {enableColumnResize && (
         <div
           ref={resizeRef}
-          className='absolute right-0 top-0 h-full w-2 cursor-col-resize bg-transparent hover:bg-blue-200'
+          className='absolute right-0 top-0 h-full w-2 cursor-col-resize bg-transparent hover:bg-blue-200 dark:hover:bg-blue-800'
           onMouseDown={handleResizeMouseDown}
         />
       )}

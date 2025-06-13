@@ -128,11 +128,30 @@ export const Dialog = <T,>({
   return (
     <DialogRoot open={open} onOpenChange={handleChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      <DialogContent className={cn('min-h-[200px]', 'max-h-[90vh]', sizeClasses[size], className)}>
+      <DialogContent
+        className={cn(
+          'min-h-[200px]',
+          'max-h-[90vh]',
+          'bg-white dark:bg-slate-900',
+          'rounded-lg shadow-lg',
+          'border border-slate-200 dark:border-slate-700',
+          'backdrop-blur-sm',
+          'transition-all duration-200',
+          'animate-in fade-in-0 zoom-in-95',
+          sizeClasses[size],
+          className
+        )}
+      >
         {title || description ? (
-          <DialogHeader className='-mx-6 px-6'>
-            {title && <DialogTitle className='text-base font-medium'>{title}</DialogTitle>}
-            <DialogDescription className='whitespace-pre-line'>{description}</DialogDescription>
+          <DialogHeader className='-mx-6 px-6 pb-4 border-b border-slate-200 dark:border-slate-700'>
+            {title && (
+              <DialogTitle className='text-lg font-semibold text-slate-900 dark:text-white'>
+                {title}
+              </DialogTitle>
+            )}
+            <DialogDescription className='mt-1.5 text-sm text-slate-500 dark:text-slate-400 whitespace-pre-line'>
+              {description}
+            </DialogDescription>
             {toolbar && (
               <div
                 className='absolute top-3 right-12 flex items-center gap-2'
@@ -143,14 +162,30 @@ export const Dialog = <T,>({
             )}
           </DialogHeader>
         ) : null}
-        <ScrollView className={cn('flex-1 overflow-auto', !(title || description) ? 'pt-6' : '')}>
+        <ScrollView
+          className={cn(
+            'flex-1 overflow-auto',
+            'text-slate-600 dark:text-slate-300',
+            !(title || description) ? 'pt-6' : 'pt-4'
+          )}
+        >
           {children}
         </ScrollView>
         {(footer || onCancel || onConfirm) && (
-          <DialogFooter className='border-t border-slate-100 pt-6 -mx-6 px-6'>
+          <DialogFooter
+            className={cn(
+              'border-t border-slate-200 dark:border-slate-700',
+              'pt-4 mt-4 -mx-6 px-6',
+              'flex justify-end gap-3'
+            )}
+          >
             {footer}
             {!footer && onCancel && (
-              <Button onClick={onCancel} variant='slate'>
+              <Button
+                onClick={onCancel}
+                variant='slate'
+                className='hover:bg-slate-100 dark:hover:bg-slate-800'
+              >
                 {cancelText || 'Cancel'}
               </Button>
             )}
@@ -158,7 +193,12 @@ export const Dialog = <T,>({
               <button
                 onClick={() => onConfirm({} as T)}
                 disabled={confirmDisabled || loading}
-                className={buttonVariants({ variant: confirmVariant as any })}
+                className={cn(
+                  buttonVariants({ variant: confirmVariant as any }),
+                  'transition-all duration-200',
+                  'shadow-sm hover:shadow-md',
+                  'disabled:opacity-50 disabled:cursor-not-allowed'
+                )}
               >
                 {loading ? 'Loading...' : confirmText || 'Confirm'}
               </button>
