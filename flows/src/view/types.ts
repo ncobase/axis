@@ -1,4 +1,4 @@
-import type { ReactNode, MutableRefObject } from 'react';
+import type { ReactNode, RefObject } from 'react';
 
 import type { Node, Edge, ReactFlowInstance, ReactFlowProps, BackgroundProps } from '@xyflow/react';
 
@@ -55,7 +55,7 @@ export interface FlowViewProps {
   useProvider?: boolean;
   reactFlowInstance?: ReactFlowInstance;
   miniMapPosition?: MiniMapPosition;
-  flowViewRef?: MutableRefObject<ReactNode>;
+  flowViewRef?: RefObject<ReactNode>;
   setMiniMapPosition?: React.Dispatch<React.SetStateAction<MiniMapPosition>>;
   // eslint-disable-next-line no-unused-vars
   updateSelectNode?: (nodeId: string, selectType: SelectType) => void;

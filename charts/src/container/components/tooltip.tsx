@@ -16,6 +16,7 @@ export type ChartTooltipContentProps = React.ComponentProps<typeof RechartsToolt
     indicator?: 'line' | 'dot' | 'dashed';
     nameKey?: string;
     labelKey?: string;
+    labelFormatter?: any;
   };
 
 /**
@@ -59,7 +60,9 @@ export const ChartTooltipContent = React.forwardRef<HTMLDivElement, ChartTooltip
 
       if (labelFormatter) {
         return (
-          <div className={cn('font-medium', labelClassName)}>{labelFormatter(value, payload)}</div>
+          <div className={cn('font-medium', labelClassName)}>
+            {React.isValidElement(labelFormatter) ? labelFormatter : labelFormatter(value, payload)}
+          </div>
         );
       }
 
@@ -100,7 +103,7 @@ export const ChartTooltipContent = React.forwardRef<HTMLDivElement, ChartTooltip
                 )}
               >
                 {formatter && item?.value !== undefined && item.name ? (
-                  formatter(item.value, item.name, item, index, item.payload)
+                  <>{formatter(item.value, item.name, item, index, item.payload)}</>
                 ) : (
                   <>
                     {itemConfig?.icon ? (

@@ -46,7 +46,7 @@ export const FlowView: React.FC<FlowViewProps> = ({ useProvider = false, ...prop
         <FlowViewContent {...props} />
       </FlowViewProvider>
     );
-  } else {
-    return <FlowViewContent {...props} />;
   }
+
+  return <FlowViewContent {...props} />;
 };
