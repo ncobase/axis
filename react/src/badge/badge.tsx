@@ -20,6 +20,9 @@ export type BadgeVariant =
   | 'green'
   | 'teal'
   | 'cyan'
+  | 'outline'
+  | 'destructive'
+  | 'default'
   | 'outline-primary'
   | 'outline-secondary'
   | 'outline-success'
@@ -71,6 +74,12 @@ export const badgeVariants = cva(
           'bg-green-500 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 ring-green-200',
         teal: 'bg-teal-500 text-white hover:bg-teal-600 dark:bg-teal-600 dark:hover:bg-teal-700 ring-teal-200',
         cyan: 'bg-cyan-500 text-white hover:bg-cyan-600 dark:bg-cyan-600 dark:hover:bg-cyan-700 ring-cyan-200',
+        outline:
+          'border border-secondary text-secondary hover:bg-secondary/10 dark:hover:bg-secondary/20 dark:text-secondary-foreground',
+        destructive:
+          'bg-destructive text-white hover:bg-destructive-600 dark:bg-destructive dark:hover:bg-destructive/90 ring-destructive-200',
+        default:
+          'bg-primary text-primary-foreground hover:bg-primary/90 dark:hover:bg-primary/80 ring-primary/10',
         'outline-primary':
           'border border-primary text-primary hover:bg-primary/10 dark:hover:bg-primary/20 dark:text-primary-foreground',
         'outline-secondary':

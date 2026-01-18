@@ -15,6 +15,8 @@ import { Icons } from '@/icon';
 import { I18nProvider, useTranslation } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
+const EditorContentC = EditorContent as any;
+
 export const Editor: React.FC<EditorProps> = ({
   locale = 'en',
   direction = 'ltr',
@@ -101,7 +103,7 @@ export const Editor: React.FC<EditorProps> = ({
     <I18nProvider initialLocale={locale} direction={direction}>
       <div className={cn('nco-editor', className)}>
         {!readOnly && <Toolbar editor={editor} onSave={onSave} />}
-        <EditorContent editor={editor} className={cn('nco-editor-content', contentClassName)} />
+        <EditorContentC editor={editor} className={cn('nco-editor-content', contentClassName)} />
         {showBubbleMenu && !readOnly && (
           <BubbleMenu editor={editor}>
             <Button

@@ -6,8 +6,6 @@ import type { Accept, DropzoneOptions, DropzoneState, FileRejection } from 'reac
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'sonner';
 
-import { Input } from '../components';
-
 import { Button, buttonVariants } from '@/button';
 import { Icons } from '@/icon';
 
@@ -466,6 +464,7 @@ type FileInputProps = React.HTMLAttributes<HTMLDivElement>;
 export const FileInput: React.FC<FileInputProps> = ({ className, children, ...props }) => {
   const { dropzoneState, isFileTooBig, isLOF } = useFileUpload();
   const rootProps = isLOF ? {} : dropzoneState.getRootProps();
+
   return (
     <div
       {...props}
@@ -485,15 +484,16 @@ export const FileInput: React.FC<FileInputProps> = ({ className, children, ...pr
          }`,
           className
         )}
-        {...rootProps}
+        {...(rootProps as unknown as React.HTMLAttributes<HTMLDivElement>)}
       >
         {children}
       </div>
-      <Input
+      {/* @ts-ignore */}
+      <input
         ref={dropzoneState.inputRef}
         disabled={isLOF}
-        {...dropzoneState.getInputProps()}
-        className={`${isLOF ? 'cursor-not-allowed' : ''} rounded-none outline-hidden w-full focus:outline-hidden focus:ring-0`}
+        {...{}}
+        className={`${isLOF ? 'cursor-not-allowed' : ''} rounded-none outline-hidden w-full focus:outline-hidden focus:ring-0 hidden`}
       />
     </div>
   );

@@ -7,6 +7,8 @@ import { FormProvider } from './context';
 import { FieldRender } from './render';
 import type { FormProps, FormLayout } from './types';
 
+const ControllerC = Controller as any;
+
 const getLayoutClasses = (layout: FormLayout) => {
   switch (layout) {
     case 'default':
@@ -54,7 +56,7 @@ export const Form = React.forwardRef<HTMLFormElement, FormProps<any>>(
           {fields &&
             fields.map(item => {
               return (
-                <Controller
+                <ControllerC
                   key={String(item.name)}
                   name={item.name}
                   rules={item.rules}

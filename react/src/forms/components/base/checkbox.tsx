@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-import { CheckIcon } from 'lucide-react';
 
+import { Icons } from '@/icon';
 import { cn } from '@/lib/utils';
 
 const Checkbox = React.forwardRef<
@@ -45,7 +45,7 @@ const Checkbox = React.forwardRef<
           'data-[state=checked]:scale-100 data-[state=unchecked]:scale-0'
         )}
       >
-        <CheckIcon className='size-3.5' />
+        <Icons name='IconCheck' className='size-3.5' />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

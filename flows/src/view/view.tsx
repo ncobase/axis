@@ -9,6 +9,9 @@ import type { FlowViewProps } from './types';
 
 import '@xyflow/react/dist/style.css';
 
+const ControlsC = Controls as any;
+const BackgroundC = Background as any;
+
 const FlowViewContent: React.FC<FlowViewProps> = ({
   className,
   children,
@@ -33,8 +36,8 @@ const FlowViewContent: React.FC<FlowViewProps> = ({
     >
       {children}
       <MiniMap />
-      <Controls />
-      {background && <Background gap={10} color='#cbd5e1' {...flowBackgroundProps} />}
+      <ControlsC />
+      {background && <BackgroundC gap={10} color='#cbd5e1' {...flowBackgroundProps} />}
     </ReactFlow>
   );
 };
