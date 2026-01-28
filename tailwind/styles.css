@@ -77,21 +77,21 @@
   --color-warning-900: #78350f;
   --color-warning-950: #451a03;
 
-  --text-xs: 0.6875rem; /* 11px */
+  --text-xs: 0.6875rem;
   --text-xs--line-height: 1rem;
-  --text-sm: 0.75rem; /* 12px */
+  --text-sm: 0.75rem;
   --text-sm--line-height: 1.125rem;
-  --text-base: 0.875rem; /* 14px */
+  --text-base: 0.875rem;
   --text-base--line-height: 1.25rem;
-  --text-lg: 1rem; /* 16px */
+  --text-lg: 1rem;
   --text-lg--line-height: 1.5rem;
-  --text-xl: 1.125rem; /* 18px */
+  --text-xl: 1.125rem;
   --text-xl--line-height: 1.75rem;
-  --text-2xl: 1.25rem; /* 20px */
-  --text-3xl: 1.5rem; /* 24px */
-  --text-4xl: 1.875rem; /* 30px */
-  --text-5xl: 2.25rem; /* 36px */
-  --text-6xl: 3rem; /* 48px */
+  --text-2xl: 1.25rem;
+  --text-3xl: 1.5rem;
+  --text-4xl: 1.875rem;
+  --text-5xl: 2.25rem;
+  --text-6xl: 3rem;
 
   @keyframes leftToaster {
     from {
@@ -133,7 +133,7 @@
   --popover: var(--background);
   --popover-foreground: var(--foreground);
 
-  --primary: var(--color-primary-600);
+  --primary: var(--color-brand-700);
   --primary-foreground: oklch(1 0 0);
 
   --secondary: oklch(0.97 0 264.54);
@@ -228,7 +228,7 @@
   --popover: var(--background);
   --popover-foreground: var(--foreground);
 
-  --primary: var(--color-primary-500);
+  --primary: var(--color-brand-500);
   --primary-foreground: oklch(1 0 0);
 
   --secondary: oklch(0.27 0 0);
@@ -415,7 +415,7 @@
 
   html,
   body {
-    @apply h-full bg-gray-50 dark:bg-gray-900 text-foreground overflow-hidden;
+    @apply h-full bg-white dark:bg-gray-900 text-foreground overflow-hidden;
   }
 
   body {
@@ -505,4 +505,22 @@
   }
 }
 
-@import '../editor/editor.css';
+@utility text-gradient {
+  @apply bg-clip-text text-transparent bg-linear-to-r from-primary-600 via-purple-500 to-sky-400;
+
+  &:hover {
+    @apply bg-linear-to-r from-purple-600 via-sky-500 to-primary-400 cursor-default;
+  }
+}
+
+@utility text-gradient-hover {
+  @apply hover:bg-clip-text hover:text-transparent hover:bg-linear-to-r hover:from-purple-600 hover:via-sky-500 hover:to-primary-400 hover:cursor-default;
+}
+
+@utility group-text-gradient-hover {
+  @apply group-hover:bg-clip-text group-hover:text-transparent group-hover:bg-linear-to-r from-primary-600 to-purple-500;
+}
+
+@utility group-gradient-hover {
+  @apply group-hover:bg-linear-to-r from-primary-600/75 to-purple-500/75 text-white;
+}

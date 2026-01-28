@@ -1,5 +1,3 @@
-import './styles/styles.css';
-
 export * from './accordion';
 export * from './avatar';
 export * from './alert';
@@ -24,7 +22,6 @@ export * from './popover';
 export * from './portal';
 export * from './progress';
 export * from './separator';
-export * from './shell';
 export * from './skeleton';
 export * from './slider';
 export * from './switch';
