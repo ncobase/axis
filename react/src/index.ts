@@ -14,6 +14,8 @@ export * from './container';
 export * from './datepicker';
 export * from './dialog';
 export * from './divider';
+// Drawer component temporarily disabled due to TypeScript declaration generation issues
+// export * from './drawer';
 export * from './dropdown';
 export * from './editor';
 export * from './forms';

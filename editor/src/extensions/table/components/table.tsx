@@ -21,7 +21,7 @@ interface TableComponentProps {
   updateAttributes: (_attrs: Record<string, any>) => void;
 }
 
-export const TableComponent = memo(({ editor, node, getPos }: TableComponentProps) => {
+export const TableComponent = memo(({ editor }: TableComponentProps) => {
   const { t } = useTranslation();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [actionType, setActionType] = React.useState<string | null>(null);

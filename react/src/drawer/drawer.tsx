@@ -11,11 +11,18 @@ const Drawer = ({
 );
 Drawer.displayName = 'Drawer';
 
-const DrawerTrigger = DrawerPrimitive.Trigger;
+// Use explicit type annotations to avoid TypeScript declaration errors
+const DrawerTrigger = DrawerPrimitive.Trigger as React.ComponentType<
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Trigger>
+>;
 
-const DrawerPortal = DrawerPrimitive.Portal;
+const DrawerPortal = DrawerPrimitive.Portal as React.ComponentType<
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Portal>
+>;
 
-const DrawerClose = DrawerPrimitive.Close;
+const DrawerClose = DrawerPrimitive.Close as React.ComponentType<
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close>
+>;
 
 const DrawerOverlay = React.forwardRef<
   React.ComponentRef<typeof DrawerPrimitive.Overlay>,
