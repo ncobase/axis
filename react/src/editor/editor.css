@@ -1,5 +1,3 @@
-@import 'tailwindcss';
-
 .nco-editor {
   @apply rounded-md border border-slate-200 dark:border-slate-700;
   @apply overflow-hidden flex flex-col;

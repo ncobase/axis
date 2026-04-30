@@ -1,60 +1,78 @@
 import React from 'react';
 
 import { cn } from '@ncobase/utils';
-import { Drawer as DrawerPrimitive } from 'vaul';
+import { Drawer as DrawerPrimitive, type DialogProps as VaulDialogProps } from 'vaul';
 
-const Drawer = ({
-  shouldScaleBackground = true,
-  ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
-  <DrawerPrimitive.Root shouldScaleBackground={shouldScaleBackground} {...props} />
+export type DrawerProps = VaulDialogProps;
+export type DrawerTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  asChild?: boolean;
+};
+export type DrawerPortalProps = {
+  children?: React.ReactNode;
+  container?: HTMLElement | null;
+};
+export type DrawerCloseProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  asChild?: boolean;
+};
+export type DrawerOverlayProps = React.HTMLAttributes<HTMLDivElement>;
+export type DrawerContentProps = React.HTMLAttributes<HTMLDivElement>;
+export type DrawerTitleProps = React.HTMLAttributes<HTMLHeadingElement>;
+export type DrawerDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
+
+const DrawerRootPrimitive = DrawerPrimitive.Root as unknown as React.FC<DrawerProps>;
+const DrawerTrigger = DrawerPrimitive.Trigger as unknown as React.FC<DrawerTriggerProps>;
+const DrawerPortal = DrawerPrimitive.Portal as unknown as React.FC<DrawerPortalProps>;
+const DrawerClose = DrawerPrimitive.Close as unknown as React.FC<DrawerCloseProps>;
+const DrawerOverlayPrimitive =
+  DrawerPrimitive.Overlay as unknown as React.ForwardRefExoticComponent<
+    DrawerOverlayProps & React.RefAttributes<HTMLDivElement>
+  >;
+const DrawerContentPrimitive =
+  DrawerPrimitive.Content as unknown as React.ForwardRefExoticComponent<
+    DrawerContentProps & React.RefAttributes<HTMLDivElement>
+  >;
+const DrawerTitlePrimitive = DrawerPrimitive.Title as unknown as React.ForwardRefExoticComponent<
+  DrawerTitleProps & React.RefAttributes<HTMLHeadingElement>
+>;
+const DrawerDescriptionPrimitive =
+  DrawerPrimitive.Description as unknown as React.ForwardRefExoticComponent<
+    DrawerDescriptionProps & React.RefAttributes<HTMLParagraphElement>
+  >;
+
+const Drawer = ({ shouldScaleBackground = true, ...props }: DrawerProps) => (
+  <DrawerRootPrimitive shouldScaleBackground={shouldScaleBackground} {...props} />
 );
 Drawer.displayName = 'Drawer';
 
-// Use explicit type annotations to avoid TypeScript declaration errors
-const DrawerTrigger = DrawerPrimitive.Trigger as React.ComponentType<
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Trigger>
->;
-
-const DrawerPortal = DrawerPrimitive.Portal as React.ComponentType<
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Portal>
->;
-
-const DrawerClose = DrawerPrimitive.Close as React.ComponentType<
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close>
->;
-
-const DrawerOverlay = React.forwardRef<
-  React.ComponentRef<typeof DrawerPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Overlay
-    ref={ref}
-    className={cn('fixed inset-0 z-50 bg-black/80', className)}
-    {...props}
-  />
-));
+const DrawerOverlay = React.forwardRef<HTMLDivElement, DrawerOverlayProps>(
+  ({ className, ...props }, ref) => (
+    <DrawerOverlayPrimitive
+      ref={ref}
+      className={cn('fixed inset-0 z-50 bg-black/80', className)}
+      {...props}
+    />
+  )
+);
 DrawerOverlay.displayName = 'DrawerOverlay';
 
-const DrawerContent = React.forwardRef<
-  React.ComponentRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <DrawerPortal>
-    <DrawerOverlay />
-    <DrawerPrimitive.Content
-      ref={ref}
-      className={cn(
-        'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[0.625rem]',
-        className
-      )}
-      {...props}
-    >
-      <div className='mx-auto mt-4 h-2 w-[6.25rem] rounded-full bg-muted' />
-      {children}
-    </DrawerPrimitive.Content>
-  </DrawerPortal>
-));
+const DrawerContent = React.forwardRef<HTMLDivElement, DrawerContentProps>(
+  ({ className, children, ...props }, ref) => (
+    <DrawerPortal>
+      <DrawerOverlay />
+      <DrawerContentPrimitive
+        ref={ref}
+        className={cn(
+          'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[0.625rem]',
+          className
+        )}
+        {...props}
+      >
+        <div className='mx-auto mt-4 h-2 w-[6.25rem] rounded-full bg-muted' />
+        {children}
+      </DrawerContentPrimitive>
+    </DrawerPortal>
+  )
+);
 DrawerContent.displayName = 'DrawerContent';
 
 const DrawerHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -67,28 +85,26 @@ const DrawerFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
 );
 DrawerFooter.displayName = 'DrawerFooter';
 
-const DrawerTitle = React.forwardRef<
-  React.ComponentRef<typeof DrawerPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
->(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Title
-    ref={ref}
-    className={cn('text-lg font-semibold leading-none tracking-tight', className)}
-    {...props}
-  />
-));
+const DrawerTitle = React.forwardRef<HTMLHeadingElement, DrawerTitleProps>(
+  ({ className, ...props }, ref) => (
+    <DrawerTitlePrimitive
+      ref={ref}
+      className={cn('text-lg font-semibold leading-none tracking-tight', className)}
+      {...props}
+    />
+  )
+);
 DrawerTitle.displayName = 'DrawerTitle';
 
-const DrawerDescription = React.forwardRef<
-  React.ComponentRef<typeof DrawerPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
->(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Description
-    ref={ref}
-    className={cn('text-muted-foreground', className)}
-    {...props}
-  />
-));
+const DrawerDescription = React.forwardRef<HTMLParagraphElement, DrawerDescriptionProps>(
+  ({ className, ...props }, ref) => (
+    <DrawerDescriptionPrimitive
+      ref={ref}
+      className={cn('text-muted-foreground', className)}
+      {...props}
+    />
+  )
+);
 DrawerDescription.displayName = 'DrawerDescription';
 
 export {

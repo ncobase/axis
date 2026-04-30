@@ -1,5 +1,3 @@
-import './styles/styles.css';
-
 export * from './accordion';
 export * from './avatar';
 export * from './alert';
@@ -14,8 +12,7 @@ export * from './container';
 export * from './datepicker';
 export * from './dialog';
 export * from './divider';
-// Drawer component temporarily disabled due to TypeScript declaration generation issues
-// export * from './drawer';
+export * from './drawer';
 export * from './dropdown';
 export * from './editor';
 export * from './forms';
@@ -26,7 +23,6 @@ export * from './popover';
 export * from './portal';
 export * from './progress';
 export * from './separator';
-export * from './shell';
 export * from './skeleton';
 export * from './slider';
 export * from './switch';

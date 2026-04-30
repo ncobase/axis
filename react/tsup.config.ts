@@ -20,24 +20,4 @@ export default defineConfig({
   loader: {
     '.css': 'copy'
   }
-  // async onSuccess() {
-  //   const fs = await import('fs/promises');
-
-  //   // Copy CSS files to dist
-  //   const cssFiles = [
-  //     { src: 'src/styles/styles.css', dest: 'dist/styles.css' },
-  //     { src: 'src/styles/variables.css', dest: 'dist/variables.css' }
-  //   ];
-
-  //   for (const { src, dest } of cssFiles) {
-  //     const srcPath = resolve(src);
-  //     const destPath = resolve(dest);
-
-  //     if (existsSync(srcPath)) {
-  //       const content = readFileSync(srcPath, 'utf8');
-  //       await fs.writeFile(destPath, content);
-  //       console.log(`✓ Copied ${src} → ${dest}`);
-  //     }
-  //   }
-  // }
 });

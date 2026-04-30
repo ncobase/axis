@@ -8,6 +8,13 @@ import { useTranslation } from '@/lib/i18n';
 import { useToastMessage } from '@/toast';
 import { Tooltip } from '@/tooltip';
 
+const NodeViewWrapperComponent = NodeViewWrapper as unknown as React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+>;
+const NodeViewContentComponent = NodeViewContent as unknown as React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+>;
+
 const CodeBlock = ({ node, updateAttributes, extension }: NodeViewProps) => {
   const { t } = useTranslation();
   const toast = useToastMessage();
@@ -95,7 +102,7 @@ const CodeBlock = ({ node, updateAttributes, extension }: NodeViewProps) => {
   }, [showToast, copied, t, toast]);
 
   return (
-    <NodeViewWrapper className='code-block-wrapper'>
+    <NodeViewWrapperComponent className='code-block-wrapper'>
       <div className='code-block-header'>
         <select
           className='code-language-selector'
@@ -125,9 +132,9 @@ const CodeBlock = ({ node, updateAttributes, extension }: NodeViewProps) => {
       </div>
 
       <pre className={`language-${selectedLanguage}`}>
-        <NodeViewContent className='code-block-content' />
+        <NodeViewContentComponent className='code-block-content' />
       </pre>
-    </NodeViewWrapper>
+    </NodeViewWrapperComponent>
   );
 };
 

@@ -34,7 +34,7 @@ export const Editor: React.FC<EditorProps> = ({
   showFloatingMenu = false,
   darkMode = false,
   readOnly = false,
-  uploadImage,
+  uploadImage: _uploadImage,
   ...rest
 }) => {
   const { t } = useTranslation();

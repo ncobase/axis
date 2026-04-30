@@ -15,10 +15,12 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    }
+    },
+    "./editor/editor.css": "./src/editor/editor.css"
   },
   "files": [
-    "dist/**"
+    "dist/**",
+    "src/editor/editor.css"
   ],
   "scripts": {
     "build": "tsup --config tsup.config.ts",
