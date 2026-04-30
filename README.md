@@ -6,6 +6,10 @@
 
 Axis is a collection of carefully crafted frontend packages designed to accelerate development workflows. It provides consistent configurations, reusable components, and visualization tools that work together seamlessly.
 
+Axis is the frontend library source of truth for this workspace. The duplicated
+`frontend/packages` tree is a migration-era copy and should not receive long-term library changes
+unless a task explicitly requires working there.
+
 ## Packages
 
 | Name                 | Description                                                                                                  |
