@@ -1,7 +1,37 @@
 import React, { useRef, useEffect } from 'react';
 
-import { init } from 'echarts';
 import type { EChartsOption } from 'echarts';
+import { BarChart, LineChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts';
+import {
+  DataZoomComponent,
+  DatasetComponent,
+  GridComponent,
+  LegendComponent,
+  RadarComponent,
+  TitleComponent,
+  TooltipComponent,
+  TransformComponent
+} from 'echarts/components';
+import { init, use } from 'echarts/core';
+import { CanvasRenderer, SVGRenderer } from 'echarts/renderers';
+
+use([
+  BarChart,
+  LineChart,
+  PieChart,
+  RadarChart,
+  ScatterChart,
+  DataZoomComponent,
+  DatasetComponent,
+  GridComponent,
+  LegendComponent,
+  RadarComponent,
+  TitleComponent,
+  TooltipComponent,
+  TransformComponent,
+  CanvasRenderer,
+  SVGRenderer
+]);
 
 type EChartsRendererProps = {
   options: EChartsOption;
@@ -23,7 +53,6 @@ type EChartsRendererProps = {
 const EChartsRenderer: React.FC<EChartsRendererProps> = ({ options, settings, style }) => {
   const chartRef = useRef<HTMLDivElement>(null);
 
-  // @ts-expect-error
   useEffect(() => {
     if (!chartRef.current) return;
 
