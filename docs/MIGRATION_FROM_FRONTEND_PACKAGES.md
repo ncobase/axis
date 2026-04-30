@@ -6,17 +6,17 @@ that tree.
 
 ## Current Package Mapping
 
-| Package  | Axis source     | Legacy source                 | Current state                                    | Next work                                                                                                |
-| -------- | --------------- | ----------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| React UI | `axis/react`    | `frontend/packages/react`     | README migrated; source is not fully diff-clean. | Move any remaining useful exports/styles/fixes into `axis/react`, then consume the package from console. |
-| Editor   | `axis/editor`   | `frontend/packages/editor`    | README migrated.                                 | Reconcile Tiptap major version with console before shared release.                                       |
-| Charts   | `axis/charts`   | no active duplicate found     | Existing package.                                | Add docs/tests for Recharts/ECharts theme behavior.                                                      |
-| Flows    | `axis/flows`    | `frontend/packages/flows`     | README migrated.                                 | Add examples and API surface tests.                                                                      |
-| Utils    | `axis/utils`    | package references in console | README migrated.                                 | Add tests for storage, URL, query, crypto helpers.                                                       |
-| Tailwind | `axis/tailwind` | `frontend/packages/tailwind`  | Marked deprecated but still in workspace.        | Decide deprecate/remove/replace with Tailwind 4 token package.                                           |
-| Types    | `axis/types`    | `frontend/packages/types`     | Existing package.                                | Keep DTO-like shared types generic; do not add business backend types without a plan.                    |
-| Tsconfig | `axis/tsconfig` | `frontend/packages/tsconfig`  | Existing package.                                | Keep version aligned with React/TypeScript toolchain.                                                    |
-| Scaffold | `axis/scaffold` | no real legacy implementation | Private placeholder/reserved package.            | Real scaffolding lives in console Builder until backend generation exists.                               |
+| Package  | Axis source     | Legacy source                 | Current state                                                                                               | Next work                                                                                                                |
+| -------- | --------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| React UI | `axis/react`    | `frontend/packages/react`     | Drawer export, uploader auto-upload fix, table/editor type fixes, and README baseline are merged in `axis`. | Consume `axis/react` from console after alias/style parity checks and component tests.                                   |
+| Editor   | `axis/editor`   | `frontend/packages/editor`    | README migrated and table node-view typing fixes merged.                                                    | Reconcile Tiptap major version with console before shared release.                                                       |
+| Charts   | `axis/charts`   | no active duplicate found     | Existing package.                                                                                           | Add docs/tests for Recharts/ECharts theme behavior.                                                                      |
+| Flows    | `axis/flows`    | `frontend/packages/flows`     | README migrated.                                                                                            | Add examples and API surface tests.                                                                                      |
+| Utils    | `axis/utils`    | package references in console | README migrated.                                                                                            | Add tests for storage, URL, query, crypto helpers.                                                                       |
+| Tailwind | `axis/tailwind` | `frontend/packages/tailwind`  | CSS-first Tailwind v4 theme and PostCSS config are now the active axis package shape.                       | Verify console consumption, then decide whether the legacy frontend copy can be removed.                                 |
+| Types    | `axis/types`    | `frontend/packages/types`     | Existing package.                                                                                           | Keep DTO-like shared types generic; do not add business backend types without a plan.                                    |
+| Tsconfig | `axis/tsconfig` | `frontend/packages/tsconfig`  | Existing package.                                                                                           | Keep version aligned with React/TypeScript toolchain.                                                                    |
+| Scaffold | `axis/scaffold` | no real legacy implementation | Private programmatic API exists for project, component, and feature module generation.                      | Add generator tests, examples, and a CLI plan; keep backend schema/API generation in Builder planning until implemented. |
 
 ## Migration Rules
 
@@ -34,19 +34,20 @@ that tree.
 Current console aliasing still points `@ncobase/react` to local UI sources in
 `frontend/apps/console/src/components/ui`. The migration target is:
 
-1. Finish `axis/react` export/style/type parity.
+1. Finish `axis/react` export/style/type parity against console UI usage.
 2. Add minimal component tests or build API checks in `axis`.
-3. Remove console alias for `@ncobase/react`.
-4. Consume workspace/package builds in console.
-5. Keep business-only components in the console app.
+3. Verify `axis/tailwind/styles.css` works with console Tailwind v4 source scanning.
+4. Remove console alias for `@ncobase/react`.
+5. Consume workspace/package builds in console.
+6. Keep business-only components in the console app.
 
 ## Compatibility Notes
 
-- Console currently uses React 19 and Tiptap 3.
-- Some `axis` packages still reflect older peer/tooling versions; align before publishing.
-- Drawer export in `axis/react` has known declaration-generation concerns and must be resolved before
-  treating the package as complete.
-- `axis/scaffold` is a reserved private package, not a production generator.
+- Console currently uses React 19 and Tiptap 3; `axis/react` still depends on Tiptap 2 packages, so
+  editor compatibility must be resolved before replacing console editor usage.
+- `axis/react` exports Drawer again and has passed typecheck/build after the merge.
+- `axis/scaffold` is usable as a private programmatic generator, but it is not yet a complete CLI or
+  backend-aware generator.
 
 ## Required Release Checks
 
