@@ -23,6 +23,10 @@ unless a task explicitly requires working there.
 | [types](types)       | Type definitions and utilities                                                                               |
 | [utils](utils)       | Utility functions and helpers                                                                                |
 
+## Documentation
+
+- [Migration From `frontend/packages`](docs/MIGRATION_FROM_FRONTEND_PACKAGES.md)
+
 ## Technologies
 
 - **[TypeScript](https://www.typescriptlang.org)**: All packages are written in TypeScript for type safety
