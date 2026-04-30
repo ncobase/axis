@@ -5,6 +5,10 @@ import { NodeViewProps, NodeViewWrapper } from '@tiptap/react';
 import { useTranslation } from '@/lib/i18n';
 import { useToastMessage } from '@/toast';
 
+const NodeViewWrapperComponent = NodeViewWrapper as unknown as React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+>;
+
 interface ImageNodeProps extends NodeViewProps {
   updateAttributes: (_attrs: Record<string, any>) => void;
   editor: any;
@@ -112,7 +116,7 @@ export const ImageNode = memo(({ node, updateAttributes, editor }: ImageNodeProp
   }, [t, toast]);
 
   return (
-    <NodeViewWrapper className='image-upload-component'>
+    <NodeViewWrapperComponent className='image-upload-component'>
       {src ? (
         <div className='image-container'>
           <img
@@ -210,6 +214,6 @@ export const ImageNode = memo(({ node, updateAttributes, editor }: ImageNodeProp
           />
         </div>
       )}
-    </NodeViewWrapper>
+    </NodeViewWrapperComponent>
   );
 });

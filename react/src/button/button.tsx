@@ -26,6 +26,7 @@ const buttonVariants = cva(
         ghost:
           'hover:bg-accent hover:text-accent-foreground [&_svg]:text-foreground dark:hover:bg-slate-800',
         link: 'text-primary [&_svg]:text-primary underline-offset-4 hover:underline shadow-none hover:shadow-none dark:text-primary-400',
+        text: 'text-foreground [&_svg]:text-foreground hover:opacity-80 shadow-none hover:shadow-none dark:text-slate-300',
 
         'outline-primary':
           'border border-primary text-primary [&_svg]:text-primary bg-transparent hover:bg-primary/10 dark:border-primary-400 dark:text-primary-400',
@@ -95,8 +96,7 @@ export type ButtonVariant = NonNullable<VariantProps<typeof buttonVariants>['var
 export type ButtonSize = NonNullable<VariantProps<typeof buttonVariants>['size']>;
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   /** Whether to render the component as its children */
   asChild?: boolean;
   /** Whether the button is in a loading state */

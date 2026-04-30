@@ -6,8 +6,7 @@ import { VariantProps } from 'class-variance-authority';
 import { alertVariants, AlertRoot, AlertDescription, AlertTitle } from './alert.elements';
 
 interface AlertViewProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof alertVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof alertVariants> {
   /**
    * Alert title
    */

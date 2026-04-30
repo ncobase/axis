@@ -18,8 +18,10 @@ export interface FormContextValue<TFieldValues extends FieldValues = FieldValues
   register?: (_name: Path<TFieldValues>, _options?: RegisterOptions<TFieldValues>) => void;
 }
 
-export interface FormProps<TFieldValues extends FieldValues = FieldValues>
-  extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> {
+export interface FormProps<TFieldValues extends FieldValues = FieldValues> extends Omit<
+  React.FormHTMLAttributes<HTMLFormElement>,
+  'onSubmit'
+> {
   control?: Control<FieldValues, any, FieldValues> | any;
   errors?: FieldErrors<TFieldValues>;
   children?: ReactNode;
@@ -156,8 +158,9 @@ export interface FieldConfigProps<TFieldValues extends FieldValues = FieldValues
   [key: string]: any;
 }
 
-export interface FieldProps<TFieldValues extends FieldValues = FieldValues>
-  extends FieldConfigProps<TFieldValues> {
+export interface FieldProps<
+  TFieldValues extends FieldValues = FieldValues
+> extends FieldConfigProps<TFieldValues> {
   error?: FieldError;
   // eslint-disable-next-line no-unused-vars
   onChange?: (...event: any[]) => void;

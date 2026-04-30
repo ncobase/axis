@@ -12,6 +12,7 @@ export * from './container';
 export * from './datepicker';
 export * from './dialog';
 export * from './divider';
+export * from './drawer';
 export * from './dropdown';
 export * from './editor';
 export * from './forms';

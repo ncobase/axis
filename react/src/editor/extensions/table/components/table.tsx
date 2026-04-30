@@ -8,6 +8,13 @@ import { Icons } from '@/icon';
 import { useTranslation } from '@/lib/i18n';
 import { Tooltip } from '@/tooltip';
 
+const NodeViewWrapperComponent = NodeViewWrapper as unknown as React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+>;
+const NodeViewContentComponent = NodeViewContent as unknown as React.FC<
+  React.HTMLAttributes<HTMLDivElement> & { as?: string }
+>;
+
 interface TableComponentProps {
   node: any;
   editor: any;
@@ -97,7 +104,7 @@ export const TableComponent = memo(
     }, []);
 
     return (
-      <NodeViewWrapper className='custom-table-component'>
+      <NodeViewWrapperComponent className='custom-table-component'>
         <div className='table-toolbar' role='toolbar' aria-label={t('editor.table.toolbar')}>
           <div className='table-button-group'>
             <Tooltip content={t('editor.dialog.table.addColumnBefore')}>
@@ -228,7 +235,7 @@ export const TableComponent = memo(
           </div>
         </div>
 
-        <NodeViewContent className='table-content' as='table' />
+        <NodeViewContentComponent className='table-content' as='table' />
 
         {/* Confirmation Dialog */}
         <Dialog isOpen={isDialogOpen} onChange={() => setIsDialogOpen}>
@@ -286,7 +293,7 @@ export const TableComponent = memo(
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      </NodeViewWrapper>
+      </NodeViewWrapperComponent>
     );
   }
 );

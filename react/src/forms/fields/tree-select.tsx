@@ -4,8 +4,10 @@ import { HierarchicalSelectProps, TreeSelect } from '../components';
 import { Field } from '../fields';
 import { FieldProps } from '../types';
 
-export interface TreeSelectFieldProps
-  extends Omit<HierarchicalSelectProps & FieldProps, 'children'> {
+export interface TreeSelectFieldProps extends Omit<
+  HierarchicalSelectProps & FieldProps,
+  'children'
+> {
   options: Array<{ label: string; value: any; children?: any[] }>;
   placeholder?: string;
   searchable?: boolean;

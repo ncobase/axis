@@ -6,8 +6,7 @@ import { UploaderProps, Uploader } from '../uploader';
 import { Field } from './field';
 
 export interface UploaderFieldProps
-  extends FieldProps,
-    Omit<UploaderProps, 'value' | 'onValueChange'> {
+  extends FieldProps, Omit<UploaderProps, 'value' | 'onValueChange'> {
   returnType?: 'file' | 'url' | 'result';
   uploadOnChange?: boolean;
   onUploadSuccess?: (_result: any) => void;

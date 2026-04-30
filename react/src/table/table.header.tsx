@@ -78,7 +78,9 @@ export const TableHeader: React.FC<ITableHeaderProps> = ({
             </Button>
           </TableHeaderCell>
         )}
-        {columns?.map((props, index) => <ResizableHeaderCell key={index} {...props} />)}
+        {columns?.map((props, index) => (
+          <ResizableHeaderCell key={index} {...props} />
+        ))}
       </TableRow>
     </thead>
   );
