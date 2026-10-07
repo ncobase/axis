@@ -13,7 +13,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@ncobase/utils": ["../utils/src/index.ts"],
+      "@ncobase/utils/*": ["../utils/src/*"]
     }
   }
 }
